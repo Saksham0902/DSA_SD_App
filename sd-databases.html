@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--pip-start--><style>.pip-svg{display:block;width:100%;height:100%;overflow:visible}
+.pip-eye{transform-box:fill-box;transform-origin:center;animation:pipBlink 5s infinite}
+@keyframes pipBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.pip-body{transform-origin:60px 108px;animation:pipBob 3.2s ease-in-out infinite}
+@keyframes pipBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2px) rotate(-1.5deg)}}
+.jump .pip-body,.pip-fab.jump .pip-body{animation:pipJump .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pipJump{0%{transform:translateY(0) scale(1,1)}25%{transform:translateY(2px) scale(1.08,.9)}55%{transform:translateY(-16px) scale(.95,1.06)}100%{transform:translateY(0) scale(1)}}
+.pip-fab{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;width:62px;height:62px;border-radius:50%;border:2px solid #161A33;background:var(--surface,#fff);padding:6px 6px 4px;box-shadow:4px 4px 0 #161A33;cursor:pointer;transition:transform .15s}
+.pip-fab:hover{transform:translateY(-2px)}
+.pip-fab[hidden]{display:none}
+.pip-fr{position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(#3DD1A9 calc(var(--f)*360deg),transparent 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 0);mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 0);pointer-events:none}
+.pip-dot{position:absolute;top:0;right:0;width:13px;height:13px;border-radius:50%;background:#FF6F98;border:2px solid var(--surface,#fff)}
+.pip-panel{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:61;width:min(340px,calc(100vw - 28px));max-height:calc(100vh - 120px);overflow:auto;background:var(--surface,#fff);color:var(--ink,#161A33);border:2px solid #161A33;border-radius:18px;padding:14px 16px;box-shadow:6px 6px 0 #161A33;font:15px/1.5 var(--body,system-ui,sans-serif);display:grid;gap:10px}
+.pip-panel[hidden]{display:none}
+.pip-h{display:flex;align-items:center;gap:10px}
+.pip-h b{display:block;font-family:var(--display,inherit);font-size:18px;line-height:1.1}
+.pip-h small{color:var(--ink-2,#4A4F6E);font-size:12.5px}
+.pip-mini{width:44px;height:44px;flex:none}
+.pip-x{margin-left:auto;border:0;background:none;font-size:24px;line-height:1;color:var(--ink-3,#8A8FAD);cursor:pointer;padding:4px 6px}
+.pip-say{margin:0;background:#FFF6D6;color:#161A33;border-radius:12px;padding:9px 12px;font-size:14.5px;position:relative}
+.pip-stats{display:flex;align-items:center;gap:14px}
+.pip-stats b{display:block;font-family:var(--display,inherit);font-size:16px;line-height:1.15}
+.pip-stats small{font-size:12px;color:var(--ink-2,#4A4F6E)}
+.pip-ring{--s:46px;width:var(--s);height:var(--s);flex:none;border-radius:50%;display:grid;place-items:center;background:radial-gradient(closest-side,var(--surface,#fff) calc(100% - 7px),transparent 0),conic-gradient(#3DD1A9 calc(var(--f)*360deg),var(--line,#D9DDEB) 0)}
+.pip-ring b{font:800 calc(var(--s)*.26) var(--mono,monospace);color:var(--ink,#161A33)}
+.pip-acts{display:flex;flex-wrap:wrap;gap:6px}
+.pip-b{border:1.5px solid var(--line,#D9DDEB);background:var(--paper,#F4F6FB);color:var(--ink,#161A33);border-radius:999px;padding:5px 12px;font-weight:700;font-size:13.5px;text-decoration:none;cursor:pointer}
+.pip-b.pri{background:#161A33;color:#fff;border-color:#161A33}
+.pip-set{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;color:var(--ink-2,#4A4F6E);border-top:1px solid var(--line,#D9DDEB);padding-top:10px}
+.pip-chip{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:3px 10px;font-weight:700;font-size:12.5px;cursor:pointer}
+.pip-chip[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.pip-hide{margin-left:auto;border:0;background:none;color:var(--ink-3,#8A8FAD);text-decoration:underline;font-size:12.5px;cursor:pointer}
+.pip-q{background:#161A33;color:#F4F6FB;border-radius:12px;padding:10px 12px;display:grid;gap:8px}
+.pip-q small{color:rgba(244,246,251,.62);font-size:12px}
+.pip-q p{margin:0;font-weight:700}
+.pip-q code{background:rgba(244,246,251,.14);color:inherit}
+.pip-q .pip-do{color:#F2AE45}
+.pip-q .pip-b{background:rgba(244,246,251,.12);color:#F4F6FB;border-color:transparent}
+.pip-q .pip-b.pri{background:#F2AE45;color:#161A33}
+.pip-pop{position:fixed;right:max(84px,calc(env(safe-area-inset-right,0px) + 84px));bottom:calc(30px + env(safe-area-inset-bottom,0px));z-index:59;max-width:min(260px,calc(100vw - 110px));background:#161A33;color:#F4F6FB;border-radius:14px 14px 4px 14px;padding:8px 12px;font:700 14px/1.35 var(--body,system-ui,sans-serif);opacity:0;transform:translateY(10px) scale(.96);transition:opacity .2s,transform .2s;pointer-events:none}
+.pip-pop.show{opacity:1;transform:none}
+.pip-pop b{color:#3DD1A9;margin-right:4px}
+.pip-conf{position:fixed;z-index:70;pointer-events:none;width:0;height:0}
+.pip-conf i{position:absolute;width:8px;height:12px;border-radius:2px;animation:pipConf 1.3s cubic-bezier(.2,.7,.4,1) forwards}
+@keyframes pipConf{0%{transform:translate(0,0) rotate(0);opacity:1}70%{opacity:1}100%{transform:translate(var(--x),calc(var(--y) + 120px)) rotate(540deg);opacity:0}}
+/* home panel */
+#pipHome{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1.25fr);gap:18px;align-items:stretch}
+#pipHome>div{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:16px 18px;min-width:0}
+.ph-duck{display:grid;gap:10px;align-content:start;justify-items:center;text-align:left}
+.ph-svg{width:150px;height:150px}
+.ph-bub{background:#FFF6D6;color:#161A33;border-radius:14px;padding:10px 14px;position:relative;width:100%}
+.ph-bub::before{content:'';position:absolute;top:-9px;left:50%;margin-left:-9px;border:9px solid transparent;border-top:0;border-bottom-color:#FFF6D6}
+.ph-bub b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8A6A00}
+.ph-bub p{font-size:15px;margin:0}
+.ph-mid{display:grid;gap:14px;align-content:start}
+.ph-row{display:flex;align-items:center;gap:14px}
+.ph-num b{font-family:var(--display);font-size:30px;line-height:1}
+.ph-num b small{font-size:16px;color:var(--ink-2)}
+.ph-num span{display:block;color:var(--ink-2);font-size:13.5px}
+.ph-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ph-tiles div{background:var(--paper);border-radius:12px;padding:8px 10px}
+.ph-tiles b{display:block;font-family:var(--display);font-size:21px;line-height:1.15}
+.ph-tiles span{font-size:12px;color:var(--ink-2)}
+.ph-goal{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--ink-2);font-weight:700}
+.ph-lv{font-size:13.5px;color:var(--ink-2)}
+.ph-heat{display:grid;gap:6px;align-content:start}
+.ph-hh{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px}
+.ph-hh span{color:var(--ink-2);font:600 12.5px var(--mono)}
+.ph-months{display:grid;font-size:11px;color:var(--ink-3);height:14px}
+.ph-months span{white-space:nowrap}
+.ph-grid{display:grid;grid-template-rows:repeat(7,auto);gap:3px}
+.ph-grid i,.ph-leg i{display:block;aspect-ratio:1;border-radius:3px;background:var(--line)}
+.ph-grid i.fut{opacity:.25}
+.ph-grid i.now{outline:2px solid var(--ink);outline-offset:1px}
+.hl1{background:color-mix(in srgb,#3DD1A9 30%,var(--line))!important}
+.hl2{background:color-mix(in srgb,#3DD1A9 60%,var(--line))!important}
+.hl3{background:#13A884!important}
+.hl4{background:#0A6E57!important}
+.ph-leg{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.ph-leg i{width:12px}
+.ph-how{font-size:12.5px;color:var(--ink-3)}
+@media (max-width:960px){#pipHome{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.ph-heat{grid-column:1/-1}}
+@media (max-width:640px){#pipHome{grid-template-columns:minmax(0,1fr)}.ph-duck{grid-template-columns:96px minmax(0,1fr);align-items:center;justify-items:stretch}.ph-svg{width:96px;height:96px}.ph-bub::before{top:50%;left:-9px;margin:-9px 0 0;border:9px solid transparent;border-left:0;border-right-color:#FFF6D6}}
+@media (prefers-reduced-motion: reduce){.pip-body,.pip-eye{animation:none!important}}
+@media print{.pip-fab,.pip-panel,.pip-pop{display:none!important}}
+
+.pip-brand{display:inline-block;flex:none;width:30px;height:30px;margin:-4px 0 -4px -2px}
+.pip-brand .pip-svg{overflow:visible}
+</style><script>window.PIP_CFG={"tot": 1278, "keys": ["dsa-hashing-v1", "dsa-two-pointers-v1", "dsa-sliding-window-v1", "dsa-stack-v1", "dsa-binary-search-v1", "dsa-linked-list-v1", "rx-untangled-v1", "dsa-heap-v1", "dsa-trie-v1", "dsa-graphs-v1", "dsa-dp-v1", "dsa-greedy-intervals-v1", "dsa-bits-v1", "dsa-sd-start-v1", "dsa-sd-java-v1", "dsa-sd-solid-v1", "dsa-sd-creational-v1", "dsa-sd-structural-v1", "dsa-sd-behavioral-v1", "dsa-sd-lld-v1", "dsa-sd-basics-v1", "dsa-sd-databases-v1", "dsa-sd-distributed-v1", "dsa-sd-hld-v1"], "rx": [{"see": "Not sure which database", "do": "Start with Postgres/MySQL. Move a specific workload to another store only when an access pattern or scale number demands it."}, {"see": "Massive write volume, simple key-based access, or flexible schema", "do": "Key-value (Redis/Dynamo) for lookups by key, Cassandra for append-heavy time-ordered data, Mongo for whole-document reads."}, {"see": "A hot read path that needs several joins", "do": "Denormalise: copy the few fields you need into the read model, update copies asynchronously."}, {"see": "Slow query filtering or sorting on a column", "do": "Add a B-tree index on that column; verify with <code>EXPLAIN<\/code> that the plan uses it."}, {"see": "Query filters on A and sorts or filters on B", "do": "Composite index (A, B), equality columns first, range/sort column last."}, {"see": "“This query is slow, what do you do?”", "do": "Run <code>EXPLAIN ANALYZE<\/code>: look for Seq Scan on big tables, bad row estimates, sorts and nested loops; then index, rewrite or cache."}, {"see": "Several writes that must all happen or none (transfer, order + payment record)", "do": "Wrap them in one transaction; guard invariants inside the UPDATE (<code>WHERE balance &gt;= ?<\/code>)."}, {"see": "Read a value in code, change it, write it back", "do": "Atomic UPDATE (<code>SET x = x - ?<\/code>), <code>SELECT … FOR UPDATE<\/code>, or a version column."}, {"see": "Read-heavy load on one database", "do": "Add read replicas; send reads there, writes to the primary; route a user’s reads to the primary just after they write."}, {"see": "Leaderless replication (Cassandra/Dynamo) with N copies", "do": "Choose W and R so that W + R &gt; N for strong reads (e.g. N=3, W=2, R=2)."}, {"see": "One primary can’t take the writes or hold the data", "do": "Shard by a high-cardinality key that keeps a request’s data together (user_id, tenant_id); avoid hot keys."}, {"see": "Mapping keys to a changing set of servers (caches, shards)", "do": "Consistent hashing with virtual nodes."}]};
+/* Pip: a rubber-duck study buddy, daily goal, streak and activity log. Shared by every page. */
+(function(){
+if(window.Pip)return;
+const CFG=window.PIP_CFG||{};
+const KEY='dsa-buddy-v1';
+const LS=(()=>{try{return window.localStorage}catch(e){return null}})();
+const rawSet=LS?Storage.prototype.setItem:null;
+const rd=(k,d)=>{try{const v=LS.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
+const wr=(k,v)=>{try{rawSet.call(LS,k,JSON.stringify(v))}catch(e){}};
+const pad=n=>String(n).padStart(2,'0');
+const day=(d=new Date())=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+function state(){const s=rd(KEY,{});s.goal=+s.goal||80;s.log=s.log&&typeof s.log==='object'?s.log:{};return s}
+let S=state();
+const subs=new Set();
+function add(pts,why){if(!(pts>0))return;S=state();const t=day();const e=S.log[t]||{p:0,g:S.goal};const was=e.p>=e.g;e.p+=pts;e.g=S.goal;S.log[t]=e;wr(KEY,S);
+  const now=e.p>=e.g;subs.forEach(f=>{try{f({pts,why,goalHit:now&&!was})}catch(err){}})}
+// ---- watch progress writes (every engine saves through localStorage.setItem)
+const SKIP=/^dsa-(saved|buddy|plan|crunch|notes|last|mix-best|lang|ide)/;
+function isProg(k){return k==='rx-untangled-v1'||(/^dsa-.+-v1$/.test(k)&&!SKIP.test(k))}
+const J=s=>{try{return JSON.parse(s)}catch(e){return null}};
+const cnt=o=>o&&typeof o==='object'?Object.keys(o).length:0;
+if(LS){Storage.prototype.setItem=function(k,v){
+  let before=null;const mine=this===LS;
+  if(mine){try{before=LS.getItem(k)}catch(e){}}
+  rawSet.call(this,k,v);
+  if(!mine||k===KEY)return;
+  try{
+    if(isProg(k)){const a=J(before)||{},b=J(v)||{};const d=(+b.xp||0)-(+a.xp||0);if(d>0)add(d,'xp')}
+    else if(k==='dsa-crunch-v1'){const d=cnt((J(v)||{}).done)-cnt((J(before)||{}).done);if(d>0)add(10*d,'crunch')}
+    else if(k==='dsa-plan-v1'){const d=cnt((J(v)||{}).done)-cnt((J(before)||{}).done);if(d>0)add(5*d,'plan')}
+    else if(k==='dsa-notes-v1'){const d=cnt(J(v))-cnt(J(before));if(d>0)add(10*d,'notes')}
+  }catch(e){}
+}}
+// ---- stats
+function streak(){S=state();const L=S.log;const met=k=>L[k]&&L[k].p>=L[k].g;
+  const d=new Date();let n=0;if(!met(day(d)))d.setDate(d.getDate()-1);
+  while(met(day(d))){n++;d.setDate(d.getDate()-1)}
+  let best=0,run=0;const keys=Object.keys(L).sort();let prev=null;
+  keys.forEach(k=>{if(!met(k)){run=0;prev=k;return}const p=new Date(k+'T00:00');p.setDate(p.getDate()-1);run=(prev===day(p)&&run)?run+1:1;prev=k;best=Math.max(best,run)});
+  return{n,best:Math.max(best,n)}}
+const TOT=CFG.tot||1278,KEYS=CFG.keys||[];
+const LEVELS=['Rookie','Pattern spotter','Getting fluent','Interview ready','Master'];
+function level(){let n=0;KEYS.forEach(k=>{const p=rd(k,{});n+=cnt(p&&p.done)});const f=n/TOT;let i=0;[0,.15,.38,.62,.85].forEach((v,j)=>{if(f>=v)i=j});return{i,name:LEVELS[i],f}}
+function today(){S=state();const e=S.log[day()]||{p:0,g:S.goal};return{p:e.p,g:S.goal}}
+window.Pip={add,on:f=>(subs.add(f),()=>subs.delete(f)),streak,level,today,state,day,setGoal(g){S=state();S.goal=g;const t=day();if(S.log[t])S.log[t].g=g;wr(KEY,S);subs.forEach(f=>f({pts:0}))},
+  setHide(h){S=state();S.hide=!!h;wr(KEY,S);subs.forEach(f=>f({pts:0}))}};
+
+// ---- the duck
+const INK='#161A33';
+function svg(stage,mood){
+  const happy=mood==='happy'||mood==='party',sleepy=mood==='sleepy';
+  const eye=(x,y)=>happy?`<path d="M${x-4} ${y+1} Q${x} ${y-5} ${x+4} ${y+1}" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`
+    :sleepy?`<path d="M${x-4} ${y} Q${x} ${y+4} ${x+4} ${y}" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`
+    :`<g class="pip-eye"><ellipse cx="${x}" cy="${y}" rx="4" ry="5" fill="${INK}"/><circle cx="${x+1.5}" cy="${y-2}" r="1.5" fill="#fff"/></g>`;
+  const egg=stage===0?`<path d="M16 86 L25 77 L34 87 L44 77 L54 87 L64 77 L74 87 L84 77 L94 87 L102 80 C104 104 84 114 59 114 C34 114 14 106 16 86Z" fill="#FFF6E2" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/><path d="M30 98 l6 4 M78 100 l6 -3" stroke="#E9D9B8" stroke-width="3" stroke-linecap="round"/>`:'';
+  const glasses=stage>=2?`<g fill="none" stroke="${INK}" stroke-width="2.6"><circle cx="61" cy="45" r="8.5"/><circle cx="81" cy="43" r="8.5"/><path d="M69.5 44.5 L72.5 44"/></g>`:'';
+  const headset=stage===3?`<path d="M42 50 C40 20 88 12 96 36" fill="none" stroke="${INK}" stroke-width="4" stroke-linecap="round"/><rect x="36" y="44" width="10" height="16" rx="4" fill="#4453E8" stroke="${INK}" stroke-width="2.5"/><path d="M41 60 C44 70 70 72 88 64" fill="none" stroke="${INK}" stroke-width="2.5" stroke-linecap="round"/><circle cx="89" cy="63.5" r="3.4" fill="${INK}"/>`:'';
+  const cap=stage===4?`<path d="M44 26 L70 14 L98 26 L70 38 Z" fill="${INK}"/><path d="M56 31 L56 40 C62 46 80 46 86 40 L86 31 L70 38 Z" fill="#2B3170" stroke="${INK}" stroke-width="2"/><path d="M98 26 L98 44" stroke="#F2AE45" stroke-width="3"/><circle cx="98" cy="46" r="3.5" fill="#F2AE45"/>`:'';
+  const tuft=stage<4?`<path d="M64 24 C64 14 72 14 70 22 C74 16 80 18 75 25" fill="#FFD23F" stroke="${INK}" stroke-width="2.6" stroke-linejoin="round"/>`:'';
+  const zz=sleepy?`<text x="96" y="22" font-family="system-ui,sans-serif" font-weight="800" font-size="16" fill="#8A8FAD">z</text><text x="106" y="12" font-family="system-ui,sans-serif" font-weight="800" font-size="11" fill="#8A8FAD">z</text>`:'';
+  return `<svg class="pip-svg" viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="112" rx="34" ry="5" fill="rgba(22,26,51,.14)"/>
+<g class="pip-body"><path d="M20 80 C16 64 24 58 32 66 C42 56 84 56 96 74 C104 96 80 108 58 108 C36 108 22 98 20 80Z" fill="#FFD23F" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
+<path d="M42 80 Q56 70 70 82 Q58 94 42 86 Z" fill="#F5B800" stroke="${INK}" stroke-width="2.6" stroke-linejoin="round" class="pip-wing"/>
+<circle cx="70" cy="46" r="25" fill="#FFD23F" stroke="${INK}" stroke-width="3"/>${tuft}
+<path d="M90 48 Q110 49 94 59 Q88 55 90 48Z" fill="#FF8A3D" stroke="${INK}" stroke-width="2.6" stroke-linejoin="round"/>
+<circle cx="58" cy="56" r="4.5" fill="#FF9CB0" opacity=".7"/>${eye(61,45)}${eye(81,43)}${glasses}${headset}${cap}</g>${egg}${zz}</svg>`}
+window.Pip.svg=svg;
+
+// ---- words
+const TIPS=['Say the brute force first, then improve it.','State time and space before they ask.','Stuck? Ask what changes if the input is sorted.','Test with an empty input, one element and duplicates.','Design round: ask about scale before drawing boxes.','Name the pattern out loud. That is half the answer.','Explain it to me first. Bugs show up when you talk.','Write the loop invariant in one sentence.','Ten minutes daily beats three hours on Sunday.','If you needed the hint, it is not solved cold. Redo it tomorrow.'];
+const CHEER=['Nice!','That is the pattern.','Locked in.','Quack. Good one.','Keep going.','Interviewers love that.','One step closer.'];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function message(){const t=today(),st=streak(),h=new Date().getHours(),S0=state();
+  if(!S0.intro)return{mood:'idle',text:"Hi, I'm Pip, your rubber duck. Explain your approach to me out loud before you code; that's how you catch the bug. I'll keep your daily goal and streak."};
+  if(t.p>=t.g)return{mood:'happy',text:`Goal done for today (${t.p} XP).${st.n?` 🔥 ${st.n}-day streak.`:''} Anything more is bonus.`};
+  const left=t.g-t.p;
+  if(h>=18&&st.n>0)return{mood:'idle',text:`Your ${st.n}-day streak ends at midnight. ${left} XP to go: one crunch question or a short drill saves it.`};
+  if(t.p===0){if(h>=22)return{mood:'sleepy',text:'Nothing yet today. Ten minutes still counts: one crunch question, then sleep.'};
+    return{mood:'idle',text:h<12?`Morning! Today's goal is ${t.g} XP. Start with today's plan?`:`Today's goal is ${t.g} XP. A chapter or three problems gets you there.`}}
+  return{mood:'idle',text:`${t.p} / ${t.g} XP today. ${left} to go. ${pick(TIPS)}`}}
+window.Pip.message=message;
+
+// ---- UI
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const GOALS=[[40,'Light'],[80,'Steady'],[150,'Intense']];
+function ring(t,size){const f=Math.min(1,t.p/t.g);return `<span class="pip-ring" style="--f:${f};--s:${size}px"><b>${t.p>=t.g?'✓':Math.round(f*100)+'%'}</b></span>`}
+function quizHTML(){const R=CFG.rx||[];if(!R.length)return'';return `<button type="button" class="pip-b" data-pip="quiz">Quiz me</button>`}
+let quiz=null;
+function panelHTML(){const t=today(),st=streak(),lv=level(),m=message(),S0=state();
+  let body=`<p class="pip-say">${esc(m.text)}</p>`;
+  if(quiz){body=`<div class="pip-q"><small>If the problem says…</small><p>${quiz.r.see}</p>${quiz.open?`<p class="pip-do">→ ${quiz.r.do}</p><div class="pip-acts"><button type="button" class="pip-b pri" data-pip="knew">Knew it</button><button type="button" class="pip-b" data-pip="next">Not yet, next</button></div>`:`<div class="pip-acts"><button type="button" class="pip-b pri" data-pip="reveal">What's the move?</button><button type="button" class="pip-b" data-pip="endq">Done</button></div>`}</div>`}
+  return `<div class="pip-h"><span class="pip-mini">${svg(lv.i,m.mood)}</span><div><b>Pip</b><small>${esc(lv.name)} duck</small></div><button type="button" class="pip-x" data-pip="close" aria-label="Close">×</button></div>
+  ${body}
+  <div class="pip-stats">${ring(t,46)}<div><b>${t.p} / ${t.g} XP</b><small>today</small></div><div><b>🔥 ${st.n}</b><small>day streak · best ${st.best}</small></div></div>
+  <div class="pip-acts">${quizHTML()}<a class="pip-b" href="plan.html">Today's plan</a><a class="pip-b" href="crunch.html">Crunch</a><a class="pip-b" href="index.html#today">Stats</a></div>
+  <div class="pip-set"><span>Daily goal</span>${GOALS.map(([g,l])=>`<button type="button" class="pip-chip" data-goal="${g}" aria-pressed="${S0.goal===g}">${l} ${g}</button>`).join('')}<button type="button" class="pip-hide" data-pip="hide">Hide Pip</button></div>`}
+let fab,panel,pop,popT;
+function mountFab(){
+  fab=document.createElement('button');fab.type='button';fab.className='pip-fab';fab.setAttribute('aria-label','Open Pip, your study buddy');
+  panel=document.createElement('div');panel.className='pip-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-label','Pip');
+  pop=document.createElement('div');pop.className='pip-pop';pop.setAttribute('aria-live','polite');
+  document.body.append(panel,pop,fab);paintFab();
+  fab.onclick=()=>{panel.hidden=!panel.hidden;if(!panel.hidden){S=state();if(!S.intro){S.intro=1;wr(KEY,S)}panel.innerHTML=panelHTML()}};
+  panel.addEventListener('click',onAct);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){panel.hidden=true;fab.focus()}});
+}
+function paintFab(){if(!fab)return;const S0=state();fab.hidden=!!S0.hide;const t=today(),lv=level(),m=message();
+  fab.innerHTML=`${svg(lv.i,t.p>=t.g?'happy':m.mood)}<span class="pip-fr" style="--f:${Math.min(1,t.p/t.g)}"></span>${!S0.intro?'<i class="pip-dot"></i>':''}`;
+  if(!panel.hidden&&!quiz)panel.innerHTML=panelHTML()}
+function onAct(e){const b=e.target.closest('[data-pip],[data-goal]');if(!b)return;
+  if(b.dataset.goal){Pip.setGoal(+b.dataset.goal);panel.innerHTML=panelHTML();return}
+  const a=b.dataset.pip,R=CFG.rx||[];
+  if(a==='close'){panel.hidden=true;return}
+  if(a==='hide'){Pip.setHide(true);panel.hidden=true;return}
+  if(a==='quiz'||a==='next'){quiz={r:pick(R),open:false}}
+  else if(a==='reveal'){quiz.open=true}
+  else if(a==='knew'){add(2,'quiz');quiz={r:pick(R),open:false}}
+  else if(a==='endq'){quiz=null}
+  panel.innerHTML=panelHTML()}
+function popup(ev){if(!pop||state().hide)return;const lv=level();
+  pop.innerHTML=`<b>+${ev.pts}</b> ${esc(ev.goalHit?`Daily goal done! 🔥 ${streak().n}-day streak.`:pick(CHEER))}`;
+  pop.classList.add('show');fab&&fab.classList.remove('jump');void (fab&&fab.offsetWidth);fab&&fab.classList.add('jump');
+  clearTimeout(popT);popT=setTimeout(()=>pop.classList.remove('show'),ev.goalHit?3800:2200);
+  if(ev.goalHit)confetti(fab||document.body)}
+function confetti(anchor){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const r=anchor.getBoundingClientRect(),box=document.createElement('div');box.className='pip-conf';box.style.left=(r.left+r.width/2)+'px';box.style.top=(r.top+r.height/2)+'px';
+  const C=['#FFD23F','#3DD1A9','#7C88FF','#FF6F98','#F2AE45'];
+  for(let i=0;i<26;i++){const s=document.createElement('i');const a=Math.random()*Math.PI*2,d=60+Math.random()*90;s.style.setProperty('--x',Math.cos(a)*d+'px');s.style.setProperty('--y',(Math.sin(a)*d-60)+'px');s.style.background=C[i%5];s.style.animationDelay=(Math.random()*.15)+'s';box.appendChild(s)}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),1600)}
+
+// ---- home panel
+function home(el){const t=today(),st=streak(),lv=level(),m=message(),S0=state();
+  if(!S0.intro){S0.intro=1;wr(KEY,S0)}
+  const L=S0.log;const W=CFG.weeks||20;const end=new Date();const start=new Date(end);start.setDate(end.getDate()-end.getDay()-7*(W-1));
+  let cells='',months='',lastM=-1,active=0,total=0;
+  for(let w=0;w<W;w++){for(let d=0;d<7;d++){const x=new Date(start);x.setDate(start.getDate()+w*7+d);const k=day(x);const e=L[k];const fut=x>end;
+      let lv2=0;if(e&&e.p>0){active++;total+=e.p;lv2=e.p>=2*e.g?4:e.p>=e.g?3:e.p>=e.g/2?2:1}
+      cells+=`<i class="hl${lv2}${fut?' fut':''}${k===day()?' now':''}" style="grid-column:${w+1};grid-row:${d+1}" title="${k}: ${e?e.p:0} XP${e&&e.p>=e.g?' · goal met':''}"></i>`}
+    const fm=new Date(start);fm.setDate(start.getDate()+w*7);if(fm.getMonth()!==lastM){lastM=fm.getMonth();months+=`<span style="grid-column:${w+1}">${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][lastM]}</span>`}}
+  const next=['Pattern spotter','Getting fluent','Interview ready','Master'][lv.i];const th=[.15,.38,.62,.85][lv.i];
+  el.innerHTML=`<div class="ph-duck"><div class="ph-svg ${t.p>=t.g?'happy':''}">${svg(lv.i,t.p>=t.g?'happy':m.mood)}</div><div class="ph-bub"><b>Pip says</b><p>${esc(m.text)}</p></div></div>
+  <div class="ph-mid"><div class="ph-row">${ring(t,86)}<div class="ph-num"><b>${t.p} <small>/ ${t.g} XP</small></b><span>today</span></div></div>
+    <div class="ph-tiles"><div><b>🔥 ${st.n}</b><span>day streak</span></div><div><b>${st.best}</b><span>best streak</span></div><div><b>${active}</b><span>active days</span></div></div>
+    <div class="ph-goal"><span>Daily goal</span>${GOALS.map(([g,l])=>`<button type="button" class="pip-chip" data-hgoal="${g}" aria-pressed="${S0.goal===g}">${l} · ${g}</button>`).join('')}</div>
+    <p class="ph-lv">Pip is a <b>${esc(lv.name)}</b> duck${next?` · grows into <b>${esc(next)}</b> at ${Math.round(th*100)}% of the course (you're at ${Math.round(lv.f*100)}%)`:' · fully grown'}.${S0.hide?' <button type="button" class="pip-chip" data-hshow="1">Show Pip on every page</button>':''}</p></div>
+  <div class="ph-heat"><div class="ph-hh"><b>Last ${W} weeks</b><span>${total} XP · ${active} active days</span></div>
+    <div class="ph-months" style="grid-template-columns:repeat(${W},minmax(0,1fr))">${months}</div>
+    <div class="ph-grid" style="grid-template-columns:repeat(${W},minmax(0,1fr))">${cells}</div>
+    <div class="ph-leg"><span>Less</span><i class="hl0"></i><i class="hl1"></i><i class="hl2"></i><i class="hl3"></i><i class="hl4"></i><span>More · darkest = goal ×2</span></div>
+    <p class="ph-how">XP from any page counts. Crunch ticks +10, plan ticks +5, revised notes +10. Heatmap starts from your first day with Pip.</p></div>`;
+  el.onclick=e=>{const g=e.target.closest('[data-hgoal]');if(g){Pip.setGoal(+g.dataset.hgoal);home(el)}if(e.target.closest('[data-hshow]')){Pip.setHide(false);home(el)}}}
+function boot(){document.querySelectorAll('.brand > i').forEach(i=>{const b=document.createElement('b');b.className='pip-brand';b.innerHTML=svg(Math.max(1,level().i),'idle');i.replaceWith(b)});
+  const h=document.getElementById('pipHome');
+  if(h){home(h);Pip.on(ev=>{home(h);if(ev.pts>0){const s=h.querySelector('.ph-svg');if(s){s.classList.remove('jump');void s.offsetWidth;s.classList.add('jump')}if(ev.goalHit)confetti(s||h)}})}
+  else{mountFab();Pip.on(ev=>{paintFab();if(ev.pts>0)popup(ev)})}
+  addEventListener('storage',e=>{if(e.key===KEY){h?home(h):paintFab()}})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script><!--pip-end-->
+<title>Databases · Rubber Duck Dojo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --paper:#F4F6FB; --surface:#FFFFFF; --ink:#161A33; --ink-2:#4A4F6E; --ink-3:#8A8FAD; --line:#D9DDEB; --dot:#D3D8E8;
+  --blue:#4453E8; --blue-soft:#E3E6FD; --amber:#E89A1C; --amber-soft:#FDF0D9; --mint:#139E80; --mint-soft:#D5F2E9; --rose:#DB3D6E; --rose-soft:#FBE1E9;
+  --code-bg:#1A1E3A; --code-ink:#E6E8F5; --sq-l:#EEF0F8; --sq-d:#D8DCEC; --on-amber:#161A33;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11142A; --surface:#1A1E3A; --ink:#E8EAF6; --ink-2:#AEB3D3; --ink-3:#6E749B; --line:#2E3463; --dot:#232854;
+    --blue:#7C88FF; --blue-soft:#262D6B; --amber:#F2AE45; --amber-soft:#3E3014; --mint:#3DD1A9; --mint-soft:#0F3D33; --rose:#FF6F98; --rose-soft:#4A1A2C;
+    --code-bg:#0C0F24; --code-ink:#E6E8F5; --sq-l:#262B57; --sq-d:#1C2047; --on-amber:#161A33;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11142A; --surface:#1A1E3A; --ink:#E8EAF6; --ink-2:#AEB3D3; --ink-3:#6E749B; --line:#2E3463; --dot:#232854;
+  --blue:#7C88FF; --blue-soft:#262D6B; --amber:#F2AE45; --amber-soft:#3E3014; --mint:#3DD1A9; --mint-soft:#0F3D33; --rose:#FF6F98; --rose-soft:#4A1A2C;
+  --code-bg:#0C0F24; --code-ink:#E6E8F5; --sq-l:#262B57; --sq-d:#1C2047; --on-amber:#161A33;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 90px);scroll-behavior:smooth;background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--body);
+  background-image:radial-gradient(var(--dot) 1.1px,transparent 1.3px);background-size:24px 24px;-webkit-font-smoothing:antialiased}
+main{overflow-x:clip}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.08;margin:0;letter-spacing:-.01em}
+p{margin:0 0 1em}
+a{color:var(--blue)}
+code{font-family:var(--mono);font-size:.86em;background:var(--blue-soft);padding:.08em .38em;border-radius:6px}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--paper) 86%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1140px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:8px 16px}
+.brand{font-family:var(--display);font-weight:800;font-size:19px;white-space:nowrap}
+.brand{color:inherit;text-decoration:none}.brand span{display:inline-block;width:22px;height:22px;border-radius:7px;background:var(--acc);margin-right:8px;vertical-align:-4px;box-shadow:4px 4px 0 -1px var(--paper),4px 4px 0 1px var(--acc)}
+.rings{display:flex;gap:12px;margin-left:auto}
+.ring{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;color:var(--ink-2)}
+.ring i{--p:0;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;
+  background:conic-gradient(var(--acc) calc(var(--p)*1%),var(--line) 0);font-style:normal}
+.ring i b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--surface);font-family:var(--display);font-size:16px;color:var(--ink)}
+.ring.full i{background:conic-gradient(var(--mint) 100%,var(--mint) 0)}
+.xp{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15;min-width:92px}
+.xp strong{font-family:var(--display);font-size:20px}
+.xp small{font-size:12px;color:var(--ink-2);white-space:nowrap}
+@media (max-width:600px){.brand{display:none}.rings{margin-left:0;gap:8px}.xp{margin-left:auto}.ring i{width:38px;height:38px}.ring i b{width:30px;height:30px;font-size:14px}}
+
+/* ---------- hero ---------- */
+.hero{max-width:1140px;margin:0 auto;padding:56px 18px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero h1{font-size:clamp(46px,7.4vw,92px);font-weight:800;letter-spacing:-.035em;line-height:.95;margin-bottom:22px}
+.hero p.lede{font-size:20px;max-width:34ch;color:var(--ink-2)}
+.hero .start{display:inline-block;margin-top:8px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:700;padding:12px 20px;border-radius:12px}
+  box-shadow:8px 8px 0 -2px var(--surface),8px 8px 0 0 var(--ink),16px 16px 0 -2px var(--surface),16px 16px 0 0 var(--ink);margin:0 16px 16px 0}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:34px}}
+
+/* ---------- feed ---------- */
+.feed{max-width:760px;margin:0 auto;padding:0 18px}
+.wide{width:min(1120px,calc(100vw - 52px));margin-left:calc(50% - min(560px,50vw - 26px))}
+.chapter{padding:70px 0 10px}
+.ch-head{display:grid;grid-template-columns:auto 1fr;gap:4px 22px;align-items:end;margin-bottom:42px;padding-bottom:22px;border-bottom:2px solid var(--ink)}
+.ch-num{font-family:var(--display);font-weight:800;font-size:clamp(90px,16vw,150px);line-height:.78;color:transparent;-webkit-text-stroke:2.5px var(--ink);grid-row:span 2}
+.ch-head h2{font-size:clamp(32px,5vw,50px);font-weight:800;letter-spacing:-.025em}
+.ch-head p{margin:0;color:var(--ink-2);max-width:48ch}
+.post{margin:0 0 56px}
+.post h3{font-size:clamp(26px,3.6vw,34px);font-weight:700;margin-bottom:14px;letter-spacing:-.02em}
+.post p,.post li{max-width:66ch}
+.post ol,.post ul{padding-left:1.3em;margin:0 0 1em}
+.post li{margin-bottom:.5em}
+.post .muted{color:var(--ink-2)}
+.three{counter-reset:q;list-style:none;padding:0!important;display:grid;gap:12px}
+.three li{counter-increment:q;position:relative;padding:14px 16px 14px 58px;background:var(--surface);border:1px solid var(--line);border-radius:14px;margin:0}
+.three li::before{content:counter(q);position:absolute;left:14px;top:12px;width:30px;height:30px;border-radius:9px;background:var(--blue);color:#fff;font-family:var(--display);font-weight:800;display:grid;place-items:center}
+.three li b{display:block;font-family:var(--display);font-size:19px}
+.sheet{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;background:var(--surface);border:1px dashed var(--ink-3);border-radius:14px;padding:14px 18px;margin:14px 0 18px;font-size:15.5px}
+.sheet dt{font-weight:700}
+.sheet dd{margin:0}
+.aha{font-family:var(--display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.12;letter-spacing:-.02em;margin:0 0 56px;padding:6px 0 6px 22px;border-left:8px solid var(--amber);max-width:22ch}
+.got{margin-top:6px;background:var(--surface);border:2px solid var(--ink);border-radius:999px;padding:7px 16px;font-weight:700;font-size:15px;display:inline-flex;gap:8px;align-items:center}
+.got.done{background:var(--mint-soft);border-color:var(--mint);color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0 16px}
+.two > div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.two h4{font-size:20px;margin-bottom:6px}
+.two p{font-size:15.5px;margin:0}
+.two .arrow{font-family:var(--display);font-size:26px;font-weight:800;line-height:1;margin-bottom:6px}
+.two .up .arrow{color:var(--mint)} .two .down .arrow{color:var(--blue)}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+
+/* ---------- code ---------- */
+.code{position:relative;background:var(--code-bg);color:var(--code-ink);border-radius:12px;font:13.4px/1.62 var(--mono);overflow:auto;padding:10px 0;margin:0 0 14px;max-height:470px}
+.cl{display:flex;white-space:pre;border-left:3px solid transparent;padding-right:16px;min-width:max-content;transition:background .15s}
+.cl .n{flex:none;width:2.7em;text-align:right;padding-right:12px;color:#5A618C;user-select:none}
+.cl.on{background:rgba(242,174,69,.2);border-left-color:#F2AE45}
+.cl.on .n{color:#F2AE45}
+.k{color:#A9B2FF}.s{color:#86E3C3}.c{color:#7F86B3;font-style:italic}.m{color:#FFC86B}.b{color:#FF9CC2}.f{color:#fff;font-weight:600}
+
+/* ---------- labs ---------- */
+.lab{background:var(--surface);border:2px solid var(--ink);border-radius:20px;padding:20px;margin-bottom:72px;
+  box-shadow:8px 8px 0 -2px var(--surface),8px 8px 0 0 var(--ink),16px 16px 0 -2px var(--surface),16px 16px 0 0 var(--ink)}
+.lab-head{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+.lab-head h3{font-size:clamp(24px,3vw,30px);font-weight:800}
+.lab-head p{margin:0;color:var(--ink-2);font-size:15.5px;max-width:62ch}
+.opts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.tab{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px;font-size:14.5px;font-weight:700;color:var(--ink-2)}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.opts label{font-size:14.5px;display:inline-flex;gap:6px;align-items:center;color:var(--ink-2)}
+.opts select{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:5px 8px}
+.opts input[type=checkbox]{accent-color:var(--blue);width:17px;height:17px}
+.lab-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+@media (max-width:880px){.lab-grid{grid-template-columns:1fr}}
+@media (max-width:600px){.lab{padding:14px;border-radius:16px}.viz{padding:6px}.ctl .spd input{width:80px}.ctl .cnt{margin-left:0;width:100%}}
+.viz{border:1px solid var(--line);border-radius:14px;background:var(--paper);overflow:auto;min-height:260px;position:relative;padding:10px}
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--paper)}
+.panel h5{margin:0 0 6px;font:700 13.5px var(--body);color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-height:28px;align-items:center}
+.chip{font:13px/1.3 var(--mono);padding:4px 8px;border-radius:8px;background:var(--blue-soft);border:1.5px solid transparent}
+.chip.r{background:var(--mint-soft)}
+.chip.new{border-color:var(--mint);animation:pop .35s ease-out}
+.chip.off{background:transparent;border-color:var(--line);color:var(--ink-3)}
+.chip.top{background:var(--amber-soft);border-color:var(--amber)}
+.empty{color:var(--ink-3);font-size:13.5px}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.stackv{display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.stackv .chip{display:block}
+.narr{margin-top:14px;background:var(--amber-soft);border-radius:12px;padding:12px 16px;font-size:16px;min-height:3.4em;border-left:5px solid var(--amber)}
+.narr code{background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.ctl button{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:7px 13px;font-weight:700;font-size:14.5px}
+.ctl button.primary{background:var(--blue);border-color:var(--blue);color:#fff;min-width:84px}
+.ctl .spd{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink-2);margin-left:6px}
+.ctl .spd input{accent-color:var(--blue);width:110px}
+.ctl .cnt{margin-left:auto;font:13px var(--mono);color:var(--ink-2)}
+.q4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.q4 div{border-radius:12px;padding:9px 12px;font-size:14px;background:var(--paper);border:1px solid var(--line)}
+.q4 b{display:block;font-family:var(--display);font-size:15.5px}
+@media (max-width:760px){.q4{grid-template-columns:1fr 1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--ink-2);margin-top:8px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px;background:var(--c);border:2px solid var(--b,var(--c))}
+
+/* frames (factorial) */
+.frames{display:flex;flex-direction:column;gap:8px;padding:6px}
+.frame{border:2px solid var(--blue);background:var(--blue-soft);border-radius:12px;padding:10px 14px;font:14px var(--mono);display:flex;justify-content:space-between;gap:10px;animation:pop .25s ease-out}
+.frame.top{border-color:var(--amber);background:var(--amber-soft)}
+.frame.ret{border-color:var(--mint);background:var(--mint-soft)}
+.frame em{font-style:normal;color:var(--ink-2)}
+.frames .floor{border-top:3px solid var(--ink);margin-top:4px;padding-top:4px;font-size:12.5px;color:var(--ink-2);text-align:center}
+.bigres{font-family:var(--display);font-size:42px;font-weight:800;text-align:center;padding:40px 0}
+
+/* svg trees */
+svg text{font-family:var(--mono)}
+.tn circle{fill:var(--surface);stroke:var(--ink-3);stroke-width:2;transition:fill .2s,stroke .2s}
+.tn text.v{font-size:15px;font-weight:600;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.tn[data-s="stack"] circle{fill:var(--blue-soft);stroke:var(--blue);stroke-width:3}
+.tn[data-s="cur"] circle{fill:var(--amber);stroke:var(--amber);stroke-width:3}
+.tn[data-s="cur"] text.v{fill:var(--on-amber)}
+.tn[data-s="done"] circle{fill:var(--mint-soft);stroke:var(--mint);stroke-width:3}
+.badge{font-size:11.5px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+.te{stroke:var(--line);stroke-width:2.5}
+.te.on{stroke:var(--blue);stroke-width:3.5}
+.ghost circle{fill:none;stroke:var(--rose);stroke-dasharray:3 3;stroke-width:2}
+.ghost text{font-size:11px;fill:var(--rose);text-anchor:middle;dominant-baseline:central}
+.ghost line{stroke:var(--rose);stroke-dasharray:3 3;stroke-width:2}
+.dtree{display:block;margin:0 auto}
+.dn rect{fill:var(--surface);stroke:var(--ink-3);stroke-width:1.6;transition:fill .2s,stroke .2s}
+.dn text.l{font-size:12px;font-weight:600;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.dn text.sb{font-size:10.5px;fill:var(--ink-2);text-anchor:middle}
+.dn[data-s="path"] rect{fill:var(--blue-soft);stroke:var(--blue);stroke-width:2.5}
+.dn[data-s="cur"] rect{fill:var(--amber);stroke:var(--amber);stroke-width:2.5}
+.dn[data-s="cur"] text.l{fill:var(--on-amber)}
+.dn.ans rect{stroke:var(--mint);stroke-width:3}
+.dn.ans:not([data-s="cur"]):not([data-s="path"]) rect{fill:var(--mint-soft)}
+.dn.hit rect{fill:var(--mint-soft);stroke:var(--mint);stroke-dasharray:4 3;stroke-width:2.5}
+.dn.prune rect{fill:var(--rose-soft);stroke:var(--rose);stroke-dasharray:4 3;stroke-width:2}
+.dn.prune text.l{fill:var(--rose)}
+.dn.flash rect{stroke-width:4}
+.de{stroke:var(--line);stroke-width:2}
+.de.on{stroke:var(--blue);stroke-width:3.2}
+.de.pr{stroke:var(--rose);stroke-dasharray:4 3}
+.del{font-size:10.5px;fill:var(--ink-2);text-anchor:middle;paint-order:stroke;stroke:var(--paper);stroke-width:4px}
+
+/* boards */
+.board{display:grid;width:min(100%,430px);aspect-ratio:1;margin:6px auto;border:2px solid var(--ink);border-radius:10px;overflow:hidden}
+.sq{display:grid;place-items:center;font-size:clamp(18px,4.6vw,32px);line-height:1;background:var(--sq-l);position:relative;color:var(--ink)}
+.sq.d{background:var(--sq-d)}
+.sq.row{box-shadow:inset 0 0 0 999px rgba(232,154,28,.10)}
+.sq.hit::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--rose) 22%,transparent) 0 5px,transparent 5px 11px)}
+.sq.try{box-shadow:inset 0 0 0 4px var(--amber);background:var(--amber-soft)}
+.sq.clash{box-shadow:inset 0 0 0 4px var(--rose);background:var(--rose-soft)}
+.sq.att{box-shadow:inset 0 0 0 4px var(--rose)}
+.sq.undo{box-shadow:inset 0 0 0 4px var(--blue)}
+.sq.win{background:var(--mint-soft)}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{flex:1;min-width:84px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--paper)}
+.stat b{display:block;font-family:var(--display);font-size:24px;line-height:1.1}
+.stat small{color:var(--ink-2);font-size:12.5px}
+.gallery{display:flex;flex-wrap:wrap;gap:8px}
+.mini{display:grid;width:64px;aspect-ratio:1;border:1.5px solid var(--ink);border-radius:5px;overflow:hidden}
+.mini i{background:var(--sq-l);font-style:normal;display:grid;place-items:center;font-size:8px;line-height:1}
+.mini i.d{background:var(--sq-d)}
+.mini i.q{background:var(--ink)}
+.wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:min(100%,380px);margin:14px auto}
+.wc{aspect-ratio:1;border-radius:14px;background:var(--surface);border:2px solid var(--line);display:grid;place-items:center;font:700 clamp(22px,5vw,32px) var(--display);position:relative}
+.wc sup{position:absolute;top:5px;right:8px;font:600 12px var(--mono);color:var(--blue)}
+.wc.p{background:var(--blue-soft);border-color:var(--blue)}
+.wc.cur{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.wc.cur sup{color:var(--on-amber)}
+.wc.bad{background:var(--rose-soft);border-color:var(--rose);color:var(--rose)}
+.wc.undo{border-color:var(--blue);border-style:dashed}
+.wc.win{background:var(--mint-soft);border-color:var(--mint)}
+.word{display:flex;gap:4px;justify-content:center;margin-top:4px}
+.word span{width:34px;height:40px;display:grid;place-items:center;border-radius:8px;border:2px solid var(--line);font:700 20px var(--display);background:var(--surface)}
+.word span.ok{background:var(--mint-soft);border-color:var(--mint)}
+.word span.nx{border-color:var(--amber);border-style:dashed}
+
+/* quiz */
+.quiz{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:20px;margin:0 0 56px}
+.quiz .qh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:10px}
+.quiz .qh span{font-family:var(--display);font-weight:800;font-size:15px;color:var(--amber)}
+.quiz .qh small{color:var(--ink-2)}
+.quiz .qq{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.25;margin-bottom:12px}
+.quiz .os{display:grid;gap:8px}
+.quiz .o{text-align:left;border:2px solid var(--line);background:var(--paper);border-radius:12px;padding:10px 14px;font-size:16px}
+.quiz .o:hover:not(:disabled){border-color:var(--ink-3)}
+.quiz .o.right{border-color:var(--mint);background:var(--mint-soft)}
+.quiz .o.wrong{border-color:var(--rose);background:var(--rose-soft);animation:shake .3s}
+.quiz .o:disabled{cursor:default}
+.quiz .why{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--blue-soft);font-size:15.5px}
+.quiz.answered .why{display:block}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* problem cards */
+.probs{display:grid;gap:22px;margin-bottom:60px}
+.prob{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+.prob header{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:10px}
+.prob h4{font-size:23px;font-weight:700}
+.prob .lc{font:13px var(--mono);color:var(--ink-2)}
+.pill{font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:999px}
+.pill.e{background:var(--mint-soft);color:var(--mint)}
+.pill.m{background:var(--amber-soft);color:color-mix(in srgb,var(--amber) 75%,var(--ink))}
+.pill.h{background:var(--rose-soft);color:var(--rose)}
+.prob .ask{color:var(--ink-2);font-size:15.5px;margin-bottom:12px}
+.think{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0 0 14px;font-size:15.5px;padding:12px 14px;border-radius:12px;background:var(--paper)}
+.think dt{font-weight:700;color:var(--blue)}
+.think dd{margin:0}
+.reveal{border:2px dashed var(--ink-3);background:transparent;border-radius:12px;padding:10px;width:100%;font-weight:700;color:var(--ink-2);margin-bottom:12px}
+.prob .meta{font-size:14.5px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 18px;margin-bottom:10px}
+.gotcha{font-size:15px;background:var(--rose-soft);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.gotcha b{color:var(--rose)}
+
+/* decoder */
+.decoder{display:grid;gap:8px;margin-bottom:18px}
+.dec{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:15.5px}
+.dec .say{font-family:var(--display);font-weight:700;font-size:17px}
+.dec .use code{font-size:12.5px}
+@media (max-width:640px){.dec{grid-template-columns:1fr;gap:4px}}
+.tbl{overflow-x:auto;margin-bottom:16px}
+.tbl table{border-collapse:collapse;width:100%;min-width:520px;background:var(--surface);border-radius:14px;overflow:hidden;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+.tbl th{font-family:var(--display);font-size:15px;background:var(--paper)}
+.tbl td code{white-space:nowrap}
+.finale{text-align:center;padding:40px 0 90px}
+.finale h2{font-size:clamp(40px,7vw,72px);font-weight:800;letter-spacing:-.03em;margin-bottom:12px}
+.finale .lvl{font-family:var(--display);font-size:24px;margin-bottom:18px}
+.finale button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--ink);color:var(--paper);font-family:var(--display);font-weight:800;padding:10px 18px;border-radius:999px;z-index:50;transition:all .25s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- reflex layer ---------- */
+:root{--rx-bg:#161A33;--rx-ink:#F4F6FB;--rx-acc:#F2AE45;--rx-dim:rgba(244,246,251,.62)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--rx-bg:#2B3170}}
+:root[data-theme="dark"]{--rx-bg:#2B3170}
+.kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.kinds div{border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.45}
+.kinds b{display:block;font-family:var(--display);font-size:17px;margin-bottom:4px}
+.k-rx{background:var(--rx-bg);color:var(--rx-ink)} .k-rx b{color:var(--rx-acc)}
+.k-in{background:var(--surface);border:2px solid var(--blue)} .k-in b{color:var(--blue)}
+.k-tt{background:var(--surface);border:2px solid var(--ink)}
+@media (max-width:640px){.kinds{grid-template-columns:1fr}}
+.reflex{background:var(--rx-bg);color:var(--rx-ink);border-radius:22px;padding:20px 22px 18px;margin:0 0 30px;position:relative;transform:rotate(-.6deg)}
+.reflex.tilt{transform:rotate(.5deg)}
+.reflex + .reflex{margin-top:-6px}
+.reflex:has(+ :not(.reflex)){margin-bottom:56px}
+.rx-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.rx-top span{font-family:var(--display);font-weight:800;color:var(--rx-acc);font-size:16px}
+.rx-top small{color:var(--rx-dim);font:12.5px var(--mono)}
+.reflex .lab-l{display:block;font-size:13px;color:var(--rx-dim)}
+.rx-see p{font-family:var(--display);font-weight:700;font-size:clamp(21px,2.8vw,26px);line-height:1.2;margin:2px 0 14px}
+.rx-do{border-top:1px dashed rgba(244,246,251,.28);padding-top:12px}
+.rx-do p{font-size:17px;margin:2px 0 10px}
+.reflex code{background:rgba(244,246,251,.14);color:inherit}
+.reflex details{font-size:15px;margin-bottom:12px}
+.reflex summary{cursor:pointer;color:var(--rx-acc);font-weight:700;width:max-content}
+.reflex details p{margin:8px 0 0;color:var(--rx-dim)}
+.rx-lock{border:0;border-radius:999px;padding:8px 16px;font-weight:800;background:var(--rx-acc);color:#161A33}
+.rx-lock.done{background:#3DD1A9}
+.insight{background:var(--surface);border:2px solid var(--blue);border-radius:22px;padding:22px 24px;margin:0 0 56px;position:relative;overflow:hidden}
+.insight::before{content:"";position:absolute;inset:0 auto 0 0;width:8px;background:var(--blue)}
+.insight .it{font-family:var(--display);font-weight:800;color:var(--blue);font-size:15px;margin-bottom:6px}
+.insight h4{font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+.insight p{max-width:64ch}
+.insight .formula{white-space:pre-wrap;font:600 15px var(--mono);background:var(--blue-soft);border-radius:12px;padding:10px 14px;margin:0 0 14px;display:inline-block}
+.replay{background:var(--surface);border:2px solid var(--ink);border-radius:22px;padding:20px 22px;margin:0 0 30px}
+.replay:last-of-type{margin-bottom:60px}
+.rp-head{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:6px}
+.rp-head span{font-family:var(--display);font-weight:800;font-size:15px}
+.rp-head h4{font-size:24px;font-weight:700;flex-basis:100%}
+.rp-head .lc{font:13px var(--mono);color:var(--ink-2)}
+.rp-q{color:var(--ink-2);font-size:15.5px;margin-bottom:10px}
+.thoughts{display:grid;margin-bottom:12px}
+.thought{display:grid;grid-template-columns:84px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);animation:pop .3s ease-out;font-size:16px}
+.ttag{font-size:12.5px;font-weight:800;border-radius:8px;padding:3px 8px;height:max-content;text-align:center}
+.t-notice{background:var(--blue-soft);color:var(--blue)}
+.t-reflex{background:var(--rx-bg);color:var(--rx-acc)}
+.t-decide{background:var(--paper);color:var(--ink);border:1.5px solid var(--ink)}
+.t-prune{background:var(--rose-soft);color:var(--rose)}
+.t-check{background:var(--mint-soft);color:var(--mint)}
+.rp-ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rp-ctl button{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:7px 14px;font-weight:700;font-size:14.5px}
+.rp-ctl button.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rp-ctl small{color:var(--ink-2);margin-left:auto;font:13px var(--mono)}
+.hint{margin-top:8px;padding:9px 14px;border-radius:10px;background:var(--rx-bg);color:var(--rx-ink);font-size:14.5px}
+.hint b{color:var(--rx-acc);margin-right:8px}
+.hint code{background:rgba(244,246,251,.14);color:inherit}
+.drill{margin:0 0 60px}
+.dr-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.dr-card{background:var(--rx-bg);color:var(--rx-ink);border-radius:24px;padding:26px 24px;min-height:250px;display:flex;flex-direction:column;box-shadow:8px 8px 0 -2px var(--paper),8px 8px 0 0 var(--rx-bg),16px 16px 0 -2px var(--paper),16px 16px 0 0 var(--rx-bg);margin-right:16px}
+.dr-card .lab-l{font-size:13px;color:var(--rx-dim)}
+.dr-see{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.4vw,30px);line-height:1.2;margin:4px 0 16px}
+.dr-do{border-top:1px dashed rgba(244,246,251,.28);padding-top:12px;font-size:17px}
+.dr-card code{background:rgba(244,246,251,.14);color:inherit}
+.dr-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:16px}
+.dr-btns button{border:0;border-radius:999px;padding:10px 18px;font-weight:800;font-size:15px}
+.dr-flip{background:var(--rx-acc);color:#161A33}
+.dr-yes{background:#3DD1A9;color:#0B2B24}
+.dr-no{background:rgba(244,246,251,.16);color:var(--rx-ink)}
+
+.pfilter{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--hh,78px) - 1px);z-index:5;background:color-mix(in srgb,var(--paper) 90%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:8px 0}
+.pcount{font:600 13.5px var(--mono);color:var(--ink-2);margin-left:auto}
+.p-rx{background:var(--rx-bg);color:var(--rx-ink);border-radius:10px;padding:8px 12px;font-size:14.5px;margin-bottom:12px}
+.p-rx b{color:var(--rx-acc);margin-right:8px}
+.p-rx code{background:rgba(244,246,251,.14);color:inherit}
+.pc h6{margin:4px 0 6px;font:700 13.5px var(--body);color:var(--ink-2)}
+.prob[hidden]{display:none}
+.te.cut{stroke-dasharray:4 5;opacity:.35}
+.llist{display:flex;flex-wrap:wrap;align-items:center;gap:6px;justify-content:center;padding:12px 6px 4px;border-top:1px dashed var(--line);margin-top:6px;min-height:52px}
+.ll-l{font:600 12.5px var(--mono);color:var(--ink-2)}
+.ll-n{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--mint-soft);border:2px solid var(--mint);font:700 14px var(--mono)}
+.ll-n.new{animation:pop .3s ease-out;border-color:var(--amber);background:var(--amber-soft)}
+.ll-a{color:var(--ink-3);font-weight:700}
+.ll-none{font:12.5px var(--mono);color:var(--ink-3)}
+
+/* ---------- series hero ---------- */
+.hero h1 .acc{color:var(--acc)}
+.hero .series{margin-top:18px;font-size:14.5px;color:var(--ink-2)}
+.hero .series a{color:var(--ink);font-weight:700}
+.cheat-box{background:var(--surface);border:2px solid var(--ink);border-radius:22px;padding:18px;
+  box-shadow:8px 8px 0 -2px var(--surface),8px 8px 0 0 var(--ink),16px 16px 0 -2px var(--surface),16px 16px 0 0 var(--ink);margin:0 16px 16px 0}
+.cheat-box h3{font-size:18px;margin:0 0 10px}
+.cheat-box .code{max-height:none}
+.cheat-box ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.cheat-box li{background:var(--rx-bg);color:var(--rx-ink);border-radius:12px;padding:9px 12px;font-size:14.5px;line-height:1.4}
+.cheat-box li span{display:block;color:var(--rx-dim);font-size:13px}
+.cheat-box li b{color:var(--rx-acc);font-weight:700}
+.cheat-box li code{background:rgba(244,246,251,.14);color:inherit}
+.ch-num{-webkit-text-stroke-color:var(--ink)}
+.ch-head{border-bottom-color:var(--acc)}
+
+/* ---------- generic viz ---------- */
+.vz{display:flex;flex-direction:column;gap:16px;align-items:center;min-width:max-content;padding:8px 6px}
+.arow{display:flex;align-items:flex-start;gap:10px}
+.al{font:600 12.5px var(--mono);color:var(--ink-2);padding-top:24px;min-width:40px;text-align:right;white-space:nowrap}
+.acells{display:flex;gap:3px}
+.ac{display:flex;flex-direction:column;align-items:center;min-width:38px}
+.ac i{font:11px var(--mono);color:var(--ink-3);font-style:normal;height:17px;line-height:17px}
+.ac b{min-width:36px;height:38px;padding:0 5px;display:grid;place-items:center;border-radius:9px;background:var(--surface);border:2px solid var(--line);font:600 14.5px var(--mono);transition:background .18s,border-color .18s;white-space:nowrap}
+.ac em{font:11px var(--mono);color:var(--ink-2);font-style:normal;min-height:15px;margin-top:2px;white-space:nowrap}
+.ac u{text-decoration:none;font:700 11.5px/1.25 var(--mono);color:var(--blue);min-height:15px;text-align:center;margin-top:2px;white-space:nowrap}
+.ac.win b{background:var(--blue-soft);border-color:var(--blue)}
+.ac.on b{border-color:var(--blue);border-width:3px;border-style:dashed}
+.ac.cur b{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.ac.ok b{background:var(--mint-soft);border-color:var(--mint)}
+.ac.bad b{background:var(--rose-soft);border-color:var(--rose);color:var(--rose)}
+.ac.dim b{opacity:.32}
+.ac.mark b{border-color:var(--blue);border-style:dashed}
+.ac.ghost b{border-style:dashed;background:transparent;color:var(--ink-3)}
+.ac.hot b{border-color:var(--amber);border-width:3px}
+.gwrap{overflow:auto;max-width:100%}
+.dgrid{border-collapse:separate;border-spacing:3px;margin:auto}
+.dgrid th{font:600 12px var(--mono);color:var(--ink-2);padding:2px 6px;white-space:nowrap}
+.dgrid td{min-width:38px;height:38px;text-align:center;border-radius:8px;background:var(--surface);border:2px solid var(--line);font:600 13.5px var(--mono);padding:0 5px;transition:background .18s,border-color .18s}
+.dgrid td.cur{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.dgrid td.ok{background:var(--mint-soft);border-color:var(--mint)}
+.dgrid td.win,.dgrid td.on{background:var(--blue-soft);border-color:var(--blue)}
+.dgrid td.dep{border-color:var(--blue);border-style:dashed;border-width:3px}
+.dgrid td.bad{background:var(--rose-soft);border-color:var(--rose);color:var(--rose)}
+.dgrid td.land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.dgrid td.water{background:color-mix(in srgb,var(--blue) 10%,var(--surface));color:var(--ink-3)}
+.dgrid td.wall{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.dgrid td.dim{opacity:.35}
+.gsvg{width:100%;display:block;margin:auto;min-width:300px}
+.ge{stroke:var(--ink-3);stroke-width:2;fill:none}
+.ge.on{stroke:var(--blue);stroke-width:3.2}
+.ge.ok{stroke:var(--mint);stroke-width:3.4}
+.ge.cur{stroke:var(--amber);stroke-width:3.6}
+.ge.bad{stroke:var(--rose);stroke-dasharray:5 4}
+.ge.dim{opacity:.22}
+.ah{fill:var(--ink-3)}.ah.on{fill:var(--blue)}.ah.ok{fill:var(--mint)}.ah.cur{fill:var(--amber)}.ah.bad{fill:var(--rose)}
+.gw{font:600 11.5px var(--mono);fill:var(--ink-2);paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round;text-anchor:middle}
+.gn circle{fill:var(--surface);stroke:var(--ink-3);stroke-width:2;transition:fill .18s,stroke .18s}
+.gn text.l{font:600 14px var(--mono);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.gn.on circle{fill:var(--blue-soft);stroke:var(--blue);stroke-width:3}
+.gn.cur circle{fill:var(--amber);stroke:var(--amber);stroke-width:3}
+.gn.cur text.l{fill:var(--on-amber)}
+.gn.ok circle{fill:var(--mint-soft);stroke:var(--mint);stroke-width:3}
+.gn.bad circle{fill:var(--rose-soft);stroke:var(--rose);stroke-width:3}
+.gn.dim{opacity:.32}
+.gn.end circle{stroke-width:4.5}
+.gn.k0 circle{fill:#FDE2C8;stroke:#E0812F}.gn.k1 circle{fill:#D9E8FF;stroke:#3C7BE0}.gn.k2 circle{fill:#DDF5E4;stroke:#2E9E5B}
+.gn.k3 circle{fill:#F3DDF7;stroke:#A44FC0}.gn.k4 circle{fill:#FFF0B8;stroke:#B89400}.gn.k5 circle{fill:#FFDDE4;stroke:#D6456B}
+.gn[class*=" k"] text.l{fill:#161A33}
+.gb{font:700 11.5px var(--mono);fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+.gp{font:700 11.5px var(--mono);fill:var(--blue);text-anchor:middle;paint-order:stroke;stroke:var(--paper);stroke-width:4px}
+.tl{position:relative;width:min(100%,560px);min-width:320px;padding:4px 0 24px}
+.tl-row{position:relative;height:30px;margin:5px 0}
+.tl-bar{position:absolute;top:0;height:28px;border-radius:8px;background:var(--surface);border:2px solid var(--ink-3);font:600 12px var(--mono);display:grid;place-items:center;white-space:nowrap;overflow:hidden;transition:all .2s}
+.tl-bar.cur{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.tl-bar.ok{background:var(--mint-soft);border-color:var(--mint)}
+.tl-bar.win,.tl-bar.on{background:var(--blue-soft);border-color:var(--blue)}
+.tl-bar.bad{background:var(--rose-soft);border-color:var(--rose);color:var(--rose);border-style:dashed}
+.tl-bar.dim{opacity:.35}
+.tl-axis{position:absolute;left:0;right:0;bottom:0;height:20px;border-top:1.5px solid var(--line)}
+.tl-axis span{position:absolute;top:3px;transform:translateX(-50%);font:11px var(--mono);color:var(--ink-3)}
+.tl-sweep{position:absolute;top:0;bottom:20px;border-left:2.5px dashed var(--amber)}
+.ptext{font-size:14.5px}
+.lstats:empty,.lpanels:empty{display:none}.lstats:empty[style*=min-height],.lpanels:empty[style*=min-height]{display:block}
+.lpanels{display:flex;flex-direction:column;gap:12px}
+.hub-link{display:inline-block;margin-top:14px;font-weight:700}
+
+/* ---------- mobile hardening ---------- */
+.lab-grid>*,.side>*,.hero>*,.probs>*,.feed>*,.chapter>*{min-width:0}
+.probs{grid-template-columns:minmax(0,1fr)}
+.hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:880px){.lab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){
+  body{font-size:16px}
+  .top{background:color-mix(in srgb,var(--paper) 97%,transparent)}
+  .top-in{padding:6px 12px;gap:8px}
+  .rings{gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  .rings::-webkit-scrollbar{display:none}
+  .ring{font-size:10.5px;flex:none;max-width:64px;text-align:center;line-height:1.15}
+  .ring i{width:34px;height:34px}.ring i b{width:27px;height:27px;font-size:13px}
+  .xp{min-width:0;flex:none}.xp strong{font-size:17px}.xp small{font-size:11px}
+  .hero{padding:26px 16px 24px;gap:26px}
+  .hero h1{font-size:clamp(40px,12vw,56px)}
+  .hero p.lede{font-size:17px}
+  .cheat-box,.fractal-box{margin:0 10px 10px 0;padding:14px;box-shadow:5px 5px 0 -2px var(--surface),5px 5px 0 0 var(--ink),10px 10px 0 -2px var(--surface),10px 10px 0 0 var(--ink)}
+  .feed{padding:0 14px}
+  .wide{width:auto;margin-left:0}
+  .chapter{padding-top:48px}
+  .ch-head{gap:2px 14px;margin-bottom:30px}
+  .ch-num{font-size:72px;-webkit-text-stroke-width:2px}
+  .post{margin-bottom:40px}
+  .aha{font-size:26px;margin-bottom:40px}
+  .lab{padding:12px;border-radius:16px;margin-bottom:48px;margin-right:10px;box-shadow:5px 5px 0 -2px var(--surface),5px 5px 0 0 var(--ink),10px 10px 0 -2px var(--surface),10px 10px 0 0 var(--ink)}
+  .lab-head{margin-bottom:10px}.lab-head p{font-size:14.5px}
+  .opts{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:10px}
+  .opts::-webkit-scrollbar{display:none}
+  .tab{flex:none;font-size:13.5px;padding:6px 12px}
+  .viz{min-height:0;padding:6px}
+  .vz{gap:12px;padding:4px 2px}
+  .ac{min-width:32px}.ac b{min-width:30px;height:34px;font-size:13px;padding:0 4px;border-radius:8px}.ac i{font-size:10px}
+  .acells{gap:2px}.al{min-width:0;font-size:11px;padding-top:20px}
+  .arow{gap:6px}
+  .dgrid{border-spacing:2px}.dgrid td{min-width:30px;height:32px;font-size:12px;padding:0 3px;border-radius:6px}.dgrid th{font-size:11px;padding:1px 3px}
+  .tl{min-width:280px}
+  .gsvg{min-width:280px}
+  .code{font-size:12px;border-radius:10px}
+  .cl .n{width:2.2em;padding-right:8px}
+  .lcode{max-height:280px!important}
+  .narr{font-size:15px;padding:10px 12px;min-height:0}
+  .hint{font-size:13.5px;padding:8px 12px}
+  .ctl{gap:6px}.ctl button{padding:8px 11px;font-size:14px}
+  .ctl button.primary{min-width:70px}
+  .ctl .spd{margin-left:0}.ctl .spd input{width:90px}
+  .ctl .cnt{margin-left:auto;width:auto}
+  .q4{grid-template-columns:1fr 1fr;gap:6px}.q4 div{font-size:13px;padding:7px 9px}.q4 b{font-size:14px}
+  .stats{gap:6px}.stat{min-width:70px;padding:6px 10px}.stat b{font-size:20px}
+  .panel{padding:8px 10px}
+  .legend{gap:8px;font-size:12px}
+  .reflex{padding:16px 16px 14px;margin-bottom:24px;transform:none}.reflex.tilt{transform:none}
+  .rx-see p{font-size:20px}.rx-do p{font-size:16px}
+  .insight{padding:18px 18px 18px 22px}.insight h4{font-size:24px}
+  .insight .formula{font-size:13px;display:block}
+  .quiz{padding:16px;margin-bottom:40px}.quiz .qq{font-size:19px}.quiz .o{font-size:15px;padding:10px 12px}
+  .replay{padding:16px}.thought{grid-template-columns:1fr;gap:4px}.ttag{justify-self:start}
+  .prob{padding:16px}.prob h4{font-size:20px}
+  .think{grid-template-columns:1fr;gap:2px 0;padding:10px 12px}.think dt{margin-top:4px}
+  .pfilter{flex-wrap:nowrap;gap:8px}
+  .pfilter .opts{margin:0!important;flex:1;min-width:0}
+  .pcount{flex:none;font-size:12px}
+  .dec{padding:10px 12px}
+  .two>div{padding:14px}
+  .three li{padding:12px 12px 12px 50px}.three li::before{left:10px}
+  .dr-card{padding:20px 18px;min-height:220px;margin-right:10px;box-shadow:5px 5px 0 -2px var(--paper),5px 5px 0 0 var(--rx-bg),10px 10px 0 -2px var(--paper),10px 10px 0 0 var(--rx-bg)}
+  .dr-see{font-size:22px}
+  .tbl table{min-width:440px;font-size:14px}
+  .finale{padding:30px 0 70px}
+  .board{width:100%}
+  .wgrid{gap:6px}
+  .frames{padding:2px}.frame{padding:8px 10px;font-size:13px}
+}
+@media (max-width:380px){.ring{max-width:54px;font-size:9.5px}.ctl .spd{display:none}}
+@media (max-width:880px){
+  .lab{display:flex;flex-direction:column}
+  .lab-grid,.lab-grid>div:first-child,.side{display:contents}
+  .lab>.lab-head{order:1}.lab>.opts{order:2}.lab>.q4{order:3}
+  .lab .viz{order:4}
+  .lab .side>*{order:6;margin-top:10px}
+  .lab .legend{order:5;margin-top:6px}
+  .lab>.narr{order:7}.lab>.hint{order:8}
+  .lab>.ctl{order:9;position:sticky;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);z-index:4;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:8px;margin-top:10px;box-shadow:0 6px 22px rgba(22,26,51,.16)}
+  .lab .side>.panel:last-child{order:10}
+}
+@media (max-width:600px){
+  .gn text.l{font-size:22px}
+  .gb,.gp{font-size:18px}
+  .gw{font-size:18px;stroke-width:5px}
+  .tn text.v{font-size:20px}
+  .badge{font-size:15px}
+  .ghost text{font-size:15px}
+  .euler .num{font-size:14px}
+  .narr{margin-top:12px}
+}
+
+
+.home-btn{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);flex:none;text-decoration:none}
+.home-btn svg{width:18px;height:18px}
+.home-btn:hover{border-color:var(--ink-3)}
+.brand{color:inherit;text-decoration:none}
+.pn{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 20px}
+.pn a{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:10px 16px;min-width:150px;text-align:left}
+.pn a small{color:var(--ink-2);font-size:12.5px}
+.pn a b{font-family:var(--display);font-size:17px}
+.pn a.home{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pn a.home small{color:var(--ink-3)}
+.prob.flash-target{outline:3px solid var(--blue);outline-offset:3px}
+@media (max-width:600px){.home-btn{width:34px;height:34px}.pn a{min-width:0;flex:1 1 140px}}
+/* ---------- system design additions ---------- */
+.t{color:#8FD3FF}
+.gn.box rect{fill:var(--surface);stroke:var(--ink-3);stroke-width:2;transition:fill .18s,stroke .18s}
+.gn.box text.l{font:700 13px var(--body);fill:var(--ink)}
+.gn.box text.ls{font:11px var(--mono);fill:var(--ink-2);text-anchor:middle;dominant-baseline:central}
+.gn.box.on rect{fill:var(--blue-soft);stroke:var(--blue);stroke-width:2.5}
+.gn.box.cur rect{fill:var(--amber);stroke:var(--amber);stroke-width:2.5}
+.gn.box.cur text.l,.gn.box.cur text.ls{fill:var(--on-amber)}
+.gn.box.ok rect{fill:var(--mint-soft);stroke:var(--mint);stroke-width:2.5}
+.gn.box.bad rect{fill:var(--rose-soft);stroke:var(--rose);stroke-width:2.5}
+.gn.box.dim{opacity:.3}
+.gn.box.new rect{stroke-dasharray:5 4}
+.gn.box.k0 rect{fill:#FDE2C8;stroke:#E0812F}.gn.box.k1 rect{fill:#D9E8FF;stroke:#3C7BE0}.gn.box.k2 rect{fill:#DDF5E4;stroke:#2E9E5B}.gn.box.k3 rect{fill:#F3DDF7;stroke:#A44FC0}
+.gn.box[class*=" k"] text{fill:#161A33}
+.msg{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.msg span{font:600 12.5px var(--mono);padding:4px 9px;border-radius:999px;background:var(--blue-soft);border:1.5px solid var(--blue)}
+.msg span.ok{background:var(--mint-soft);border-color:var(--mint)}.msg span.bad{background:var(--rose-soft);border-color:var(--rose)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 16px}
+.cmp>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}
+.cmp h4{font-size:18px;margin-bottom:6px}
+.cmp ul{margin:0;padding-left:1.1em;font-size:15px}.cmp li{margin-bottom:4px}
+.cmp .no h4{color:var(--rose)}.cmp .yes h4{color:var(--mint)}
+@media (max-width:640px){.cmp{grid-template-columns:1fr}}
+.steps{counter-reset:s;list-style:none;padding:0!important;display:grid;gap:8px}
+.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 50px;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:0}
+.steps li::before{content:counter(s);position:absolute;left:12px;top:9px;width:26px;height:26px;border-radius:8px;background:var(--acc);color:#fff;font:800 14px var(--display);display:grid;place-items:center}
+.steps li b{font-family:var(--display)}
+.num{font-variant-numeric:tabular-nums}
+.lanes{display:grid;gap:6px;white-space:normal;width:calc(82px + var(--cols)*86px);max-width:none;font:12.5px var(--mono);overflow-x:auto;padding:4px 2px}
+.lanes .ln,.lanes .ln-h{display:grid;grid-template-columns:76px repeat(var(--cols),minmax(58px,1fr));gap:6px;align-items:stretch}
+.lanes .ln>span{font:700 13px var(--body);align-self:center}
+.lanes .ln-h i{font-style:normal;color:var(--ink-3);font-size:11px;text-align:center}
+.lanes .ln b{font-weight:600;padding:6px 6px;border-radius:9px;background:var(--surface);border:1.5px solid var(--line);text-align:center;min-height:30px;display:grid;place-items:center;line-height:1.25;min-width:0;overflow-wrap:break-word;hyphens:auto}
+.lanes .ln b.e{background:transparent;border-style:dashed;opacity:.45}
+.lanes .ln b.cur{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.lanes .ln b.on{background:var(--blue-soft);border-color:var(--blue)}
+.lanes .ln b.ok{background:var(--mint-soft);border-color:var(--mint)}
+.lanes .ln b.bad{background:var(--rose-soft);border-color:var(--rose)}
+.meter{display:grid;gap:8px;margin:6px 0;width:min(520px,78vw)}
+.meter>div{display:grid;grid-template-columns:110px 1fr 54px;gap:8px;align-items:center;font-size:14px}
+.meter i{display:block;height:16px;border-radius:6px;background:var(--blue);transition:width .25s}
+.meter i.bad{background:var(--rose)}.meter i.ok{background:var(--mint)}.meter i.cur{background:var(--amber)}
+.meter u{text-decoration:none;font:600 12.5px var(--mono);text-align:right}
+.meter .trk{background:var(--surface-2,rgba(127,127,127,.12));border-radius:6px;overflow:hidden}
+
+@media (max-width:640px){.lanes{font-size:11.5px;width:calc(78px + var(--cols)*66px)}.lanes .ln>span{font-size:12px}}
+.cmdv{display:grid;gap:14px;width:min(420px,76vw)}
+.cmdv .doc{font:600 22px var(--mono);background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;min-height:58px}
+.cmdv .doc i{display:inline-block;width:2px;height:24px;background:var(--acc);vertical-align:middle;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.cmdv .stks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmdv .stk{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:120px;justify-content:flex-end}
+.cmdv .stk h6{order:9;margin:4px 0 0;font:700 12px var(--body);color:var(--ink-3);text-align:center}
+.cmdv .stk span{font:600 12.5px var(--mono);padding:6px 8px;border-radius:8px;background:var(--blue-soft);border:1.5px solid var(--blue);text-align:center}
+.cmdv .stk span.top{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.cmdv .stk span.r{background:var(--mint-soft);border-color:var(--mint);color:var(--ink)}
+.cmdv .stk em{color:var(--ink-3);text-align:center;font-size:13px;margin:auto 0}
+/* ---------- UML ---------- */
+svg.uml{width:100%;display:block;margin:0 auto}
+.uc rect{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.6;transition:fill .2s,stroke .2s}
+.uc.interface rect{fill:color-mix(in srgb,var(--blue) 9%,var(--surface));stroke:var(--blue)}
+.uc.abstract rect{fill:color-mix(in srgb,var(--blue) 5%,var(--surface));stroke:var(--blue);stroke-dasharray:0}
+.uc.enum rect{fill:color-mix(in srgb,var(--mint) 8%,var(--surface))}
+.uc .un{font:700 13px var(--body);fill:var(--ink);text-anchor:middle}.uc .un.it{font-style:italic}
+.uc .us{font:italic 10.5px var(--body);fill:var(--ink-3);text-anchor:middle}
+.uc .um2{font:11.5px var(--mono);fill:var(--ink-2)}
+.uc .usep{stroke:var(--line);stroke-width:1.2}
+.uc .utag{font:700 10.5px var(--body);fill:var(--acc)}
+.uc.cur rect{fill:var(--amber-soft);stroke:var(--amber);stroke-width:2.6}
+.uc.ok rect{fill:var(--mint-soft);stroke:var(--mint);stroke-width:2.6}
+.uc.bad rect{fill:var(--rose-soft);stroke:var(--rose);stroke-width:2.6}
+.uc.dim{opacity:.35}
+.ur{stroke:var(--ink-2);stroke-width:1.7;fill:none}
+.ur.cur{stroke:var(--amber);stroke-width:2.6}.ur.ok{stroke:var(--mint);stroke-width:2.4}.ur.bad{stroke:var(--rose);stroke-width:2.4}
+.mk-hollow{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.4}.mk-open{fill:none;stroke:var(--ink-2);stroke-width:1.6}.mk-fill{fill:var(--ink-2);stroke:var(--ink-2)}
+.mk-hollow.cur,.mk-open.cur{stroke:var(--amber)}.mk-fill.cur{fill:var(--amber);stroke:var(--amber)}
+.mk-hollow.ok,.mk-open.ok{stroke:var(--mint)}.mk-fill.ok{fill:var(--mint);stroke:var(--mint)}
+.mk-hollow.bad,.mk-open.bad{stroke:var(--rose)}.mk-fill.bad{fill:var(--rose);stroke:var(--rose)}
+.ul{font:600 10.5px var(--mono);fill:var(--ink-3);text-anchor:middle;paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}.ul.cur{fill:var(--amber)}.ul.ok{fill:var(--mint)}.ul.um{fill:var(--ink-2)}
+.uml-mini{margin:10px 0 4px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px;overflow-x:auto}
+.uml-mini svg.uml{min-width:380px}
+.uml-static{margin:14px 0;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px;overflow-x:auto}
+.uml-static svg.uml{min-width:420px}.uml-static .cap{margin:6px 4px 0;font-size:14px;color:var(--ink-2);text-align:center}
+@media (max-width:640px){.vz svg.uml{min-width:440px}}
+.stag{display:inline-block;font:700 12px var(--body);padding:2px 9px;border-radius:999px;margin-right:4px;background:var(--surface);border:1.5px solid var(--line);vertical-align:1px;white-space:nowrap}
+.stag.s-pain{border-color:var(--rose);color:var(--rose)}.stag.s-ask{border-color:var(--blue);color:var(--blue)}.stag.s-move{border-color:var(--amber);color:#B26B00}.stag.s-pay{border-color:var(--mint);color:var(--mint)}.stag.s-rule{background:var(--ink);color:var(--paper);border-color:var(--ink)}.stag.s-spot{border-color:var(--acc);color:var(--acc)}
+.req{background:var(--surface);border:1px dashed var(--ink-3);border-radius:12px;padding:10px 14px;font-size:14.5px;line-height:1.55;width:min(560px,80vw);margin:0 auto 4px}
+.req .rn{background:color-mix(in srgb,var(--blue) 18%,transparent);border-radius:5px;padding:0 3px;font-weight:700}
+.req .rv{background:color-mix(in srgb,var(--amber) 28%,transparent);border-radius:5px;padding:0 3px;font-weight:700}
+.links{margin:12px 0 4px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.lk-h{font:800 13px var(--display);letter-spacing:.02em;color:var(--ink-2);margin-bottom:8px}
+.lk-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.lk{display:block;text-decoration:none;color:inherit;border:1.5px solid var(--line);border-radius:12px;padding:8px 11px;background:var(--paper);transition:border-color .15s,transform .15s}
+.lk:hover{border-color:var(--acc);transform:translateY(-1px)}
+.lk small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.lk b{display:block;font-size:15px}.lk span{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.prob .links{margin-top:10px}
+.think-steps{display:grid;gap:8px;margin:10px 0}
+.think-steps>div{display:grid;grid-template-columns:118px 1fr;gap:10px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+.think-steps>div>b{font:700 13px var(--body)}
+@media (max-width:640px){.think-steps>div{grid-template-columns:1fr;gap:2px}}
+.legend-uml{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin:10px 0}
+
+@media (min-width:881px){.lab.uml-lab .lab-grid{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}}
+.lab.uml-lab .lcode{font-size:12.5px}
+
+:root{--acc:#6B4FBB}
+/* ---------- bookmarks ---------- */
+.bm{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);padding:0;cursor:pointer;transition:transform .15s,background .15s,color .15s}
+.bm svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.bm:hover{color:var(--ink);border-color:var(--ink-3)}
+.bm.on{color:var(--amber);border-color:var(--amber);background:var(--amber-soft)}
+.bm.on svg{fill:currentColor}
+.bm:active{transform:scale(.9)}
+.prob header .bm{margin-left:auto;align-self:flex-start}
+.rx-top{align-items:center;gap:10px}.rx-top small{margin-left:auto}
+.reflex .bm{background:rgba(244,246,251,.08);border-color:rgba(244,246,251,.24);color:var(--rx-ink)}
+.reflex .bm.on{color:var(--rx-acc);border-color:var(--rx-acc);background:rgba(242,174,69,.18)}
+.rp-head .bm{margin-left:auto}
+.quiz .qh{align-items:center;gap:10px}.quiz .qh small{margin-left:auto}
+.bm-abs{position:absolute;top:14px;right:14px;z-index:2}
+.lab,.post,.insight{position:relative}
+.lab .lab-head{padding-right:46px}
+.post>h3{padding-right:46px}
+.insight>.it,.insight>h4{padding-right:44px}
+.flash-target{outline:3px solid var(--amber);outline-offset:4px}
+.saved-btn{display:flex;align-items:center;gap:6px;height:38px;padding:0 11px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font:700 14px var(--body);flex:none;font-variant-numeric:tabular-nums}
+.saved-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round}
+.saved-btn.has svg{fill:var(--amber);stroke:var(--amber)}
+.saved-btn:hover{border-color:var(--ink-3)}
+@media (max-width:600px){.saved-btn{height:34px;padding:0 8px;font-size:13px}.bm-abs{top:10px;right:10px}.lab .lab-head{padding-right:40px}}
+/* bookmarks-end */
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="home-btn" href="index.html" aria-label="All topics" title="All topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></a><a class="brand" href="index.html"><span></span>Databases</a>
+    <nav class="rings" aria-label="Chapters"><button class="ring" data-ring="1" data-go="ch1"><i><b>1</b></i>Choosing</button><button class="ring" data-ring="2" data-go="ch2"><i><b>2</b></i>Indexes & ACID</button><button class="ring" data-ring="3" data-go="ch3"><i><b>3</b></i>Scaling data</button><button class="ring" data-ring="4" data-go="ch4"><i><b>4</b></i>Decoder</button></nav>
+    <div class="xp" aria-live="polite"><strong id="xpNum">0 XP</strong><small id="xpLvl">Rookie</small></div>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div>
+    <h1><span class="acc">Databases</span></h1>
+    <p class="lede">Pick the right store, make reads fast with indexes, keep money safe with transactions, then survive growth with replication and sharding. Plus the database questions interviewers actually ask.</p>
+    <a class="start" href="#ch1">Start with chapter 1</a>
+    <p class="series">Part of <a href="index.html">Rubber Duck Dojo</a>: the System Design track, with labs, reflexes and a drill. Code is in Java.</p><!--rev-start--><p class="revlinks" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><a href="notes.html#n-sd-databases" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">📝 Revision notes</a><a href="crunch.html" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">🎯 Crunch list</a><a href="plan.html" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">🗓 Study plan</a></p><!--rev-end-->
+  </div>
+  <div class="cheat-box">
+    <h3>The idea you'll own</h3>
+    <div data-code="hero"></div>
+    <h3 style="margin-top:14px">Three reflexes from this topic</h3>
+    <ul id="heroRx"></ul>
+  </div>
+</section>
+<div class="feed">
+<section class="chapter" id="ch1">
+  <div class="ch-head"><div class="ch-num">1</div><h2>Choosing</h2><p>Pick the store from the access pattern, not from fashion.</p></div>
+  <article class="post">
+    <h3>The database zoo, by access pattern</h3>
+    <ol class="steps">
+      <li><b>Relational</b> (Postgres, MySQL): tables, joins, transactions. Default for money, orders, users, anything with relationships and invariants.</li>
+      <li><b>Key-value</b> (Redis, DynamoDB): get/put by key, extremely fast. Sessions, caches, URL codes, carts.</li>
+      <li><b>Document</b> (MongoDB): JSON documents with flexible fields, fetched whole. Product catalogs, profiles, CMS content.</li>
+      <li><b>Wide-column</b> (Cassandra, HBase): huge write throughput, rows partitioned by key and sorted by a clustering column. Chat messages, time series, activity feeds.</li>
+      <li><b>Search</b> (Elasticsearch): inverted index for full-text and filters. Product search, logs.</li>
+      <li><b>Graph</b> (Neo4j): relationships are the data. Friend-of-friend, recommendations, fraud rings.</li>
+      <li><b>Object storage</b> (S3) + <b>time-series</b> (InfluxDB) + <b>column analytics</b> (BigQuery, ClickHouse) for blobs, metrics and reporting.</li>
+    </ol>
+    <button class="got" data-g="zoo">Got it</button>
+  </article>
+  <div class="reflex" data-reflex="default"></div>
+  <article class="post">
+    <h3>SQL vs NoSQL, the honest version</h3>
+    <div class="cmp">
+      <div><h4>SQL</h4><ul><li>Schema, joins, ACID transactions</li><li>Flexible queries you didn't plan for</li><li>Scales reads with replicas; writes need sharding work</li></ul></div>
+      <div><h4>NoSQL</h4><ul><li>Designed around known queries (model per access pattern)</li><li>Horizontal scale built in</li><li>Joins and multi-item transactions limited or absent</li></ul></div>
+    </div>
+    <p>Say it as a trade-off: "Orders need transactions and ad-hoc reporting, so Postgres. Chat messages are append-heavy, read by conversation and time, and huge, so Cassandra."</p>
+    <button class="got" data-g="sqlno">Got it</button>
+  </article>
+  <div class="reflex" data-reflex="nosql"></div>
+  <div class="reflex" data-reflex="denorm"></div>
+  <div class="quiz" data-quiz="q1"></div>
+</section>
+
+<section class="chapter" id="ch2">
+  <div class="ch-head"><div class="ch-num">2</div><h2>Indexes &amp; ACID</h2><p>Make reads fast without scanning; make writes safe when several happen at once.</p></div>
+  <article class="post">
+    <h3>An index is a sorted copy you can binary-search</h3>
+    <p>Without an index, <code>WHERE email = ?</code> reads every row: O(n). A <b>B-tree index</b> keeps the column sorted in a shallow tree of pages, so the lookup touches 3–4 pages even for a billion rows: O(log n). The cost: every insert and update must also update the index, and it takes disk.</p>
+    <p>A <b>composite index</b> on <code>(user_id, created_at)</code> is sorted by user first, then time. It serves <code>WHERE user_id = ?</code> and <code>WHERE user_id = ? ORDER BY created_at</code>, but not <code>WHERE created_at &gt; ?</code> alone: the <b>leftmost-prefix rule</b>.</p>
+    <button class="got" data-g="index">Got it</button>
+  </article>
+  <section class="lab wide" id="lab-idx"></section>
+  <div class="reflex" data-reflex="index"></div>
+  <div class="reflex" data-reflex="composite"></div>
+  <div class="reflex" data-reflex="explain"></div>
+  <div class="quiz" data-quiz="q2"></div>
+  <article class="post">
+    <h3>ACID, and the isolation levels behind the I</h3>
+    <p><b>Atomic</b>: all or nothing. <b>Consistent</b>: constraints hold before and after. <b>Isolated</b>: concurrent transactions don't see each other's half-done work. <b>Durable</b>: committed means it survives a crash (write-ahead log).</p>
+    <p>Isolation has levels, each preventing one more anomaly: <b>Read Uncommitted</b> (allows dirty reads) → <b>Read Committed</b> (Postgres default; allows non-repeatable reads) → <b>Repeatable Read</b> (MySQL InnoDB default; mostly stops phantoms there) → <b>Serializable</b> (as if one at a time; slowest). The <b>lost update</b> in the lab's last tab happens at Read Committed if you read-then-write in application code.</p>
+    <button class="got" data-g="acid">Got it</button>
+  </article>
+  <div class="reflex" data-reflex="txn"></div>
+  <div class="reflex" data-reflex="lostupdate"></div>
+  <div class="insight" data-insight="isolation"></div>
+  <div class="quiz" data-quiz="q3"></div>
+</section>
+
+<section class="chapter" id="ch3">
+  <div class="ch-head"><div class="ch-num">3</div><h2>Scaling data</h2><p>Copies for reads and safety, splits for writes and size.</p></div>
+  <article class="post">
+    <h3>Replication: copies of the same data</h3>
+    <p>A <b>primary</b> takes writes and streams changes to <b>replicas</b> that serve reads. Async replication is fast but replicas lag, so a user may not see their own just-written comment: route that user's reads to the primary for a few seconds (<b>read-your-writes</b>). Sync replication waits for a replica to confirm: no data loss on failover, slower writes. Leaderless systems (Cassandra, Dynamo) write to N nodes and use quorums: W + R &gt; N means reads see the latest write.</p>
+    <button class="got" data-g="repl">Got it</button>
+  </article>
+  <div class="reflex" data-reflex="replicas"></div>
+  <div class="reflex" data-reflex="quorum"></div>
+  <article class="post">
+    <h3>Sharding: split the data across machines</h3>
+    <p>When one primary can't take the writes or hold the data, partition rows by a <b>shard key</b>. A good key has high cardinality, spreads load evenly, and keeps the data a query needs on one shard (<code>user_id</code> for a user's orders). Bad keys create <b>hot shards</b> (country = India) or force scatter-gather queries across every shard.</p>
+    <p>How do you map keys to shards? <code>hash(key) % N</code> is simple, but changing N moves almost every key. <b>Consistent hashing</b> puts servers and keys on a ring; a key belongs to the next server clockwise, so adding a server only moves the keys in one arc. Watch both in the lab.</p>
+    <button class="got" data-g="shard">Got it</button>
+  </article>
+  <section class="lab wide" id="lab-ring"></section>
+  <div class="reflex" data-reflex="shardkey"></div>
+  <div class="reflex" data-reflex="ring"></div>
+  <div class="insight" data-insight="vnodes"></div>
+  <div class="quiz" data-quiz="q4"></div>
+  <div class="replay" data-replay="chatdb"></div>
+  <article class="post"><h3>Database questions interviewers actually ask</h3><p>Answer out loud first, then reveal the SQL or Java.</p></article>
+  <div class="probs" data-probs="main"></div>
+</section>
+
+<section class="chapter" id="ch4">
+  <div class="ch-head"><div class="ch-num">4</div><h2>The decoder</h2><p>Requirement phrasing in, data decision out.</p></div>
+  <article class="post"><h3>If the problem says…</h3><div data-decoder></div><button class="got" data-g="dec">Got it</button></article>
+  <article class="post"><h3>Final round</h3></article>
+  <div class="quiz" data-quiz="d1"></div>
+  <div class="quiz" data-quiz="d2"></div>
+  <div class="quiz" data-quiz="d3"></div>
+  <article class="post"><h3>Reflex drill</h3><p>Every reflex in this topic, shuffled. Ten in a row finishes the chapter.</p></article>
+  <section class="drill" id="drill"></section>
+</section>
+
+  <div class="finale">
+    <h2>That's Databases, untangled.</h2>
+    <div class="lvl" id="finLvl"></div>
+    <p class="muted" style="max-width:46ch;margin:0 auto 18px">Replay the labs before an interview, and run the drill until the reflexes fire without thinking.</p>
+    <nav class="pn" aria-label="Topics"><a href="sd-basics.html"><small>‹ Previous</small><b>System Design Basics</b></a><a class="home" href="index.html"><small>Home</small><b>All topics</b></a><a href="sd-distributed.html"><small>Next ›</small><b>Caching, Queues & Resilience</b></a></nav>
+    <button id="resetAll">Reset progress</button>
+  </div>
+</div>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const META={"slug": "sd-databases", "heroRx": [["Slow query on a WHERE column", "Index it (check EXPLAIN)."], ["Two updates must both happen or neither", "Transaction."], ["One machine can't take the writes", "Shard by a high-cardinality key."]], "btn": "Show the code", "cxl": "Use it when"};
+"use strict";
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=a=>'['+a.join(', ')+']';
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CODE={},LABS={},REFLEX={},INSIGHT={},REPLAY={},QUIZ={},PROBS={},FILTERS={},DECODER=[];
+const copy=o=>JSON.parse(JSON.stringify(o));
+
+/* ---------- progress ---------- */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const KEY='dsa-'+META.slug+'-v1';
+let P=store.get(KEY,{xp:0,done:{}});if(!P||!P.done)P={xp:0,done:{}};
+const LEVELN=['Rookie 🌱','Pattern spotter 👀','Getting fluent 🧩','Interview ready 🎯','Master 🏆'];
+let TOTAL=1;
+const levelOf=x=>{const f=x/TOTAL,t=[0,.15,.38,.62,.85];let l=LEVELN[0];t.forEach((v,i)=>{if(f>=v)l=LEVELN[i]});return l};
+let toastT;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1300)}
+function award(id,xp){if(!id||P.done[id])return false;P.done[id]=xp;P.xp+=xp;store.set(KEY,P);toast(`+${xp} XP`);hud();return true}
+const chOf=el=>{const c=el.closest('.chapter');return c?c.id.replace('ch',''):'0'};
+function hud(){
+  $('#xpNum').textContent=P.xp+' XP';$('#xpLvl').textContent=levelOf(P.xp);
+  const fin=$('#finLvl');if(fin)fin.textContent=`${P.xp} XP earned. Level: ${levelOf(P.xp)}`;
+  $$('[data-ring]').forEach(r=>{const ch=r.dataset.ring;const items=$$(`[data-award][data-ch="${ch}"]`).map(e=>e.dataset.award);
+    const pct=items.length?Math.round(items.filter(i=>P.done[i]).length/items.length*100):0;
+    r.querySelector('i').style.setProperty('--p',pct);r.classList.toggle('full',pct===100);r.setAttribute('aria-label',`Chapter ${ch}: ${pct}% done`)});
+  $$('.got[data-award]').forEach(b=>{const d=!!P.done[b.dataset.award];b.classList.toggle('done',d);b.textContent=d?'Got it ✓':'Got it'});
+  $$('.rx-lock').forEach(b=>{const d=!!P.done[b.dataset.award];b.classList.toggle('done',d);b.textContent=d?'Locked in ✓':'Lock it in'});
+  if(window.drillHud)drillHud();
+  $$('[data-probs]').forEach(host=>{const ids=$$('.got[data-award]',host).map(b=>b.dataset.award);const c=$('.pcount',host);if(c)c.textContent=`${ids.filter(i=>P.done[i]).length} / ${ids.length} done`});
+}
+
+/* ---------- python highlighter ---------- */
+const KW=new Set('abstract assert boolean break byte case catch char class const continue default do double else enum extends final finally float for if implements import instanceof int interface long native new package private protected public return short static super switch synchronized this throw throws transient try var void volatile while record sealed permits yield null true false'.split(' '));
+const SQLKW=new Set('select from where join left right inner outer on group by order having insert into values update set delete create table index primary key foreign references unique not null and or as begin commit rollback transaction isolation level read committed repeatable serializable uncommitted for share limit offset distinct count sum avg min max explain alter add drop default varchar int bigint text timestamp in exists between like union all case when then else end with lock nowait skip locked'.split(' '));
+const TY=new Set('String Integer Long Double Boolean Object List ArrayList Map HashMap Set HashSet Queue Deque ArrayDeque LinkedList Optional Thread Runnable Executor ExecutorService CompletableFuture AtomicInteger AtomicLong ConcurrentHashMap Lock ReentrantLock Collections Arrays Math System Instant Duration UUID Iterator Iterable Comparator Exception RuntimeException IllegalStateException IllegalArgumentException Override'.split(' '));
+let LANG='java';
+function hlLine(src){
+  if(LANG==='sql'){
+    const re=/(--.*$)|('(?:[^'\\]|\\.)*')|(\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)|([\s\S])/g;let out='',m;
+    while((m=re.exec(src))){const [t,c,s,n,w]=m;if(c)out+=`<span class="c">${esc(c)}</span>`;else if(s)out+=`<span class="s">${esc(s)}</span>`;else if(n)out+=`<span class="m">${n}</span>`;else if(w)out+=SQLKW.has(w.toLowerCase())?`<span class="k">${w}</span>`:esc(w);else out+=esc(t)}
+    return out||' ';
+  }
+  const re=/(\/\/.*$|\/\*.*?\*\/|^\s*\*.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)')|(@[A-Za-z_]\w*)|(\b\d+(?:\.\d+)?[LlFfDd]?\b)|([A-Za-z_]\w*)|([\s\S])/g;
+  let out='',m,nextFn=false;
+  while((m=re.exec(src))){const [t,c,s,a,n,w]=m;
+    if(c)out+=`<span class="c">${esc(c)}</span>`;else if(s)out+=`<span class="s">${esc(s)}</span>`;else if(a)out+=`<span class="m">${a}</span>`;else if(n)out+=`<span class="m">${n}</span>`;
+    else if(w){if(KW.has(w))out+=`<span class="k">${w}</span>`;else if(TY.has(w)||/^[A-Z][a-z0-9]\w*$/.test(w))out+=`<span class="t">${w}</span>`;else if(/^[A-Z][A-Z0-9_]+$/.test(w))out+=`<span class="m">${w}</span>`;else out+=esc(w)}
+    else out+=esc(t)}
+  return out||' ';
+}
+function codeView(el,src){
+  if(src==null){el.textContent='(code missing)';return{set(){}}}
+  LANG=/^\s*(--|select\b|create\b|begin\b|update\b|insert\b|explain\b|with\b|alter\b)/i.test(src)?'sql':'java';
+  const lines=src.replace(/^\n+/,'').replace(/\s+$/,'').split('\n');
+  el.classList.add('code');
+  el.innerHTML=lines.map((l,i)=>`<div class="cl" data-l="${i+1}"><span class="n">${i+1}</span><span class="t">${hlLine(l)}</span></div>`).join('');
+  return{set(ls){$$('.cl.on',el).forEach(x=>x.classList.remove('on'));let first=null;
+    [].concat(ls??[]).forEach(n=>{const x=el.querySelector(`[data-l="${n}"]`);if(x){x.classList.add('on');first=first||x}});
+    if(first&&el.scrollHeight>el.clientHeight){const y=first.offsetTop;if(y<el.scrollTop+16||y>el.scrollTop+el.clientHeight-40)el.scrollTo({top:Math.max(0,y-el.clientHeight/2+20),behavior:reduceMotion?'auto':'smooth'})}}};
+}
+
+/* ---------- player + shell ---------- */
+const SPEEDS=[1300,800,480,220,70];
+function makePlayer(root,{render,awardId,xp=20,speeds=SPEEDS}){
+  const bar=$('.ctl',root);
+  bar.innerHTML=`<button data-a="reset" aria-label="Restart">↺</button><button data-a="back">‹ Back</button><button data-a="play" class="primary">Play</button><button data-a="next">Next ›</button><label class="spd">Speed <input type="range" min="0" max="4" value="2" aria-label="Playback speed"></label><span class="cnt"></span>`;
+  const narr=$('.narr',root),hintEl=$('.hint',root),cnt=$('.cnt',bar),spd=$('input',bar),play=$('[data-a=play]',bar);
+  let steps=[],i=0,t=null;
+  function show(k){if(!steps.length)return;i=Math.max(0,Math.min(steps.length-1,k));const s=steps[i];
+    render(s,i,steps);narr.innerHTML=s.msg||'';if(hintEl){hintEl.innerHTML=s.hint?`<b>⚡ Reflex</b>${s.hint}`:'';hintEl.hidden=!(s.hint||hasHint);hintEl.style.visibility=s.hint?'':'hidden'}
+    cnt.textContent=`step ${i+1} / ${steps.length}`;if(i===steps.length-1){stop();if(awardId)award(awardId,xp)}}
+  function stop(){clearTimeout(t);t=null;play.textContent=(i>=steps.length-1&&steps.length>1)?'Replay':'Play'}
+  function tick(){if(t===null)return;if(i>=steps.length-1){stop();return}show(i+1);if(t!==null)t=setTimeout(tick,speeds[+spd.value])}
+  play.onclick=()=>{if(t!==null){stop();return}if(i>=steps.length-1)show(0);play.textContent='Pause';t=setTimeout(tick,120)};
+  $('[data-a=next]',bar).onclick=()=>{stop();show(i+1)};$('[data-a=back]',bar).onclick=()=>{stop();show(i-1)};$('[data-a=reset]',bar).onclick=()=>{stop();show(0)};
+  let hasHint=false,curI=0,rT;function measure(){const sd=root.querySelector('.side');const els=[narr,hintEl,root.querySelector('.viz'),sd,...(sd?[...sd.children]:[])].filter(Boolean);if(!els.length||!steps.length)return;els.forEach(e=>e.style.minHeight='');if(!root.offsetParent&&getComputedStyle(root).display==='none')return;const mx=els.map(()=>0);steps.forEach((s,k)=>{try{render(s,k,steps)}catch(e){}narr.innerHTML=s.msg||'';if(hintEl){hintEl.innerHTML=s.hint?`<b>⚡ Reflex</b>${s.hint}`:'';hintEl.hidden=!hasHint}els.forEach((e,j)=>{mx[j]=Math.max(mx[j],e.offsetHeight)})});els.forEach((e,j)=>{if(mx[j])e.style.minHeight=mx[j]+'px'})}addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>{if(steps.length){const k=i;measure();show(k)}},200)});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(steps.length){const k=i;measure();show(k)}});return{load(s){stop();steps=s;hasHint=s.some(x=>x&&x.hint);measure();show(0)},stop};
+}
+function labShell(el,{title,desc,opts='',top='',viz='',side='',legend=''}){
+  el.innerHTML=`<div class="lab-head"><h3>${title}</h3><p>${desc}</p></div>${opts?`<div class="opts">${opts}</div>`:''}${top}
+  <div class="lab-grid"><div><div class="viz">${viz}</div>${legend?`<div class="legend">${legend}</div>`:''}</div><div class="side">${side}</div></div>
+  <div class="narr" aria-live="polite"></div><div class="hint" hidden></div><div class="ctl"></div>`;
+}
+function tabs(name,items,cur){return items.map(([k,l])=>`<button class="tab" data-${name}="${k}" aria-pressed="${k===cur}">${l}</button>`).join('')}
+function bindTabs(el,name,fn){$$(`[data-${name}]`,el).forEach(b=>b.onclick=()=>{$$(`[data-${name}]`,el).forEach(x=>x.setAttribute('aria-pressed',x===b));fn(b.dataset[name])})}
+
+/* ---------- renderers ---------- */
+function rowHTML(r){
+  const n=r.cells.length,PT={};
+  for(const [k,v] of Object.entries(r.ptr||{})){if(v==null||v<0)continue;(PT[v]=PT[v]||[]).push(k)}
+  const extra=Object.keys(PT).map(Number).filter(i=>i>=n);const last=extra.length?Math.max(...extra):n-1;
+  let h='';
+  for(let i=0;i<=last;i++){const ghost=i>=n;const c=ghost?'ghost':((r.cls&&r.cls[i])||'');
+    const w=(!ghost&&r.win&&i>=r.win[0]&&i<=r.win[1])?' win':'';
+    const lab=r.noIdx?'':(r.idx?(r.idx[i]??''):i);
+    h+=`<div class="ac ${c}${w}"><i>${lab}</i><b>${ghost?'·':esc(r.cells[i]??'')}</b>${r.sub?`<em>${esc(r.sub[i]??'')}</em>`:''}<u>${(PT[i]||[]).map(x=>'▲'+esc(x)).join('<br>')}</u></div>`}
+  return `<div class="arow">${r.label!=null?`<div class="al">${r.label}</div>`:''}<div class="acells">${h}</div></div>`;
+}
+function gridHTML(g){
+  const R=g.cells.length,C=g.cells[0].length;let h='<div class="gwrap"><table class="dgrid">';
+  if(g.cl)h+='<tr>'+(g.rl?'<th></th>':'')+g.cl.map(x=>`<th>${esc(x)}</th>`).join('')+'</tr>';
+  for(let r=0;r<R;r++){h+='<tr>'+(g.rl?`<th>${esc(g.rl[r])}</th>`:'');for(let c=0;c<C;c++){const v=g.cells[r][c];h+=`<td class="${(g.cls&&g.cls[r+','+c])||''}">${v==null?'':esc(v)}</td>`}h+='</tr>'}
+  return h+'</table></div>';
+}
+let GID=0;
+const mk=c=>['on','ok','bad','cur'].find(k=>(' '+(c||'')+' ').includes(' '+k+' '))||'';
+function graphSVG(G,s){
+  const g=s.g||{},id='mk'+(++GID),R=G.r||18,pos={};G.nodes.forEach(n=>pos[n.id]=n);
+  const vis=g.vis?new Set(g.vis.map(String)):null;const shown=n=>!vis||vis.has(String(n));
+  const edges=g.edges||G.edges||[];
+  let h=`<svg class="gsvg" viewBox="0 0 ${G.w} ${G.h}" style="max-width:${Math.round(G.w*1.25)}px"><defs>`;
+  for(const k of ['','on','ok','bad','cur'])h+=`<marker id="${id}${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah ${k}"/></marker>`;
+  h+='</defs>';
+  edges.forEach(e=>{const a=pos[e.a],b=pos[e.b];if(!a||!b||!shown(e.a)||!shown(e.b))return;const key=e.id??(e.a+'-'+e.b);
+    const cls=(g.e&&(g.e[key]??g.e[e.b+'-'+e.a]))||e.cls||'';
+    const dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,bend=e.bend||0;
+    const rad=(n)=>n.w?Math.min(n.w/2/Math.max(Math.abs(ux),1e-6),(n.h||40)/2/Math.max(Math.abs(uy),1e-6))+1:(n.r||R);const ra=rad(a),rb=rad(b);
+    const x1=a.x+ux*ra,y1=a.y+uy*ra,x2=b.x-ux*(rb+(e.dir?2:0)),y2=b.y-uy*(rb+(e.dir?2:0));
+    const me=e.dir?`marker-end="url(#${id}${mk(cls)})"`:'';
+    const mx=(x1+x2)/2-uy*bend,my=(y1+y2)/2+ux*bend;
+    h+=bend?`<path d="M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}" class="ge ${cls}" ${me}/>`:`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="ge ${cls}" ${me}/>`;
+    const lab=(g.el&&g.el[key])??e.w;
+    if(lab!=null&&lab!==''){const off=bend?bend/2+10:11;h+=`<text x="${((a.x+b.x)/2-uy*off).toFixed(1)}" y="${((a.y+b.y)/2+ux*off+4).toFixed(1)}" class="gw">${esc(lab)}</text>`}});
+  G.nodes.forEach(n=>{if(!shown(n.id))return;const r=n.r||R;const cls=(g.n&&g.n[n.id])||n.cls||'';const lab=(g.l&&g.l[n.id])??n.l??n.id;
+    const sub2=(g.s&&g.s[n.id])??n.s;
+    if(n.w){const hh=n.h||40;h+=`<g class="gn box ${cls}"><rect x="${n.x-n.w/2}" y="${n.y-hh/2}" width="${n.w}" height="${hh}" rx="9"/><text x="${n.x}" y="${sub2?n.y-7:n.y}" class="l">${esc(lab)}</text>${sub2?`<text x="${n.x}" y="${n.y+10}" class="ls">${esc(sub2)}</text>`:''}`}
+    else h+=`<g class="gn ${cls}"><circle cx="${n.x}" cy="${n.y}" r="${r}"/><text x="${n.x}" y="${n.y}" class="l">${esc(lab)}</text>`;
+    const b=g.b&&g.b[n.id];if(b!=null&&b!=='')h+=n.w?`<text x="${n.x+n.w/2-4}" y="${n.y-(n.h||40)/2-5}" class="gb" text-anchor="end">${esc(b)}</text>`:`<text x="${n.x+r*.75}" y="${n.y-r-3}" class="gb">${esc(b)}</text>`;
+    const p=g.p&&g.p[n.id];if(p)h+=`<text x="${n.x}" y="${n.y+(n.w?(n.h||40)/2:r)+15}" class="gp">${esc(p)}</text>`;h+='</g>'});
+  return h+'</svg>';
+}
+function barsHTML(b){
+  const span=(b.max-b.min)||1,pc=x=>((x-b.min)/span*100);const rows=[];
+  b.items.forEach((it,i)=>{const r=it.row??i;(rows[r]=rows[r]||[]).push(it)});
+  let h='<div class="tl">';
+  for(let r=0;r<rows.length;r++)h+='<div class="tl-row">'+(rows[r]||[]).map(it=>`<div class="tl-bar ${it.cls||''}" style="left:${pc(it.a)}%;width:${Math.max(pc(it.b)-pc(it.a),2.5)}%">${esc(it.l??`[${it.a},${it.b}]`)}</div>`).join('')+'</div>';
+  let t='';for(let x=b.min;x<=b.max;x+=(b.step||1))t+=`<span style="left:${pc(x)}%">${x}</span>`;
+  h+=`<div class="tl-axis">${t}</div>`;if(b.sweep!=null)h+=`<div class="tl-sweep" style="left:${pc(b.sweep)}%"></div>`;
+  return h+'</div>';
+}
+function panelHTML(p){
+  let body;
+  if(p.kv)body=p.kv.length?p.kv.map(([k,v],i)=>`<span class="chip ${p.hl&&p.hl.includes(i)?'new':''}">${esc(k)}${v===undefined?'':': '+esc(v)}</span>`).join(''):'<span class="empty">empty</span>';
+  else if(p.items){const it=p.v?p.items.slice().reverse():p.items;
+    body=it.length?it.map((x,i)=>`<span class="chip ${p.v&&i===0?'top':''} ${!p.v&&p.front&&i===0?'top':''} ${!p.v&&p.hl&&p.hl.includes(i)?'new':''} ${p.res?'r':''}">${esc(x)}</span>`).join(''):'<span class="empty">empty</span>'}
+  else body=`<div class="ptext">${p.text??''}</div>`;
+  return `<div class="panel"><h5>${p.t}</h5><div class="chips ${p.v?'stackv':''}">${body}</div></div>`;
+}
+const LG={cur:['var(--amber)','var(--amber)'],win:['var(--blue-soft)','var(--blue)'],on:['transparent','var(--blue)'],ok:['var(--mint-soft)','var(--mint)'],bad:['var(--rose-soft)','var(--rose)'],dep:['transparent','var(--blue)'],land:['color-mix(in srgb,var(--mint) 22%,var(--surface))','color-mix(in srgb,var(--mint) 45%,var(--line))']};
+function initLab(el){
+  const cfg=LABS[el.id];if(!cfg){el.remove();return}
+  const multi=cfg.tabs.length>1,hasQ=cfg.tabs.some(t=>t.q4);
+  const legend=(cfg.legend||[['cur','current'],['win','in play'],['ok','done / kept'],['bad','rejected']]).map(([c,l])=>`<span style="--c:${LG[c][0]};--b:${LG[c][1]}">${l}</span>`).join('');
+  labShell(el,{title:cfg.title,desc:cfg.desc,opts:multi?tabs('lt',cfg.tabs.map(t=>[t.k,t.l]),cfg.tabs[0].k):'',top:hasQ?'<div class="q4"></div>':'',viz:'<div class="vz"></div>',
+    side:'<div class="lstats"></div><div class="lpanels"></div><div class="panel"><h5>'+(cfg.lang||'Java')+'</h5><div class="lcode" style="margin:0;max-height:360px"></div></div>',legend});
+  const vz=$('.vz',el);let cv,G=null;
+  const pl=makePlayer(el,{awardId:el.id,speeds:cfg.speeds,render(s){
+    if(s.code&&s.code!==el._cc){cv=codeView($('.lcode',el),CODE[s.code]);el._cc=s.code;$('.lcode',el).parentElement.querySelector('h5').textContent=/^\s*(--|select\b|update\b|create\b|begin\b)/i.test(CODE[s.code]||'')?'SQL':'Java'}
+    cv.set(s.line);let h='';if(s.top)h+=s.top;if(s.uml){h+=umlSVG(s.uml.D,s.uml);el.classList.add('uml-lab')}
+    if(s.bars)h+=barsHTML(s.bars);if(s.g&&G)h+=graphSVG(G,s);if(s.grid)h+=gridHTML(s.grid);if(s.rows)h+=s.rows.map(rowHTML).join('');if(s.html)h+=s.html;
+    vz.innerHTML=h;if(s.uml)requestAnimationFrame(()=>{const v=el.querySelector('.viz');if(!v||v.scrollWidth<=v.clientWidth+4)return;const c=vz.querySelector('.uc.cur')||vz.querySelector('.uc.ok');if(!c)return;const r=c.getBoundingClientRect(),vr=v.getBoundingClientRect();v.scrollLeft+=r.left+r.width/2-(vr.left+vr.width/2)});
+    $('.lstats',el).innerHTML=s.stats?`<div class="stats">${s.stats.map(([l,v])=>`<div class="stat"><b>${esc(v)}</b><small>${l}</small></div>`).join('')}</div>`:'';
+    $('.lpanels',el).innerHTML=(s.panels||[]).map(panelHTML).join('');
+  }});
+  const load=k=>{const t=cfg.tabs.find(x=>x.k===k);cv=codeView($('.lcode',el),CODE[t.code]);el._cc=t.code;$('.lcode',el).parentElement.querySelector('h5').textContent=t.lang||cfg.lang||(/^\s*(--|select\b|update\b|create\b|begin\b)/i.test(CODE[t.code])?'SQL':'Java');
+    if(hasQ)$('.q4',el).innerHTML=(t.q4||[]).map(([a,b])=>`<div><b>${a}</b>${b}</div>`).join('');
+    $('.lab-head p',el).innerHTML=(t.input?`Input: <code>${t.input}</code>. `:'')+(t.desc||cfg.desc);
+    const r=t.sim();G=r.G||null;pl.load(Array.isArray(r)?r:r.steps)};
+  if(multi)bindTabs(el,'lt',load);load(cfg.tabs[0].k);
+}
+
+/* ---------- components ---------- */
+function initQuizzes(){
+  $$('[data-quiz]').forEach(el=>{const id=el.dataset.quiz,Q=QUIZ[id];if(!Q){el.remove();return}
+    el.dataset.award='quiz-'+id;el.dataset.ch=chOf(el);el.dataset.xp=15;
+    el.innerHTML=`<div class="qh"><span>${Q.label||'Predict'}</span><small>+15 XP on first try</small></div><div class="qq">${Q.q}</div>${Q.code?'<div class="qc"></div>':''}<div class="os">${Q.o.map((o,i)=>`<button class="o" data-i="${i}">${o}</button>`).join('')}</div><div class="why">${Q.why}</div>`;
+    if(Q.code)codeView($('.qc',el),Q.code);
+    let tries=0;const finish=()=>{el.classList.add('answered');$$('.o',el).forEach(b=>{b.disabled=true;if(+b.dataset.i===Q.a)b.classList.add('right')})};
+    if(P.done['quiz-'+id])finish();
+    $$('.o',el).forEach(b=>b.onclick=()=>{tries++;if(+b.dataset.i===Q.a){finish();award('quiz-'+id,tries===1?15:5)}else{b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');b.disabled=true}});
+  });
+}
+const RXK=()=>Object.keys(REFLEX);
+function initReflexes(){
+  let k=0;const keys=RXK();
+  $$('[data-reflex]').forEach(el=>{const key=el.dataset.reflex,R=REFLEX[key];if(!R){el.remove();return}k++;
+    el.dataset.award='rx-'+key;el.dataset.ch=chOf(el);el.dataset.xp=5;if(k%2===0)el.classList.add('tilt');
+    el.innerHTML=`<div class="rx-top"><span>⚡ Reflex</span><small>${keys.indexOf(key)+1} of ${keys.length}</small></div>
+      <div class="rx-see"><span class="lab-l">When you see</span><p>${R.see}</p></div><div class="rx-do"><span class="lab-l">Don’t think. Do this</span><p>${R.do}</p></div>
+      <details><summary>Why that’s safe</summary><p>${R.why}</p></details><button class="rx-lock" data-award="rx-${key}">Lock it in</button>`});
+}
+function initInsights(){
+  $$('[data-insight]').forEach(el=>{const key=el.dataset.insight,I=INSIGHT[key];if(!I){el.remove();return}
+    el.innerHTML=`<div class="it">Look deeper</div><h4>${I.t}</h4>${I.b}<button class="got" data-award="in-${key}" data-ch="${chOf(el)}" data-xp="5">Got it</button>`});
+}
+const TT={notice:'Notice',reflex:'⚡ Reflex',decide:'Decide',prune:'Prune',check:'Check'};
+function initReplays(){
+  $$('[data-replay]').forEach(el=>{const key=el.dataset.replay,R=REPLAY[key];if(!R){el.remove();return}
+    el.dataset.award='rp-'+key;el.dataset.ch=chOf(el);el.dataset.xp=10;
+    el.innerHTML=`<div class="rp-head"><span>Think-aloud</span><span class="lc">${typeof R.lc==='number'?'LeetCode '+R.lc:R.lc}</span><h4>${R.t}</h4></div><p class="rp-q">${R.q}</p>
+      <div class="thoughts"></div><div class="rp-code" hidden></div><div class="rp-ctl"><button class="primary rp-next">First thought</button><button class="rp-all">Show all</button><small></small></div>`;
+    const box=$('.thoughts',el),nx=$('.rp-next',el),all=$('.rp-all',el),cnt=$('small',el),pc=$('.rp-code',el);let i=0;
+    const add=()=>{const [tg,tx]=R.th[i++];const d=document.createElement('div');d.className='thought';d.innerHTML=`<span class="ttag t-${tg}">${TT[tg]}</span><div>${tx}</div>`;box.appendChild(d)};
+    const sync=()=>{cnt.textContent=`${i} / ${R.th.length} thoughts`;if(i>=R.th.length){nx.remove();all.remove();pc.hidden=false;if(!pc.innerHTML)codeView(pc,CODE[R.code]);award('rp-'+key,10)}else nx.textContent='Next thought'};
+    nx.onclick=()=>{add();sync()};all.onclick=()=>{while(i<R.th.length)add();sync()};cnt.textContent=`0 / ${R.th.length} thoughts`});
+}
+function initProbs(){
+  $$('[data-probs]').forEach(host=>{const kind=host.dataset.probs,list=PROBS[kind]||[],ch=chOf(host),f=FILTERS[kind];
+    const card=p=>`<article class="prob" id="p-${String(p.lc).replace(/[^A-Za-z0-9]/g,'')}" data-tags="${(p.tags||[]).join(' ')}"><header><h4>${p.t}</h4><span class="lc">${esc(p.src||(typeof p.lc==='number'?'LeetCode '+p.lc:p.lc))}</span>${p.d?`<span class="pill ${p.d}">${{e:'Core',m:'Common',h:'Advanced'}[p.d]}</span>`:''}</header>
+      <p class="ask">${p.ask}</p>${p.uml&&UML[p.uml]?`<div class="uml-mini">${umlSVG(UML[p.uml])}</div>`:''}<dl class="think">${p.th.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>${p.rx?`<div class="p-rx"><b>⚡</b>${p.rx}</div>`:''}
+      <button class="reveal">${p.btn||META.btn||'Show the Java'}</button><div class="pc" hidden></div>${p.cx?`<div class="meta"><span><b>${p.cxl||META.cxl||'Trade-off'}</b> ${p.cx}</span></div>`:''}${p.g?`<div class="gotcha"><b>${p.gl||'Interview trap'}</b> ${p.g}</div>`:''}
+      ${p.links?`<div data-links="${p.links}"></div>`:''}<button class="got" data-award="p-${kind}-${p.lc}" data-ch="${ch}" data-xp="5">Got it</button></article>`;
+    host.innerHTML=`<div class="pfilter">${f?`<div class="opts" style="margin:0">${[['all','All'],...f].map(([k,l])=>`<button class="tab" data-pf="${k}" aria-pressed="${k==='all'}">${l}</button>`).join('')}</div>`:''}<span class="pcount"></span></div>`+list.map(card).join('');
+    $$('.prob',host).forEach((el,i)=>{const p=list[i];$('.reveal',el).onclick=e=>{const pc=$('.pc',el);pc.hidden=false;
+      if(p.alt){pc.innerHTML=`<h6>${p.mainLabel||'Main solution'}</h6><div class="c1"></div><h6>${p.altLabel}</h6><div class="c2"></div>`;codeView($('.c1',pc),CODE[p.code]);codeView($('.c2',pc),CODE[p.alt])}else codeView(pc,CODE[p.code]);e.target.remove()}});
+    if(f)$$('[data-pf]',host).forEach(b=>b.onclick=()=>{$$('[data-pf]',host).forEach(x=>x.setAttribute('aria-pressed',x===b));const k=b.dataset.pf;$$('.prob',host).forEach(el=>{el.hidden=!(k==='all'||el.dataset.tags.split(' ').includes(k))})});
+  });
+}
+function initDecoder(){$$('[data-decoder]').forEach(el=>{el.classList.add('decoder');el.innerHTML=DECODER.map(([a,b])=>`<div class="dec"><div class="say">${a}</div><div class="use">${b}</div></div>`).join('')})}
+function initDrill(){
+  const el=$('#drill');if(!el)return;el.dataset.award='drill-10';el.dataset.ch=chOf(el);el.dataset.xp=30;
+  const keys=RXK(),bk='dsa-'+META.slug+'-drill',best=()=>store.get(bk,0);let deck=[],cur=null,streak=0;
+  el.innerHTML=`<div class="dr-bar stats"><div class="stat"><b class="drLock">0</b><small>reflexes locked in</small></div><div class="stat"><b class="drStreak">0</b><small>current streak</small></div><div class="stat"><b class="drBest">0</b><small>best streak</small></div></div>
+    <div class="dr-card" aria-live="polite"><span class="lab-l">When you see</span><div class="dr-see"></div><div class="dr-do" hidden></div><div class="dr-btns"><button class="dr-flip">Show the move</button><button class="dr-yes" hidden>Knew it</button><button class="dr-no" hidden>Missed it</button></div></div>`;
+  const see=$('.dr-see',el),dd=$('.dr-do',el),fl=$('.dr-flip',el),yes=$('.dr-yes',el),no=$('.dr-no',el);
+  window.drillHud=()=>{$('.drLock',el).textContent=`${keys.filter(k=>P.done['rx-'+k]).length} / ${keys.length}`;$('.drStreak',el).textContent=streak;$('.drBest',el).textContent=best()};
+  const next=()=>{if(!deck.length){deck=keys.slice().sort(()=>Math.random()-.5);if(deck[0]===cur)deck.push(deck.shift())}
+    cur=deck.shift();const R=REFLEX[cur];see.innerHTML=R.see;dd.innerHTML=`<span class="lab-l">Don’t think. Do this</span><div>${R.do}</div>`;dd.hidden=true;fl.hidden=false;yes.hidden=no.hidden=true};
+  fl.onclick=()=>{dd.hidden=false;fl.hidden=true;yes.hidden=no.hidden=false;yes.focus()};
+  yes.onclick=()=>{streak++;if(streak>best())store.set(bk,streak);if(streak>=10)award('drill-10',30);if(streak===5)toast('5 in a row 🔥');drillHud();next()};
+  no.onclick=()=>{streak=0;drillHud();next()};next();
+}
+
+/* ---------- boot ---------- */
+function boot(){
+  $$('[data-code]').forEach(el=>codeView(el,CODE[el.dataset.code]));
+  $$('.got[data-g]').forEach(b=>{b.dataset.award='g-'+b.dataset.g;b.dataset.ch=chOf(b);b.dataset.xp=5});
+  initProbs();initUmlStatic();initLinks();initQuizzes();initReflexes();initInsights();initReplays();initDecoder();
+  $$('section.lab').forEach(el=>{el.dataset.award=el.id;el.dataset.ch=chOf(el);el.dataset.xp=20;try{initLab(el)}catch(e){console.error(el.id,e);el.innerHTML='<p>This lab failed to load. Reload to try again.</p>'}});
+  initDrill();
+  const hr=$('#heroRx');if(hr)hr.innerHTML=(META.heroRx||[]).map(([a,b])=>`<li><span>${a}</span><b>${b}</b></li>`).join('');
+  TOTAL=$$('[data-award][data-ch]').reduce((s,e)=>s+(+e.dataset.xp||5),0)||1;
+  document.addEventListener('click',e=>{
+    const g=e.target.closest('.got[data-award]');if(g){award(g.dataset.award,5);return}
+    const lk=e.target.closest('.rx-lock');if(lk){award(lk.dataset.award,5);return}
+    const r=e.target.closest('[data-go]');if(r)$('#'+r.dataset.go).scrollIntoView({behavior:reduceMotion?'auto':'smooth'});
+  });
+  (()=>{const rb=$('#resetAll');let armed=null;rb.onclick=()=>{if(!armed){rb.textContent='Tap again to erase progress for this topic';rb.style.color='var(--rose)';armed=setTimeout(()=>{armed=null;rb.textContent='Reset progress';rb.style.color=''},4000);return}clearTimeout(armed);P={xp:0,done:{}};store.set(KEY,P);location.reload()}})();
+  const setHH=()=>document.documentElement.style.setProperty('--hh',$('.top').offsetHeight+'px');setHH();addEventListener('resize',setHH);
+  hud();
+  try{localStorage.setItem('dsa-last',JSON.stringify({slug:META.slug,t:Date.now()}))}catch(e){}
+  if(location.hash){const tg=document.getElementById(location.hash.slice(1));if(tg)setTimeout(()=>{tg.scrollIntoView({block:'start'});tg.classList.add('flash-target')},80)}
+  addEventListener('hashchange',()=>{const tg=document.getElementById(location.hash.slice(1));if(tg){document.querySelectorAll('.flash-target').forEach(x=>x.classList.remove('flash-target'));tg.scrollIntoView({block:'start'});tg.classList.add('flash-target')}});
+}
+
+/* ---------- system design helpers ---------- */
+// flow(G, frames): frames = [line, msg, {n,e,vis,s,b,p,edges,panels,stats,html,rows,bars,grid,hint}]; vis/edges carry forward
+function flow(G,frames){let vis=null,edges=null;return{G,steps:frames.map(([line,msg,o={}])=>{if(o.vis)vis=o.vis;if(o.edges)edges=o.edges;
+  return{line,msg,hint:o.hint,g:{vis:vis&&vis.slice(),n:o.n||{},e:o.e||{},s:o.s,b:o.b,p:o.p,edges:edges||undefined},panels:o.panels,stats:o.stats,html:o.html,rows:o.rows,bars:o.bars,grid:o.grid}})}}
+// lanes(rows, head): swim-lane timeline. rows=[[label,[{t,c}|null,...]],...]
+function lanes(rows,head){const n=Math.max(...rows.map(r=>r[1].length),head?head.length:0);
+  return `<div class="lanes" style="--cols:${n}">${head?`<div class="ln-h"><span></span>${head.map(h=>`<i>${h}</i>`).join('')}</div>`:''}${rows.map(([l,cells])=>`<div class="ln"><span>${l}</span>${cells.map(c=>c?`<b class="${c.c||''}">${c.t}</b>`:'<b class="e"></b>').join('')}</div>`).join('')}</div>`}
+// meter(items): horizontal load bars. items=[[label,value,max,cls,text]]
+function meter(items){return `<div class="meter">${items.map(([l,v,m,c,t])=>`<div><span>${l}</span><div class="trk"><i class="${c||''}" style="width:${Math.max(0,Math.min(100,v/(m||1)*100))}%"></i></div><u>${t??v}</u></div>`).join('')}</div>`}
+// L(codeKey, 'substr', ...): line number(s) of the first line containing each substring
+function L(key,...subs){const src=(CODE[key]||'').replace(/^\n/,'').split('\n');const r=subs.map(s=>{const i=src.findIndex(l=>l.includes(s));if(i<0)console.error('L miss',key,s);return i+1});return r.length===1?r[0]:r}
+
+/* ---------- UML class diagrams ---------- */
+// UML[key] = {W, C:{id:{x,y,n,st,f:[],m:[],w}}, R:{id:[from,to,kind,label,mult]}}
+// kinds: ext (extends), impl (implements), has (composition ◆), agg (aggregation ◇), uses (dependency - - >), assoc (──>)
+const UML={};
+function umlBox(c){const lines=[(c.st?'«'+c.st+'»':''),c.n,...(c.f||[]),...(c.m||[])];
+  const w=c.w||Math.max(118,Math.round(Math.max(c.n.length*8.2,...[...(c.f||[]),...(c.m||[])].map(s=>s.length*6.9),c.st?(c.st.length+2)*6.6:0)+22));
+  const head=c.st?36:28,fh=(c.f&&c.f.length?c.f.length*15+8:0),mh=(c.m&&c.m.length?c.m.length*15+8:0);return{w,h:head+fh+mh,head,fh,mh}}
+function umlLayout(D){if(D._L)return D._L;const L={};let H=0,W=D.W||560,top=1e9;
+  for(const [id,c] of Object.entries(D.C)){const b=umlBox(c);top=Math.min(top,c.y-b.h/2-(c.tag?16:0))}
+  const dy=top<10?10-top:0;
+  for(const [id,c] of Object.entries(D.C)){const b=umlBox(c);L[id]={...b,x:c.x,y:c.y+dy};H=Math.max(H,c.y+dy+b.h/2+14)}
+  D._L={L,H:D.H||Math.ceil(H),W};return D._L}
+function umlClip(b,ux,uy){const tx=b.w/2/Math.max(Math.abs(ux),1e-6),ty=b.h/2/Math.max(Math.abs(uy),1e-6);return Math.min(tx,ty)}
+function umlSVG(D,st={}){
+  const {L,H,W}=umlLayout(D);const id='u'+(++GID);const vis=st.vis?new Set(st.vis):new Set(Object.keys(D.C));const rv=st.rels?new Set(st.rels):new Set(Object.keys(D.R||{}));
+  const cc=st.cls||{},rc=st.rcls||{};
+  let h=`<svg class="uml" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W*1.2)}px"><defs>`;
+  for(const k of ['','cur','ok','bad']){
+    h+=`<marker id="${id}tri${k}" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" class="mk-hollow ${k}"/></marker>`;
+    h+=`<marker id="${id}arr${k}" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11" class="mk-open ${k}"/></marker>`;
+    h+=`<marker id="${id}dia${k}" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="15" markerHeight="10" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" class="mk-fill ${k}"/></marker>`;
+    h+=`<marker id="${id}odia${k}" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="15" markerHeight="10" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" class="mk-hollow ${k}"/></marker>`;
+  }
+  h+='</defs>';
+  const pairs={};for(const [rid,r] of Object.entries(D.R||{})){if(!rv.has(rid)||!vis.has(r[0])||!vis.has(r[1]))continue;const pk=[r[0],r[1]].sort().join('|');(pairs[pk]=pairs[pk]||[]).push(rid)}
+  for(const [rid,r] of Object.entries(D.R||{})){const [a,b,kind,label,mult]=r;if(!rv.has(rid)||!vis.has(a)||!vis.has(b))continue;
+    const pl=pairs[[a,b].sort().join('|')],pi=pl.indexOf(rid),off=(pi-(pl.length-1)/2)*22*(a<b?1:-1);
+    if(a===b){const A=L[a];const k=rc[rid]||'';const x0=A.x+A.w/2,yA=A.y-A.h/4,yB=A.y+A.h/4;h+=`<path d="M${x0},${yA} C${x0+46},${yA-6} ${x0+46},${yB+6} ${x0+2},${yB}" class="ur ${k}" marker-end="url(#${id}arr${k})"/>`;if(label)h+=`<text x="${x0+40}" y="${A.y+4}" class="ul ${k}">${esc(label)}</text>`;continue}
+    const A=L[a],B=L[b];const dx=B.x-A.x,dy=B.y-A.y,len=Math.hypot(dx,dy)||1,ux=dx/len,uy=dy/len;
+    const ta=umlClip(A,ux,uy),tb=umlClip(B,ux,uy);const ox=-uy*off,oy=ux*off;const x1=A.x+ux*ta+ox,y1=A.y+uy*ta+oy,x2=B.x-ux*(tb+1)+ox,y2=B.y-uy*(tb+1)+oy;
+    const k=rc[rid]||'';const dash=(kind==='impl'||kind==='uses')?' stroke-dasharray="6 4"':'';
+    let mk='';if(kind==='ext'||kind==='impl')mk=`marker-end="url(#${id}tri${k})"`;else if(kind==='uses'||kind==='assoc')mk=`marker-end="url(#${id}arr${k})"`;
+    else if(kind==='has')mk=`marker-start="url(#${id}dia${k})" marker-end="url(#${id}arr${k})"`;else if(kind==='agg')mk=`marker-start="url(#${id}odia${k})" marker-end="url(#${id}arr${k})"`;
+    h+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="ur ${k}"${dash} ${mk}/>`;
+    if(label){const mx=(x1+x2)/2,my=(y1+y2)/2;const lo=off?(off>0?18:-18):13;h+=`<text x="${mx-uy*lo}" y="${my+ux*lo+4}" class="ul ${k}">${esc(label)}</text>`}
+    if(mult){h+=`<text x="${x2-ux*22-uy*11}" y="${y2-uy*22+ux*11+4}" class="ul um">${esc(mult)}</text>`}
+  }
+  for(const [cid,c] of Object.entries(D.C)){if(!vis.has(cid))continue;const b=L[cid];const k=cc[cid]||'';const x0=b.x-b.w/2,y0=b.y-b.h/2;
+    h+=`<g class="uc ${c.st||'cls'} ${k}"><rect x="${x0}" y="${y0}" width="${b.w}" height="${b.h}" rx="6"/>`;
+    let y=y0+(c.st?15:0);if(c.st)h+=`<text x="${b.x}" y="${y}" class="us">«${esc(c.st)}»</text>`;
+    h+=`<text x="${b.x}" y="${y0+(c.st?30:18)}" class="un${c.st==='abstract'||c.st==='interface'?' it':''}">${esc(c.n)}</text>`;
+    let yy=y0+b.head;if(b.fh)h+=`<line x1="${x0}" y1="${yy}" x2="${x0+b.w}" y2="${yy}" class="usep"/>`;
+    (c.f||[]).forEach((f,i)=>{h+=`<text x="${x0+9}" y="${yy+15+i*15}" class="um2">${esc(f)}</text>`});
+    yy+=b.fh;if(b.mh)h+=`<line x1="${x0}" y1="${yy}" x2="${x0+b.w}" y2="${yy}" class="usep"/>`;
+    (c.m||[]).forEach((m,i)=>{h+=`<text x="${x0+9}" y="${yy+15+i*15}" class="um2">${esc(m)}</text>`});
+    if(c.tag)h+=`<text x="${x0+b.w-6}" y="${y0-5}" class="utag" text-anchor="end">${esc(c.tag)}</text>`;
+    h+='</g>'}
+  return h+'</svg>';
+}
+// Thinking tags for story steps
+const STAG={sit:['📋','Situation'],code:['✍️','First attempt'],pain:['😖','Pain'],ask:['❓','Ask'],move:['🔧','Move'],pay:['✅','Payoff'],spot:['👀','Spot it'],rule:['🧠','Remember'],uml:['📐','Read the diagram'],num:['🔢','Numbers'],api:['🔌','API'],data:['🗄️','Data'],deep:['🔍','Deep dive'],scale:['📈','Scale']};
+// story(umlKey, steps): steps=[tag,msg,{show,hide,rels,unrels,cur,ok,bad,dim,rcur,rok,rbad,code,line,hint,top,stats,all}]
+function story(key,steps){const D=UML[key];let vis=[],rels=[],code=null;
+  return steps.map(([tag,msg,o={}])=>{
+    if(o.all){vis=Object.keys(D.C);rels=Object.keys(D.R||{})}
+    if(o.show)vis=[...new Set([...vis,...o.show])];if(o.hide)vis=vis.filter(x=>!o.hide.includes(x));
+    if(o.rels)rels=[...new Set([...rels,...o.rels])];if(o.unrels)rels=rels.filter(x=>!o.unrels.includes(x));
+    if(o.code)code=o.code;
+    const cls={};(o.dim||[]).forEach(k=>cls[k]='dim');(o.cur||[]).forEach(k=>cls[k]='cur');(o.ok||[]).forEach(k=>cls[k]='ok');(o.bad||[]).forEach(k=>cls[k]='bad');
+    const rcls={};(o.rcur||[]).forEach(k=>rcls[k]='cur');(o.rok||[]).forEach(k=>rcls[k]='ok');(o.rbad||[]).forEach(k=>rcls[k]='bad');
+    const line=o.line==null?null:(typeof o.line==='number'?o.line:[].concat(o.line).map(x=>typeof x==='number'?x:L(code,x)));
+    const t=STAG[tag]||['',''];
+    return{code,line,msg:`<span class="stag s-${tag}">${t[0]} ${t[1]}</span> ${msg}`,hint:o.hint,top:o.top,uml:{D,vis:vis.slice(),rels:rels.slice(),cls,rcls},stats:o.stats,panels:o.panels,html:o.html}})}
+// requirement text with highlighted words: req('A <n>car</n> enters ...')
+function reqBox(t){return `<div class="req">${t.replace(/<n>/g,'<b class="rn">').replace(/<\/n>/g,'</b>').replace(/<v>/g,'<b class="rv">').replace(/<\/v>/g,'</b>')}</div>`}
+/* ---------- connections ---------- */
+const LINKS={};
+const LKIND={same:'Same shape as',diff:'Don’t confuse with',principle:'Applies',uses:'Used in',scale:'At scale',next:'Leads to',prev:'Builds on'};
+function initLinks(){$$('[data-links]').forEach(el=>{const L=LINKS[el.dataset.links];if(!L){el.remove();return}
+  el.classList.add('links');el.innerHTML=`<div class="lk-h">🔗 Connect it</div><div class="lk-l">${L.map(([k,label,href,why])=>`<a class="lk" href="${href}"><small>${LKIND[k]||k}</small><b>${label}</b>${why?`<span>${why}</span>`:''}</a>`).join('')}</div>`})}
+function initUmlStatic(){$$('[data-uml]').forEach(el=>{const D=UML[el.dataset.uml];if(!D)return;el.classList.add('uml-static');el.innerHTML=umlSVG(D)+(el.dataset.cap?`<p class="cap">${el.dataset.cap}</p>`:'')})}
+
+/* ===== Databases ===== */
+Object.assign(CODE,{
+hero:String.raw`
+-- The three moves that fix most database problems
+CREATE INDEX idx_orders_user_time ON orders (user_id, created_at);   -- fast reads
+
+BEGIN;                                                                -- safe writes
+UPDATE accounts SET balance = balance - 500 WHERE id = 1 AND balance >= 500;
+UPDATE accounts SET balance = balance + 500 WHERE id = 2;
+COMMIT;
+
+-- shard by user_id when one primary can't keep up                      -- scale writes`,
+scan:String.raw`
+-- No index on city: the database reads every row
+SELECT id, name FROM users WHERE city = 'Pune';
+
+EXPLAIN SELECT id, name FROM users WHERE city = 'Pune';
+-- Seq Scan on users  (rows=1000000)   <- the red flag
+
+CREATE INDEX idx_users_city ON users (city);
+-- Index Scan using idx_users_city     <- now O(log n) + matches`,
+btree:String.raw`
+CREATE INDEX idx_orders_id ON orders (id);       -- B-tree by default
+
+SELECT * FROM orders WHERE id = 70;              -- root -> internal -> leaf: ~3 page reads
+
+-- Composite index: sorted by user_id, then created_at
+CREATE INDEX idx_orders_user_time ON orders (user_id, created_at);
+SELECT * FROM orders WHERE user_id = 42 ORDER BY created_at DESC LIMIT 20;   -- uses it
+SELECT * FROM orders WHERE created_at > now() - interval '1 day';            -- can't (no leftmost column)`,
+lost:String.raw`
+-- BUG: read in the app, write back (lost update under READ COMMITTED)
+SELECT balance FROM wallet WHERE id = 7;           -- both transactions read 100
+UPDATE wallet SET balance = 70 WHERE id = 7;       -- T1 wrote 100 - 30
+UPDATE wallet SET balance = 50 WHERE id = 7;       -- T2 wrote 100 - 50, T1's debit is lost
+
+-- FIX 1: let the database compute it atomically
+UPDATE wallet SET balance = balance - 30 WHERE id = 7 AND balance >= 30;
+
+-- FIX 2: lock the row while you decide
+BEGIN;
+SELECT balance FROM wallet WHERE id = 7 FOR UPDATE;   -- T2 waits here
+UPDATE wallet SET balance = 70 WHERE id = 7;
+COMMIT;`,
+txn:String.raw`
+@Service
+class TransferService {
+    private final AccountRepo accounts;
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void transfer(long from, long to, long paise) {
+        int debited = accounts.debitIfEnough(from, paise);   // UPDATE ... WHERE balance >= ?
+        if (debited == 0) throw new InsufficientFunds();      // throws -> whole txn rolls back
+        accounts.credit(to, paise);
+    }   // commit here: both updates or neither
+}
+// Lock rows in a consistent order (lower id first) to avoid deadlocks between A->B and B->A transfers`,
+modn:String.raw`
+// Naive sharding: hash mod N
+int shardFor(String key, int n) {
+    return Math.floorMod(key.hashCode(), n);
+}
+// n = 3 -> 4 : most keys change shard, so most data must move`,
+ring:String.raw`
+class ConsistentHash<T> {
+    private final TreeMap<Long, T> ring = new TreeMap<>();
+    private final int vnodes;                                  // virtual nodes per server
+
+    ConsistentHash(int vnodes) { this.vnodes = vnodes; }
+
+    void add(T server) {
+        for (int i = 0; i < vnodes; i++) ring.put(hash(server + "#" + i), server);
+    }
+    void remove(T server) {
+        for (int i = 0; i < vnodes; i++) ring.remove(hash(server + "#" + i));
+    }
+    T get(String key) {
+        Map.Entry<Long, T> e = ring.ceilingEntry(hash(key));   // next server clockwise
+        return (e != null ? e : ring.firstEntry()).getValue(); // wrap around
+    }
+    private long hash(String s) { return murmur3_64(s); }
+}`,
+replicas:String.raw`
+// Route reads to replicas, but read-your-writes from the primary for a short window
+class RoutingDataSource {
+    DataSource pick(Request r) {
+        if (r.isWrite()) return primary;
+        Instant lastWrite = recentWrites.get(r.userId());          // set on every write
+        if (lastWrite != null && lastWrite.isAfter(Instant.now().minusSeconds(5)))
+            return primary;                                         // avoid replica lag surprises
+        return replicas.get(ThreadLocalRandom.current().nextInt(replicas.size()));
+    }
+}`,
+nplus1:String.raw`
+// N+1: 1 query for orders, then 1 query per order for its items
+List<Order> orders = orderRepo.findByUser(42);           // 1 query
+for (Order o : orders) o.getItems().size();              // +N lazy queries
+
+// Fix: fetch in one go
+@Query("SELECT o FROM Order o JOIN FETCH o.items WHERE o.userId = :uid")
+List<Order> findWithItems(@Param("uid") long uid);       // 1 query
+// or batch: WHERE order_id IN (:ids)`,
+secondSalary:String.raw`
+-- Second highest salary (handles duplicates and returns NULL if none)
+SELECT MAX(salary) AS second_highest
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+-- Nth highest with a window function
+SELECT salary FROM (
+  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk FROM employees
+) t WHERE rnk = 2 LIMIT 1;`,
+normalize:String.raw`
+-- Normalised (3NF): no duplicated facts, joins at read time
+CREATE TABLE users  (id BIGINT PRIMARY KEY, name TEXT);
+CREATE TABLE posts  (id BIGINT PRIMARY KEY, user_id BIGINT REFERENCES users(id), body TEXT);
+
+-- Denormalised for a hot read path: copy the author name into the post row
+ALTER TABLE posts ADD COLUMN author_name TEXT;
+-- fast feed reads with no join, but renaming a user must update many posts (async job)`,
+chatdb:String.raw`
+-- Cassandra table for chat: partition by conversation, cluster by time
+CREATE TABLE messages (
+  conversation_id uuid,
+  message_id      timeuuid,          -- sortable by time, unique
+  sender_id       uuid,
+  body            text,
+  PRIMARY KEY ((conversation_id), message_id)
+) WITH CLUSTERING ORDER BY (message_id DESC);
+
+-- "last 50 messages in this chat" = one partition, already sorted
+SELECT * FROM messages WHERE conversation_id = ? LIMIT 50;`,
+});
+
+/* ---------- labs ---------- */
+function simScan(){
+  const names=['Asha','Ben','Chen','Dev','Ema','Raj','Gita','Hari','Isha','Jai','Kim','Lea'],city=['Delhi','Pune','Goa','Delhi','Pune','Agra','Goa','Delhi','Pune','Agra','Delhi','Goa'];
+  const st=[];const row=(upto,mode)=>{const cls={};for(let i=0;i<12;i++){if(mode==='idx'){if(city[i]==='Pune')cls[i]='ok'}else if(i<upto)cls[i]=city[i]==='Pune'?'ok':'bad';if(mode!=='idx'&&i===upto-1)cls[i]=city[i]==='Pune'?'ok':'cur'}return{cells:names,sub:city,cls}};
+  const push=(line,msg,o)=>st.push({line,msg,hint:o.hint,rows:[row(o.upto,o.mode)],stats:[['rows read',o.read],['matches',o.m]]});
+  push(L('scan','SELECT id, name FROM users WHERE city'),'Find users in Pune. There\'s no index on <code>city</code>, and rows are stored in insert order.',{upto:0,read:'0',m:'0'});
+  push(L('scan','SELECT id, name FROM users WHERE city'),'The only option is to read rows one by one and test each.',{upto:4,read:'4',m:'1'});
+  push(L('scan','SELECT id, name FROM users WHERE city'),'Keep going. A match early on doesn\'t let you stop: there could be more anywhere.',{upto:8,read:'8',m:'2'});
+  push(L('scan','-- Seq Scan'),'All 12 rows read for 3 matches. At 1,000,000 rows that\'s 1,000,000 reads on every request. <code>EXPLAIN</code> calls this a <b>Seq Scan</b>.',{upto:12,read:'12',m:'3',hint:'Seq Scan on a big table in EXPLAIN → add an index.'});
+  push(L('scan','CREATE INDEX idx_users_city'),'With an index on <code>city</code>, the database jumps straight to the "Pune" entries (next tab shows how) and reads only those 3 rows.',{mode:'idx',upto:0,read:'≈ 3 + 3',m:'3'});
+  return st;
+}
+function simBtree(){
+  const G={w:480,h:300,nodes:[{id:'r',x:240,y:40,w:120,h:38,l:'[ 40 | 80 ]',s:'root page'},
+    {id:'a',x:85,y:140,w:120,h:38,l:'[ 10 | 25 ]'},{id:'b',x:240,y:140,w:120,h:38,l:'[ 55 | 70 ]'},{id:'c',x:395,y:140,w:120,h:38,l:'[ 90 | 99 ]'},
+    {id:'l1',x:170,y:250,w:110,h:40,l:'55 → row'},{id:'l2',x:310,y:250,w:110,h:40,l:'70 → row'}],
+    edges:[{a:'r',b:'a',dir:true,w:'< 40'},{a:'r',b:'b',dir:true,w:'40–80'},{a:'r',b:'c',dir:true,w:'> 80'},{a:'b',b:'l1',dir:true},{a:'b',b:'l2',dir:true}]};
+  return flow(G,[
+    [L('btree','CREATE INDEX idx_orders_id'),'A B-tree index on <code>id</code>. Each box is a disk page holding sorted keys and pointers. Real pages hold hundreds of keys, so the tree is only 3–4 levels deep even for a billion rows.',{n:{r:'on',a:'on',b:'on',c:'on'},stats:[['page reads','0'],['rows scanned','0']]}],
+    [L('btree','WHERE id = 70'),'Find id = 70. Read the root: 70 is between 40 and 80, so follow the middle pointer.',{n:{r:'cur'},e:{'r-b':'cur'},stats:[['page reads','1'],['rows scanned','0']]}],
+    [L('btree','WHERE id = 70'),'Internal page [55 | 70]: 70 matches, follow its pointer to the leaf.',{n:{r:'on',b:'cur'},e:{'r-b':'on','b-l2':'cur'},stats:[['page reads','2'],['rows scanned','0']]}],
+    [L('btree','WHERE id = 70'),'The leaf points at the row. <b>3 page reads</b> instead of scanning the table. That\'s binary search, spread across disk pages.',{n:{r:'on',b:'on',l2:'ok'},e:{'r-b':'on','b-l2':'ok'},stats:[['page reads','3'],['rows scanned','1']],hint:'Index lookup = O(log n) page reads.'}],
+    [L('btree','CREATE INDEX idx_orders_user_time'),'A composite index (user_id, created_at) is one tree sorted by user_id, then by time within each user. Like a phone book sorted by surname, then first name.',{n:{r:'on',a:'on',b:'on',c:'on'}}],
+    [L('btree','ORDER BY created_at DESC LIMIT 20'),'<code>WHERE user_id = 42 ORDER BY created_at</code>: jump to user 42, the rows are already in time order. No sort needed.',{n:{b:'ok'}}],
+    [L('btree','can\'t (no leftmost column)'),'<code>WHERE created_at &gt; …</code> alone can\'t use it: times are only sorted <i>within</i> each user, like finding everyone named "Ravi" in a surname-sorted phone book. That\'s the <b>leftmost-prefix rule</b>.',{n:{r:'bad',a:'bad',b:'bad',c:'bad'},hint:'Composite index works left to right.'}],
+  ]);
+}
+function simLost(){
+  const st=[];const A=[],B=[];let bal=100;
+  const push=(line,msg,o={})=>st.push({line,msg,hint:o.hint,html:lanes([['T1: −30',A.slice()],['T2: −50',B.slice()]],['t1','t2','t3','t4']),stats:[['balance in DB','₹'+bal],['expected','₹20']]});
+  A.push({t:'read 100',c:'cur'});B.push(null);push(L('lost','SELECT balance FROM wallet WHERE id = 7;'),'Two payments hit the same wallet. T1 reads the balance: ₹100.');
+  A.push(null);B.push({t:'read 100',c:'cur'});push(L('lost','SELECT balance FROM wallet WHERE id = 7;'),'T2 reads before T1 writes. Also ₹100. Under Read Committed this is allowed: T1 hasn\'t committed anything yet.');
+  A.push({t:'write 70',c:'on'});B.push(null);bal=70;push(L('lost','SET balance = 70'),'T1 computes 100 − 30 in Java and writes 70.');
+  A.push(null);B.push({t:'write 50',c:'bad'});bal=50;push(L('lost','SET balance = 50'),'T2 computes 100 − 50 from its stale read and writes 50. <b>T1\'s debit vanished.</b> The user paid ₹80 and lost only ₹50. That\'s a lost update.',{hint:'Read-modify-write in app code → lost update.'});
+  st.push({line:L('lost','SET balance = balance - 30'),msg:'Fix 1: do the arithmetic <b>in the UPDATE</b>. The database applies the two updates one after the other, each on the latest value: 100 → 70 → 20. The <code>balance &gt;= 30</code> guard prevents overdrafts.',stats:[['balance in DB','₹20'],['expected','₹20']],html:lanes([['T1: −30',[{t:'balance − 30',c:'ok'},null]],['T2: −50',[null,{t:'balance − 50',c:'ok'}]]],['t1','t2'])});
+  st.push({line:L('lost','FOR UPDATE;'),msg:'Fix 2: <code>SELECT … FOR UPDATE</code> locks the row, so T2\'s read waits until T1 commits and then sees 70. Use this when the decision needs logic you can\'t express in one UPDATE. (Fix 3: optimistic locking with a version column.)',stats:[['balance in DB','₹20'],['expected','₹20']],html:lanes([['T1: −30',[{t:'lock + read 100',c:'on'},{t:'write 70, commit',c:'ok'},null]],['T2: −50',[{t:'waits…',c:'e'},{t:'waits…',c:'e'},{t:'read 70 → 20',c:'ok'}]]],['t1','t2','t3'])});
+  return st;
+}
+LABS['lab-idx']={title:'Index & transaction lab',desc:'Why queries get slow, how an index fixes it, and how two writes can clobber each other.',
+  tabs:[{k:'scan',l:'Full scan',code:'scan',sim:simScan},{k:'btree',l:'B-tree lookup',code:'btree',sim:simBtree},{k:'lost',l:'Lost update',code:'lost',sim:simLost}],
+  legend:[['cur','reading now'],['on','path / lock'],['ok','match / correct'],['bad','wasted / wrong']]};
+
+const RING_COL=['#E0812F','#3C7BE0','#2E9E5B','#A44FC0'];
+function ringSVG(servers,keys,o={}){
+  const cx=240,cy=160,R=115,pt=(a,r=R)=>[cx+r*Math.sin(a*Math.PI/180),cy-r*Math.cos(a*Math.PI/180)];
+  const owner=a=>{const s=servers.slice().sort((x,y)=>x.a-y.a);return s.find(x=>x.a>=a)||s[0]};
+  let h=`<svg class="gsvg" viewBox="0 0 480 320" style="max-width:560px"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="var(--line)" stroke-width="6"/>`;
+  if(o.arc){const [a0,a1]=o.arc;const [x0,y0]=pt(a0),[x1,y1]=pt(a1);h+=`<path d="M${x0},${y0} A${R},${R} 0 ${a1-a0>180?1:0} 1 ${x1},${y1}" fill="none" stroke="var(--amber)" stroke-width="8" stroke-linecap="round"/>`}
+  keys.forEach(k=>{const s=owner(k.a),[x,y]=pt(k.a),[lx,ly]=pt(k.a,R-30),col=RING_COL[s.c];const mv=o.moved&&o.moved.includes(k.id);
+    h+=`<circle cx="${x}" cy="${y}" r="${mv?10:7}" fill="${col}" stroke="${mv?'var(--ink)':'var(--surface)'}" stroke-width="${mv?3:2}"/><text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central" style="font:600 12px var(--mono);fill:var(--ink)">${k.id}</text>`});
+  servers.forEach(s=>{const [x,y]=pt(s.a,R+26),[x2,y2]=pt(s.a);const col=RING_COL[s.c];
+    h+=`<line x1="${x2}" y1="${y2}" x2="${x}" y2="${y}" stroke="${col}" stroke-width="3"/><rect x="${x-24}" y="${y-13}" width="48" height="26" rx="7" fill="${col}" ${o.newS===s.id?'stroke="var(--ink)" stroke-width="3"':''}/><text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" style="font:700 12.5px var(--body);fill:#fff">${s.id}</text>`});
+  return h+'</svg>';
+}
+function simRing(){
+  const S=[{id:'S1',a:40,c:0},{id:'S2',a:160,c:1},{id:'S3',a:270,c:2}];
+  const K=[{id:'k1',a:15},{id:'k2',a:75},{id:'k3',a:130},{id:'k4',a:205},{id:'k5',a:250},{id:'k6',a:320}];
+  const st=[];const push=(line,msg,html,stats,hint)=>st.push({line,msg,html,stats,hint});
+  push(L('ring','private final TreeMap<Long, T> ring'),'Hash servers onto a ring (0–360° here). Each server owns the arc <b>behind</b> it, going anticlockwise to the previous server.',ringSVG(S,[]),[['servers','3'],['keys moved','–']]);
+  push(L('ring','ring.ceilingEntry(hash(key))'),'Hash each key onto the same ring and walk <b>clockwise</b> to the first server. k2 (75°) and k3 (130°) → S2; k4, k5 → S3; k1 → S1.',ringSVG(S,K),[['servers','3'],['keys moved','–']],'Key → next server clockwise.');
+  push(L('ring','return (e != null ? e : ring.firstEntry())'),'k6 at 320° finds no server after it, so it <b>wraps around</b> to S1 at 40°.',ringSVG(S,K,{moved:['k6']}),[['servers','3'],['keys moved','–']]);
+  const S2=[...S,{id:'S4',a:225,c:3}];
+  push(L('ring','void add(T server)'),'Add S4 at 225°. It takes over only the arc between S2 (160°) and itself.',ringSVG(S2,K,{arc:[160,225],newS:'S4'}),[['servers','4'],['keys moved','…']]);
+  push(L('ring','ring.ceilingEntry(hash(key))'),'Only <b>k4</b> moved (S3 → S4). Everything else stays put: about 1/N of the keys move, not all of them.',ringSVG(S2,K,{moved:['k4'],newS:'S4'}),[['servers','4'],['keys moved','1 of 6']]);
+  push(L('ring','private final int vnodes;'),'With only 4 points the arcs are uneven, so one server gets more keys. Real systems hash each server to 100–200 <b>virtual nodes</b> around the ring, which evens out load and spreads a dead server\'s keys across all the others.',ringSVG(S2,K),[['servers','4'],['vnodes','150 each']]);
+  return st;
+}
+function simModN(){
+  const keys=['u1','u2','u3','u4','u5','u6','u7','u8'],h=[12,7,22,31,18,5,27,40];
+  const st=[];
+  const grid=(n2,show)=>{const cells=keys.map((k,i)=>[k,h[i],h[i]%3,n2?h[i]%4:'',n2?(h[i]%3===h[i]%4?'stays':'MOVES'):'']);const cls={};
+    if(show)keys.forEach((k,i)=>{cls[i+',4']=h[i]%3===h[i]%4?'ok':'bad';cls[i+',3']=h[i]%3===h[i]%4?'':'cur'});return{cells,cl:['key','hash','% 3','% 4','result'],cls}};
+  st.push({line:L('modn','return Math.floorMod'),msg:'Three shards. Each key goes to <code>hash % 3</code>. Simple and even.',grid:grid(false),stats:[['shards','3'],['moved','–']]});
+  st.push({line:L('modn','// n = 3 -> 4'),msg:'Traffic grows; add a 4th shard. Now every key is <code>hash % 4</code>…',grid:grid(true),stats:[['shards','4'],['moved','…']]});
+  const moved=h.filter(x=>x%3!==x%4).length;
+  st.push({line:L('modn','// n = 3 -> 4'),msg:`…and <b>${moved} of 8</b> keys land on a different shard. All that data must be copied, and caches keyed this way go cold at once. That\'s why real systems use consistent hashing (next tab).`,grid:grid(true,true),stats:[['shards','4'],['moved',`${moved} / 8`]],hint:'mod N resharding moves most keys.'});
+  return st;
+}
+LABS['lab-ring']={title:'Sharding lab',desc:'Where does each key live, and what moves when you add a server?',
+  tabs:[{k:'mod',l:'hash % N',code:'modn',sim:simModN},{k:'ring',l:'Consistent hashing',code:'ring',sim:simRing}],
+  legend:[['cur','changed shard'],['ok','stays'],['bad','must move']]};
+
+/* ---------- reflexes ---------- */
+Object.assign(REFLEX,{
+  default:{see:'Not sure which database',do:'Start with Postgres/MySQL. Move a specific workload to another store only when an access pattern or scale number demands it.',why:'Relational gives you transactions and flexible queries; most systems never outgrow a well-indexed, replicated Postgres.'},
+  nosql:{see:'Massive write volume, simple key-based access, or flexible schema',do:'Key-value (Redis/Dynamo) for lookups by key, Cassandra for append-heavy time-ordered data, Mongo for whole-document reads.',why:'NoSQL trades joins and ad-hoc queries for predictable horizontal scale on known queries.'},
+  denorm:{see:'A hot read path that needs several joins',do:'Denormalise: copy the few fields you need into the read model, update copies asynchronously.',why:'Reads become one lookup; the price is extra writes and brief staleness.'},
+  index:{see:'Slow query filtering or sorting on a column',do:'Add a B-tree index on that column; verify with <code>EXPLAIN</code> that the plan uses it.',why:'O(n) scan becomes O(log n) page reads. Each index slows writes a little, so index what you query.'},
+  composite:{see:'Query filters on A and sorts or filters on B',do:'Composite index (A, B), equality columns first, range/sort column last.',why:'Leftmost-prefix rule: the index is sorted by A, then B within A.'},
+  explain:{see:'“This query is slow, what do you do?”',do:'Run <code>EXPLAIN ANALYZE</code>: look for Seq Scan on big tables, bad row estimates, sorts and nested loops; then index, rewrite or cache.',why:'Measure before guessing; the plan tells you exactly where time goes.'},
+  txn:{see:'Several writes that must all happen or none (transfer, order + payment record)',do:'Wrap them in one transaction; guard invariants inside the UPDATE (<code>WHERE balance &gt;= ?</code>).',why:'Atomicity means a crash or error halfway rolls everything back.'},
+  lostupdate:{see:'Read a value in code, change it, write it back',do:'Atomic UPDATE (<code>SET x = x - ?</code>), <code>SELECT … FOR UPDATE</code>, or a version column.',why:'Two read-modify-write cycles interleave and one silently overwrites the other.'},
+  replicas:{see:'Read-heavy load on one database',do:'Add read replicas; send reads there, writes to the primary; route a user’s reads to the primary just after they write.',why:'Replicas multiply read capacity; async lag is handled with read-your-writes.'},
+  quorum:{see:'Leaderless replication (Cassandra/Dynamo) with N copies',do:'Choose W and R so that W + R &gt; N for strong reads (e.g. N=3, W=2, R=2).',why:'Any read set overlaps any write set in at least one replica holding the latest value.'},
+  shardkey:{see:'One primary can’t take the writes or hold the data',do:'Shard by a high-cardinality key that keeps a request’s data together (user_id, tenant_id); avoid hot keys.',why:'Even spread and single-shard queries; a bad key means hot shards or scatter-gather.'},
+  ring:{see:'Mapping keys to a changing set of servers (caches, shards)',do:'Consistent hashing with virtual nodes.',why:'Adding or removing a server moves only ~1/N of keys, and vnodes keep load even.'},
+});
+Object.assign(INSIGHT,{
+  isolation:{t:'Each isolation level stops one more anomaly.',b:`<p><b>Dirty read</b>: you see uncommitted data that later rolls back. <b>Non-repeatable read</b>: you read a row twice in one transaction and get different values. <b>Phantom</b>: you re-run a range query and new rows appear. <b>Lost update</b>: two read-modify-writes overwrite each other.</p><div class="formula">Read Uncommitted &lt; Read Committed &lt; Repeatable Read &lt; Serializable</div><p>Higher levels are safer and slower (more locking or more aborted transactions). Most apps run at Read Committed and fix specific races with atomic updates or <code>FOR UPDATE</code>.</p>`},
+  vnodes:{t:'Sharding has three questions, not one.',b:`<p><b>Which key?</b> (user_id, not country). <b>Which mapping?</b> (consistent hashing or a range/lookup table). <b>What breaks?</b> Cross-shard joins and transactions, global unique IDs (use Snowflake-style IDs), and rebalancing hot shards.</p><p>Say all three in an interview, plus “I’d shard only after replicas, caching and vertical scaling stop being enough.”</p>`},
+});
+Object.assign(QUIZ,{
+  q1:{q:'An e-commerce checkout must reserve stock, create an order and record a payment, all or nothing. First choice of store?',o:['Cassandra','Relational DB with a transaction','Redis','Elasticsearch'],a:1,why:'Multi-row atomicity and constraints are what relational databases are built for.'},
+  q2:{q:'Index on <code>(user_id, created_at)</code>. Which query can NOT use it efficiently?',o:['WHERE user_id = 5','WHERE user_id = 5 AND created_at > X','WHERE created_at > X','WHERE user_id = 5 ORDER BY created_at'],a:2,why:'No user_id condition, so the leftmost column is missing; times are sorted only within each user.'},
+  q3:{q:'Two transactions run <code>SELECT stock</code> (both see 1) then <code>UPDATE SET stock = 0</code> and both create an order. What went wrong?',o:['Dirty read','Lost update / check-then-act race','Phantom read','Deadlock'],a:1,why:'Both checked a stale value. Use <code>UPDATE … SET stock = stock - 1 WHERE stock &gt; 0</code> and check rows affected.'},
+  q4:{q:'You cache with <code>hash(key) % 10</code> across 10 Redis nodes and add an 11th. Roughly what fraction of keys now map to a different node?',o:['~1/11','~1/2','~90%','0'],a:2,why:'With mod N almost every key changes node; consistent hashing would move about 1/11.'},
+  d1:{label:'Pick the store',q:'“Store billions of chat messages, always read as the latest 50 in a conversation.”',o:['MySQL single table','Cassandra partitioned by conversation_id, clustered by time','Neo4j','Elasticsearch'],a:1,why:'Append-heavy, one access pattern, partition + clustering key fits exactly.'},
+  d2:{label:'Pick the fix',q:'“Users sometimes don’t see the comment they just posted.”',o:['Bigger primary','Read-your-writes: read from primary after a write','Serializable isolation','Drop the replicas'],a:1,why:'Replica lag; route that user’s reads to the primary briefly (or wait for the replica to catch up).'},
+  d3:{label:'Pick the fix',q:'“The orders page runs 101 queries for 100 orders.”',o:['Add an index','N+1 problem: JOIN FETCH or batch IN query','Add a replica','Increase pool size'],a:1,why:'One query for orders plus one per order for items. Fetch them together.'},
+});
+Object.assign(REPLAY,{
+  chatdb:{t:'“Which database for WhatsApp messages?”',lc:'Interview question',q:'Billions of messages a day; users open a chat and scroll back through history.',code:'chatdb',th:[
+    ['notice','Access pattern first: write every message once, read “latest N in this conversation”, rarely anything else. No joins.'],
+    ['decide','Huge write volume and one predictable query → wide-column store (Cassandra/HBase/ScyllaDB).'],
+    ['decide','Partition key = conversation_id (all of a chat on one node), clustering key = message timeuuid descending (already sorted).'],
+    ['reflex','Hot partition risk: giant group chats. Bucket the partition by time: (conversation_id, month).'],
+    ['check','User profiles and contacts still live in a relational DB; media in S3. Polyglot persistence is the senior answer.']]},
+});
+DECODER.push(
+  ['“transactions”, “money”, “inventory”','Relational + ACID transaction.'],
+  ['“billions of writes”, “time-ordered”','Wide-column (Cassandra).'],
+  ['“lookup by key”, “session”, “cache”','Key-value (Redis/Dynamo).'],
+  ['“full-text search”, “filters”','Elasticsearch.'],
+  ['“friends of friends”','Graph DB.'],
+  ['“query is slow”','EXPLAIN → index.'],
+  ['“two updates clash”','Atomic UPDATE / FOR UPDATE / version.'],
+  ['“read-heavy DB”','Replicas + cache.'],
+  ['“write-heavy / too big for one box”','Shard by a good key.'],
+  ['“add servers without reshuffling”','Consistent hashing.']);
+FILTERS.main=[['model','Modelling'],['perf','Performance'],['safe','Correctness'],['scale','Scaling'],['sql','SQL']];
+PROBS.main=[
+  {t:'SQL vs NoSQL',lc:'sqlnosql',src:'Data 02',d:'e',tags:['model'],ask:'When would you pick each?',th:[['SQL','Relations, transactions, ad-hoc queries.'],['NoSQL','Known queries at huge scale.'],['Both','Polyglot by workload.']],rx:'Name the access pattern, then the store.',code:'chatdb',cx:'Opening question of most data discussions.',g:'“NoSQL scales, SQL doesn’t” is wrong and interviewers will push back.'},
+  {t:'Normalisation vs Denormalisation',lc:'normalize',src:'Data',d:'m',tags:['model'],ask:'Duplicate data or join at read time?',th:[['Normalise','One fact, one place.'],['Denormalise','Copy for fast reads.'],['Sync','Async jobs / events.']],rx:'Write-heavy → normalise; hot reads → denormalise.',code:'normalize',cx:'Feeds, dashboards, NoSQL modelling.',g:'Denormalising without a plan to update copies.'},
+  {t:'Indexes',lc:'indexes',src:'Data 03',d:'e',tags:['perf'],ask:'How an index speeds up reads and what it costs.',th:[['B-tree','Sorted pages, O(log n).'],['Cost','Slower writes, more disk.'],['Check','EXPLAIN.']],rx:'Slow filter → index → EXPLAIN.',code:'scan',cx:'Every slow-query question.',g:'Indexing low-cardinality columns (gender) rarely helps.'},
+  {t:'Composite Index',lc:'compositeindex',src:'Data 03',d:'m',tags:['perf'],ask:'Multi-column indexes and the leftmost-prefix rule.',th:[['Order','Equality first, range last.'],['Prefix','(A,B) serves A and A+B.'],['Covering','Include selected columns.']],rx:'Index matches WHERE then ORDER BY.',code:'btree',cx:'Feeds, “orders for user by date”.',g:'(created_at, user_id) for a per-user query is the wrong order.'},
+  {t:'N+1 Queries',lc:'nplus1',src:'Data · ORM',d:'m',tags:['perf'],ask:'Why the ORM fires 101 queries.',th:[['Cause','Lazy loading in a loop.'],['Fix','JOIN FETCH / batch.'],['Spot','Query logs, counts.']],rx:'Loop + lazy relation → fetch eagerly once.',code:'nplus1',cx:'Hibernate/JPA codebases.',g:'Making everything EAGER instead, which loads too much elsewhere.'},
+  {t:'ACID Transactions',lc:'acid',src:'Data 03',d:'e',tags:['safe'],ask:'What each letter guarantees.',th:[['A','All or nothing.'],['I','Levels of isolation.'],['D','WAL survives crash.']],rx:'Must-all-happen writes → one transaction.',code:'txn',cx:'Payments, orders, inventory.',g:'Calling a remote API inside a DB transaction holds locks for seconds.'},
+  {t:'Isolation Levels & Lost Update',lc:'isolation',src:'Data 03',d:'h',tags:['safe'],ask:'Dirty, non-repeatable, phantom, lost update.',th:[['RC','Postgres default.'],['RR','MySQL default.'],['Fix','Atomic UPDATE / FOR UPDATE.']],rx:'Read-modify-write → make it atomic.',code:'lost',cx:'Wallets, counters, stock.',g:'Assuming @Transactional alone prevents lost updates at Read Committed.'},
+  {t:'Replication',lc:'replication',src:'Data 04',d:'m',tags:['scale'],ask:'Primary/replica, sync vs async, lag.',th:[['Async','Fast, may lag.'],['Sync','Safe, slower.'],['RYW','Primary after write.']],rx:'Read-heavy → replicas; lag → read-your-writes.',code:'replicas',cx:'Every production database.',g:'Failover with async replication can lose the last few writes.'},
+  {t:'Sharding',lc:'sharding',src:'Data 05',d:'h',tags:['scale'],ask:'Partition data across machines.',th:[['Key','High cardinality, co-located.'],['Map','Hash, range or directory.'],['Pain','Cross-shard joins, rebalancing.']],rx:'Shard last, by user/tenant.',code:'modn',cx:'Huge write volume or data size.',g:'Auto-increment IDs collide across shards; use Snowflake/UUIDs.'},
+  {t:'Consistent Hashing',lc:'consistenthashing',src:'Data 05',d:'h',tags:['scale'],ask:'Assign keys to servers so few move on change.',th:[['Ring','Hash servers and keys.'],['Lookup','Next clockwise.'],['vnodes','Even load.']],rx:'Changing server set → ring + vnodes.',code:'ring',cx:'Distributed caches, Cassandra, Dynamo, LBs.',g:'Without virtual nodes, load is uneven and one failure dumps on one neighbour.'},
+  {t:'Second Highest Salary',lc:'secondsalary',src:'SQL classic',d:'e',tags:['sql'],ask:'Write the query; handle duplicates and no result.',th:[['Subquery','MAX below MAX.'],['Window','DENSE_RANK.'],['Edge','NULL if one salary.']],rx:'Nth highest → DENSE_RANK.',code:'secondSalary',cx:'Warm-up SQL round question.',g:'ORDER BY … LIMIT 1 OFFSET 1 breaks with duplicate top salaries.'},
+];
+LINKS.dsql=[['uses','WhatsApp messages','sd-hld.html#lab-chat','Cassandra by conversation'],['uses','Airbnb availability','sd-hld.html#lab-airbnb','Postgres where exactness matters']];
+LINKS.diso=[['same','Check-then-act','sd-lld.html#lab-race','The same race, in Java'],['uses','BookMyShow hold','sd-lld.html#lab-bms-uml','Conditional UPDATE as referee']];
+LINKS.drep=[['uses','Scaling 1 → 1M','sd-basics.html#lab-scale','Replicas for read-heavy load']];
+LINKS.dshard=[['uses','Twitter feed','sd-hld.html#lab-feed','Posts by id, timelines by user'],['uses','Uber','sd-hld.html#lab-uber','Shard by city']];
+LINKS.dch=[['uses','Load balancers','sd-basics.html#p-loadbalancer','Sticky routing'],['uses','Distributed caches','sd-distributed.html#lab-cache','Which Redis node holds a key']];
+LINKS.didx=[['uses','Autocomplete','sd-hld.html#lab-ac','Precomputed lookups beat scans'],['uses','Cursor pagination','sd-basics.html#p-apidesign','Needs an index on the sort key']];
+const DX={sqlnosql:{links:'dsql'},isolation:{links:'diso'},replication:{links:'drep'},sharding:{links:'dshard'},consistenthashing:{links:'dch'},indexes:{links:'didx'},optimistic:{links:'diso'}};
+PROBS.main.forEach(p=>Object.assign(p,DX[p.lc]||{}));
+
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+</script>
+<!--saved-start--><script>window.__SLUG__='sd-databases';
+/* Saved: bookmarks shared by every page of the app.
+   Local copy first (instant, works signed out); synced to the viewer's private
+   db subtree when the platform offers it. Pending ops survive until confirmed. */
+(function(){
+  if(window.Saved)return;
+  const LS='dsa-saved-v1';
+  const read=()=>{try{const v=JSON.parse(localStorage.getItem(LS));if(v&&typeof v.items==='object'&&typeof v.ops==='object')return v}catch(e){}return{items:{},ops:{}}};
+  let S=read();
+  const write=()=>{try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}};
+  const subs=new Set();
+  let mode='local',col=null,queue=Promise.resolve();
+  const emit=()=>subs.forEach(f=>{try{f()}catch(e){console.error(e)}});
+  const clean=v=>({slug:String(v.slug||''),anchor:String(v.anchor||''),kind:String(v.kind||''),title:String(v.title||''),sub:String(v.sub||''),note:String(v.note||''),t:+v.t||0});
+  function push(key){
+    if(!col)return;
+    queue=queue.then(async()=>{
+      const op=S.ops[key];if(!op)return;
+      try{
+        if(op==='del')await col.doc(key).delete();
+        else{const it=S.items[key];if(it)await col.doc(key).set(clean(it))}
+        if(S.ops[key]===op){delete S.ops[key];write()}
+      }catch(e){/* stays pending; retried on next load */}
+    });
+  }
+  const Saved={
+    key:(slug,anchor)=>slug+'~'+anchor,
+    has:k=>!!S.items[k],
+    get:k=>S.items[k],
+    all:()=>Object.entries(S.items).map(([key,v])=>({key,...v})).sort((a,b)=>(b.t||0)-(a.t||0)),
+    count:()=>Object.keys(S.items).length,
+    mode:()=>mode,
+    put(key,item){S.items[key]=clean({...item,t:item.t||Date.now()});S.ops[key]='set';write();emit();push(key)},
+    remove(key){const old=S.items[key];delete S.items[key];S.ops[key]='del';write();emit();push(key);return old},
+    toggle(key,item){if(S.items[key]){Saved.remove(key);return false}Saved.put(key,item);return true},
+    setNote(key,note){const it=S.items[key];if(!it)return;S.items[key]=clean({...it,note:String(note).slice(0,500)});S.ops[key]='set';write();emit();push(key)},
+    on(f){subs.add(f);return()=>subs.delete(f)}
+  };
+  window.Saved=Saved;
+  addEventListener('storage',e=>{if(e.key===LS){S=read();emit()}});
+  (async()=>{
+    if(!window.claude||typeof window.claude.use!=='function')return;
+    try{
+      const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+      if(!db||!user)return;
+      const uid=await user.id();if(!uid)return;
+      col=db.doc('data/users/'+uid+'/saved').collection('items');
+      col.onSnapshot(snap=>{
+        if(snap.metadata&&snap.metadata.fromCache&&snap.empty)return;
+        const items={};
+        snap.docs.forEach(d=>{if(d.exists)items[d.id]=clean(d.data()||{})});
+        for(const [k,op] of Object.entries(S.ops)){if(op==='del')delete items[k];else if(S.items[k])items[k]=S.items[k]}
+        S.items=items;mode='sync';write();emit();
+      },()=>{mode='local';emit()});
+      Object.keys(S.ops).forEach(push);
+    }catch(e){}
+  })();
+})();
+</script><script>/* Bookmark buttons on every saveable card of a topic page. */
+(function(){
+  const SLUG=window.__SLUG__;
+  const ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-3.9-6.5 3.9v-16a1 1 0 0 1 1-1z"/></svg>';
+  const clean=s=>String(s||'').replace(/\s+/g,' ').trim();
+  const cut=(s,n)=>{s=clean(s);return s.length>n?s.slice(0,n-1).trimEnd()+'…':s};
+  const slugify=s=>clean(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,48)||'section';
+  const txt=(el,sel)=>{const x=sel?el.querySelector(sel):el;return x?x.textContent:''};
+  const say=m=>{try{if(typeof toast==='function')toast(m)}catch(e){}};
+  function uniq(el,want){
+    if(el.id)return el.id;
+    let id=want,i=2;while(document.getElementById(id))id=want+'-'+(i++);
+    el.id=id;return id;
+  }
+  function mk(el,want,kind,title,sub,place){
+    const anchor=uniq(el,want);
+    const key=Saved.key(SLUG,anchor);
+    const b=document.createElement('button');
+    b.type='button';b.className='bm';b.dataset.key=key;b.innerHTML=ICON;
+    b._item={slug:SLUG,anchor,kind,title:cut(title,140),sub:cut(sub,90)};
+    b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const on=Saved.toggle(key,b._item);say(on?'Saved':'Removed from saved')});
+    place(b);
+  }
+  function run(){
+    if(!window.Saved||!SLUG)return;
+    document.querySelectorAll('.prob').forEach(el=>{
+      const h=el.querySelector('header');if(!h)return;
+      const lc=txt(el,'.lc'),pill=txt(el,'.pill');
+      mk(el,'p-'+clean(lc).replace(/^LeetCode\s*/,'').replace(/[^A-Za-z0-9]/g,'').toLowerCase(),'problem',txt(el,'h4'),[lc,pill].filter(Boolean).join(' · '),b=>h.appendChild(b));
+    });
+    document.querySelectorAll('[data-reflex]').forEach(el=>{
+      const top=el.querySelector('.rx-top');if(!top)return;
+      mk(el,'rx-'+el.dataset.reflex,'reflex',txt(el,'.rx-see p'),'Reflex',b=>top.appendChild(b));
+    });
+    document.querySelectorAll('[data-insight]').forEach(el=>{
+      if(!el.querySelector('h4'))return;
+      mk(el,'in-'+el.dataset.insight,'insight',txt(el,'h4'),'Look deeper',b=>{b.classList.add('bm-abs');el.appendChild(b)});
+    });
+    document.querySelectorAll('[data-replay]').forEach(el=>{
+      const head=el.querySelector('.rp-head'),h4=el.querySelector('.rp-head h4');if(!head||!h4)return;
+      mk(el,'rp-'+el.dataset.replay,'replay',txt(h4),txt(el,'.rp-head .lc'),b=>head.insertBefore(b,h4));
+    });
+    document.querySelectorAll('section.lab[id]').forEach(el=>{
+      const h3=el.querySelector('.lab-head h3');if(!h3)return;
+      mk(el,el.id,'lab',txt(h3),'Lab',b=>{b.classList.add('bm-abs');el.appendChild(b)});
+    });
+    document.querySelectorAll('[data-quiz]').forEach(el=>{
+      const qh=el.querySelector('.qh');if(!qh)return;
+      mk(el,'q-'+el.dataset.quiz,'quiz',txt(el,'.qq'),txt(qh,'span')||'Quiz',b=>qh.appendChild(b));
+    });
+    document.querySelectorAll('article.post').forEach(el=>{
+      const h3=el.querySelector(':scope > h3');if(!h3)return;
+      const ch=el.closest('.chapter');const chName=ch?txt(ch,'.ch-head h2'):'';
+      mk(el,'s-'+slugify(h3.textContent),'lesson',txt(h3),chName,b=>{b.classList.add('bm-abs');el.appendChild(b)});
+    });
+    const home=document.querySelector('.home-btn');
+    if(home&&!document.querySelector('.saved-btn')){
+      const a=document.createElement('a');a.className='saved-btn';a.href='index.html#saved';
+      a.innerHTML=ICON+'<span class="n">0</span>';home.after(a);
+    }
+    const sync=()=>{
+      document.querySelectorAll('.bm').forEach(b=>{const on=Saved.has(b.dataset.key);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');
+        const t=b._item.title;b.setAttribute('aria-label',(on?'Remove from saved: ':'Save: ')+t);b.title=on?'Saved. Tap to remove':'Save for later'});
+      const sb=document.querySelector('.saved-btn');if(sb){const n=Saved.count();sb.querySelector('.n').textContent=n;sb.classList.toggle('has',n>0);sb.setAttribute('aria-label',`Saved items: ${n}`)}
+    };
+    Saved.on(sync);sync();
+    if(location.hash){const tg=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if(tg&&!tg.classList.contains('flash-target')){tg.scrollIntoView({block:'start'});tg.classList.add('flash-target')}}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,0));else setTimeout(run,0);
+})();
+</script><!--saved-end-->
+</body>
+</html>
