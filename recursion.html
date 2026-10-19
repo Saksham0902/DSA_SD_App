@@ -841,8 +841,7 @@ svg text{font-family:var(--mono)}
     <h1>Recursion,<span class="nest">untangled,<span class="nest">untangled…</span></span></h1>
     <p class="lede">Recursion, binary trees and backtracking, one call at a time. Every idea has Python you can read and a visual you can step through.</p>
     <a class="start" href="#ch1">Start with chapter 1</a>
-    <p class="series">Part of <a href="index.html">Rubber Duck Dojo</a>: every topic in one app, with labs, reflexes and drills.</p><!--rev-start--><p class="revlinks" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><a href="notes.html#n-recursion" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">📝 Revision notes</a><a href="crunch.html" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">🎯 Crunch list</a><a href="plan.html" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">🗓 Study plan</a></p><!--rev-end-->
-  </div>
+    <p class="series">Part of <a href="index.html">Rubber Duck Dojo</a>: every topic in one app, with labs, reflexes and drills.</p><!--rev-start--><p class="revlinks" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><a href="notes.html#n-recursion" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">📝 Revision notes</a><a href="crunch.html" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">🎯 Crunch list</a><a href="plan.html" style="text-decoration:none;font-weight:700;font-size:13.5px;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)">🗓 Study plan</a></p><!--rev-end--><!--cinb-start--><button class="film-ban" data-film="recursion" aria-label="Play the film: The decision tree"><span class="fb-tx"><span class="fb-eb">✦ Dojo Cinema · <span class="fb-d"></span> · narrated</span><b>The decision tree</b><small>Take it or skip it: watch backtracking walk every branch to build all subsets.</small><span class="fb-go"><i>▶</i>Watch the film <span class="fb-w" hidden>✓ watched</span></span></span><span class="fb-pv"></span></button><!--cinb-end-->  </div>
   <div class="fractal-box">
     <svg id="fractal" viewBox="0 0 400 330" role="img" aria-label="A fractal tree drawn by a recursive function"></svg>
     <div class="frow"><label for="fdepth"><b>Depth</b></label><input id="fdepth" type="range" min="1" max="11" value="8"><b id="fdv">8</b></div>
@@ -3946,5 +3945,918 @@ const go=()=>setTimeout(addRows,30);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();
 })();
 </script><!--ide-end-->
+<!--cin-start--><style>.cin-lock,.cin-lock body{overflow:hidden}
+.cin{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:16px}
+.cin[hidden]{display:none}
+.cin-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 30%,rgba(20,24,70,.86),rgba(3,4,16,.96));backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:cinFade .3s ease}
+.cin-box{position:relative;width:min(1180px,100%,calc((100vh - 150px) * 16 / 9));display:grid;gap:10px;animation:cinRise .45s cubic-bezier(.2,.9,.25,1.1)}
+.cin-box:fullscreen{width:100vw;height:100vh;background:#04050F;padding:16px;align-content:center;max-width:none}
+.cin-box:fullscreen .cin-stage{width:min(100%,calc((100vh - 120px) * 16 / 9));margin:0 auto}
+@keyframes cinFade{from{opacity:0}}
+@keyframes cinRise{from{opacity:0;transform:translateY(18px) scale(.97)}}
+.cin-head{display:flex;align-items:center;gap:12px;color:#E8EBFF;min-width:0}
+.cin-eb{font:800 11.5px var(--body,system-ui);letter-spacing:.16em;text-transform:uppercase;color:#5CE1FF;white-space:nowrap;text-shadow:0 0 12px rgba(92,225,255,.6)}
+.cin-title{font:800 19px var(--display,system-ui);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cin-ch{font:700 13px var(--body,system-ui);color:#AEB6EA;padding:2px 10px;border-radius:999px;border:1px solid rgba(124,140,255,.35);white-space:nowrap}
+.cin-ch:empty{display:none}
+.cin-x{margin-left:auto;flex:none;width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-size:24px;line-height:1}
+.cin-x:hover{background:rgba(255,255,255,.14)}
+.cin-stage{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:
+  radial-gradient(60% 70% at 18% 20%,rgba(124,92,255,.28),transparent 70%),
+  radial-gradient(55% 60% at 85% 80%,rgba(0,190,255,.20),transparent 70%),
+  radial-gradient(40% 40% at 70% 15%,rgba(255,92,147,.12),transparent 70%),#070A1F;
+  box-shadow:0 0 0 1px rgba(124,140,255,.28),0 30px 80px -20px rgba(70,90,255,.45),inset 0 0 120px rgba(0,0,0,.55)}
+.cin-stars{position:absolute;inset:0;width:100%;height:100%}
+.cin-neb{position:absolute;inset:-20%;background:conic-gradient(from 0deg at 50% 50%,transparent,rgba(124,92,255,.08),transparent 30%,rgba(0,200,255,.07),transparent 60%);animation:cinSpin 60s linear infinite;pointer-events:none}
+@keyframes cinSpin{to{transform:rotate(1turn)}}
+.cin-svg{position:absolute;inset:0;width:100%;height:100%;cursor:pointer}
+.cin-cap{position:absolute;left:50%;bottom:4.5%;transform:translateX(-50%);max-width:86%;width:max-content;text-align:center;font:600 clamp(13px,1.9vw,20px)/1.4 var(--body,system-ui);color:#fff;background:rgba(5,7,24,.72);border:1px solid rgba(255,255,255,.08);padding:.45em .9em;border-radius:12px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none;text-wrap:balance}
+.cin-cap.empty{opacity:0!important}
+.cin-cap.in{animation:cinCap .45s ease}
+@keyframes cinCap{from{opacity:0;transform:translate(-50%,8px)}}
+.cin-big{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:86px;height:86px;border-radius:50%;border:0;font-size:30px;color:#070A1F;background:radial-gradient(circle at 35% 30%,#fff,#5CE1FF 60%,#3B7BFF);box-shadow:0 0 0 10px rgba(92,225,255,.15),0 0 60px rgba(92,225,255,.6);padding-left:6px;transition:transform .15s}
+.cin-big:hover{transform:translate(-50%,-50%) scale(1.07)}
+.cin-big[hidden]{display:none}
+.cin-ctl{display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:16px;background:rgba(14,18,52,.78);border:1px solid rgba(124,140,255,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#E8EBFF}
+.cin-b{flex:none;min-width:38px;height:36px;border-radius:10px;border:1px solid transparent;background:transparent;color:#E8EBFF;font:800 14px var(--body,system-ui);padding:0 8px}
+.cin-b:hover{background:rgba(255,255,255,.08)}
+.cin-play{background:linear-gradient(135deg,#5CE1FF,#7C8CFF);color:#070A1F;min-width:44px}
+.cin-play:hover{background:linear-gradient(135deg,#8EEBFF,#9AA6FF)}
+.cin-cc[aria-pressed="false"],.cin-vo[aria-pressed="false"]{opacity:.55}
+.cin-time{flex:none;font:600 12.5px var(--mono,monospace);color:#AEB6EA;min-width:86px;text-align:center}
+.cin-bar{position:relative;flex:1 1 auto;height:28px;cursor:pointer;touch-action:none}
+.cin-bar::before{content:"";position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;border-radius:9px;background:rgba(255,255,255,.12)}
+.cin-fill{position:absolute;left:0;top:50%;height:6px;margin-top:-3px;border-radius:9px;background:linear-gradient(90deg,#B194FF,#5CE1FF);box-shadow:0 0 12px rgba(92,225,255,.6)}
+.cin-knob{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(92,225,255,.35),0 0 14px #5CE1FF}
+.cin-ticks i{position:absolute;top:50%;width:3px;height:12px;margin:-6px 0 0 -1.5px;border-radius:2px;background:rgba(255,255,255,.55)}
+.cin-tip{position:absolute;bottom:30px;transform:translateX(-50%);background:#0B0F2E;border:1px solid rgba(124,140,255,.4);color:#fff;font:700 12px var(--body,system-ui);padding:4px 8px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s}
+.cin-tip.on{opacity:1}
+.cin-bar:focus-visible{outline:2px solid #5CE1FF;outline-offset:2px;border-radius:8px}
+.cin-end{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(80% 80% at 50% 40%,rgba(10,12,40,.82),rgba(4,5,18,.94));animation:cinFade .4s ease;overflow:auto;padding:18px}
+.cin-end[hidden]{display:none}
+.cin-end-in{max-width:640px;color:#E8EBFF;text-align:center;display:grid;gap:10px;justify-items:center}
+.cin-end-eb{margin:0;font:800 12px var(--body,system-ui);letter-spacing:.18em;text-transform:uppercase;color:#3DF5B8;text-shadow:0 0 14px rgba(61,245,184,.6)}
+.cin-end h3{margin:0;font:800 clamp(22px,3.4vw,36px) var(--display,system-ui);letter-spacing:-.02em;color:#fff}
+.cin-end ul{margin:0;padding:0;list-style:none;display:grid;gap:5px;text-align:left;font:500 clamp(13px,1.6vw,16px)/1.45 var(--body,system-ui);color:#CBD1F5}
+.cin-end li{padding-left:22px;position:relative}
+.cin-end li::before{content:"✦";position:absolute;left:0;color:#5CE1FF}
+.cin-end-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.cin-pill{border:1px solid rgba(124,140,255,.45);background:rgba(124,140,255,.12);color:#fff;border-radius:999px;padding:8px 16px;font:800 14px var(--body,system-ui);text-decoration:none}
+.cin-pill.pri{background:linear-gradient(135deg,#5CE1FF,#7C8CFF);color:#070A1F;border-color:transparent}
+.cin-pill:hover{filter:brightness(1.15)}
+.cin-yt-h{margin:6px 0 0;font:700 12.5px var(--body,system-ui);color:#8A92C8}
+.cin-yt{font:700 13px var(--body,system-ui);color:#FFB3C9;text-decoration:none;border:1px solid rgba(255,92,147,.4);border-radius:999px;padding:5px 12px;background:rgba(255,92,147,.08)}
+.cin-yt:hover{background:rgba(255,92,147,.18)}
+@media (max-width:640px){
+  .cin{padding:8px}
+  .cin-prev,.cin-next,.cin-spd{display:none}
+  .cin-time{min-width:0;font-size:11px}
+  .cin-ch{display:none}
+  .cin-stage{border-radius:14px}
+  .cin-big{width:64px;height:64px;font-size:24px}
+  .cin-end ul{display:none}
+  .cin-cap{font-size:11.5px;padding:.3em .65em;max-width:94%;bottom:3%;border-radius:9px}
+}
+@media (orientation:landscape) and (max-height:520px){.cin-box{width:min(100%,calc((100vh - 110px) * 16 / 9))}.cin-head{display:none}}
+
+/* ---------- topic page banner ---------- */
+.film-ban{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:16px;margin-top:16px;padding:12px;border-radius:18px;text-decoration:none;color:#fff;cursor:pointer;border:0;width:100%;text-align:left;font:inherit;
+  background:radial-gradient(80% 120% at 0% 0%,rgba(124,92,255,.55),transparent 60%),radial-gradient(70% 120% at 100% 100%,rgba(0,190,255,.35),transparent 60%),#0A0D2A;
+  box-shadow:0 0 0 1px rgba(124,140,255,.35),0 16px 40px -14px rgba(60,80,255,.6);overflow:hidden;transition:transform .2s,box-shadow .2s}
+.film-ban:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(92,225,255,.6),0 22px 50px -14px rgba(60,120,255,.75)}
+.film-ban .fb-pv{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#070A1F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.cin-pv-svg{position:absolute;inset:0;width:100%;height:100%}
+.film-ban .fb-pv::after,.fpost .fp-pv::after{content:"";position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 70% 60%,#fff6,transparent),radial-gradient(1px 1px at 40% 80%,#fff5,transparent),radial-gradient(1px 1px at 85% 20%,#fff7,transparent);pointer-events:none}
+.film-ban .fb-tx{display:grid;gap:6px;padding:6px 6px 6px 2px;order:-1}
+.film-ban .fb-eb{font:800 11px var(--body,system-ui);letter-spacing:.16em;text-transform:uppercase;color:#5CE1FF}
+.film-ban b{font:800 clamp(18px,2.2vw,23px)/1.15 var(--display,system-ui);letter-spacing:-.01em}
+.film-ban small{font:500 13.5px/1.4 var(--body,system-ui);color:#C5CBF2}
+.film-ban .fb-go{display:inline-flex;align-items:center;gap:8px;margin-top:4px;font:800 14px var(--body,system-ui)}
+.film-ban .fb-go i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-style:normal;color:#070A1F;background:radial-gradient(circle at 35% 30%,#fff,#5CE1FF 60%,#3B7BFF);box-shadow:0 0 18px rgba(92,225,255,.7);padding-left:3px;animation:fbPulse 2.4s ease-in-out infinite}
+@keyframes fbPulse{50%{box-shadow:0 0 0 7px rgba(92,225,255,.12),0 0 26px rgba(92,225,255,.9)}}
+.film-ban .fb-w{font:800 11.5px var(--body,system-ui);color:#3DF5B8}
+.film-row{display:grid;gap:10px;margin-top:16px}
+.film-row .film-ban{margin-top:0}
+@media (max-width:640px){.film-ban{grid-template-columns:1fr}.film-ban .fb-tx{order:0}}
+@media (prefers-reduced-motion: reduce){.film-ban .fb-go i,.cin-neb{animation:none}}
+
+/* ---------- gallery (home + cinema page) ---------- */
+.cine{position:relative;border-radius:26px;padding:clamp(18px,3vw,34px);color:#fff;overflow:hidden;isolation:isolate;
+  background:radial-gradient(60% 80% at 10% 0%,rgba(124,92,255,.5),transparent 60%),radial-gradient(50% 70% at 100% 100%,rgba(0,190,255,.32),transparent 60%),radial-gradient(40% 50% at 80% 10%,rgba(255,92,147,.2),transparent 60%),#070A1F;
+  box-shadow:0 0 0 1px rgba(124,140,255,.3),0 30px 70px -30px rgba(60,80,255,.7)}
+.cine canvas.cine-stars{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.cine-head{display:flex;flex-wrap:wrap;align-items:end;gap:10px 24px;margin-bottom:18px}
+.cine-head h2{font:800 clamp(30px,5vw,52px)/1 var(--display,system-ui);letter-spacing:-.03em;margin:0;color:#fff}
+.cine-head h2 span{background:linear-gradient(90deg,#5CE1FF,#B194FF 50%,#FF5C93);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cine-head p{margin:0;max-width:52ch;color:#C5CBF2;font-size:15.5px}
+.cine-head .cine-eb{width:100%;font:800 12px var(--body,system-ui);letter-spacing:.18em;text-transform:uppercase;color:#5CE1FF}
+.cine-feat{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:center;margin-bottom:20px}
+.cine-feat .cf-pv{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#05071A;box-shadow:0 0 0 1px rgba(124,140,255,.35),0 20px 50px -20px rgba(92,225,255,.5);cursor:pointer;border:0;padding:0;width:100%}
+.cine-feat .cf-pv .cf-play{position:absolute;left:16px;bottom:14px;display:flex;align-items:center;gap:10px;font:800 15px var(--body,system-ui);color:#fff;text-shadow:0 2px 8px #000}
+.cine-feat .cf-pv .cf-play i{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;font-style:normal;color:#070A1F;background:radial-gradient(circle at 35% 30%,#fff,#5CE1FF 60%,#3B7BFF);box-shadow:0 0 24px rgba(92,225,255,.8);padding-left:3px}
+.cine-feat .cf-tx{display:grid;gap:8px}
+.cine-feat .cf-tx small{font:800 11.5px var(--body,system-ui);letter-spacing:.14em;text-transform:uppercase;color:#FFC24B}
+.cine-feat .cf-tx b{font:800 clamp(22px,3vw,30px)/1.1 var(--display,system-ui)}
+.cine-feat .cf-tx p{margin:0;color:#C5CBF2}
+.cine-feat .cf-tx .cf-meta{font:600 13px var(--mono,monospace);color:#8A92C8}
+.cine-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.cine-tabs button{border:1px solid rgba(124,140,255,.4);background:rgba(124,140,255,.1);color:#DDE2FF;border-radius:999px;padding:5px 14px;font:800 13.5px var(--body,system-ui)}
+.cine-tabs button[aria-pressed="true"]{background:#fff;color:#070A1F;border-color:#fff}
+.cine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.cine-strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,260px);gap:14px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:rgba(124,140,255,.5) transparent}
+.fpost{scroll-snap-align:start;display:grid;gap:8px;border:0;background:none;padding:0;text-align:left;color:#fff;font:inherit;cursor:pointer}
+.fpost .fp-pv{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#05071A;box-shadow:0 0 0 1px rgba(124,140,255,.3);transition:transform .2s,box-shadow .2s}
+.fpost:hover .fp-pv,.fpost:focus-visible .fp-pv{transform:translateY(-3px) scale(1.02);box-shadow:0 0 0 1.5px rgba(92,225,255,.8),0 18px 40px -12px rgba(92,225,255,.55)}
+.fpost .fp-n{position:absolute;left:10px;top:8px;font:800 11px var(--mono,monospace);color:#fff;background:rgba(5,7,26,.7);padding:2px 7px;border-radius:6px;z-index:1}
+.fpost .fp-d{position:absolute;right:10px;bottom:8px;font:700 11px var(--mono,monospace);color:#fff;background:rgba(5,7,26,.75);padding:2px 7px;border-radius:6px;z-index:1}
+.fpost .fp-w{position:absolute;right:10px;top:8px;font:800 11px var(--body,system-ui);color:#070A1F;background:#3DF5B8;padding:2px 8px;border-radius:999px;z-index:1}
+.fpost b{font:800 15.5px/1.2 var(--display,system-ui)}
+.fpost small{font:500 12.5px/1.35 var(--body,system-ui);color:#AEB6EA}
+.cine-foot{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;color:#AEB6EA;font-size:14px}
+.cine-foot a{color:#5CE1FF;font-weight:800}
+.cine-bar{height:8px;border-radius:9px;background:rgba(255,255,255,.12);flex:0 1 200px;overflow:hidden}
+.cine-bar i{display:block;height:100%;background:linear-gradient(90deg,#3DF5B8,#5CE1FF);box-shadow:0 0 10px #3DF5B8}
+@media (max-width:760px){.cine-feat{grid-template-columns:1fr}}
+</style><script>(function(){"use strict";
+if(window.Cinema)return;
+const W=960,H=540,NS='http://www.w3.org/2000/svg';
+const PAL={cyan:'#5CE1FF',mint:'#3DF5B8',amber:'#FFC24B',rose:'#FF5C93',violet:'#B194FF',blue:'#7C8CFF',white:'#F4F6FF',dim:'#8A92C8',faint:'#3A4378',panel:'#151B46',ghost:'#1D2457',orange:'#FF8A4C',bg:'#070A1F',none:'none'};
+const col=c=>c==null?null:(PAL[c]||c);
+function rgb(c){c=col(c);if(!c||c[0]!=='#')return null;if(c.length===4)c='#'+c[1]+c[1]+c[2]+c[2]+c[3]+c[3];return[parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]}
+function mixC(a,b,p){const A=rgb(a),B=rgb(b);if(!A||!B)return p<.5?col(a):col(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*p).toString(16).padStart(2,'0')).join('')}
+const COLK={fill:1,stroke:1,col:1,sc:1};
+const ease=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const LS={get(){try{return JSON.parse(localStorage.getItem('rdd-cinema-v1'))||{}}catch(e){return{}}},put(o){try{localStorage.setItem('rdd-cinema-v1',JSON.stringify(o))}catch(e){}}};
+
+/* ---------- builder: films are written as a list of keyframes ---------- */
+class Builder{
+  constructor(){this.cur={};this.frames=[];this.chap=null}
+  el(id,p){let o=this.cur[id];if(o&&o._d)o=null;this.cur[id]=o?Object.assign({},o,p):Object.assign({o:1},p);return this}
+  els(o){for(const k in o)this.el(k,o[k]);return this}
+  has(id){return!!this.cur[id]&&!this.cur[id]._d}
+  del(...ids){ids.flat().forEach(id=>{if(this.cur[id])this.cur[id]=Object.assign({},this.cur[id],{o:0,_d:1})});return this}
+  delAll(keep){for(const id in this.cur)if(!(keep&&keep.test(id)))this.del(id);return this}
+  chapter(n){this.chap=n;return this}
+  step(cap,o={}){
+    const words=(cap||'').split(/\s+/).filter(Boolean).length;
+    const dur=o.dur||Math.max(2.3,1.0+words*.34);
+    this.frames.push({cap:cap||'',say:o.say,dur,tr:o.tr||Math.min(.85,dur*.38),ch:this.chap,st:JSON.parse(JSON.stringify(this.cur))});
+    this.chap=null;
+    for(const k in this.cur)if(this.cur[k]._d)delete this.cur[k];
+    return this}
+  row(n,w=64,gap=12,cx=480){const tot=n*w+(n-1)*gap,x0=cx-tot/2+w/2;return Array.from({length:n},(_,i)=>x0+i*(w+gap))}
+  title(eyebrow,title,sub){
+    this.chapter('Intro');
+    this.el('_te',{t:'txt',x:480,y:200,text:eyebrow,fs:16,col:'cyan',font:'b',fw:800,ls:4});
+    this.el('_tt',{t:'txt',x:480,y:268,text:title,fs:58,col:'white',fw:800,glow:.6});
+    this.el('_ts',{t:'txt',x:480,y:320,text:sub,fs:21,col:'dim',font:'b',fw:400});
+    return this}
+  untitle(){['_te','_tt','_ts'].forEach(id=>{if(this.cur[id])this.el(id,{y:this.cur[id].y-70})});this.del('_te','_tt','_ts');return this.step('',{dur:.75,tr:.7})}
+}
+
+/* ---------- renderer ---------- */
+function mk(t,a){const e=document.createElementNS(NS,t);if(a)for(const k in a)e.setAttribute(k,a[k]);return e}
+const FONT={m:'var(--mono,"JetBrains Mono",ui-monospace,monospace)',d:'var(--display,"Bricolage Grotesque",system-ui,sans-serif)',b:'var(--body,"Atkinson Hyperlegible",system-ui,sans-serif)'};
+function setText(el,txt){txt=txt==null?'':String(txt);if(el._txt===txt)return;el._txt=txt;
+  const lines=txt.split('\n');el.textContent='';
+  if(lines.length===1){el.textContent=txt;return}
+  lines.forEach((l,i)=>{const s=mk('tspan',{x:0,dy:i?'1.2em':(-(lines.length-1)*0.6)+'em'});s.textContent=l;el.appendChild(s)})}
+function sa(el,k,v){if(el['_'+k]!==v){el['_'+k]=v;el.setAttribute(k,v)}}
+function glowF(n,p,c){const g=Math.round((p.glow||0)*10)/10;const key=g+c;if(n._gk===key)return;n._gk=key;n.style.filter=g>0?`drop-shadow(0 0 ${3+g*13}px ${c})`:''}
+class Stage{
+  constructor(svg){this.svg=svg;this.g={};this.order='';
+    const defs=mk('defs');defs.innerHTML='<radialGradient id="cinVig" cx="50%" cy="45%" r="75%"><stop offset="60%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".45"/><\/radialGradient>';svg.appendChild(defs);
+    this.root=mk('g');svg.appendChild(this.root)}
+  make(t){const g=mk('g');g._t=t;
+    if(t==='box'){g.r=mk('rect');g.l=mk('text',{'text-anchor':'middle','dominant-baseline':'central'});g.s=mk('text',{'text-anchor':'middle','dominant-baseline':'central'});g.append(g.r,g.l,g.s)}
+    else if(t==='dot'){g.r=mk('circle');g.l=mk('text',{'text-anchor':'middle','dominant-baseline':'central'});g.s=mk('text',{'text-anchor':'middle','dominant-baseline':'central'});g.append(g.r,g.l,g.s)}
+    else if(t==='ring'){g.r=mk('circle',{fill:'none'});g.append(g.r)}
+    else if(t==='txt'){g.l=mk('text',{'dominant-baseline':'central'});g.l.style.whiteSpace='pre';g.append(g.l)}
+    else if(t==='line'||t==='arrow'){g.p=mk('path',{fill:'none','stroke-linecap':'round'});g.h=mk('path');g.l=mk('text',{'text-anchor':'middle','dominant-baseline':'central','paint-order':'stroke','stroke-width':6,'stroke-linejoin':'round'});g.append(g.p,g.h,g.l)}
+    else if(t==='bar'){g.r=mk('rect');g.f=mk('rect');g.l=mk('text',{'dominant-baseline':'central'});g.append(g.r,g.f,g.l)}
+    return g}
+  upd(n,p,clock){
+    const o=clamp(p.o==null?1:p.o,0,1),s=p.s==null?1:p.s;
+    sa(n,'opacity',o.toFixed(3));
+    const t=n._t;
+    if(t==='line'||t==='arrow'){
+      let x1=p.x,y1=p.y,x2=p.x2,y2=p.y2;const pad=p.pad||0,pad2=p.pad2==null?pad:p.pad2;
+      const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;
+      x1+=ux*pad;y1+=uy*pad;x2-=ux*pad2;y2-=uy*pad2;
+      const b=p.bend||0,mx=(x1+x2)/2-uy*b,my=(y1+y2)/2+ux*b;
+      const prog=p.prog==null?1:clamp(p.prog,0,1);
+      // partial draw along quad bezier
+      const q=(tt)=>[(1-tt)*(1-tt)*x1+2*(1-tt)*tt*mx+tt*tt*x2,(1-tt)*(1-tt)*y1+2*(1-tt)*tt*my+tt*tt*y2];
+      const ex=q(prog),cx1=x1+(mx-x1)*prog,cy1=y1+(my-y1)*prog;
+      sa(n.p,'d',`M${x1.toFixed(1)},${y1.toFixed(1)} Q${cx1.toFixed(1)},${cy1.toFixed(1)} ${ex[0].toFixed(1)},${ex[1].toFixed(1)}`);
+      const c=col(p.stroke||'dim');sa(n.p,'stroke',c);sa(n.p,'stroke-width',p.lw||2.5);
+      if(p.dash||p.flow){sa(n.p,'stroke-dasharray',p.flow?'2 10':'8 8');n.p.style.strokeDashoffset=p.flow?(-clock*38*(p.flow||1)).toFixed(1):'0'}else sa(n.p,'stroke-dasharray','none');
+      if(t==='arrow'&&prog>.02){const tx=ex[0]-cx1,ty=ex[1]-cy1,tl=Math.hypot(tx,ty)||1,ax=tx/tl,ay=ty/tl,hs=7+(p.lw||2.5)*1.6;
+        const bx=ex[0]-ax*hs,by=ex[1]-ay*hs;sa(n.h,'d',`M${ex[0].toFixed(1)},${ex[1].toFixed(1)} L${(bx-ay*hs*.6).toFixed(1)},${(by+ax*hs*.6).toFixed(1)} L${(bx+ay*hs*.6).toFixed(1)},${(by-ax*hs*.6).toFixed(1)}Z`);sa(n.h,'fill',c)}else sa(n.h,'d','');
+      if(p.text){const m=q(.5);sa(n.l,'x',m[0]+(p.lx||0));sa(n.l,'y',m[1]+(p.ly==null?-14:p.ly));sa(n.l,'fill',col(p.col||'white'));sa(n.l,'stroke',col('bg'));sa(n.l,'font-size',p.fs||15);n.l.style.fontFamily=FONT[p.font||'m'];n.l.style.fontWeight=p.fw||700}
+      setText(n.l,p.text||'');glowF(n,p,c);return}
+    sa(n,'transform',`translate(${(p.x||0).toFixed(1)},${(p.y||0).toFixed(1)}) scale(${s.toFixed(3)})${p.rot?` rotate(${p.rot.toFixed(1)})`:''}`);
+    if(t==='box'||t==='bar'){const w=p.w||64,h=p.h||64;
+      sa(n.r,'x',-w/2);sa(n.r,'y',-h/2);sa(n.r,'width',w);sa(n.r,'height',h);sa(n.r,'rx',p.rx==null?12:p.rx);
+      sa(n.r,'fill',col(p.fill||'panel'));sa(n.r,'fill-opacity',p.fo==null?1:p.fo);sa(n.r,'stroke',col(p.stroke||'faint'));sa(n.r,'stroke-width',p.lw==null?2:p.lw);sa(n.r,'stroke-dasharray',p.dash?'7 6':'none');
+      if(t==='bar'){const f=clamp(p.v||0,0,1);sa(n.f,'x',-w/2);sa(n.f,'y',-h/2);sa(n.f,'height',h);sa(n.f,'width',Math.max(0,w*f));sa(n.f,'rx',p.rx==null?h/2:p.rx);sa(n.f,'fill',col(p.sc||'mint'));
+        sa(n.r,'rx',p.rx==null?h/2:p.rx);sa(n.l,'x',w/2+10);sa(n.l,'y',0);sa(n.l,'fill',col(p.col||'white'));sa(n.l,'font-size',p.fs||15);n.l.style.fontFamily=FONT[p.font||'m'];n.l.style.fontWeight=700;setText(n.l,p.text||'');glowF(n,p,col(p.sc||'mint'));return}
+      sa(n.l,'x',p.tx||0);sa(n.l,'y',p.ty||0);sa(n.l,'fill',col(p.col||'white'));sa(n.l,'font-size',p.fs||24);n.l.style.fontFamily=FONT[p.font||'m'];n.l.style.fontWeight=p.fw||700;setText(n.l,p.text==null?'':p.text);
+      sa(n.s,'x',0);sa(n.s,'y',h/2+(p.sy||17));sa(n.s,'fill',col(p.subc||'dim'));sa(n.s,'font-size',p.sfs||13);n.s.style.fontFamily=FONT.m;n.s.style.fontWeight=600;setText(n.s,p.sub||'');
+      glowF(n,p,col(p.stroke||p.fill||'cyan'));return}
+    if(t==='dot'){const r=p.r||12;sa(n.r,'r',r);sa(n.r,'fill',col(p.fill||'cyan'));sa(n.r,'fill-opacity',p.fo==null?1:p.fo);sa(n.r,'stroke',col(p.stroke||'none'));sa(n.r,'stroke-width',p.lw||2);
+      sa(n.l,'fill',col(p.col||'bg'));sa(n.l,'font-size',p.fs||Math.round(r*.95));n.l.style.fontFamily=FONT[p.font||'m'];n.l.style.fontWeight=p.fw||800;setText(n.l,p.text||'');
+      sa(n.s,'y',r+(p.sy||15));sa(n.s,'fill',col(p.subc||'dim'));sa(n.s,'font-size',p.sfs||13);n.s.style.fontFamily=FONT.m;n.s.style.fontWeight=600;setText(n.s,p.sub||'');
+      glowF(n,p,col(p.fill||'cyan'));return}
+    if(t==='ring'){sa(n.r,'r',p.r||100);sa(n.r,'stroke',col(p.stroke||'faint'));sa(n.r,'stroke-width',p.lw||3);sa(n.r,'stroke-dasharray',p.dash?'6 8':'none');glowF(n,p,col(p.stroke||'faint'));return}
+    if(t==='txt'){sa(n.l,'text-anchor',p.anchor||'middle');sa(n.l,'fill',col(p.col||'white'));sa(n.l,'font-size',p.fs||22);n.l.style.fontFamily=FONT[p.font||'d'];n.l.style.fontWeight=p.fw||700;n.l.style.letterSpacing=p.ls?p.ls+'px':'';setText(n.l,p.text==null?'':p.text);glowF(n,p,col(p.col||'white'))}
+  }
+  draw(st,clock){
+    const ids=Object.keys(st).filter(id=>(st[id].o==null||st[id].o>.002));
+    for(const id of ids){const p=st[id];let n=this.g[id];if(!n||n._t!==p.t){if(n)n.remove();n=this.make(p.t||'box');this.g[id]=n;this.order=''}this.upd(n,p,clock)}
+    const keep=new Set(ids);for(const id in this.g)if(!keep.has(id)){this.g[id].remove();delete this.g[id];this.order=''}
+    const ord=ids.map(id=>[id,st[id].z||0]).sort((a,b)=>a[1]-b[1]).map(a=>a[0]);const key=ord.join('|');
+    if(key!==this.order){this.order=key;ord.forEach(id=>this.root.appendChild(this.g[id]))}
+  }
+}
+function interp(A,B,p){const out={};
+  for(const id in B){const b=B[id];let a=A[id];
+    if(!a){a=Object.assign({},b,{o:0,s:(b.s==null?1:b.s)*.6});if(b.t==='line'||b.t==='arrow'){a.prog=0;a.s=1}
+      if(b.fx!=null){a.x=b.fx;a.y=b.fy;a.s=b.s==null?1:b.s;a.o=.35}}
+    const r={};
+    for(const k in b){const va=a[k],vb=b[k];
+      if(typeof vb==='number'&&typeof va==='number'&&k!=='text'&&k!=='sub')r[k]=va+(vb-va)*p;
+      else if(COLK[k])r[k]=mixC(va==null?vb:va,vb,p);
+      else r[k]=(p<.5&&va!==undefined)?va:vb}
+    out[id]=r}
+  return out}
+
+/* ---------- starfield ---------- */
+class Stars{
+  constructor(cv){this.cv=cv;this.x=cv.getContext('2d');this.s=[];this.shoot=null;
+    for(let i=0;i<190;i++)this.s.push({x:Math.random(),y:Math.random(),z:Math.random(),p:Math.random()*6.28})}
+  draw(dt,t){const cv=this.cv,r=Math.min(2,window.devicePixelRatio||1),w=cv.clientWidth,h=cv.clientHeight;if(!w)return;
+    if(cv.width!==Math.round(w*r)){cv.width=Math.round(w*r);cv.height=Math.round(h*r)}
+    const x=this.x;x.setTransform(r,0,0,r,0,0);x.clearRect(0,0,w,h);
+    for(const s of this.s){s.x-=dt*(.004+s.z*.012);if(s.x<0){s.x+=1;s.y=Math.random()}
+      const a=.25+.55*s.z*(.6+.4*Math.sin(t*1.7+s.p));x.fillStyle=`rgba(${s.z>.8?'255,226,170':'200,212,255'},${a.toFixed(3)})`;
+      const sz=.5+s.z*1.4;x.fillRect(s.x*w,s.y*h,sz,sz)}
+    if(!this.shoot&&Math.random()<dt*.12)this.shoot={x:Math.random()*w*.8+w*.2,y:Math.random()*h*.4,l:0};
+    if(this.shoot){const k=this.shoot;k.l+=dt;const px=k.x-k.l*520,py=k.y+k.l*190,g=x.createLinearGradient(px,py,px+90,py-33);
+      g.addColorStop(0,'rgba(255,255,255,.85)');g.addColorStop(1,'rgba(255,255,255,0)');x.strokeStyle=g;x.lineWidth=1.4;x.beginPath();x.moveTo(px,py);x.lineTo(px+90,py-33);x.stroke();if(k.l>.9)this.shoot=null}
+  }
+}
+
+/* ---------- films ---------- */
+const FILMS={},ORDER=[];
+function add(meta,build){FILMS[meta.id]=Object.assign({build},meta);ORDER.push(meta.id)}
+function compile(f){if(f.frames)return f;const b=new Builder();f.build(b,PAL);let t=0;f.frames=b.frames;f.frames.forEach(fr=>{fr.t0=t;t+=fr.dur});f.T=t;
+  f.chapters=f.frames.map((fr,i)=>fr.ch?{i,t:fr.t0,name:fr.ch}:null).filter(Boolean);return f}
+function stateAt(f,t){compile(f);const F=f.frames;let i=F.length-1;for(let k=0;k<F.length;k++){if(t<F[k].t0+F[k].dur){i=k;break}}
+  const fr=F[i],p=ease(clamp((t-fr.t0)/fr.tr,0,1));return{i,st:interp(i?F[i-1].st:{},fr.st,p)}}
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function sayText(s){return s.replace(/O\(([^)]*)\)/g,(m,a)=>'O of '+a.replace(/²/g,' squared').replace(/·/g,' ').replace(/\^/g,' to the ')).replace(/²/g,' squared').replace(/→/g,' to ').replace(/≤/g,' at most ').replace(/≥/g,' at least ').replace(/≠/g,' not equal to ').replace(/−/g,' minus ').replace(/×/g,' times ').replace(/\bLC\b/g,'LeetCode').replace(/\[|\]/g,' ').replace(/✓|✗|✦|★/g,'')}
+
+/* ---------- player ---------- */
+let P=null;
+function buildPlayer(){
+  const d=document.createElement('div');d.className='cin';d.hidden=true;d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');
+  d.innerHTML=`<div class="cin-scrim"><\/div><div class="cin-box">
+  <div class="cin-head"><span class="cin-eb">✦ Dojo Cinema<\/span><b class="cin-title"><\/b><span class="cin-ch"><\/span><button class="cin-x" aria-label="Close film">&times;<\/button><\/div>
+  <div class="cin-stage"><canvas class="cin-stars" aria-hidden="true"><\/canvas><div class="cin-neb" aria-hidden="true"><\/div><svg class="cin-svg" viewBox="0 0 ${W} ${H}" role="img"><\/svg>
+    <div class="cin-cap" aria-live="polite"><\/div><button class="cin-big" aria-label="Play">▶<\/button><div class="cin-end" hidden><\/div><\/div>
+  <div class="cin-ctl">
+    <button class="cin-b cin-play" aria-label="Play">▶<\/button>
+    <button class="cin-b cin-prev" aria-label="Previous step">⏮<\/button><button class="cin-b cin-next" aria-label="Next step">⏭<\/button>
+    <span class="cin-time">0:00 / 0:00<\/span>
+    <div class="cin-bar" role="slider" tabindex="0" aria-label="Seek"><div class="cin-buf"><\/div><div class="cin-fill"><\/div><div class="cin-ticks"><\/div><div class="cin-knob"><\/div><div class="cin-tip"><\/div><\/div>
+    <button class="cin-b cin-spd" aria-label="Playback speed">1×<\/button>
+    <button class="cin-b cin-cc" aria-pressed="true" aria-label="Captions">CC<\/button>
+    <button class="cin-b cin-vo" aria-pressed="false" aria-label="Voice-over">🔈<\/button>
+    <button class="cin-b cin-fs" aria-label="Full screen">⛶<\/button>
+  <\/div><\/div>`;
+  document.body.appendChild(d);
+  const q=s=>d.querySelector(s);
+  const pl={d,svg:q('.cin-svg'),cap:q('.cin-cap'),title:q('.cin-title'),ch:q('.cin-ch'),play:q('.cin-play'),big:q('.cin-big'),time:q('.cin-time'),bar:q('.cin-bar'),fill:q('.cin-fill'),knob:q('.cin-knob'),ticks:q('.cin-ticks'),tip:q('.cin-tip'),spd:q('.cin-spd'),cc:q('.cin-cc'),vo:q('.cin-vo'),end:q('.cin-end'),box:q('.cin-box'),stage:null,stars:new Stars(q('.cin-stars')),
+    f:null,t:0,playing:false,speed:1,capIdx:-1,spoken:-1,speaking:false,raf:0,last:0,clock:0,prevFocus:null};
+  const pref=LS.get();pl.voice=pref._vo===undefined?('speechSynthesis' in window):!!pref._vo;pl.ccOn=pref._cc!==false;
+  pl.stage=new Stage(pl.svg);
+  const SPDS=[.75,1,1.25,1.5,2];
+  q('.cin-x').onclick=close;q('.cin-scrim').onclick=close;
+  pl.play.onclick=()=>toggle();pl.big.onclick=()=>toggle();
+  q('.cin-svg').addEventListener('click',()=>toggle());
+  q('.cin-prev').onclick=()=>jump(-1);q('.cin-next').onclick=()=>jump(1);
+  pl.spd.onclick=()=>{pl.speed=SPDS[(SPDS.indexOf(pl.speed)+1)%SPDS.length];pl.spd.textContent=pl.speed+'×';if(pl.speaking)speak(pl.f.frames[pl.capIdx])};
+  pl.cc.onclick=()=>{pl.ccOn=!pl.ccOn;savePref();ui()};
+  pl.vo.onclick=()=>{pl.voice=!pl.voice;savePref();if(!pl.voice)hush();else if(pl.playing&&pl.f){speak(pl.f.frames[pl.capIdx]);pl.spoken=pl.capIdx}ui()};
+  q('.cin-fs').onclick=()=>{const el=pl.box;if(document.fullscreenElement)document.exitFullscreen();else if(el.requestFullscreen)el.requestFullscreen().catch(()=>{})};
+  // scrubbing
+  const seekAt=e=>{const r=pl.bar.getBoundingClientRect();return clamp((e.clientX-r.left)/r.width,0,1)*pl.f.T};
+  let drag=false;
+  pl.bar.addEventListener('pointerdown',e=>{drag=true;pl.bar.setPointerCapture(e.pointerId);seek(seekAt(e))});
+  pl.bar.addEventListener('pointermove',e=>{const t=seekAt(e);const r=pl.bar.getBoundingClientRect();const i=stateIdx(t);pl.tip.textContent=fmt(t)+' · '+chapAt(t);pl.tip.style.left=clamp(e.clientX-r.left,40,r.width-40)+'px';pl.tip.classList.add('on');if(drag)seek(t)});
+  pl.bar.addEventListener('pointerleave',()=>pl.tip.classList.remove('on'));
+  pl.bar.addEventListener('pointerup',()=>{drag=false});
+  pl.bar.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){seek(pl.t+5);e.preventDefault()}if(e.key==='ArrowLeft'){seek(pl.t-5);e.preventDefault()}});
+  d.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){if(!document.fullscreenElement)close();return}
+    if(e.target.closest&&e.target.closest('.cin-bar'))return;
+    if(e.key===' '||e.key==='k'){e.preventDefault();toggle()}
+    else if(e.key==='ArrowRight'||e.key==='l'){e.preventDefault();jump(1)}
+    else if(e.key==='ArrowLeft'||e.key==='j'){e.preventDefault();jump(-1)}
+    else if(e.key==='f'){q('.cin-fs').click()}
+    else if(e.key==='c'){pl.cc.click()}
+    else if(e.key==='m'){pl.vo.click()}
+    else if(e.key==='Tab'){const f=[...d.querySelectorAll('button:not([hidden]),[tabindex="0"],a[href]')].filter(x=>x.offsetParent);if(!f.length)return;const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}
+  });
+  function savePref(){const o=LS.get();o._vo=pl.voice?1:0;o._cc=pl.ccOn;LS.put(o)}
+  P=pl;return pl}
+function stateIdx(t){const F=P.f.frames;for(let k=0;k<F.length;k++)if(t<F[k].t0+F[k].dur)return k;return F.length-1}
+function chapAt(t){let n='';for(const c of P.f.chapters)if(c.t<=t+1e-6)n=c.name;return n}
+let voices=[];function pickVoice(){if(!('speechSynthesis' in window))return null;voices=speechSynthesis.getVoices();
+  return voices.find(v=>/^en/i.test(v.lang)&&/Natural|Neural|Google UK English Female|Samantha|Google US English|Daniel/i.test(v.name))||voices.find(v=>/^en(-|_)(GB|US|IN|AU)/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang))||null}
+if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=()=>{voices=speechSynthesis.getVoices()};
+function hush(){if('speechSynthesis' in window)speechSynthesis.cancel();if(P){P.speaking=false;clearTimeout(P.sto)}}
+function speak(fr){if(!P.voice||!('speechSynthesis' in window)||!fr||!fr.cap)return;hush();
+  const u=new SpeechSynthesisUtterance(sayText(fr.say||fr.cap));const v=pickVoice();if(v)u.voice=v;u.rate=clamp(1.02*P.speed,.6,2);u.pitch=1;
+  P.speaking=true;P.utt=u;const words=(fr.cap.split(/\s+/).length);
+  P.sto=setTimeout(()=>{if(P.utt===u)P.speaking=false},(words*.55+2.5)/P.speed*1000);
+  u.onend=u.onerror=()=>{if(P.utt===u){P.speaking=false;clearTimeout(P.sto)}};
+  try{speechSynthesis.speak(u)}catch(e){P.speaking=false}}
+function ui(){if(!P||!P.f)return;const f=P.f;
+  P.play.textContent=P.playing?'❚❚':'▶';P.play.setAttribute('aria-label',P.playing?'Pause':'Play');
+  P.big.hidden=P.playing||!P.end.hidden||P.t>.05;P.cc.setAttribute('aria-pressed',P.ccOn);P.cap.style.display=P.ccOn?'':'none';
+  P.vo.setAttribute('aria-pressed',P.voice);P.vo.textContent=P.voice?'🔊':'🔈';P.vo.title=P.voice?'Voice-over on (m)':'Voice-over off (m)';
+  if(!('speechSynthesis' in window))P.vo.hidden=true}
+function render(){const f=P.f;const {i,st}=stateAt(f,P.t);P.stage.draw(st,P.clock);
+  if(i!==P.capIdx){P.capIdx=i;const c=f.frames[i].cap;P.cap.classList.remove('in');void P.cap.offsetWidth;P.cap.textContent=c;P.cap.classList.toggle('empty',!c);P.cap.classList.add('in');P.ch.textContent=chapAt(P.t);
+    if(P.playing&&P.voice&&P.spoken!==i){P.spoken=i;speak(f.frames[i])}}
+  const pc=P.t/f.T*100;P.fill.style.width=pc+'%';P.knob.style.left=pc+'%';P.time.textContent=fmt(P.t)+' / '+fmt(f.T);P.bar.setAttribute('aria-valuenow',Math.round(pc));P.bar.setAttribute('aria-valuetext',fmt(P.t))}
+function loop(now){if(!P||P.d.hidden)return;const dt=Math.min(.1,(now-(P.last||now))/1000);P.last=now;P.clock+=dt;
+  if(P.playing){const f=P.f,i=stateIdx(P.t),end=f.frames[i].t0+f.frames[i].dur;let nt=P.t+dt*P.speed;
+    if(P.voice&&P.speaking&&nt>=end-.04)nt=Math.max(P.t,end-.04);
+    P.t=Math.min(nt,f.T);if(P.t>=f.T-1e-3){P.playing=false;hush();finish()}}
+  render();P.stars.draw(dt,P.clock);P.raf=requestAnimationFrame(loop)}
+function toggle(force){if(!P.f)return;const on=force==null?!P.playing:force;
+  if(on&&P.t>=P.f.T-.01){P.t=0;P.end.hidden=true}
+  P.playing=on;P.end.hidden=true;if(on){P.spoken=-1;P.capIdx=-1}else hush();ui()}
+function seek(t){P.t=clamp(t,0,P.f.T-.001);P.end.hidden=true;hush();P.spoken=stateIdx(P.t)===P.capIdx?P.capIdx:-1;if(!P.playing)P.spoken=-1;P.capIdx=-1;ui()}
+function jump(d){const i=stateIdx(P.t),F=P.f.frames;let k=clamp(i+d,0,F.length-1);if(d<0&&P.t-F[i].t0>1.2)k=i;P.t=F[k].t0+.001;P.end.hidden=true;hush();P.capIdx=-1;P.spoken=-1;ui()}
+function finish(){const f=P.f;const w=LS.get();w[f.id]=1;LS.put(w);document.dispatchEvent(new CustomEvent('cinema:watched',{detail:f.id}));
+  const here=location.pathname.split('/').pop().replace(/\.html$/,'')||'index';
+  const lab=f.lab?(here===f.slug?'#'+f.lab:f.slug+'.html#'+f.lab):'';
+  const yt=(f.yt||[]).map(s=>`<a class="cin-yt" href="https://www.youtube.com/results?search_query=${encodeURIComponent(s)}" target="_blank" rel="noopener">▶ ${s.replace(/[<]/g,'&lt;')}<\/a>`).join('');
+  P.end.innerHTML=`<div class="cin-end-in"><p class="cin-end-eb">✦ Pattern unlocked<\/p><h3>${f.title}<\/h3><ul>${(f.recap||[]).map(r=>`<li>${r}<\/li>`).join('')}<\/ul>
+   <div class="cin-end-row"><button class="cin-pill pri" data-a="replay">↻ Replay<\/button>${lab?`<a class="cin-pill" data-a="lab" href="${lab}">🧪 Try it in the lab<\/a>`:''}${nextFilm(f)?`<button class="cin-pill" data-a="next">Next film: ${nextFilm(f).title} →<\/button>`:''}<\/div>
+   ${yt?`<p class="cin-yt-h">Want another angle? Search YouTube:<\/p><div class="cin-end-row">${yt}<\/div>`:''}<\/div>`;
+  P.end.hidden=false;ui();
+  P.end.querySelector('[data-a="replay"]').onclick=()=>{P.t=0;toggle(true)};
+  const nx=P.end.querySelector('[data-a="next"]');if(nx)nx.onclick=()=>open(nextFilm(f).id,true);
+  const lb=P.end.querySelector('[data-a="lab"]');if(lb&&here===f.slug)lb.onclick=e=>{e.preventDefault();close();const el=document.getElementById(f.lab);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})};
+  setTimeout(()=>{const b=P.end.querySelector('button');if(b)b.focus()},50)}
+function nextFilm(f){const i=ORDER.indexOf(f.id);for(let k=i+1;k<ORDER.length;k++){const g=FILMS[ORDER[k]];if(g.track===f.track)return g}return null}
+function open(id,autoplay=true){const f=FILMS[id];if(!f)return;if(!P)buildPlayer();compile(f);
+  if(P.d.hidden)P.prevFocus=document.activeElement;
+  P.f=f;P.t=0;P.capIdx=-1;P.spoken=-1;P.playing=false;P.end.hidden=true;hush();
+  P.title.textContent=f.title;P.svg.setAttribute('aria-label','Animated film: '+f.title);P.d.setAttribute('aria-label',f.title);
+  P.ticks.innerHTML=f.chapters.map(c=>`<i style="left:${c.t/f.T*100}%"><\/i>`).join('');
+  P.stage.root.innerHTML='';P.stage.g={};P.stage.order='';
+  P.d.hidden=false;document.documentElement.classList.add('cin-lock');
+  cancelAnimationFrame(P.raf);P.last=0;P.raf=requestAnimationFrame(loop);
+  if(autoplay)toggle(true);ui();
+  setTimeout(()=>P.play.focus(),30);
+  try{history.replaceState(null,'','#film-'+id)}catch(e){}}
+function close(){if(!P)return;hush();P.playing=false;P.d.hidden=true;document.documentElement.classList.remove('cin-lock');cancelAnimationFrame(P.raf);if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
+  try{if(/^#film-/.test(location.hash))history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+  if(P.prevFocus&&P.prevFocus.focus)P.prevFocus.focus()}
+
+/* ---------- live preview (posters, banners) ---------- */
+const PREV=new Set();let prevRaf=0,prevLast=0;
+const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function preview(host,id,o={}){const f=FILMS[id];if(!f)return null;compile(f);
+  const svg=mk('svg',{viewBox:`0 0 ${W} ${H}`,class:'cin-pv-svg','aria-hidden':'true'});host.appendChild(svg);
+  const pv={host,svg,f,stage:new Stage(svg),t:o.at!=null?o.at*f.T:f.T*.42,live:false,auto:!!o.auto,speed:o.speed||1.4,start:o.from!=null?o.from*f.T:f.frames.length>1?f.frames[1].t0:0};
+  pv.draw=()=>pv.stage.draw(stateAt(f,pv.t).st,pv.t);pv.draw();
+  if(!reduce){
+    if(pv.auto&&'IntersectionObserver' in window){new IntersectionObserver(es=>es.forEach(e=>{pv.live=e.isIntersecting;if(pv.live){PREV.add(pv);kick()}else PREV.delete(pv)}),{threshold:.2}).observe(host)}
+    else if(!pv.auto){host.addEventListener('pointerenter',()=>{pv.live=true;PREV.add(pv);kick()});host.addEventListener('pointerleave',()=>{pv.live=false;PREV.delete(pv);pv.t=f.T*.42;pv.draw()})}
+  }
+  return pv}
+function kick(){if(prevRaf)return;prevLast=0;prevRaf=requestAnimationFrame(pvLoop)}
+function pvLoop(now){const dt=Math.min(.1,(now-(prevLast||now))/1000);prevLast=now;
+  if(!PREV.size||document.hidden&&false){prevRaf=0;return}
+  if(!(P&&!P.d.hidden))for(const pv of PREV){pv.t+=dt*pv.speed;if(pv.t>=pv.f.T-.2)pv.t=pv.start;pv.draw()}
+  prevRaf=requestAnimationFrame(pvLoop)}
+
+function watched(){return LS.get()}
+function hashOpen(){const m=/^#film-([\w-]+)/.exec(location.hash);if(m&&FILMS[m[1]])open(m[1],false)}
+window.addEventListener('hashchange',hashOpen);
+document.addEventListener('DOMContentLoaded',()=>setTimeout(hashOpen,60));
+window.Cinema={add,open,close,preview,films:FILMS,order:ORDER,watched,compile,fmt,PAL,Stars,stateAt,seek:t=>{if(P&&P.f){seek(t);render()}},player:()=>P,_prev:PREV};
+})();
+</script><script>(function(){"use strict";const C=window.Cinema;if(!C)return;
+/* shared helpers */
+function ptr(K,id,x,y,label,c,up){ // arrow pointing at (x,y) from above (or below when up)
+  if(up)K.el(id,{t:'arrow',x,y:y+48,x2:x,y2:y+8,stroke:c||'amber',lw:3,text:label,col:c||'amber',ly:30,font:'b',fs:16,z:5});
+  else K.el(id,{t:'arrow',x,y:y-48,x2:x,y2:y-8,stroke:c||'amber',lw:3,text:label,col:c||'amber',ly:-30,font:'b',fs:16,z:5})}
+function tx(K,id,x,y,text,o){K.el(id,K.has(id)?Object.assign({x,y,text},o||{}):Object.assign({t:'txt',x,y,text,fs:20,col:'white',font:'b',fw:700},o||{}))}
+function cmp(K,y,a,b){ // complexity bars
+  K.el('cb1',{t:'bar',x:420,y,w:420,h:22,v:a.v,sc:'rose',text:a.text,fill:'ghost',stroke:'faint',glow:.4});
+  K.el('cb1l',{t:'txt',x:200,y,text:a.label,fs:17,col:'rose',anchor:'end',font:'b'});
+  K.el('cb2',{t:'bar',x:420,y:y+50,w:420,h:22,v:b.v,sc:'mint',text:b.text,fill:'ghost',stroke:'faint',glow:.6});
+  K.el('cb2l',{t:'txt',x:200,y:y+50,text:b.label,fs:17,col:'mint',anchor:'end',font:'b'})}
+
+/* 1 ─ Arrays & Hashing */
+C.add({id:'hashing',slug:'hashing',track:'dsa',n:1,title:'Two Sum in one pass',topic:'Arrays & Hashing',lab:'lab-hash',
+  blurb:'Watch a hash map turn O(n²) pair-checking into one walk.',
+  yt:['NeetCode two sum','hash map data structure explained'],
+  recap:['Ask: “have I already seen the partner I need?”','Walk once and store value → index in a map','Check before you store, so an item never pairs with itself','O(n) time, paid for with O(n) memory']},K=>{
+  K.title('ARRAYS & HASHING','Two Sum in one pass','Find two numbers that add to 12');
+  K.step('The classic opener: find two numbers in this array that add up to twelve.',{dur:3.4});
+  K.untitle();
+  const nums=[4,9,2,7,5],xs=K.row(5,72,16,300);
+  K.chapter('Brute force');
+  nums.forEach((v,i)=>K.el('c'+i,{t:'box',x:xs[i],y:230,w:72,h:72,text:v,sub:'i='+i,fs:28}));
+  tx(K,'tgt',300,108,'target = 12',{fs:26,col:'amber',font:'d',fw:800});
+  K.step('Here is the array and the target.');
+  let n=0;const arcs=[];
+  for(let i=0;i<5;i++){for(let j=i+1;j<5;j++){n++;const id='a'+i+j;arcs.push(id);
+      K.el(id,{t:'line',x:xs[i],y:190,x2:xs[j],y2:190,bend:-(j-i)*16,stroke:'rose',lw:2,o:.75})}
+    if(i<4){tx(K,'cnt',720,150,'pairs checked: '+n,{col:'rose',fs:22});
+      K.step(i===0?'Brute force pairs every number with every number after it.':i===1?'Then the next one, and the next…':i===2?'The pairs keep piling up.':'Ten pairs for just five numbers.',{dur:i===0?3.4:2})}}
+  tx(K,'cnt2',720,200,'≈ n² / 2',{col:'rose',fs:30,font:'d',fw:800,glow:.5});
+  K.step('That grows like n squared. For ten thousand numbers that is fifty million checks.');
+  K.del(arcs,'cnt','cnt2');
+  K.chapter('Memory buys time');
+  K.el('mp',{t:'box',x:760,y:250,w:230,h:300,fill:'ghost',stroke:'violet',fo:.5,dash:true,rx:18});
+  tx(K,'mpt',760,82,'seen = { value → index }',{fs:17,col:'violet',font:'m'});
+  K.step('New idea: remember every number you have walked past, in a hash map.');
+  const seen={};let row=0;
+  for(let i=0;i<5;i++){const v=nums[i],need=12-v;
+    ptr(K,'pi',xs[i],194,'i','amber');
+    K.el('c'+i,{stroke:'cyan',glow:.7});if(i)K.el('c'+(i-1),{stroke:'faint',glow:0});
+    tx(K,'need',300,340,`need = 12 − ${v} = ${need}`,{fs:24,col:'cyan',font:'m'});
+    if(need in seen){const j=seen[need];
+      K.el('m'+need,{stroke:'mint',fill:'mint',fo:.25,glow:1});
+      K.step(`Need ${need}. Is ${need} in the map? Yes! It was at index ${j}.`,{dur:3.4});
+      K.el('c'+j,{stroke:'mint',glow:1,fill:'mint',fo:.25});K.el('c'+i,{stroke:'mint',glow:1,fill:'mint',fo:.25});
+      K.el('hit',{t:'line',x:xs[j],y:190,x2:xs[i],y2:190,bend:-36,stroke:'mint',lw:4,glow:.8});
+      tx(K,'ans',300,400,`answer = [${j}, ${i}]`,{fs:30,col:'mint',font:'d',fw:800,glow:.7});
+      K.step('One pass, one lookup per number. Done.',{dur:3});break}
+    K.step(i===0?`Need ${need}. Is ${need} in the map? Not yet, so it can't pair with anything we've seen.`:`Need ${need}. Not in the map.`,{dur:i===0?4:2.2});
+    seen[v]=i;
+    K.el('m'+v,{t:'box',x:760,y:140+row*58,w:180,h:44,text:`${v} → ${i}`,fs:20,stroke:'violet',fill:'panel',fx:xs[i],fy:230,z:3});row++;
+    K.step(i===0?`Store ${v} → ${i}, then move on. Check first, store second.`:`Store ${v} → ${i}.`,{dur:i===0?3.2:1.8})}
+  K.chapter('The cost');
+  K.delAll(/^$/);
+  cmp(K,200,{label:'brute force',v:1,text:'50,000,000 checks'},{label:'hash map',v:.02,text:'10,000 lookups'});
+  tx(K,'ct',480,110,'n = 10,000',{fs:28,col:'amber',font:'d',fw:800});
+  K.step('Same answer, five thousand times less work. The price is O(n) extra memory.',{dur:4.2});
+});
+
+/* 2 ─ Two Pointers */
+C.add({id:'two-pointers',slug:'two-pointers',track:'dsa',n:2,title:'Two pointers, closing in',topic:'Two Pointers',lab:'lab-conv',
+  blurb:'Sorted input lets two pointers throw away a whole number with every comparison.',
+  yt:['NeetCode two sum II sorted array','two pointers technique explained'],
+  recap:['Sorted input + pair question → start L at the left, R at the right','Sum too big → R moves left; too small → L moves right','Each move rules out one number for good','O(n) time, O(1) space']},K=>{
+  K.title('TWO POINTERS','Closing in from both ends','Pair sum on a sorted array');
+  K.step('This time the array is sorted. That one fact changes everything.',{dur:3.4});
+  K.untitle();
+  const a=[1,3,4,6,8,11,14],xs=K.row(7,72,14);
+  a.forEach((v,i)=>K.el('c'+i,{t:'box',x:xs[i],y:230,w:72,h:72,text:v,sub:'i='+i,fs:26}));
+  tx(K,'tgt',480,96,'target = 14',{fs:26,col:'amber',font:'d',fw:800});
+  K.chapter('Closing in');
+  let L=0,R=6;
+  ptr(K,'pl',xs[L],194,'L','cyan');ptr(K,'pr',xs[R],194,'R','rose');
+  K.step('Put L on the smallest number and R on the largest.');
+  const dead=[];
+  while(L<R){const s=a[L]+a[R];
+    K.el('c'+L,{stroke:'cyan',glow:.6});K.el('c'+R,{stroke:'rose',glow:.6});
+    tx(K,'sum',480,350,`${a[L]} + ${a[R]} = ${s}`,{fs:30,col:s===14?'mint':s>14?'rose':'cyan',font:'m',fw:800});
+    if(s===14){K.el('c'+L,{stroke:'mint',fill:'mint',fo:.25,glow:1});K.el('c'+R,{stroke:'mint',fill:'mint',fo:.25,glow:1});
+      tx(K,'v',480,404,`found: indices ${L} and ${R}`,{fs:24,col:'mint',font:'d',fw:800,glow:.6});
+      K.step('Fourteen! Found it in three comparisons.',{dur:3});break}
+    if(s>14){K.step(`${s} is too big. Pairing ${a[R]} with anything bigger than ${a[L]} is even bigger, so ${a[R]} is out.`,{dur:4.6});
+      K.el('c'+R,{o:.25,stroke:'faint',glow:0,sub:'out'});R--;ptr(K,'pr',xs[R],194,'R','rose');K.step('Move R left.',{dur:1.8})}
+    else{K.step(`${s} is too small. ${a[L]} can't reach 14 even with the biggest number left, so ${a[L]} is out.`,{dur:4.6});
+      K.el('c'+L,{o:.25,stroke:'faint',glow:0,sub:'out'});L++;ptr(K,'pl',xs[L],194,'L','cyan');K.step('Move L right.',{dur:1.8})}}
+  K.chapter('Why it is fast');
+  K.delAll();
+  cmp(K,200,{label:'all pairs',v:1,text:'n² / 2 checks'},{label:'two pointers',v:.12,text:'≤ n moves, O(1) space'});
+  tx(K,'w',480,110,'Every step rules out one number for good',{fs:26,col:'white',font:'d',fw:800});
+  K.step('Each comparison removes one number, so at most n steps, and no extra memory at all.',{dur:4.4});
+  K.delAll();
+  tx(K,'u0',480,120,'Same move, other problems',{fs:28,col:'amber',font:'d',fw:800});
+  ['Container With Most Water','3Sum: fix one, two-pointer the rest','Valid Palindrome','Remove duplicates in place'].forEach((s,i)=>tx(K,'u'+(i+1),480,190+i*50,'✦  '+s,{fs:22,col:'white',font:'b',fw:600}));
+  K.step('Look for sorted input, or a palindrome, or an in-place rewrite. Those are your two-pointer signals.',{dur:4.6});
+});
+
+/* 3 ─ Sliding Window */
+C.add({id:'sliding-window',slug:'sliding-window',track:'dsa',n:3,title:'The window that breathes',topic:'Sliding Window',lab:'lab-var',
+  blurb:'Grow on the right, shrink on the left: longest substring without repeats.',
+  yt:['NeetCode longest substring without repeating characters','sliding window technique explained'],
+  recap:['Contiguous run + “longest/shortest” → sliding window','Expand R every step; shrink L only while the window breaks the rule','Keep a set or counts of what is inside','Each index enters and leaves once: O(n)']},K=>{
+  K.title('SLIDING WINDOW','The window that breathes','Longest substring without repeating characters');
+  K.step('Find the longest stretch of this string with no repeated letter.',{dur:3.4});
+  K.untitle();
+  const s='abcabcbb',xs=K.row(8,64,12);
+  [...s].forEach((ch,i)=>K.el('c'+i,{t:'box',x:xs[i],y:200,w:64,h:64,text:ch,sub:String(i),fs:28}));
+  tx(K,'setl',250,345,'inside: { }',{fs:22,col:'cyan',font:'m',anchor:'start'});
+  tx(K,'best',250,395,'best = 0',{fs:22,col:'amber',font:'m',anchor:'start'});
+  K.step('R grows the window to the right. L shrinks it from the left when there is a repeat.');
+  K.chapter('Sliding');
+  let L=0,best=0,bs=0;const inside=new Set();
+  const win=()=>K.el('win',{t:'box',x:(xs[L]+xs[R])/2,y:200,w:xs[R]-xs[L]+84,h:92,fill:'cyan',fo:.07,stroke:'cyan',lw:3,glow:.8,rx:18,z:-1});
+  let R=0;
+  for(R=0;R<s.length;R++){const ch=s[R];
+    if(inside.has(ch)){
+      win();K.el('c'+R,{stroke:'rose',glow:.8});
+      ptr(K,'pr',xs[R],166,'R','rose');
+      tx(K,'setl',250,345,'inside: { '+[...inside].join(', ')+' }',{col:'rose'});
+      K.step(`'${ch}' is already inside. The window is broken.`,{dur:2.6});
+      const removed=[];
+      while(inside.has(ch)){inside.delete(s[L]);removed.push(s[L]);K.el('c'+L,{o:.3,stroke:'faint',glow:0});L++}
+      inside.add(ch);win();ptr(K,'pl',xs[L],256,'L','cyan',true);K.el('c'+R,{stroke:'cyan',glow:.5});
+      tx(K,'setl',250,345,'inside: { '+[...inside].join(', ')+' }',{col:'cyan'});
+      K.step(`Shrink from the left, dropping ${removed.map(x=>"'"+x+"'").join(' and ')}, until '${ch}' is unique again.`,{dur:3.4})}
+    else{inside.add(ch);
+      if(R===0)ptr(K,'pl',xs[0],256,'L','cyan',true);
+      ptr(K,'pr',xs[R],166,'R','rose');win();K.el('c'+R,{stroke:'cyan',glow:.5});
+      tx(K,'setl',250,345,'inside: { '+[...inside].join(', ')+' }',{col:'cyan'});
+      if(R-L+1>best){best=R-L+1;bs=L}
+      tx(K,'best',250,395,`best = ${best}  ("${s.slice(bs,bs+best)}")`,{col:'amber',glow:best===3?.6:0});
+      K.step(R===0?`Take '${ch}'. Window size 1.`:`Take '${ch}'. Size ${R-L+1}${R-L+1===best?', a new best':''}.`,{dur:R<3?2.6:1.9})}}
+  K.del('pl','pr','win');
+  for(let i=0;i<s.length;i++)K.el('c'+i,{o:i>=0&&i<3?1:.3,stroke:i<3?'mint':'faint',glow:i<3?1:0,fill:i<3?'mint':'panel',fo:i<3?.2:1});
+  tx(K,'best',250,395,'best = 3  ("abc")',{col:'mint',glow:.8});
+  K.step('The answer is three: "abc". Every letter entered once and left at most once.',{dur:3.8});
+  K.chapter('The cost');K.delAll();
+  cmp(K,200,{label:'all substrings',v:1,text:'O(n²) to O(n³)'},{label:'sliding window',v:.1,text:'O(n): each index in and out once'});
+  K.step('Checking every substring is n squared or worse. The window touches each index twice at most.',{dur:4.2});
+});
+
+/* 4 ─ Stack */
+C.add({id:'stack',slug:'stack',track:'dsa',n:4,title:'Last in, first out',topic:'Stack',lab:'lab-stack',
+  blurb:'Matching brackets, then the monotonic stack that finds the next greater element.',
+  yt:['NeetCode valid parentheses','monotonic stack next greater element'],
+  recap:['Nested or “most recent unmatched” → stack','Openers push; a closer must match the top','Next greater/smaller → monotonic stack of waiting indices','Each index is pushed and popped once: O(n)']},K=>{
+  K.title('STACK','Last in, first out','Brackets, then the monotonic stack');
+  K.step('A stack only lets you touch the top. That is exactly what nesting needs.',{dur:3.4});
+  K.untitle();
+  K.chapter('Valid brackets');
+  const s='([{}])',xs=K.row(6,58,12,300),pair={')':'(',']':'[','}':'{'};
+  [...s].forEach((ch,i)=>K.el('c'+i,{t:'box',x:xs[i],y:160,w:58,h:58,text:ch,fs:28}));
+  K.el('tw',{t:'box',x:740,y:265,w:150,h:300,fill:'ghost',fo:.4,stroke:'violet',dash:true,rx:14});
+  tx(K,'twl',740,92,'stack',{fs:18,col:'violet',font:'m'});
+  K.step('Read left to right. Openers go on the stack.');
+  const st=[];
+  for(let i=0;i<s.length;i++){const ch=s[i];ptr(K,'pi',xs[i],126,'','amber');K.el('c'+i,{stroke:'cyan',glow:.6});if(i)K.el('c'+(i-1),{stroke:'faint',glow:0,o:.45});
+    if('([{'.includes(ch)){st.push(i);K.el('s'+i,{t:'box',x:740,y:384-(st.length-1)*54,w:110,h:46,text:ch,fs:26,stroke:'violet',fx:xs[i],fy:160,glow:.4});
+      K.step(i===0?`'${ch}' opens, so push it.`:`'${ch}' opens. Push.`,{dur:i===0?2.4:1.6})}
+    else{const top=st.pop();K.el('s'+top,{stroke:'mint',fill:'mint',fo:.3,glow:1});K.el('c'+i,{stroke:'mint'});
+      K.step(`'${ch}' closes. The top is '${s[top]}', a match. Pop it.`,{dur:2.6});K.el('s'+top,{x:xs[i],y:160,s:.4});K.del('s'+top)}}
+  K.del('pi');tx(K,'ok',300,280,'empty stack → valid ✓',{fs:26,col:'mint',font:'d',fw:800,glow:.6});
+  K.step('Every opener was matched and the stack is empty, so the string is valid.',{dur:3.4});
+  K.delAll();
+  K.chapter('Monotonic stack');
+  const a=[2,1,5,3,6,4],bx=K.row(6,70,16,330);
+  a.forEach((v,i)=>{K.el('b'+i,{t:'box',x:bx[i],y:330-v*17,w:56,h:v*34,text:v,fs:22,ty:-v*17+16,rx:8,stroke:'blue',fill:'panel'});K.el('ans'+i,{t:'box',x:bx[i],y:385,w:56,h:36,text:'?',fs:18,stroke:'faint',col:'dim'})});
+  tx(K,'al',330,76,'Next greater element, for each bar',{fs:22,col:'amber',font:'d',fw:800});
+  K.el('tw',{t:'box',x:790,y:265,w:130,h:300,fill:'ghost',fo:.4,stroke:'violet',dash:true,rx:14});
+  tx(K,'twl',790,92,'waiting',{fs:18,col:'violet',font:'m'});
+  K.step('For each bar, find the first taller bar to its right. Bars that are still waiting sit on a stack.',{dur:4.6});
+  const ws=[];
+  const redraw=()=>ws.forEach((j,k)=>K.el('w'+j,{t:'box',x:790,y:384-k*50,w:96,h:42,text:a[j],fs:22,stroke:'violet',fx:bx[j],fy:330-a[j]*17}));
+  for(let i=0;i<a.length;i++){K.el('b'+i,{stroke:'cyan',glow:.7});if(i)K.el('b'+(i-1),{stroke:'blue',glow:0});
+    const popped=[];
+    while(ws.length&&a[ws[ws.length-1]]<a[i]){const j=ws.pop();popped.push(j);K.el('ans'+j,{text:a[i],col:'mint',stroke:'mint',glow:.7});K.el('w'+j,{x:bx[j],y:385,s:.5});K.del('w'+j)}
+    if(popped.length){K.el('arc'+i,{t:'arrow',x:bx[popped[popped.length-1]],y:322-a[popped[popped.length-1]]*34,x2:bx[i],y2:322-a[i]*34,bend:-30,stroke:'mint',lw:2.5,o:.8});
+      K.step(`${a[i]} is taller than ${popped.map(j=>a[j]).join(' and ')} waiting on the stack. Pop them: their answer is ${a[i]}.`,{dur:3.8});K.del('arc'+i)}
+    ws.push(i);redraw();
+    K.step(popped.length?`Now ${a[i]} waits too.`:i===0?`${a[i]} has nothing to compare with yet. It waits.`:`${a[i]} is not taller than the top. It waits.`,{dur:popped.length?1.7:2.4})}
+  ws.forEach(j=>{K.el('ans'+j,{text:'−1',col:'rose',stroke:'rose'});K.del('w'+j)});
+  K.step('Whatever is still waiting at the end has no taller bar: answer −1. Each bar was pushed and popped once.',{dur:4.6});
+});
+
+/* 5 ─ Binary Search */
+C.add({id:'binary-search',slug:'binary-search',track:'dsa',n:5,title:'Halve it, again and again',topic:'Binary Search',lab:'lab-bs',
+  blurb:'Each look throws away half of what is left: a million items in twenty checks.',
+  yt:['NeetCode binary search','binary search on answer explained'],
+  recap:['Sorted (or monotonic yes/no) → binary search','mid = (lo + hi) / 2, then drop the half that cannot hold the answer','Stop when lo passes hi','O(log n): a million items in about 20 checks']},K=>{
+  K.title('BINARY SEARCH','Halve it, again and again','Find 72 in a sorted array');
+  K.step('Fifteen sorted numbers. Where is seventy-two?',{dur:3});
+  K.untitle();
+  const a=[2,5,8,12,16,23,38,45,56,67,72,81,88,91,99],xs=K.row(15,52,7);
+  a.forEach((v,i)=>K.el('c'+i,{t:'box',x:xs[i],y:230,w:52,h:56,text:v,sub:String(i),fs:20}));
+  tx(K,'tgt',480,90,'target = 72',{fs:26,col:'amber',font:'d',fw:800});
+  K.chapter('Searching');
+  let lo=0,hi=14,k=0;
+  while(lo<=hi){const mid=(lo+hi)>>1;k++;
+    ptr(K,'plo',xs[lo],200,'lo','cyan');ptr(K,'phi',xs[hi],200,'hi','rose');ptr(K,'pm',xs[mid],285,'mid','amber',true);if(lo===hi){K.el('plo',{lx:-16});K.el('phi',{lx:16})}
+    K.el('c'+mid,{stroke:'amber',glow:.8});
+    tx(K,'k',830,90,'checks: '+k,{fs:20,col:'white',font:'m'});
+    if(a[mid]===72){K.el('c'+mid,{stroke:'mint',fill:'mint',fo:.25,glow:1});K.step(`mid = ${mid}, value ${a[mid]}. Found it, in ${k} checks.`,{dur:3.2});break}
+    const big=a[mid]>72;
+    K.step(`mid = ${mid}, value ${a[mid]}. ${big?'Too big':'Too small'}, so the answer must be on the ${big?'left':'right'}.`,{dur:k===1?3.8:3});
+    if(big){for(let i=mid;i<=hi;i++)K.el('c'+i,{o:.18,stroke:'faint',glow:0});hi=mid-1}
+    else{for(let i=lo;i<=mid;i++)K.el('c'+i,{o:.18,stroke:'faint',glow:0});lo=mid+1}
+    K.step(`Throw away that whole half. ${hi-lo+1} left.`,{dur:2})}
+  K.chapter('Why log n');K.delAll();
+  let n=1000000,steps=0;
+  tx(K,'lt',480,96,'How many halvings to get from a million to one?',{fs:24,col:'white',font:'d',fw:800});
+  K.el('hb',{t:'box',x:480,y:230,w:860,h:46,fill:'cyan',fo:.25,stroke:'cyan',glow:.6,rx:10,text:'1,000,000',fs:20});
+  K.step('Start with a million sorted items.');
+  while(n>1&&steps<6){n=Math.ceil(n/2);steps++;K.el('hb',{w:Math.max(8,860*n/1e6),text:steps<4?n.toLocaleString('en-US'):''});tx(K,'hc',480,320,'checks: '+steps,{fs:24,col:'amber',font:'m'});K.step('',{dur:.9,tr:.6})}
+  tx(K,'hc',480,320,'… checks: 20',{fs:30,col:'mint',font:'d',fw:800,glow:.7});K.el('hb',{w:6,text:''});
+  K.step('About twenty checks. A linear scan could need a million. That is O(log n).',{dur:4});
+});
+
+/* 6 ─ Linked List */
+C.add({id:'linked-list',slug:'linked-list',track:'dsa',n:6,title:'Reverse a linked list',topic:'Linked List',lab:'lab-ll',
+  blurb:'Three pointers, prev, cur and next, flip every arrow in one pass.',
+  yt:['NeetCode reverse linked list','fast and slow pointers linked list'],
+  recap:['Save next before you overwrite cur.next','Flip: cur.next = prev','Advance: prev = cur, cur = next','O(n) time, O(1) space; prev is the new head']},K=>{
+  K.title('LINKED LIST','Flip every arrow','Reverse a list in place');
+  K.step('Reversing a linked list is a pointer dance with exactly three dancers.',{dur:3.4});
+  K.untitle();
+  const xs=K.row(4,80,104,520),Y=210;
+  K.chapter('Setup');
+  for(let i=0;i<4;i++)K.el('n'+i,{t:'dot',x:xs[i],y:Y,r:36,fill:'panel',stroke:'blue',lw:3,text:i+1,col:'white',fs:28});
+  tx(K,'nr',xs[3]+120,Y,'null',{fs:20,col:'dim',font:'m'});tx(K,'nl',xs[0]-130,Y,'null',{fs:20,col:'dim',font:'m',o:0});
+  for(let i=0;i<4;i++)K.el('e'+i,{t:'arrow',x:xs[i],y:Y,x2:i<3?xs[i+1]:xs[3]+120,y2:Y,pad:42,pad2:i<3?42:26,stroke:'blue',lw:3});
+  tx(K,'hd',xs[0]-70,140,'head',{fs:18,col:'amber',font:'m'});
+  K.step('Each node points to the next. We want every arrow to point backwards.',{dur:3.6});
+  tx(K,'nl',xs[0]-130,Y,'null',{o:1});
+  const P=(id,i,label,c,top)=>{const x=i<0?xs[0]-130:xs[i],g=i<0?16:42;K.el(id,top?{t:'arrow',x,y:Y-118,x2:x,y2:Y-g,stroke:c,lw:3,text:label,col:c,ly:-50,font:'b',fs:16}:{t:'arrow',x,y:Y+118,x2:x,y2:Y+g,stroke:c,lw:3,text:label,col:c,ly:50,font:'b',fs:16})};
+  P('pp',-1,'prev','violet');P('pc',0,'cur','cyan');
+  K.step('Start with prev at null and cur at the head.');
+  K.chapter('Flipping');
+  for(let i=0;i<4;i++){
+    P('pn',i+1<4?i+1:3,'next','amber',true);if(i===3)K.el('pn',{x:xs[3]+120,x2:xs[3]+120,y2:Y-16});
+    K.step(i===0?'Step one: save next, or we lose the rest of the list.':'Save next.',{dur:i===0?3.2:1.6});
+    K.el('e'+i,{x2:i?xs[i-1]:xs[0]-130,pad2:i?42:26,bend:i?-46:-46,stroke:'mint',glow:.6});K.el('n'+i,{stroke:'mint'});
+    K.step(i===0?'Step two: flip the arrow, cur.next = prev.':'Flip the arrow.',{dur:i===0?3:1.6});
+    P('pp',i,'prev','violet');if(i<3)P('pc',i+1,'cur','cyan');else{K.el('pc',{x:xs[3]+120,x2:xs[3]+120,y2:Y+16})}
+    K.step(i===0?'Step three: advance both, prev = cur, cur = next.':i===3?'cur fell off the end. Stop.':'Advance.',{dur:i===0?3:1.6})}
+  K.del('pc');
+  K.del('pn');tx(K,'hd',xs[3],100,'new head',{fs:18,col:'mint',glow:.6});
+  K.step('prev is sitting on the last node. That is the new head.',{dur:3});
+  K.chapter('Result');
+  const rx=K.row(4,80,104,440);
+  for(let i=0;i<4;i++)K.el('n'+i,{x:rx[3-i]});
+  for(let i=0;i<4;i++)K.el('e'+i,{x:rx[3-i],x2:i?rx[4-i]:rx[3]+130,bend:0,pad2:i?42:26});
+  K.del('nr','pp');tx(K,'nl',rx[3]+130,Y,'null',{});tx(K,'hd',rx[0],140,'head',{});
+  K.step('4 → 3 → 2 → 1 → null. One pass, no extra memory.',{dur:3.6});
+});
+
+/* 7 ─ Recursion & Backtracking */
+C.add({id:'recursion',slug:'recursion',track:'dsa',n:7,title:'The decision tree',topic:'Recursion & Backtracking',lab:'lab-bt',
+  blurb:'Take it or skip it: watch backtracking walk every branch to build all subsets.',
+  yt:['NeetCode subsets backtracking','recursion tree backtracking explained'],
+  recap:['Every choice is a branch: take it or skip it','Recurse down, record at the leaf, undo on the way back','The tree has 2ⁿ leaves, so subsets cost O(n · 2ⁿ)','Same skeleton: permutations, combinations, N-Queens']},K=>{
+  K.title('RECURSION','The decision tree','All subsets of [1, 2, 3]');
+  K.step('Backtracking is just walking a tree of choices. Let us draw that tree.',{dur:3.4});
+  K.untitle();
+  const ys=[80,165,250,335],nodes={};
+  const pos=(lv,j)=>480+(j-(2**lv-1)/2)*(880/2**lv);
+  const lab=set=>'{'+set.join(',')+'}';
+  const out=[];
+  K.chapter('Walking the tree');
+  function visit(lv,j,set,par){const id='t'+lv+'_'+j,x=pos(lv,j);
+    K.el(id,{t:'box',x,y:ys[lv],w:lv===3?92:84,h:44,text:lab(set),fs:lv===3?16:18,stroke:'cyan',glow:.7,rx:22});
+    if(par){const take=j%2===0;K.el('e'+id,{t:'line',x:par[0],y:par[1]+22,x2:x,y2:ys[lv]-22,stroke:take?'mint':'rose',lw:2.5,text:take?'take '+(lv):'skip '+(lv),col:take?'mint':'rose',fs:12,ly:0,lx:take?-26:26})}
+    let cap='';
+    if(lv===0)cap='Start with an empty choice list.';
+    else if(lv===3)cap=`Leaf. Record ${lab(set)}.`;
+    else cap=j%2===0?`Take ${lv}.`:`Skip ${lv}.`;
+    if(lv===1&&j===0)cap='Choice for 1: take it.';
+    if(lv===2&&j===0)cap='Then take 2.';
+    if(lv===3&&j===0)cap='Take 3 too. That is a leaf: record {1,2,3}.';
+    if(lv===3){out.push(lab(set));K.el('o'+out.length,{t:'box',x:94+(out.length-1)*110,y:418,w:96,h:36,text:lab(set),fs:15,stroke:'mint',col:'mint',rx:18,fx:x,fy:ys[3]})}
+    K.step(cap,{dur:lv===3?(j===0?3.2:1.6):(j<1&&lv<3?2.4:1.5)});
+    K.el(id,{stroke:lv===3?'mint':'faint',glow:0});
+    if(lv<3){visit(lv+1,2*j,set.concat([lv+1]),[x,ys[lv]]);visit(lv+1,2*j+1,set,[x,ys[lv]]);
+      if(lv===2&&j===0)K.step('Back up a level. Undo the last choice and try the other branch.',{dur:3.2})}}
+  visit(0,0,[],null);
+  K.step('Eight leaves, eight subsets. Two choices per number gives 2ⁿ leaves.',{dur:3.8});
+  K.chapter('The template');K.delAll();
+  ['def backtrack(i, path):','    if i == len(nums):','        result.append(path[:])   # record leaf','        return','    path.append(nums[i])          # take','    backtrack(i + 1, path)','    path.pop()                     # undo','    backtrack(i + 1, path)         # skip'].forEach((l,i)=>tx(K,'code'+i,180,110+i*38,l,{fs:20,col:i===6?'amber':i===4?'mint':'white',font:'m',fw:600,anchor:'start'}));
+  K.step('The code is the tree: take, recurse, undo, skip, recurse. The undo is what makes it backtracking.',{dur:4.8});
+});
+
+/* 8 ─ Heap */
+C.add({id:'heap',slug:'heap',track:'dsa',n:8,title:'The heap keeps its promise',topic:'Heap / Priority Queue',lab:'lab-heap',
+  blurb:'Sift up on insert, sift down on pop: the smallest is always on top.',
+  yt:['NeetCode kth largest element heap','heap data structure sift up sift down'],
+  recap:['Min-heap: every parent ≤ its children, so the min sits at the root','Insert: add at the end, sift up','Pop: move last to the root, sift down','Both O(log n); top-k → keep a heap of size k']},K=>{
+  K.title('HEAP','The smallest stays on top','Insert, then pop, a min-heap');
+  K.step('A heap is a tree that lives inside an array. Every parent is smaller than its children.',{dur:4});
+  K.untitle();
+  const TP=[[480,95],[290,190],[670,190],[195,290],[385,290],[575,290],[765,290]];
+  let h=[2,5,3,9,6,8];const ax=K.row(7,58,10);
+  const draw=(hl)=>{h.forEach((v,i)=>{K.el('v'+v,{t:'dot',x:TP[i][0],y:TP[i][1],r:30,fill:'panel',stroke:hl&&hl.includes(i)?'amber':'blue',lw:3,text:v,col:'white',fs:24,glow:hl&&hl.includes(i)?.8:0,z:2});
+      K.el('a'+v,{t:'box',x:ax[i],y:400,w:58,h:46,text:v,sub:String(i),fs:20,stroke:hl&&hl.includes(i)?'amber':'faint'})});
+    for(let i=1;i<7;i++){const p=(i-1)>>1;if(i<h.length)K.el('e'+i,{t:'line',x:TP[p][0],y:TP[p][1],x2:TP[i][0],y2:TP[i][1],pad:30,stroke:'faint',lw:2.5,z:0});else if(K.has('e'+i))K.del('e'+i)}};
+  draw();tx(K,'arr',60,400,'array',{fs:15,col:'dim',font:'m',anchor:'start'});
+  K.step('Index i has children 2i+1 and 2i+2. No pointers needed.',{dur:3.2});
+  K.chapter('Insert 1');
+  h.push(1);draw([6]);K.el('v1',{fill:'amber',col:'bg'});
+  K.step('Insert 1: put it at the end of the array, the next free spot in the tree.',{dur:3.6});
+  let i=6;
+  while(i>0){const p=(i-1)>>1;if(h[p]<=h[i])break;
+    K.step(`1 is smaller than its parent ${h[p]}. That breaks the rule.`,{dur:2.6});
+    [h[p],h[i]]=[h[i],h[p]];i=p;draw([i]);K.el('v1',{fill:'amber',col:'bg'});
+    K.step('Swap them. Sift up.',{dur:1.8})}
+  K.el('v1',{fill:'panel',col:'white',stroke:'mint',glow:.8});
+  K.step('1 reached the root. Order is restored with at most log n swaps.',{dur:3.2});
+  K.chapter('Pop the min');
+  K.el('v1',{y:20,o:0,s:.6});K.del('v1','a1');
+  K.step('Pop: the minimum is always at the root. Take it.',{dur:2.8});
+  const last=h.pop();h[0]=last;draw([0]);K.el('v'+last,{fill:'amber',col:'bg'});
+  K.step(`Move the last element, ${last}, into the hole at the root.`,{dur:3});
+  i=0;
+  for(;;){const l=2*i+1,r=2*i+2;let m=i;if(l<h.length&&h[l]<h[m])m=l;if(r<h.length&&h[r]<h[m])m=r;if(m===i)break;
+    K.step(`${h[i]} is bigger than its smaller child ${h[m]}.`,{dur:2.4});
+    [h[m],h[i]]=[h[i],h[m]];i=m;draw([i]);K.el('v'+last,{fill:'amber',col:'bg'});K.step('Swap down. Sift down.',{dur:1.8})}
+  K.el('v'+last,{fill:'panel',col:'white',stroke:'mint',glow:.6});
+  K.step(`${last} is smaller than its children now. The heap is valid and ${h[0]} is the new min.`,{dur:3.6});
+  K.chapter('Top-k');K.delAll();
+  tx(K,'k1',480,140,'“Find the k largest” → keep a min-heap of size k',{fs:26,col:'amber',font:'d',fw:800});
+  tx(K,'k2',480,210,'push each number; if size > k, pop the smallest',{fs:21,col:'white',font:'b'});
+  tx(K,'k3',480,280,'O(n log k) instead of sorting everything',{fs:22,col:'mint',font:'m',glow:.5});
+  K.step('The root of a size-k min-heap is the k-th largest. That is the top-k trick.',{dur:4});
+});
+
+/* 9 ─ Trie */
+C.add({id:'trie',slug:'trie',track:'dsa',n:9,title:'Words that share a path',topic:'Trie',lab:'lab-build',
+  blurb:'Insert car, cat, cart and dog, then autocomplete “ca”.',
+  yt:['NeetCode implement trie prefix tree','trie data structure explained'],
+  recap:['One node per letter; words that share a prefix share a path','Mark the node where a word ends','Prefix search = walk the letters, then DFS below','Insert and search are O(word length)']},K=>{
+  K.title('TRIE','Words that share a path','A prefix tree, built live');
+  K.step('A trie stores words letter by letter, so shared prefixes are stored once.',{dur:3.6});
+  K.untitle();
+  const N={root:[480,78],c:[300,160],ca:[300,240],car:[200,320],cat:[400,320],cart:[200,400],d:[660,160],do:[660,240],dog:[660,320]};
+  const node=(k,o)=>K.el('n_'+k,Object.assign({t:'dot',x:N[k][0],y:N[k][1],r:24,fill:'panel',stroke:'blue',lw:3,text:k==='root'?'•':k.slice(-1),col:'white',fs:22,z:2},o||{}));
+  const edge=k=>{const p=k.length===1?'root':k.slice(0,-1);K.el('e_'+k,{t:'line',x:N[p][0],y:N[p][1],x2:N[k][0],y2:N[k][1],pad:24,stroke:'faint',lw:2.5,z:0})};
+  node('root');K.step('Start with an empty root.',{dur:2});
+  const seen=new Set(['root']),ends=new Set();
+  const words=['car','cat','cart','dog'];
+  K.chapter('Insert');
+  words.forEach((w,wi)=>{tx(K,'op',820,90,'insert "'+w+'"',{fs:22,col:'amber',font:'m'});
+    const path=[];let fresh=0;
+    for(let i=1;i<=w.length;i++){const k=w.slice(0,i);path.push(k);if(!seen.has(k)){seen.add(k);fresh++;node(k,{stroke:'cyan',glow:.8});edge(k)}else node(k,{stroke:'violet',glow:.8})}
+    ends.add(w);node(w,{stroke:'mint',fill:'mint',fo:.3,glow:1});
+    K.step(wi===0?'Insert "car": one new node per letter, and mark the last one as the end of a word.':wi===1?'Insert "cat": c and a already exist, so we reuse them. Only t is new.':wi===2?'"cart" reuses all of c, a, r and adds one t.':'"dog" shares nothing, so it starts a new branch.',{dur:wi===0?4.6:3.6});
+    path.forEach(k=>node(k,{stroke:ends.has(k)?'mint':'blue',glow:0,fill:ends.has(k)?'mint':'panel',fo:ends.has(k)?.18:1}))});
+  K.chapter('Autocomplete');
+  tx(K,'op',820,90,'prefix "ca"',{fs:22,col:'amber',font:'m'});
+  ['c','ca'].forEach(k=>node(k,{stroke:'amber',glow:1}));['e_c','e_ca'].forEach(e=>K.el(e,{stroke:'amber',lw:4}));
+  K.step('Autocomplete "ca": walk c, then a. Two steps, no matter how many words exist.',{dur:3.8});
+  ['car','cat','cart'].forEach(k=>node(k,{stroke:'mint',glow:1}));['e_car','e_cat','e_cart'].forEach(e=>K.el(e,{stroke:'mint',lw:3}));
+  ['car','cart','cat'].forEach((w,i)=>K.el('sg'+i,{t:'box',x:820,y:170+i*54,w:150,h:42,text:w,fs:20,stroke:'mint',col:'mint',rx:21,fx:N[w][0],fy:N[w][1]}));
+  K.step('Then collect every end-marked node below it: car, cart, cat.',{dur:3.4});
+  K.chapter('Word vs prefix');
+  ['c','ca','car','cat','cart'].forEach(k=>node(k,{stroke:ends.has(k)?'mint':'blue',glow:0}));['e_c','e_ca','e_car','e_cat','e_cart'].forEach(e=>K.el(e,{stroke:'faint',lw:2.5}));K.del('sg0','sg1','sg2');
+  tx(K,'op',820,90,'search "do"',{fs:22,col:'amber',font:'m'});node('d',{stroke:'amber',glow:1});node('do',{stroke:'rose',glow:1});
+  tx(K,'dn',820,170,'path exists ✓\nend mark ✗',{fs:20,col:'rose',font:'m'});
+  K.step('"do" is a valid prefix, but its node has no end mark, so "do" is not a stored word.',{dur:4.2});
+});
+
+/* 10 ─ Graphs */
+C.add({id:'graphs',slug:'graphs',track:'dsa',n:10,title:'The BFS wave',topic:'Graphs',lab:'lab-trav',
+  blurb:'Breadth-first search spreads like a ripple and finds the shortest path.',
+  yt:['NeetCode BFS shortest path grid','BFS vs DFS graph traversal explained'],
+  recap:['Unweighted shortest path → BFS with a queue','Mark a cell visited when you enqueue it, not when you pop it','Each ring of the wave is one more step of distance','O(V + E): every cell and edge once']},K=>{
+  K.title('GRAPHS','The BFS wave','Shortest path on a grid');
+  K.step('A grid is a graph: each cell links to its four neighbours. Walls block the way.',{dur:3.8});
+  K.untitle();
+  const G=['...........','.....#.....','.....#.....','.S...#...T.','.....#.....','...........','...#####...'];
+  const R=G.length,Cc=G[0].length,S=44,x0=480-(Cc-1)*S/2,y0=92;
+  let sr,sc,tr,tc;
+  for(let r=0;r<R;r++)for(let c=0;c<Cc;c++){const ch=G[r][c];if(ch==='S'){sr=r;sc=c}if(ch==='T'){tr=r;tc=c}
+    K.el(`g${r}_${c}`,{t:'box',x:x0+c*S,y:y0+r*S,w:S-5,h:S-5,rx:7,fill:ch==='#'?'#2A2F5C':'panel',stroke:ch==='#'?'#2A2F5C':'ghost',lw:1.5,text:ch==='S'?'S':ch==='T'?'T':'',fs:18,col:ch==='S'?'cyan':'amber'})}
+  K.el(`g${sr}_${sc}`,{stroke:'cyan',glow:.8});K.el(`g${tr}_${tc}`,{stroke:'amber',glow:.8});
+  K.step('Start at S. Find the fewest steps to T.',{dur:2.6});
+  K.chapter('The wave');
+  const dist={},par={},q=[[sr,sc]];dist[sr+','+sc]=0;let layer=[[sr,sc]],d=0;
+  const hue=d=>{const cs=['#5CE1FF','#5FD0FF','#68BEFF','#76AAFF','#8798FF','#9A8BFF','#AE80FF','#C377F5','#D86FE6','#EB6AD2','#FF66BB','#FF5F9F','#FF6688','#FF7A6E'];return cs[Math.min(d,cs.length-1)]};
+  let found=false;
+  while(layer.length&&!found){const nxt=[];
+    for(const [r,c] of layer)for(const [dr,dc] of [[1,0],[-1,0],[0,1],[0,-1]]){const nr=r+dr,nc=c+dc;if(nr<0||nc<0||nr>=R||nc>=Cc||G[nr][nc]==='#')continue;const k=nr+','+nc;if(k in dist)continue;dist[k]=d+1;par[k]=[r,c];nxt.push([nr,nc]);if(nr===tr&&nc===tc)found=true}
+    d++;nxt.forEach(([r,c])=>K.el(`g${r}_${c}`,{fill:hue(d),fo:.55,stroke:hue(d),glow:.5,text:r===tr&&c===tc?'T':String(d),col:r===tr&&c===tc?'amber':'white',fs:15}));
+    layer.forEach(([r,c])=>{if(!(r===sr&&c===sc))K.el(`g${r}_${c}`,{glow:0,fo:.32})});
+    tx(K,'dd',480,y0+R*S+8,'distance '+d,{fs:18,col:hue(d),font:'m'});
+    K.step(d===1?'Ring one: every cell one step away joins the queue.':d===2?'Ring two. The wave spreads evenly in every direction.':d===4?'The wall splits the wave. It flows around the gaps.':found?'The wave touches T.':'',{dur:d<=2||d===4?2.6:found?2.4:.95,tr:.5});
+    layer=nxt}
+  K.chapter('Trace the path');
+  let k=tr+','+tc;const path=[];while(k in par){const [r,c]=par[k];path.push([r,c]);k=r+','+c}
+  path.forEach(([r,c])=>{if(!(r===sr&&c===sc))K.el(`g${r}_${c}`,{fill:'amber',fo:.85,stroke:'amber',glow:.9,col:'bg'})});
+  K.el(`g${tr}_${tc}`,{fill:'amber',fo:1,col:'bg',glow:1});
+  tx(K,'dd',480,y0+R*S+8,'shortest path = '+dist[tr+','+tc]+' steps',{fs:20,col:'amber',font:'d',fw:800,glow:.6});
+  K.step(`Follow parent links back from T. Because BFS goes ring by ring, the first arrival is the shortest: ${dist[tr+','+tc]} steps.`,{dur:4.6});
+});
+
+/* 11 ─ Dynamic Programming */
+C.add({id:'dp',slug:'dp',track:'dsa',n:11,title:'When greedy lies, DP remembers',topic:'Dynamic Programming',lab:'lab-1d',
+  blurb:'Coin change: greedy grabs the big coin and loses; a table of small answers wins.',
+  yt:['NeetCode coin change dynamic programming','dynamic programming explained bottom up'],
+  recap:['Overlapping subproblems + a choice at each step → DP','Define dp[x] = the best answer for a smaller x','dp[x] = min over coins c of dp[x − c] + 1','Fill small to big: O(amount × coins)']},K=>{
+  K.title('DYNAMIC PROGRAMMING','When greedy lies','Fewest coins to make 6, using 1, 3 and 4');
+  K.step('Make six with as few coins as possible. You have coins of 1, 3 and 4.',{dur:3.6});
+  K.untitle();
+  K.chapter('The greedy trap');
+  tx(K,'g0',480,90,'Greedy: always grab the biggest coin that fits',{fs:22,col:'rose',font:'d',fw:800});
+  const coin=(id,x,y,v,c)=>K.el(id,{t:'dot',x,y,r:34,fill:c,text:v,col:'bg',fs:26,glow:.6});
+  coin('gc1',360,200,4,'amber');K.step('Grab 4. Two left.',{dur:2});
+  coin('gc2',460,200,1,'amber');K.step('3 and 4 are too big. Grab 1.',{dur:2.2});
+  coin('gc3',560,200,1,'amber');tx(K,'gt',480,280,'3 coins',{fs:28,col:'rose',font:'d',fw:800});K.step('And another 1. Three coins.',{dur:2.2});
+  coin('bc1',430,370,3,'mint');coin('bc2',530,370,3,'mint');tx(K,'bt',680,370,'2 coins!',{fs:28,col:'mint',font:'d',fw:800,glow:.7});
+  K.step('But 3 + 3 is only two coins. Greedy was wrong. We need to consider every choice.',{dur:4.2});
+  K.delAll();
+  K.chapter('Build the table');
+  const coins=[1,3,4],A=6,xs=K.row(7,84,18),Y=270,dp=[0];
+  for(let i=0;i<=A;i++)K.el('d'+i,{t:'box',x:xs[i],y:Y,w:84,h:70,text:i?'?':'0',sub:'dp['+i+']',fs:28,col:i?'dim':'mint',stroke:i?'faint':'mint'});
+  tx(K,'f',480,92,'dp[x] = min( dp[x − c] + 1 ) over coins c',{fs:22,col:'cyan',font:'m'});
+  K.step('dp[x] is the fewest coins for amount x. dp[0] is zero.',{dur:3.4});
+  for(let x=1;x<=A;x++){let best=1e9,from=-1;const arcs=[];
+    coins.forEach(c=>{if(x-c>=0){const v=dp[x-c]+1;arcs.push(['ar'+x+'_'+c,x-c,c]);if(v<best){best=v;from=x-c}}});
+    dp[x]=best;
+    arcs.forEach(([id,f,c])=>K.el(id,{t:'arrow',x:xs[f],y:Y-38,x2:xs[x],y2:Y-38,bend:-(x-f)*22-10,stroke:f===from?'mint':'faint',lw:f===from?3.5:2,text:'+'+c,col:f===from?'mint':'dim',fs:13,glow:f===from?.6:0}));
+    K.el('d'+x,{text:best,col:'white',stroke:'cyan',glow:.7});
+    K.step(x===1?'dp[1]: only the 1-coin fits. dp[0] + 1 = 1.':x===3?'dp[3]: from dp[2] + 1 = 3, or dp[0] + 1 = 1 using the 3-coin. Take 1.':x===6?'dp[6]: from dp[5], dp[3] or dp[2]. Best is dp[3] + 1 = 2.':`dp[${x}] = ${best}.`,{dur:x===3||x===6?4.2:x===1?3:1.8});
+    arcs.forEach(([id])=>K.del(id));K.el('d'+x,{stroke:'faint',glow:0})}
+  K.el('d6',{stroke:'mint',fill:'mint',fo:.25,glow:1,col:'mint'});
+  tx(K,'r',480,400,'answer: 2 coins (3 + 3)',{fs:26,col:'mint',font:'d',fw:800,glow:.6});
+  K.step('Every cell reused answers we had already computed. That is the whole trick of DP.',{dur:4});
+});
+
+/* 12 ─ Greedy & Intervals */
+C.add({id:'greedy-intervals',slug:'greedy-intervals',track:'dsa',n:12,title:'Sweep and merge',topic:'Greedy & Intervals',lab:'lab-int',
+  blurb:'Sort by start, then sweep once and fuse every overlap.',
+  yt:['NeetCode merge intervals','interval scheduling greedy explained'],
+  recap:['Intervals → sort by start first','Overlap if next.start ≤ current.end','Overlap → extend end = max(end, next.end); else start a new block','O(n log n) for the sort, then one pass']},K=>{
+  K.title('GREEDY & INTERVALS','Sweep and merge','Merge overlapping intervals');
+  K.step('Five meetings on a timeline. Merge every pair that overlaps.',{dur:3.2});
+  K.untitle();
+  const iv=[[1,3],[2,6],[8,10],[9,12],[15,18]],X=t=>110+t*40,ys=[110,155,200,245,290];
+  K.el('ax',{t:'line',x:X(0),y:350,x2:X(19),y2:350,stroke:'faint',lw:2});
+  for(let t=0;t<=18;t+=3)tx(K,'tk'+t,X(t),372,String(t),{fs:13,col:'dim',font:'m'});
+  iv.forEach(([s,e],i)=>K.el('i'+i,{t:'box',x:(X(s)+X(e))/2,y:ys[i],w:X(e)-X(s),h:30,rx:8,fill:'blue',fo:.35,stroke:'blue',text:`[${s},${e}]`,fs:14}));
+  K.step('They are already sorted by start time. Sorting is always step one.',{dur:3.2});
+  K.chapter('The sweep');
+  let cur=[...iv[0]],blk=0;const done=[];
+  const show=()=>K.el('m'+blk,{t:'box',x:(X(cur[0])+X(cur[1]))/2,y:410,w:X(cur[1])-X(cur[0]),h:34,rx:8,fill:'mint',fo:.3,stroke:'mint',glow:.7,text:`[${cur[0]},${cur[1]}]`,fs:15,col:'mint'});
+  K.el('sw',{t:'line',x:X(1),y:90,x2:X(1),y2:430,stroke:'amber',lw:2,dash:true,glow:.5});
+  show();K.el('i0',{stroke:'mint'});
+  K.step('Start a merged block with the first meeting, [1,3].',{dur:2.8});
+  for(let i=1;i<iv.length;i++){const [s,e]=iv[i];K.el('sw',{x:X(s),x2:X(s)});K.el('i'+i,{stroke:'amber',glow:.6});
+    if(s<=cur[1]){K.step(`[${s},${e}] starts at ${s}, before the block ends at ${cur[1]}. Overlap.`,{dur:3});cur[1]=Math.max(cur[1],e);show();K.el('i'+i,{stroke:'mint',glow:0});K.step(`Extend the block to end at ${cur[1]}.`,{dur:2})}
+    else{K.step(`[${s},${e}] starts after ${cur[1]}. A gap, so the block is finished.`,{dur:3});K.el('m'+blk,{glow:0});done.push(cur);blk++;cur=[s,e];show();K.el('i'+i,{stroke:'mint',glow:0});K.step(`Start a new block at [${s},${e}].`,{dur:2})}}
+  K.del('sw');done.push(cur);
+  K.step('Result: [1,6], [8,12], [15,18]. One sort, one sweep.',{dur:3.6});
+});
+
+/* 13 ─ Bit Manipulation */
+C.add({id:'bits',slug:'bits',track:'dsa',n:13,title:'XOR makes pairs vanish',topic:'Bit Manipulation',lab:'lab-bits',
+  blurb:'Find the lonely number with XOR, then count bits with n & (n − 1).',
+  yt:['NeetCode single number XOR','bit manipulation tricks explained'],
+  recap:['x ^ x = 0 and x ^ 0 = x, in any order','XOR everything: pairs cancel, the single number remains','n & (n − 1) clears the lowest set bit','O(n) time, O(1) space']},K=>{
+  K.title('BIT MANIPULATION','XOR makes pairs vanish','Find the number that appears once');
+  K.step('Every number appears twice except one. Find it with no extra memory.',{dur:3.6});
+  K.untitle();
+  const nums=[4,1,2,1,2],bits=n=>[4,2,1].map(b=>n&b?1:0),BX=[470,540,610];
+  K.chapter('XOR the stream');
+  tx(K,'r0',480,70,'a ^ b: bit is 1 when the two bits differ',{fs:20,col:'cyan',font:'m'});
+  nums.forEach((v,i)=>{tx(K,'nl'+i,340,120+i*50,String(v),{fs:24,col:'white',font:'m',anchor:'end'});bits(v).forEach((b,j)=>K.el(`b${i}_${j}`,{t:'box',x:BX[j],y:120+i*50,w:54,h:40,text:b,fs:20,col:b?'white':'dim',stroke:'faint',o:.9}))});
+  tx(K,'accl',340,390,'acc',{fs:22,col:'amber',font:'m',anchor:'end'});
+  let acc=0;bits(0).forEach((b,j)=>K.el('ac'+j,{t:'box',x:BX[j],y:390,w:54,h:44,text:b,fs:22,stroke:'amber',col:'amber'}));
+  tx(K,'accv',720,390,'= 0',{fs:24,col:'amber',font:'m',anchor:'start'});
+  K.step('Start with acc = 0 and XOR each number in.',{dur:2.8});
+  nums.forEach((v,i)=>{const prev=acc;acc^=v;
+    for(let j=0;j<3;j++){const flip=bits(prev)[j]!==bits(acc)[j];K.el('ac'+j,{text:bits(acc)[j],glow:flip?1:0,fill:flip?'amber':'panel',fo:flip?.35:1});K.el(`b${i}_${j}`,{stroke:'cyan',glow:.4})}
+    if(i)for(let j=0;j<3;j++)K.el(`b${i-1}_${j}`,{stroke:'faint',glow:0,o:.45});
+    tx(K,'accv',720,390,'= '+acc,{});
+    K.step(i===0?`acc ^ ${v}: the bits that are 1 in ${v} flip.`:i===3?'The second 1 flips the same bits back. The pair cancels.':i===4?'The second 2 cancels too. Only 4 is left.':`XOR in ${v}.`,{dur:i===0||i>=3?3.2:1.8})});
+  K.el('accv',{col:'mint',glow:.8,fs:30});for(let j=0;j<3;j++)K.el('ac'+j,{stroke:'mint',col:'mint',glow:.6,fill:'panel'});
+  K.step('Pairs vanish because x ^ x = 0, in any order. The answer is 4.',{dur:3.6});
+  K.chapter('n & (n − 1)');K.delAll();
+  const B4=[8,4,2,1],bx=K.row(4,64,14,480),show=(id,n,y,c)=>B4.forEach((b,j)=>K.el(id+j,{t:'box',x:bx[j],y,w:64,h:50,text:n&b?1:0,fs:24,col:n&b?c:'dim',stroke:n&b?c:'faint',glow:n&b?.5:0}));
+  tx(K,'nt',480,90,'count the 1-bits of 12',{fs:24,col:'white',font:'d',fw:800});
+  show('x',12,180,'cyan');tx(K,'xl',260,180,'12',{fs:24,col:'cyan',font:'m',anchor:'end'});
+  K.step('12 is 1100 in binary.',{dur:2.4});
+  show('x',8,180,'cyan');tx(K,'xl',260,180,'8',{});tx(K,'cnt',480,290,'count = 1',{fs:24,col:'amber',font:'m'});
+  K.step('12 & 11 clears the lowest 1-bit and leaves 1000. Count one.',{dur:3.2});
+  show('x',0,180,'cyan');tx(K,'xl',260,180,'0',{});tx(K,'cnt',480,290,'count = 2',{col:'mint',glow:.6});
+  K.step('8 & 7 clears the next one. Zero, so 12 has two 1-bits, found in two steps.',{dur:3.8});
+});
+})();
+</script><script>(function(){const C=window.Cinema;if(!C)return;
+function mark(){const w=C.watched();document.querySelectorAll('.film-ban').forEach(b=>{const s=b.querySelector('.fb-w');if(s)s.hidden=!w[b.dataset.film]})}
+document.querySelectorAll('.film-ban').forEach(b=>{const id=b.dataset.film,f=C.films[id];if(!f)return;C.compile(f);
+  b.querySelector('.fb-pv').dataset.ready=1;C.preview(b.querySelector('.fb-pv'),id,{auto:true,speed:1.15});
+  const d=b.querySelector('.fb-d');if(d)d.textContent=C.fmt(f.T);
+  b.addEventListener('click',()=>C.open(id))});
+mark();document.addEventListener('cinema:watched',mark)})();</script><!--cin-end-->
 </body>
 </html>
