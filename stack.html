@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!--auth-start--><script>(function(){var C={"firebase": {"apiKey": "", "authDomain": "", "projectId": "", "appId": ""}, "hosts": ["saksham0902.github.io"], "requireLogin": true, "allowGuest": true, "sdk": "https://cdn.jsdelivr.net/npm/firebase@10.14.1/"};var f=C.firebase||{};var on=!!(f.apiKey&&f.projectId&&C.hosts.indexOf(location.hostname)>=0);
+<!--auth-start--><script>(function(){var C={"firebase": {"apiKey": "", "authDomain": "", "projectId": "", "appId": ""}, "hosts": ["saksham0902.github.io"], "requireLogin": true, "allowGuest": true, "sdk": "https://cdn.jsdelivr.net/npm/firebase@10.14.1/", "admins": ["sakshammathur429@gmail.com"], "track": true};var f=C.firebase||{};var on=!!(f.apiKey&&f.projectId&&C.hosts.indexOf(location.hostname)>=0);
 window.DOJO_AUTH_CFG=C;window.DOJO_AUTH_ON=on;if(!on||!C.requireLogin)return;
 var page=location.pathname.split('/').pop()||'index.html';if(page==='login.html')return;
 var s=null;try{s=JSON.parse(localStorage.getItem('rdd-auth-v1'))}catch(e){}
@@ -3100,7 +3100,6 @@ document.querySelectorAll('.film-ban').forEach(b=>{const id=b.dataset.film,f=C.f
   const d=b.querySelector('.fb-d');if(d)d.textContent=C.fmt(f.T);
   b.addEventListener('click',()=>C.open(id))});
 mark();document.addEventListener('cinema:watched',mark)})();</script><!--cin-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--rpex-start--><style>.rpx{margin:10px 0 12px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:12px;padding:10px 12px;display:grid;gap:8px;min-width:0}
 .rpx-h{font:800 12px var(--body,inherit);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
 .rpx .io{display:grid;grid-template-columns:62px minmax(0,1fr);gap:3px 8px;align-items:baseline}
@@ -3494,14 +3493,15 @@ function goHref(h){const m=/^([\w-]+)\.html(?:#([\w-]+))?$/.exec(h||'');if(!m)re
   document.querySelectorAll('.flash-target').forEach(x=>x.classList.remove('flash-target'));
   try{history.replaceState(null,'','#'+m[2])}catch(_){}
   requestAnimationFrame(()=>{t.scrollIntoView({behavior:'smooth',block:'start'});void t.offsetWidth;t.classList.add('flash-target')});return true}
-function goTo(e){return canGo(e)&&goHref(inApp(e))}
+function goTo(e){if(!canGo(e))return false;track('find',e.t);return goHref(inApp(e))}
 function where(e){const t=topicName(e.s);return t||(e.k==='cur'?e.cat:'')}
 
 /* conversation */
 const SMALL=[[/^(hi+|hello|hey+|yo|hola|namaste|good (morning|afternoon|evening))\b[\s!.,]*(pip)?[\s!.]*$/i,'Hi! 🐥 Ask me about a problem, a pattern, system design, Java, behavioral questions or this app. Not sure where to start? Try one of the suggestions above.'],
   [/^(thanks?( you)?|thx|ty|cool|ok(ay)?|great|nice|awesome|got it|perfect)\b[\s!.,]*(pip)?[\s!.]*$/i,'Happy to help! Say your approach out loud before you code. That’s what I’m here for. 🐥'],
   [/^(bye|good ?night|see you|cya)\b/i,'Good luck! Come back tomorrow to keep your streak alive. 🐥']];
-function ask(q){for(const [re,t] of SMALL)if(re.test(q.trim())){state.log.push({r:'u',t:q},{r:'s',t});save();renderLog(true);return}
+const track=(type,detail)=>{try{dispatchEvent(new CustomEvent('dojo:track',{detail:{type,detail}}))}catch(e){}};
+function ask(q){track('ask',q);for(const [re,t] of SMALL)if(re.test(q.trim())){state.log.push({r:'u',t:q},{r:'s',t});save();renderLog(true);return}
   const r=search(q,{limit:8});state.log.push({r:'u',t:q});
   const top=r[0];const conf=top?(top.cov>=.55&&top.s>=4.5?'hi':top.cov>=.35&&top.s>=3?'mid':'lo'):'lo';
   if(conf==='lo')state.log.push({r:'n',q,alts:r.filter(x=>x.cov>=.25).slice(0,5).map(x=>x.e.i)});
@@ -3569,7 +3569,7 @@ function mdLite(src){const lines=String(src).split('\n');let out='',i=0;
     const buf=[];while(i<lines.length&&lines[i].trim()&&!/^(```|\s*[-*•] |\s*\d+[.)] |#{1,4} )/.test(lines[i]))buf.push(lines[i++]);out+=`<p>${inl(buf.join(' '))}<\/p>`}
   return out}
 function aiHTML(text,q,pending){return `<div class="am-p ai"><div class="am-meta"><span class="ch ai-tag">✨ Claude · live answer<\/span><\/div>${pending&&!text?'<span class="am-typing" aria-label="Thinking"><i><\/i><i><\/i><i><\/i><\/span>':mdLite(text)}<\/div>`}
-async function askAI(q,ctxId){const s=await getSample();if(!s)return;
+async function askAI(q,ctxId){const s=await getSample();if(!s)return;track('ai',q);
   const r=search(q,{limit:3}).map(x=>x.e);if(ctxId&&BYID[ctxId]&&!r.includes(BYID[ctxId]))r.unshift(BYID[ctxId]);
   const notes=r.slice(0,3).map((e,i)=>`[${i+1}] ${e.t}\n${plainText((e.h||'')+' '+e.a).slice(0,1400)}`).join('\n\n');
   const hist=state.log.slice(-6).filter(m=>m.r==='u'||m.r==='ai').map(m=>(m.r==='u'?'Learner: ':'Pip: ')+String(m.t).slice(0,600)).join('\n');
@@ -3652,5 +3652,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 </body>
 </html>

@@ -6,6 +6,11 @@ const HINT='rdd-auth-v1',META='rdd-sync-t';
 const PAGE=location.pathname.split('/').pop()||'index.html';
 const SYNC=/^(dsa-|rx-untangled|rdd-cinema)/;
 const LS=window.localStorage;
+const TOPICS=[{"slug": "hashing", "key": "dsa-hashing-v1", "awards": 59}, {"slug": "two-pointers", "key": "dsa-two-pointers-v1", "awards": 52}, {"slug": "sliding-window", "key": "dsa-sliding-window-v1", "awards": 52}, {"slug": "stack", "key": "dsa-stack-v1", "awards": 54}, {"slug": "binary-search", "key": "dsa-binary-search-v1", "awards": 55}, {"slug": "linked-list", "key": "dsa-linked-list-v1", "awards": 57}, {"slug": "recursion", "key": "rx-untangled-v1", "awards": 135}, {"slug": "heap", "key": "dsa-heap-v1", "awards": 51}, {"slug": "trie", "key": "dsa-trie-v1", "awards": 47}, {"slug": "graphs", "key": "dsa-graphs-v1", "awards": 72}, {"slug": "dp", "key": "dsa-dp-v1", "awards": 70}, {"slug": "greedy-intervals", "key": "dsa-greedy-intervals-v1", "awards": 59}, {"slug": "bits", "key": "dsa-bits-v1", "awards": 52}, {"slug": "sd-start", "key": "dsa-sd-start-v1", "awards": 20}, {"slug": "sd-java", "key": "dsa-sd-java-v1", "awards": 41}, {"slug": "sd-solid", "key": "dsa-sd-solid-v1", "awards": 39}, {"slug": "sd-creational", "key": "dsa-sd-creational-v1", "awards": 42}, {"slug": "sd-structural", "key": "dsa-sd-structural-v1", "awards": 39}, {"slug": "sd-behavioral", "key": "dsa-sd-behavioral-v1", "awards": 44}, {"slug": "sd-lld", "key": "dsa-sd-lld-v1", "awards": 46}, {"slug": "sd-basics", "key": "dsa-sd-basics-v1", "awards": 38}, {"slug": "sd-databases", "key": "dsa-sd-databases-v1", "awards": 43}, {"slug": "sd-distributed", "key": "dsa-sd-distributed-v1", "awards": 54}, {"slug": "sd-hld", "key": "dsa-sd-hld-v1", "awards": 57}];
+const ADMINS=(C.admins||[]).map(x=>String(x).toLowerCase());
+const TRACK=C.track!==false;
+const DEV=/iPad|Tablet/i.test(navigator.userAgent)?'tablet':/Mobi|Android|iPhone/i.test(navigator.userAgent)?'mobile':'desktop';
+const isAdmin=u=>!!(u&&u.email&&u.emailVerified&&ADMINS.includes(u.email.toLowerCase()));
 const rawSet=Storage.prototype.setItem,rawRemove=Storage.prototype.removeItem;
 const J=(k,d)=>{try{const v=LS.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
 const put=(k,v)=>{try{rawSet.call(LS,k,JSON.stringify(v))}catch(e){}};
@@ -28,7 +33,7 @@ const meta=J(META,{});let dirty=new Set(),timer=0,cur=null,lastSync=0,syncing=fa
 function stamp(k){meta[k]=Date.now();put(META,meta)}
 if(ON){Storage.prototype.setItem=function(k,v){const r=rawSet.call(this,k,v);if(this===LS&&SYNC.test(k)){stamp(k);dirty.add(k);schedule()}return r};
 Storage.prototype.removeItem=function(k){const r=rawRemove.call(this,k);if(this===LS&&SYNC.test(k)){stamp(k);dirty.add(k);schedule()}return r};}
-function schedule(){if(!cur)return;clearTimeout(timer);timer=setTimeout(push,4000)}
+function schedule(){if(!cur&&!trk)return;clearTimeout(timer);timer=setTimeout(()=>{if(cur)push();if(trk)profile(trk)},4000)}
 function localKeys(){const out=[];for(let i=0;i<LS.length;i++){const k=LS.key(i);if(SYNC.test(k))out.push(k)}return out}
 async function push(){if(!cur||!dirty.size)return;const {fb,db}=await load();const ks=[...dirty];dirty=new Set();
   const p={};let size=0;
@@ -50,6 +55,42 @@ async function pull(user){const {fb,db}=await load();const ref=db.collection('us
   if(changed&&!sessionStorage.getItem(flag)){sessionStorage.setItem(flag,'1');toast('Progress synced from your account. Refreshing…');setTimeout(()=>location.reload(),900)}else sessionStorage.setItem(flag,'1')}
 addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')push()});
 addEventListener('pagehide',()=>{push()});
+
+/* ───── activity (what the admin dashboard reads) ───── */
+let trk=null;const evQ=[];
+function stats(){const t={};let xp=0,n=0;
+  for(const T of TOPICS){let v=null;try{v=JSON.parse(LS.getItem(T.key))}catch(e){}if(!v||typeof v!=='object')continue;
+    const d=v.done&&typeof v.done==='object'?Object.keys(v.done).length:0,x=+v.xp||0;if(!d&&!x)continue;t[T.slug]=[x,d];xp+=x;n+=d}
+  let films=0;try{const c=JSON.parse(LS.getItem('rdd-cinema-v1'));films=c&&typeof c==='object'?Object.keys(c).length:0}catch(e){}
+  let lang='py';try{lang=JSON.parse(LS.getItem('dsa-lang-v1'))||'py'}catch(e){}
+  return{xp,n,t,films,lang}}
+function who(u){return u.displayName||u.email||(u.isAnonymous?'Guest':'')}
+async function ev(type,detail){if(!TRACK)return;const u=trk;if(!u){if(evQ.length<20)evQ.push([type,detail]);return}
+  try{const {fb,db}=await load();await db.collection('events').add({uid:u.uid,type,page:PAGE,t:fb.firestore.FieldValue.serverTimestamp(),dev:DEV,name:who(u),guest:!!u.isAnonymous,detail:String(detail==null?'':detail).slice(0,160)})}catch(e){console.warn('event',e)}}
+let profBusy=null;
+async function profile(u,first){if(!TRACK||!u)return;if(profBusy)return profBusy;
+  profBusy=(async()=>{const {fb,db}=await load();const FV=fb.firestore.FieldValue;const s=stats();
+    const doc={name:who(u),email:u.email||'',photo:u.photoURL||'',provider:u.isAnonymous?'anonymous':((u.providerData[0]||{}).providerId||'password'),guest:!!u.isAnonymous,verified:!!u.emailVerified,
+      created:Date.parse(u.metadata&&u.metadata.creationTime)||Date.now(),lastSeen:FV.serverTimestamp(),lastPage:PAGE,dev:DEV,stats:s};
+    const vk='rdd-visit-'+u.uid;if(first&&!sessionStorage.getItem(vk)){doc.visits=FV.increment(1);try{sessionStorage.setItem(vk,'1')}catch(_){}}
+    try{await db.collection('profiles').doc(u.uid).set(doc,{merge:true})}catch(e){console.warn('profile',e)}
+    // progress milestones since the last snapshot on this device
+    const prev=J('rdd-stats-prev',null);
+    if(prev&&prev.uid===u.uid){for(const k in s.t){const a=s.t[k][1],b=((prev.t||{})[k]||[0,0])[1];if(a>b){const T=TOPICS.find(x=>x.slug===k);ev('progress',k+'|'+(a-b)+'|'+a+'|'+(T?T.awards:0))}}
+      if(s.films>(prev.films||0))ev('film',String(s.films))}
+    put('rdd-stats-prev',{uid:u.uid,t:s.t,films:s.films})})().finally(()=>{profBusy=null});
+  return profBusy}
+function setTrk(u){if(!TRACK||!u||(trk&&trk.uid===u.uid))return;trk=u;
+  profile(u,true);
+  const vk='rdd-view-'+PAGE,last=+(sessionStorage.getItem(vk)||0);
+  if(PAGE!=='admin.html'&&Date.now()-last>30*60e3){try{sessionStorage.setItem(vk,String(Date.now()))}catch(_){}ev('view',document.title.split(/[·|–-]/)[0].trim().slice(0,80))}
+  while(evQ.length){const [t,d]=evQ.shift();ev(t,d)}}
+addEventListener('dojo:track',e=>{const d=e.detail||{};if(d.type)ev(d.type,d.detail)});
+async function startGuest(){if(!TRACK)return;try{const {auth}=await load();
+  auth.onAuthStateChanged(u=>{if(u&&u.isAnonymous)setTrk(u);else if(!u)auth.signInAnonymously().then(r=>{ev('guest','started as guest')}).catch(e=>console.warn('guest tracking',e))})}catch(e){}}
+/* called by the login page right after a sign-in / sign-up */
+async function signal(u,type,detail){if(!TRACK||!u)return;trk=u;
+  await Promise.race([Promise.all([profile(u,true),ev(type,detail)]),new Promise(r=>setTimeout(r,2500))])}
 
 /* ───── errors ───── */
 const ERR={'auth/invalid-email':'That email address doesn’t look right.','auth/user-disabled':'This account has been disabled.','auth/user-not-found':'No account with that email. Create one instead?','auth/wrong-password':'Email or password is incorrect.','auth/invalid-credential':'Email or password is incorrect.','auth/invalid-login-credentials':'Email or password is incorrect.','auth/email-already-in-use':'An account with this email already exists. Sign in instead, or use “Continue with Google” if you signed up that way.','auth/weak-password':'Use at least 8 characters.','auth/too-many-requests':'Too many attempts. Wait a minute and try again.','auth/network-request-failed':'Network error. Check your connection.','auth/popup-blocked':'Your browser blocked the sign-in window.','auth/unauthorized-domain':'This website isn’t authorised in Firebase yet (Authentication → Settings → Authorized domains).','auth/operation-not-allowed':'This sign-in method is turned off in the Firebase console.','auth/requires-recent-login':'For safety, sign out and sign in again, then retry.','auth/account-exists-with-different-credential':'This email already uses a different sign-in method. Try email + password.','auth/missing-password':'Enter your password.','auth/internal-error':'Something went wrong. Please try again.','permission-denied':'Sync is blocked by Firestore rules (see setup steps).','unavailable':'Offline. Progress will sync when you’re back online.'};
@@ -89,7 +130,7 @@ function paint(){if(!chip)return;const h=J(HINT,null);
     if(!menu.hidden)menu.innerHTML=`<div class="da-me">${avatar(cur)}<div><b>${esc(cur.displayName||'Your account')}</b><small>${esc(cur.email||'')}</small></div></div>
       <div class="da-st${syncErr?' err':''}">${syncErr?esc(syncErr):syncing?'Syncing your progress…':'☁️ Progress synced '+ago(lastSync)+'. It follows you to any device you sign in on.'}</div>
       ${cur.emailVerified||(cur.providerData[0]||{}).providerId!=='password'?'':'<button type="button" class="da-btn" data-a="verify">Resend verification email</button>'}
-      <button type="button" class="da-btn pri" data-a="out">Sign out</button><button type="button" class="da-btn danger" data-a="del">Delete account</button>`}
+      ${isAdmin(cur)?'<a class="da-btn" href="admin.html">📊 Admin dashboard</a>':''}<button type="button" class="da-btn pri" data-a="out">Sign out</button><button type="button" class="da-btn danger" data-a="del">Delete account</button>`}
   else if(h&&h.guest){chip.innerHTML=`<span class="da-av">👤</span><span class="da-nm">Guest</span>`;chip.setAttribute('aria-label','Guest: sign in');
     if(!menu.hidden)menu.innerHTML=`<div class="da-me"><span class="da-av">👤</span><div><b>You’re a guest</b><small>Progress stays on this device only.</small></div></div>
       <a class="da-btn pri" href="login.html?next=${encodeURIComponent(PAGE)}">Sign in or create account</a>`}}
@@ -97,7 +138,7 @@ async function onMenu(e){const b=e.target.closest('[data-a]');if(!b)return;const
   if(b.dataset.a==='out'){await push();put(HINT,null);try{rawRemove.call(LS,HINT)}catch(_){}await auth.signOut();location.href='login.html'}
   else if(b.dataset.a==='verify'){try{await auth.currentUser.sendEmailVerification();toast('Verification email sent.')}catch(err){toast(errText(err))}}
   else if(b.dataset.a==='del'){if(!confirm('Delete your account and the progress saved in it? Progress on this device stays. This can’t be undone.'))return;
-    try{const u=auth.currentUser;await db.collection('users').doc(u.uid).delete().catch(()=>{});await u.delete();try{rawRemove.call(LS,HINT)}catch(_){}toast('Account deleted.');setTimeout(()=>location.href='login.html',900)}
+    try{const u=auth.currentUser;await db.collection('users').doc(u.uid).delete().catch(()=>{});await db.collection('profiles').doc(u.uid).delete().catch(()=>{});await u.delete();try{rawRemove.call(LS,HINT)}catch(_){}toast('Account deleted.');setTimeout(()=>location.href='login.html',900)}
     catch(err){toast(errText(err))}}}
 
 /* ───── boot ───── */
@@ -105,12 +146,12 @@ async function boot(){
   if(!ON)return;
   const h=J(HINT,null);
   if(PAGE==='login.html')return; // login page drives its own flow
-  if(h&&h.guest&&C.allowGuest&&!h.uid){mountChip();return}
+  if(h&&h.guest&&C.allowGuest&&!h.uid){mountChip();startGuest();return}
   let auth;try{({auth}=await load())}catch(e){console.warn('auth sdk',e);if(h&&h.uid){mountChip()}return}
   auth.onAuthStateChanged(u=>{
-    if(u){cur=u;put(HINT,{uid:u.uid,name:u.displayName||'',email:u.email||'',photo:u.photoURL||''});mountChip();pull(u)}
+    if(u&&!u.isAnonymous){cur=u;put(HINT,{uid:u.uid,name:u.displayName||'',email:u.email||'',photo:u.photoURL||''});mountChip();pull(u);setTrk(u)}
     else{cur=null;try{rawRemove.call(LS,HINT)}catch(_){}
       if(C.requireLogin)location.replace('login.html?next='+encodeURIComponent(PAGE+location.search+location.hash))}})}
-window.DojoAuth={load,on:ON,cfg:C,errText,safeNext,hintKey:HINT,setHint:v=>put(HINT,v),clearHint:()=>{try{rawRemove.call(LS,HINT)}catch(_){}},user:()=>cur,push};
+window.DojoAuth={load,on:ON,cfg:C,errText,safeNext,signal,isAdmin,ev,hintKey:HINT,setHint:v=>put(HINT,v),clearHint:()=>{try{rawRemove.call(LS,HINT)}catch(_){}},user:()=>cur,push};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
