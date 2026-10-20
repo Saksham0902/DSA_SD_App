@@ -3211,5 +3211,20 @@ window.AskPip={open,close,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)
 })();
 </script><!--ask-end-->
 <!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
+<!--sdcode-start--><style>
+@media (min-width:701px){
+.lab:has(> .lab-grid > .side .code){display:flex;flex-direction:column;gap:14px}
+.lab:has(> .lab-grid > .side .code) > *{margin-top:0!important;margin-bottom:0!important}
+.lab-grid:has(> .side .code),.lab-grid:has(> .side .code) > .side{display:contents}
+.lab-grid:has(> .side .code) > .side > .panel:has(.code){order:9}
+.lab:has(> .lab-grid > .side .code) > .narr{order:5}
+.lab:has(> .lab-grid > .side .code) > .hint{order:6}
+.lab:has(> .lab-grid > .side .code) > .ctl{order:7}
+}
+@media (max-width:700px){.lab-grid:has(> .side .code){grid-template-columns:minmax(0,1fr)!important}}
+.code,.lab .lcode,.lab .code{max-height:none!important}
+.cheat-box .code .cl{white-space:pre-wrap;min-width:0!important}.cheat-box .code .cl > .t{overflow-wrap:anywhere}
+@media (max-width:700px){.code .cl{white-space:pre-wrap;min-width:0!important}.code .cl > .t{overflow-wrap:anywhere}}
+</style><!--sdcode-end-->
 </body>
 </html>
