@@ -1361,7 +1361,7 @@ function umlLayout(D){if(D._L)return D._L;const L={};let H=0,W=D.W||560,top=1e9;
 function umlClip(b,ux,uy){const tx=b.w/2/Math.max(Math.abs(ux),1e-6),ty=b.h/2/Math.max(Math.abs(uy),1e-6);return Math.min(tx,ty)}
 function umlSVG(D,st={}){
   const {L,H,W}=umlLayout(D);const id='u'+(++GID);const vis=st.vis?new Set(st.vis):new Set(Object.keys(D.C));const rv=st.rels?new Set(st.rels):new Set(Object.keys(D.R||{}));
-  const cc=st.cls||{},rc=st.rcls||{};
+  const cc=st.cls||{},rc=st.rcls||{};const KU=new Set();
   let h=`<svg class="uml" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W*1.2)}px"><defs>`;
   for(const k of ['','cur','ok','bad']){
     h+=`<marker id="${id}tri${k}" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" class="mk-hollow ${k}"/></marker>`;
@@ -1371,7 +1371,7 @@ function umlSVG(D,st={}){
   }
   h+='</defs>';
   const pairs={};for(const [rid,r] of Object.entries(D.R||{})){if(!rv.has(rid)||!vis.has(r[0])||!vis.has(r[1]))continue;const pk=[r[0],r[1]].sort().join('|');(pairs[pk]=pairs[pk]||[]).push(rid)}
-  for(const [rid,r] of Object.entries(D.R||{})){const [a,b,kind,label,mult]=r;if(!rv.has(rid)||!vis.has(a)||!vis.has(b))continue;
+  for(const [rid,r] of Object.entries(D.R||{})){let [a,b,kind,label,mult]=r;if(!rv.has(rid)||!vis.has(a)||!vis.has(b))continue;KU.add(kind);const label0=label,_cd=(L[a]&&L[b])?Math.hypot(L[b].x-L[a].x,L[b].y-L[a].y):0,_sep=true;if(label&&!_sep&&window.umlKindLabel)label=umlKindLabel(kind,label);
     const pl=pairs[[a,b].sort().join('|')],pi=pl.indexOf(rid),off=(pi-(pl.length-1)/2)*22*(a<b?1:-1);
     if(a===b){const A=L[a];const k=rc[rid]||'';const x0=A.x+A.w/2,yA=A.y-A.h/4,yB=A.y+A.h/4;h+=`<path d="M${x0},${yA} C${x0+46},${yA-6} ${x0+46},${yB+6} ${x0+2},${yB}" class="ur ${k}" marker-end="url(#${id}arr${k})"/>`;if(label)h+=`<text x="${x0+40}" y="${A.y+4}" class="ul ${k}">${esc(label)}</text>`;continue}
     const A=L[a],B=L[b];const dx=B.x-A.x,dy=B.y-A.y,len=Math.hypot(dx,dy)||1,ux=dx/len,uy=dy/len;
@@ -1379,7 +1379,7 @@ function umlSVG(D,st={}){
     const k=rc[rid]||'';const dash=(kind==='impl'||kind==='uses')?' stroke-dasharray="6 4"':'';
     let mk='';if(kind==='ext'||kind==='impl')mk=`marker-end="url(#${id}tri${k})"`;else if(kind==='uses'||kind==='assoc')mk=`marker-end="url(#${id}arr${k})"`;
     else if(kind==='has')mk=`marker-start="url(#${id}dia${k})" marker-end="url(#${id}arr${k})"`;else if(kind==='agg')mk=`marker-start="url(#${id}odia${k})" marker-end="url(#${id}arr${k})"`;
-    h+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="ur ${k}"${dash} ${mk}/>`;
+    h+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="ur ${k}"${dash} ${mk}/>`;if(window.umlKind&&_sep)h+=umlKind(kind,x1,y1,x2,y2,ux,uy,label0,off,k);
     if(label){const mx=(x1+x2)/2,my=(y1+y2)/2;const lo=off?(off>0?18:-18):13;h+=`<text x="${mx-uy*lo}" y="${my+ux*lo+4}" class="ul ${k}">${esc(label)}</text>`}
     if(mult){h+=`<text x="${x2-ux*22-uy*11}" y="${y2-uy*22+ux*11+4}" class="ul um">${esc(mult)}</text>`}
   }
@@ -1393,7 +1393,7 @@ function umlSVG(D,st={}){
     (c.m||[]).forEach((m,i)=>{h+=`<text x="${x0+9}" y="${yy+15+i*15}" class="um2">${esc(m)}</text>`});
     if(c.tag)h+=`<text x="${x0+b.w-6}" y="${y0-5}" class="utag" text-anchor="end">${esc(c.tag)}</text>`;
     h+='</g>'}
-  return h+'</svg>';
+  return h+'</svg>'+(window.umlKey?umlKey(KU):'');
 }
 // Thinking tags for story steps
 const STAG={sit:['📋','Situation'],code:['✍️','First attempt'],pain:['😖','Pain'],ask:['❓','Ask'],move:['🔧','Move'],pay:['✅','Payoff'],spot:['👀','Spot it'],rule:['🧠','Remember'],uml:['📐','Read the diagram'],num:['🔢','Numbers'],api:['🔌','API'],data:['🗄️','Data'],deep:['🔍','Deep dive'],scale:['📈','Scale']};
@@ -2376,18 +2376,89 @@ window.AskPip={open,close,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)
 <!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--sdcode-start--><style>
 @media (min-width:701px){
-.lab:has(> .lab-grid > .side .code){display:flex;flex-direction:column;gap:14px}
-.lab:has(> .lab-grid > .side .code) > *{margin-top:0!important;margin-bottom:0!important}
-.lab-grid:has(> .side .code),.lab-grid:has(> .side .code) > .side{display:contents}
-.lab-grid:has(> .side .code) > .side > .panel:has(.code){order:9}
-.lab:has(> .lab-grid > .side .code) > .narr{order:5}
-.lab:has(> .lab-grid > .side .code) > .hint{order:6}
-.lab:has(> .lab-grid > .side .code) > .ctl{order:7}
+.lab:not(.uml-lab):has(> .lab-grid > .side .code){display:flex;flex-direction:column;gap:14px}
+.lab:not(.uml-lab):has(> .lab-grid > .side .code) > *{margin-top:0!important;margin-bottom:0!important}
+.lab:not(.uml-lab) > .lab-grid:has(> .side .code),.lab:not(.uml-lab) > .lab-grid:has(> .side .code) > .side{display:contents}
+.lab:not(.uml-lab) > .lab-grid:has(> .side .code) > .side > .panel:has(.code){order:9}
+.lab:not(.uml-lab):has(> .lab-grid > .side .code) > .narr{order:5}
+.lab:not(.uml-lab):has(> .lab-grid > .side .code) > .hint{order:6}
+.lab:not(.uml-lab):has(> .lab-grid > .side .code) > .ctl{order:7}
 }
 @media (max-width:700px){.lab-grid:has(> .side .code){grid-template-columns:minmax(0,1fr)!important}}
 .code,.lab .lcode,.lab .code{max-height:none!important}
+.lab.uml-lab .code .cl{white-space:pre-wrap;min-width:0!important}.lab.uml-lab .code .cl > .t{overflow-wrap:anywhere}
 .cheat-box .code .cl{white-space:pre-wrap;min-width:0!important}.cheat-box .code .cl > .t{overflow-wrap:anywhere}
 @media (max-width:700px){.code .cl{white-space:pre-wrap;min-width:0!important}.code .cl > .t{overflow-wrap:anywhere}}
 </style><!--sdcode-end-->
+<!--uml-start--><script>(function(){
+const KIND={ext:['extends','Inheritance (is-a): the child class extends the parent and inherits its code.'],
+  impl:['implements','Implements an interface: the class promises every method the interface declares.'],
+  has:['composition','Composition (owns): the whole creates and owns the part; the part dies with it. Filled diamond at the owner.'],
+  agg:['aggregation','Aggregation (has-a): the whole holds the part, but the part can exist on its own. Hollow diamond at the owner.'],
+  assoc:['association','Association (knows): holds a reference to the other class as a field.'],
+  uses:['uses','Dependency (uses): only uses it briefly, as a parameter, local variable or return type.']};
+const COL={ext:'#4453E8',impl:'#4453E8',has:'#B5476B',agg:'#B5476B',assoc:'#4A4F6E',uses:'#8A6A1F'};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+window.umlKindLabel=(kind,label)=>KIND[kind]?label+' · '+KIND[kind][0]:label;
+window.umlKind=function(kind,x1,y1,x2,y2,ux,uy,label,off,k){const K=KIND[kind];if(!K)return'';
+  const len=Math.hypot(x2-x1,y2-y1);if(len<30)return'';
+  const w=K[0].length*5.7+10,mx=(x1+x2)/2,my=(y1+y2)/2,d=Math.abs(ux)*10+Math.abs(uy)*(w/2+5);
+  const cx=mx+uy*d,cy=my-ux*d;
+  return `<g class="ukind ${kind} ${k}"><title>${esc(K[1])}</title><rect x="${(cx-w/2).toFixed(1)}" y="${(cy-7.5).toFixed(1)}" width="${w.toFixed(1)}" height="15" rx="7.5"/><text x="${cx.toFixed(1)}" y="${(cy+3.6).toFixed(1)}">${K[0]}</text></g>`};
+const SAMPLE={ext:'<line x1="4" y1="9" x2="40" y2="9" class="kl"/><path d="M40,3 L52,9 L40,15 Z" class="kh"/>',
+  impl:'<line x1="4" y1="9" x2="40" y2="9" class="kl" stroke-dasharray="5 3"/><path d="M40,3 L52,9 L40,15 Z" class="kh"/>',
+  has:'<path d="M4,9 L11,4 L18,9 L11,14 Z" class="kf"/><line x1="18" y1="9" x2="50" y2="9" class="kl"/><path d="M44,4 L51,9 L44,14" class="ko"/>',
+  agg:'<path d="M4,9 L11,4 L18,9 L11,14 Z" class="kh"/><line x1="18" y1="9" x2="50" y2="9" class="kl"/><path d="M44,4 L51,9 L44,14" class="ko"/>',
+  assoc:'<line x1="4" y1="9" x2="50" y2="9" class="kl"/><path d="M44,4 L51,9 L44,14" class="ko"/>',
+  uses:'<line x1="4" y1="9" x2="50" y2="9" class="kl" stroke-dasharray="5 3"/><path d="M44,4 L51,9 L44,14" class="ko"/>'};
+window.umlKey=function(KU){const ks=['ext','impl','has','agg','assoc','uses'].filter(k=>KU&&KU.has(k));if(!ks.length)return'';
+  return `<div class="uml-key" aria-label="How to read the arrows">${ks.map(k=>`<div><svg viewBox="0 0 56 18" width="56" height="18" aria-hidden="true">${SAMPLE[k]}</svg><span><b>${KIND[k][0]}</b> ${esc(KIND[k][1])}</span></div>`).join('')}
+   <div><span class="ukbox i">«interface»</span><span>only method signatures; classes <b>implement</b> it</span></div><div><span class="ukbox a"><i>«abstract»</i></span><span>partly built class; subclasses <b>extend</b> it</span></div></div>`};
+
+/* step-by-step labs: show only the code that exists so far, new lines highlighted */
+const INC=new WeakMap();
+function linesOf(el){return [...el.querySelectorAll(':scope > .cl[data-l]')]}
+function reveal(lines,H){const n=lines.length,ind=i=>lines[i].match(/^\s*/)[0].length,blank=i=>!lines[i].trim(),opens=i=>/\{\s*(\/\/.*)?$/.test(lines[i]),isType=i=>/\b(class|interface|enum|record)\b/.test(lines[i]);
+  const closeOf=i=>{const d=ind(i);for(let j=i+1;j<n;j++){if(blank(j))continue;if(ind(j)<=d)return(ind(j)===d&&/^\s*\}/.test(lines[j]))?j:-1}return -1};
+  const parentOf=i=>{const d=ind(i);for(let j=i-1;j>=0;j--){if(!blank(j)&&ind(j)<d&&opens(j))return j}return -1};
+  const S=new Set();const add=i=>{if(i<0||i>=n||S.has(i))return;S.add(i);if(i>0&&/^\s*@/.test(lines[i-1]))S.add(i-1);
+    if(opens(i)){const c=closeOf(i);if(c>=0){S.add(c);if(!isType(i))for(let j=i;j<=c;j++)S.add(j)}}add(parentOf(i))};
+  H.forEach(h=>add(h-1));return S}
+function stepsOf(lab){try{const cfg=LABS[lab.id];if(!cfg)return null;const pressed=lab.querySelector('.tab[aria-pressed="true"]');const k=pressed?Object.values(pressed.dataset)[0]:cfg.tabs[0].k;
+  const t=cfg.tabs.find(x=>x.k===k)||cfg.tabs[0];const key=lab.id+'|'+t.k;const c=INC.get(lab)||{};if(c.key===key)return c.steps;
+  const r=t.sim();const st=Array.isArray(r)?r:r.steps;const ok=st&&st.some(s=>s.uml)?st:null;INC.set(lab,{key,steps:ok});return ok}catch(e){return null}}
+function apply(lab){const code=lab.querySelector('.lcode');if(!code)return;const steps=stepsOf(lab);if(!steps)return;
+  const m=/step\s+(\d+)\s*\/\s*(\d+)/.exec((lab.querySelector('.ctl')||{}).textContent||'');if(!m)return;const i=+m[1]-1,last=i>=steps.length-1;
+  const rows=linesOf(code);const sig=lab.id+':'+i+':'+rows.length+':'+(rows[0]&&rows[0].textContent.slice(0,20));if(code.dataset.incSig===sig)return;code.dataset.incSig=sig;
+  code.querySelectorAll(':scope > .cl.gap').forEach(g=>g.remove());
+  if(last){rows.forEach(r=>r.style.display='');return}
+  const ck=steps[i].code;const H=new Set();for(let j=0;j<=i;j++){const s=steps[j];if(s.code!==ck)continue;[].concat(s.line??[]).forEach(x=>{if(typeof x==='number')H.add(x)})}
+  const txt=rows.map(r=>{const t=r.querySelector('.t');return t?t.textContent:''});const S=reveal(txt,H);
+  rows.forEach((r,ix)=>{let v=S.has(ix);if(!v&&!txt[ix].trim()&&S.has(ix-1)&&S.has(ix+1))v=true;r.style.display=v?'':'none'});
+  const mk=t=>{const d=document.createElement('div');d.className='cl gap';d.innerHTML='<span class="n"></span><span class="t">'+t+'</span>';return d};
+  if(!S.size){code.prepend(mk('// the code appears here as the design grows'));return}
+  let hidden=false;rows.forEach((r,ix)=>{if(r.style.display==='none'){if(txt[ix].trim())hidden=true}else{if(hidden)r.before(mk('⋯'));hidden=false}});if(hidden)code.append(mk('⋯'))}
+function watch(lab){if(lab.dataset.incw)return;lab.dataset.incw=1;let q=0;new MutationObserver(()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;apply(lab)})}).observe(lab,{childList:true,subtree:true,characterData:true})}
+function scan(){if(typeof LABS==='undefined')return;document.querySelectorAll('.lab').forEach(lab=>{if(LABS[lab.id]){watch(lab);apply(lab)}})}
+const go=()=>setTimeout(scan,60);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();
+})();</script>
+<style>
+.ukind rect{fill:var(--surface);stroke-width:1.2}
+.ukind text{font:700 9.5px var(--body,system-ui);text-anchor:middle;letter-spacing:.02em}
+.ukind.ext rect,.ukind.impl rect{stroke:#4453E8}.ukind.ext text,.ukind.impl text{fill:#3341C9}
+.ukind.has rect,.ukind.agg rect{stroke:#B5476B}.ukind.has text,.ukind.agg text{fill:#9A2F55}
+.ukind.assoc rect{stroke:var(--ink-3)}.ukind.assoc text{fill:var(--ink-2)}
+.ukind.uses rect{stroke:#C69A2E}.ukind.uses text{fill:#8A6A1F}
+.ukind.cur rect{stroke:var(--amber);stroke-width:2}.ukind.ok rect{stroke:var(--mint)}
+.uml-key{width:0;min-width:100%;box-sizing:border-box;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px 14px;margin:10px 4px 2px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;background:var(--surface);font-size:12.5px;color:var(--ink-2);text-align:left}
+.uml-key>div{display:flex;align-items:center;gap:8px;line-height:1.3}
+.uml-key svg{flex:none}.uml-key b{color:var(--ink)}
+.uml-key .kl{stroke:var(--ink-2);stroke-width:1.6;fill:none}.uml-key .kh{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.4}.uml-key .kf{fill:var(--ink-2)}.uml-key .ko{fill:none;stroke:var(--ink-2);stroke-width:1.5}
+.uml-key .ukbox{flex:none;font:700 10.5px var(--body);border:1.5px solid #4453E8;border-radius:5px;padding:1px 6px;color:#3341C9;background:color-mix(in srgb,#4453E8 8%,var(--surface))}
+.uml-key .ukbox.a{border-style:solid;background:color-mix(in srgb,#4453E8 4%,var(--surface))}
+.code .cl.gap .t{color:#7F86B3;font-style:italic}
+@media (max-width:700px){.uml-key{grid-template-columns:1fr;max-width:calc(100vw - 60px);align-self:flex-start;position:sticky;left:0}}
+@media (min-width:1100px){.lab.uml-lab .lab-grid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)!important}}
+</style><!--uml-end-->
 </body>
 </html>
