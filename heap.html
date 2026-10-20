@@ -3530,5 +3530,74 @@ window.AskPip={open,close,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)
 })();
 </script><!--ask-end-->
 <!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
+<!--rpex-start--><style>.rpx{margin:10px 0 12px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:12px;padding:10px 12px;display:grid;gap:8px;min-width:0}
+.rpx-h{font:800 12px var(--body,inherit);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.rpx .io{display:grid;grid-template-columns:62px minmax(0,1fr);gap:3px 8px;align-items:baseline}
+.rpx .io span{font-weight:700;font-size:13px;color:var(--ink-2)}
+.rpx .io code{font:13px/1.45 var(--mono,monospace);white-space:pre-wrap;overflow-wrap:anywhere;background:none;padding:0}
+.rpx-why{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
+.rpx-vis{display:grid;gap:8px;overflow-x:auto;padding:2px 0 4px}
+.rv-row{display:flex;align-items:center;gap:10px;min-width:max-content}
+.rv-row.fit{min-width:0;display:block}
+.rv-t{flex:none;min-width:84px;max-width:150px;font:700 12px var(--body,inherit);color:var(--ink-3);white-space:normal}
+.rv-tiles{display:flex;gap:4px;align-items:flex-start}
+.rv-c{display:grid;justify-items:center;gap:2px;min-width:30px}
+.rv-c b{display:grid;place-items:center;min-width:30px;height:30px;padding:0 6px;border:1.5px solid var(--line);border-radius:7px;background:var(--surface);font:700 13px var(--mono,monospace);color:var(--ink)}
+.rv-c small{font:600 10.5px var(--mono,monospace);color:var(--ink-3);white-space:nowrap}
+.rv-arrow{align-self:center;color:var(--ink-3);font-weight:800;margin:0 1px;padding-bottom:0}
+.rv-note{font-size:12px;color:var(--ink-3)}
+.rv-c.g b{background:var(--mint-soft);border-color:var(--mint)}
+.rv-c.a b{background:var(--amber-soft);border-color:var(--amber)}
+.rv-c.r b{background:var(--rose-soft);border-color:var(--rose)}
+.rv-c.b b{background:var(--blue-soft);border-color:var(--blue)}
+.rv-c.d b{opacity:.45}
+.rv-c.k0 b{background:#DDE6FF;border-color:#5B74E8}.rv-c.k1 b{background:#D6F3E9;border-color:#2BA982}.rv-c.k2 b{background:#FDEBD3;border-color:#E09A2B}.rv-c.k3 b{background:#F6DDEA;border-color:#C9568A}.rv-c.k4 b{background:#E7E1FB;border-color:#7C62D9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rv-c[class*=" k"] b{color:#161A33}}
+:root[data-theme="dark"] .rv-c[class*=" k"] b{color:#161A33}
+.rv-grid{border-collapse:separate;border-spacing:3px}
+.rv-grid td{min-width:30px;height:30px;text-align:center;border:1.5px solid var(--line);border-radius:6px;background:var(--surface);font:700 13px var(--mono,monospace)}
+.rv-grid td.g{background:var(--mint-soft);border-color:var(--mint)}.rv-grid td.a{background:var(--amber-soft);border-color:var(--amber)}.rv-grid td.r{background:var(--rose-soft);border-color:var(--rose)}
+.rv-grid th{font:700 11px var(--body,inherit);color:var(--ink-3);padding:0 6px;text-align:right;white-space:nowrap}
+.rv-grid thead th{text-align:center;padding:0}
+.rv-side{font:700 11px var(--body,inherit);color:var(--blue)}
+.rv-svg{display:block;max-width:100%;height:auto}
+.rv-svg .e{stroke:var(--ink-3);stroke-width:1.6;fill:none}.rv-svg .e.g{stroke:var(--mint);stroke-width:3}.rv-svg .e.d{stroke:var(--line)}
+.rv-svg circle{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.6}
+.rv-svg .n.g circle{fill:var(--mint-soft);stroke:var(--mint);stroke-width:2.2}.rv-svg .n.r circle{fill:var(--rose-soft);stroke:var(--rose);stroke-width:2.2}.rv-svg .n.b circle{fill:var(--blue-soft);stroke:var(--blue);stroke-width:2.2}
+.rv-svg text{font:700 12px var(--mono,monospace);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.rv-svg .w{font-size:10.5px;fill:var(--ink-2);paint-order:stroke;stroke:var(--paper);stroke-width:4px}
+.rv-svg .lab{font-size:10.5px;fill:var(--ink-3)}</style><script>(function(){const RX={"reorg": {"i": "s = \"aab\"   and   s = \"aaab\"", "o": "\"aba\"   and   \"\"", "why": "No two equal letters may touch. \"aab\" → \"aba\" works. In \"aaab\" there are three a’s and only one other letter, so it’s impossible (a letter can appear at most ⌈n/2⌉ times).", "vis": [{"t": "tiles", "v": ["a", "b", "a"], "cls": {"0": "k0", "2": "k0", "1": "k1"}, "title": "\"aab\" →"}, {"t": "tiles", "v": ["a", "?", "a", "?", "a"], "cls": {"0": "k0", "2": "k0", "4": "k0", "1": "r", "3": "r"}, "title": "\"aaab\": not enough gaps"}]}, "ipo": {"i": "k = 2, w = 0\nprofits = [1,2,3], capital = [0,1,1]", "o": "4", "why": "You start with 0 capital and can finish 2 projects. Only project 0 is affordable: do it, capital 1. Now projects 1 and 2 are affordable: take the bigger profit (3). Capital 4.", "vis": [{"t": "tiles", "v": ["P0", "P1", "P2"], "lab": ["need 0 · +1", "need 1 · +2", "need 1 · +3"], "cls": {"0": "g", "2": "g", "1": "d"}, "title": "projects"}, {"t": "tiles", "v": ["0", "1", "4"], "lab": ["start", "after P0", "after P2"], "title": "capital"}]}};
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const pick=(o,i)=>o==null?'':Array.isArray(o)?(o[i]??''):(o[i]??'');
+function tiles(s){const v=s.v;return `<div class="rv-row">${s.title?`<span class="rv-t">${esc(s.title)}</span>`:''}<div class="rv-tiles">${v.map((x,i)=>{const lab=s.idx?String(i):pick(s.lab,i);return `<span class="rv-c ${pick(s.cls,i)}"><b>${esc(x)}</b>${lab!==''?`<small>${esc(lab)}</small>`:(s.lab||s.idx?'<small>&nbsp;</small>':'')}</span>`}).join('')}</div></div>`}
+function chain(s){const v=s.v;let h='';v.forEach((x,i)=>{if(i)h+=`<span class="rv-arrow">→</span>`;const lab=pick(s.lab,i);h+=`<span class="rv-c ${pick(s.cls,i)}"><b>${esc(x)}</b>${s.lab?`<small>${lab?esc(lab):'&nbsp;'}</small>`:''}</span>`});
+  return `<div class="rv-row">${s.title?`<span class="rv-t">${esc(s.title)}</span>`:''}<div class="rv-tiles">${h}</div>${s.note?`<span class="rv-note">${esc(s.note)}</span>`:''}</div>`}
+function grid(s){const R=s.v.length;let h='<table class="rv-grid">';
+  if(s.cols)h+=`<thead><tr><th></th>${s.cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead>`;
+  if(s.top)h+=`<tr><th></th><th class="rv-side" colspan="${s.v[0].length}" style="text-align:center">${esc(s.top)}</th></tr>`;
+  s.v.forEach((row,r)=>{h+=`<tr><th${s.left&&!s.rows?' class="rv-side"':''}>${s.rows?esc(s.rows[r]):(s.left&&r===2?esc(s.left):'')}</th>${row.map((x,c)=>`<td class="${(s.cls&&s.cls[r]&&s.cls[r][c])||''}">${esc(x)}</td>`).join('')}${s.right?`<th class="rv-side" style="text-align:left">${r===2?esc(s.right):''}</th>`:''}</tr>`});
+  if(s.bottom)h+=`<tr><th></th><th class="rv-side" colspan="${s.v[0].length}" style="text-align:center">${esc(s.bottom)}</th></tr>`;
+  return `<div class="rv-row">${h}</table></div>`}
+function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});const q=nodes.filter(Boolean).slice();let k=1;
+  for(const n of nodes){if(!n)continue;if(k<nodes.length){n.l=nodes[k];k++}if(k<nodes.length){n.r=nodes[k];k++}}
+  const root=nodes[0];let x=0;const pos=[];let maxd=0;
+  (function walk(n,d){if(!n)return;walk(n.l,d+1);pos.push([n,x++,d]);maxd=Math.max(maxd,d);walk(n.r,d+1)})(root,0);
+  const W=Math.max(1,x)*46+20,H=(maxd+1)*58+20,P={};pos.forEach(([n,xx,d])=>P[n.i]=[20+xx*46+13,24+d*58]);
+  let h=`<svg class="rv-svg" viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c)h+=`<line class="e" x1="${P[n.i][0]}" y1="${P[n.i][1]}" x2="${P[c.i][0]}" y2="${P[c.i][1]}"/>`}
+  for(const n of nodes){if(!n)continue;const [cx,cy]=P[n.i];h+=`<g class="n ${pick(s.cls,n.i)}"><circle cx="${cx}" cy="${cy}" r="15"/><text x="${cx}" y="${cy}">${esc(n.v)}</text></g>`;const lb=pick(s.lab,n.i);if(lb)h+=`<text class="lab" x="${cx}" y="${cy+25}">${esc(lb)}</text>`}
+  return `<div class="rv-row fit">${h}</svg></div>`}
+function graph(s){const N=s.nodes;let W=0,H=0;for(const k in N){W=Math.max(W,N[k][0]+30);H=Math.max(H,N[k][1]+30)}
+  let h=`<svg class="rv-svg" viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${Math.round(W*1.3)}px"><defs>${[["g","var(--mint)"],["n","var(--ink-3)"],["d","var(--line)"]].map(([k,c])=>`<marker id="rvA${k}" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:${c}"/></marker>`).join('')}</defs>`;
+  for(const [a,b,w,c] of s.edges){const [x1,y1]=N[a],[x2,y2]=N[b];const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;const sx=x1+ux*17,sy=y1+uy*17,ex=x2-ux*19,ey=y2-uy*19;
+    h+=`<line class="e ${c||''}" x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" marker-end="url(#rvA${c==='g'||c==='d'?c:'n'})"/><text class="w" x="${(sx+ex)/2-uy*9}" y="${(sy+ey)/2+ux*9}">${esc(w)}</text>`}
+  for(const k in N){const [x,y]=N[k];h+=`<g class="n ${(s.cls||{})[k]||''}"><circle cx="${x}" cy="${y}" r="15"/><text x="${x}" y="${y}">${esc(k)}</text></g>`}
+  return `<div class="rv-row fit">${h}</svg></div>`}
+const R={tiles,chain,grid,tree,graph};
+function add(){document.querySelectorAll('.replay').forEach(c=>{if(c.querySelector('.rpx'))return;const e=RX[c.dataset.replay];if(!e)return;
+  const box=document.createElement('div');box.className='rpx';
+  box.innerHTML=`<div class="rpx-h">Example</div><div class="io"><span>Input</span><code>${esc(e.i)}</code><span>Output</span><code>${esc(e.o)}</code></div><div class="rpx-vis">${(e.vis||[]).map(v=>R[v.t]?R[v.t](v):'').join('')}</div><p class="rpx-why">${esc(e.why)}</p>`;
+  const q=c.querySelector('.rp-q');if(q)q.after(box);else c.prepend(box)})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rpex-end-->
 </body>
 </html>
