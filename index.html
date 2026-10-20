@@ -501,7 +501,7 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
 <header class="top">
   <div class="top-in">
     <div class="brand"><i></i>Rubber Duck Dojo</div>
-    <nav class="jump" aria-label="Sections"><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
+    <nav class="jump" aria-label="Sections"><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#ask">Ask</a><a href="#cinema">Cinema</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
     <a class="sv-top" id="svTop" href="#saved" aria-label="Open saved items" aria-controls="svDrawer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-3.9-6.5 3.9v-16a1 1 0 0 1 1-1z"/></svg><span id="svCount">0</span></a>
     <div class="xp" aria-live="polite"><strong id="xpAll">0 XP</strong><small id="lvlAll">Rookie</small></div>
   </div>
@@ -529,10 +529,10 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
     <div class="road" id="road2"></div>
   </section>
 
-                        <!--cinh-start--><section class="sec" id="cinema"><div class="cine" id="cineHome"><canvas class="cine-stars" aria-hidden="true"></canvas>
-  <div class="cine-head"><span class="cine-eb">✦ New · Dojo Cinema</span><h2>Watch the <span>pattern move.</span></h2><p>Short animated films for every topic, with narration, captions and chapters. Scrub, slow down, replay, then try it yourself in the lab.</p></div>
+                              <!--cinh-start--><section class="sec" id="cinema"><div class="cine" id="cineHome"><canvas class="cine-stars" aria-hidden="true"></canvas>
+  <div class="cine-head"><span class="cine-eb">✦ New · Dojo Cinema</span><h2>Watch the <span>pattern move.</span></h2><p>Short animated films for every topic and the most-asked problems, with narration, captions and chapters. Scrub, slow down, replay, then try it yourself in the lab.</p></div>
   <div class="cine-feat" id="cfFeat"></div>
-  <div class="cine-tabs" role="group" aria-label="Film track"><button data-t="dsa" aria-pressed="true">DSA · 13 films</button><button data-t="sd" aria-pressed="false">System design · 6 films</button></div>
+  <div class="cine-tabs" role="group" aria-label="Film track"><button data-t="dsa" aria-pressed="true">DSA · 13 films</button><button data-t="sd" aria-pressed="false">System design · 6 films</button><button data-t="prob" aria-pressed="false">Key problems · 14 films</button></div>
   <div class="cine-grid" id="cfGrid"></div>
   <div class="cine-foot"><span id="cfCount"></span><span class="cine-bar"><i id="cfBar" style="width:0"></i></span><span>Tip: <b>space</b> play/pause · <b>← →</b> step · <b>m</b> voice · <b>f</b> full screen</span></div>
 </div></section>
@@ -843,6 +843,517 @@ $('.pv-back').addEventListener('click',e=>{e.preventDefault();history.pushState(
 addEventListener('hashchange',route);route();
 })();
 </script>
+<!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
+.pask-fab:hover{transform:translateY(-2px)}
+.pask-fab svg{width:20px;height:20px;flex:none}
+.pask-fab span{white-space:nowrap}
+@media (max-width:640px){.pask-fab{padding:0;width:46px;justify-content:center}.pask-fab span{display:none}}
+@media print{.pask-fab,.pask{display:none!important}}
+.pask{position:fixed;inset:0;z-index:950}
+.pask[hidden]{display:none}
+.pask-scrim{position:absolute;inset:0;background:rgba(10,12,30,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:askFade .2s ease}
+.pask-panel{position:absolute;top:0;right:0;bottom:0;width:min(480px,100vw);display:flex;flex-direction:column;background:var(--paper,#F4F6FB);color:var(--ink,#161A33);border-left:2px solid var(--ink,#161A33);box-shadow:-12px 0 40px rgba(10,12,40,.25);animation:askIn .28s cubic-bezier(.2,.9,.25,1.05);font:15px/1.5 var(--body,system-ui,sans-serif)}
+@keyframes askIn{from{transform:translateX(30px);opacity:0}}
+@keyframes askFade{from{opacity:0}}
+@media (max-width:640px){.pask-panel{width:100vw;border-left:0}}
+.pask-head{display:flex;align-items:center;gap:10px;padding:12px 14px 10px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff)}
+.pask-av{width:40px;height:40px;flex:none;border-radius:50%;border:2px solid var(--ink,#161A33);background:#FFF4CC;display:grid;place-items:center;font-size:22px}
+.pask-ttl{display:grid;line-height:1.2;min-width:0}
+.pask-ttl b{font:800 18px var(--display,system-ui)}
+.pask-ttl small{color:var(--ink-3,#6E749B);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pask-live{flex:none;font:800 11.5px var(--body,system-ui);color:#6B3FD8;background:#EFE8FF;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.pask-live[hidden]{display:none}
+.pask-x{margin-left:auto;flex:none;width:36px;height:36px;border-radius:10px;border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);font-size:22px;line-height:1;cursor:pointer}
+.pask-tabs{display:flex;gap:6px;padding:8px 14px;border-bottom:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff)}
+.pask-tabs button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:4px 13px;font:800 13.5px var(--body,system-ui);cursor:pointer}
+.pask-tabs button[aria-selected="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.pask-tabs .pask-clear{margin-left:auto;border:0;background:none;color:var(--ink-3,#6E749B);font-weight:700;font-size:12.5px;padding:4px 6px}
+.pask-body{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;padding:14px;display:flex;flex-direction:column;gap:12px}
+.pask-body[hidden]{display:none}
+.am-u{align-self:flex-end;max-width:85%;background:var(--ink,#161A33);color:var(--paper,#fff);border-radius:16px 16px 4px 16px;padding:8px 13px;font-weight:600;overflow-wrap:anywhere}
+.am-p{align-self:stretch;background:var(--surface,#fff);border:1.5px solid var(--line,#D9DDEB);border-radius:4px 16px 16px 16px;padding:12px 14px;display:grid;gap:8px;min-width:0}
+.am-p.ai{border-color:#B9A2F5;background:linear-gradient(180deg,#FBF9FF,var(--surface,#fff))}
+.am-p p{margin:0}
+.am-p ul,.am-p ol{margin:0;padding-left:20px;display:grid;gap:3px}
+.am-p code{font-family:var(--mono,ui-monospace,monospace);font-size:.86em;background:var(--blue-soft,#E3E6FD);padding:.05em .35em;border-radius:5px}
+.am-p h4{margin:0;font:800 17px/1.25 var(--display,system-ui);letter-spacing:-.01em}
+.am-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--ink-3,#6E749B);font-weight:700}
+.am-meta .ch{background:var(--paper,#F4F6FB);border:1px solid var(--line,#D9DDEB);border-radius:999px;padding:1px 8px}
+.am-meta .ai-tag{background:#EFE8FF;color:#6B3FD8;border-color:transparent}
+.am-hint{background:#FFF7DD;border:1.5px dashed #E8B53A;border-radius:10px;padding:8px 11px;display:grid;gap:4px;font-size:14.5px}
+.am-p details{border:1.5px solid var(--line,#D9DDEB);border-radius:10px;background:var(--paper,#F4F6FB)}
+.am-p details>summary{cursor:pointer;padding:7px 11px;font-weight:800;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px}
+.am-p details>summary::-webkit-details-marker{display:none}
+.am-p details>summary::after{content:'▸';margin-left:auto;color:var(--ink-3,#6E749B);transition:transform .15s}
+.am-p details[open]>summary::after{transform:rotate(90deg)}
+.am-p details>div{padding:2px 11px 10px;display:grid;gap:7px;font-size:14.5px}
+.ap-pre{margin:0;background:var(--code-bg,#0C0F24);color:var(--code-ink,#E6E8F5);border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,ui-monospace,monospace);white-space:pre;overflow-x:auto}
+.ap-code{background:var(--code-bg,#0C0F24);color:var(--code-ink,#E6E8F5);border-radius:10px;font:12.5px/1.55 var(--mono,ui-monospace,monospace);overflow:auto;padding:8px 0;max-height:420px}
+.ap-code .cl{display:flex;white-space:pre;padding-right:14px;min-width:max-content}
+.ap-code .cl .n{flex:none;width:2.4em;text-align:right;padding-right:10px;color:#5A618C;user-select:none}
+.ap-code .k{color:#A9B2FF}.ap-code .s{color:#86E3C3}.ap-code .c{color:#7F86B3;font-style:italic}.ap-code .m{color:#FFC86B}.ap-code .b{color:#FF9CC2}.ap-code .f{color:#fff;font-weight:600}.ap-code .t .t{color:#8FD3FF}
+.am-p .lsw{display:flex;gap:6px;flex-wrap:wrap}
+.am-p .lsw button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:2px 11px;font:800 12.5px var(--body,system-ui);cursor:pointer}
+.am-p .lsw button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.am-p .lsw button:disabled{opacity:.4;cursor:not-allowed}
+.ap-tbl{overflow-x:auto}
+.ap-tbl table{border-collapse:collapse;width:100%;font-size:13.5px}
+.ap-tbl th,.ap-tbl td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line,#D9DDEB);vertical-align:top}
+.ap-tbl th{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3,#6E749B)}
+.ap-rx{display:grid;gap:2px;background:var(--paper,#F4F6FB);border-radius:10px;padding:9px 11px}
+.ap-rx span{font-size:12px;font-weight:700;color:var(--ink-3,#6E749B);text-transform:uppercase;letter-spacing:.05em}
+.ap-rx b{margin-bottom:6px}
+.am-p li[data-ask]{cursor:pointer;text-decoration:underline;text-decoration-color:var(--line,#D9DDEB);text-underline-offset:3px}
+.am-p li[data-ask]:hover{text-decoration-color:var(--ink,#161A33)}
+.am-links{display:flex;flex-wrap:wrap;gap:6px}
+.am-links a,.am-links button{font:800 13px var(--body,system-ui);text-decoration:none;color:var(--ink,#161A33);border:1.5px solid var(--ink,#161A33);background:var(--surface,#fff);border-radius:999px;padding:4px 11px;cursor:pointer}
+.am-links .go-ai{border-color:#8E6CF0;color:#5B33C9;background:#F5F0FF}
+.am-rel{display:grid;gap:5px}
+.am-rel>span{font-size:12px;font-weight:800;color:var(--ink-3,#6E749B);text-transform:uppercase;letter-spacing:.06em}
+.am-chips{display:flex;flex-wrap:wrap;gap:6px}
+.am-chips button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);border-radius:12px;padding:5px 10px;font:600 13.5px var(--body,system-ui);text-align:left;cursor:pointer}
+.am-chips button:hover{border-color:var(--ink-3,#6E749B)}
+.am-note{font-size:13.5px;color:var(--ink-2,#4A4F6E)}
+.am-typing{display:inline-flex;gap:4px}
+.am-typing i{width:7px;height:7px;border-radius:50%;background:#8E6CF0;animation:askDot 1s infinite}
+.am-typing i:nth-child(2){animation-delay:.15s}.am-typing i:nth-child(3){animation-delay:.3s}
+@keyframes askDot{50%{opacity:.25;transform:translateY(-3px)}}
+.pask-form{position:relative;border-top:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:flex-end}
+.pask-form[hidden]{display:none}
+.pask-form textarea{flex:1 1 auto;resize:none;border:2px solid var(--ink,#161A33);border-radius:14px;padding:9px 12px;font:16px/1.4 var(--body,system-ui);background:var(--paper,#F4F6FB);color:var(--ink,#161A33);max-height:120px;min-height:44px}
+.pask-form textarea:focus{outline:none;box-shadow:0 0 0 3px #FFD24A}
+.pask-send{flex:none;width:44px;height:44px;border-radius:12px;border:2px solid var(--ink,#161A33);background:var(--ink,#161A33);color:var(--paper,#fff);font-size:18px;cursor:pointer}
+.pask-send:disabled{opacity:.4;cursor:default}
+.pask-sug{position:absolute;left:12px;right:12px;bottom:calc(100% - 4px);background:var(--surface,#fff);border:2px solid var(--ink,#161A33);border-radius:12px;box-shadow:0 -10px 30px rgba(10,12,40,.15);overflow:hidden;display:grid}
+.pask-sug[hidden]{display:none}
+.pask-bank-top{display:grid;gap:8px;position:sticky;top:-14px;background:var(--paper,#F4F6FB);padding:0 0 8px;z-index:1}
+.pask-bank-top input{border:2px solid var(--ink,#161A33);border-radius:12px;padding:8px 12px;font:15px var(--body,system-ui);background:var(--surface,#fff);color:var(--ink,#161A33)}
+.pask-cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.pask-cats::-webkit-scrollbar{display:none}
+.pask-cats button{flex:none;border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:3px 10px;font:700 12.5px var(--body,system-ui);cursor:pointer;white-space:nowrap}
+.pask-cats button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.pask-count{font-size:12.5px;color:var(--ink-3,#6E749B);font-weight:700}
+.pask-list{display:grid;gap:4px}
+.pask-list h5{margin:10px 0 2px;font:800 12px var(--body,system-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3,#6E749B)}
+.pask-more{justify-self:center;margin-top:6px;border:1.5px solid var(--ink,#161A33)!important;font-weight:800!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pask-fab{border-color:#0B0E22;box-shadow:3px 3px 0 #0B0E22}:root:not([data-theme="light"]) .am-hint{background:#3A2F12;border-color:#8A6A1F}:root:not([data-theme="light"]) .am-p.ai{background:linear-gradient(180deg,#221B3D,var(--surface,#1A1E3A))}:root:not([data-theme="light"]) .pask-live,:root:not([data-theme="light"]) .am-meta .ai-tag,:root:not([data-theme="light"]) .am-links .go-ai{background:#2C2350;color:#C9B6FF;border-color:#6E55C9}:root:not([data-theme="light"]) .pask-av{background:#3A3315}}
+:root[data-theme="dark"] .am-hint{background:#3A2F12;border-color:#8A6A1F}
+:root[data-theme="dark"] .am-p.ai{background:linear-gradient(180deg,#221B3D,var(--surface,#1A1E3A))}
+:root[data-theme="dark"] .pask-live,:root[data-theme="dark"] .am-meta .ai-tag,:root[data-theme="dark"] .am-links .go-ai{background:#2C2350;color:#C9B6FF;border-color:#6E55C9}
+
+:root[data-theme="dark"] .pask-av{background:#3A3315}
+
+/* suggestions: open in app, or 💬 for the answer */
+.pask-sug{max-height:min(60vh,420px);overflow-y:auto}
+.pask-sug-h{padding:6px 12px;font:700 11.5px var(--body,system-ui);color:var(--ink-3,#6E749B);border-bottom:1px solid var(--line,#D9DDEB);background:var(--paper,#F4F6FB)}
+.pask-srow,.pask-row{display:flex;align-items:stretch;min-width:0}
+.pask-srow{border-bottom:1px solid var(--line,#D9DDEB)}.pask-srow:last-child{border-bottom:0}
+.s-go,.b-go{flex:1;min-width:0;border:0;background:none;color:var(--ink,#161A33);text-align:left;cursor:pointer;display:grid;gap:2px;font:600 14px/1.35 var(--body,system-ui)}
+.s-go{padding:8px 12px}
+.s-go small,.b-go small{color:var(--ink-3,#6E749B);font-size:12px;font-weight:600;display:flex;flex-wrap:wrap;gap:0 6px;align-items:center}
+.s-go small b,.b-go small b{color:var(--blue,#3B5BDB);font-weight:800}
+.s-go[aria-selected="true"],.s-go:hover,.s-go:focus-visible{background:#FFF4CC;outline:0}
+.s-ans,.b-ans{flex:none;width:46px;border:0;border-left:1px solid var(--line,#D9DDEB);background:none;cursor:pointer;font-size:16px;color:var(--ink-2,#4A4F6E)}
+.s-ans:hover,.b-ans:hover{background:var(--paper,#F4F6FB)}
+.pask-list{gap:6px}
+.pask-row{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);border-radius:10px;overflow:hidden}
+.pask-row:hover{border-color:var(--ink-3,#6E749B)}
+.b-go{padding:8px 11px}.b-go:focus-visible{outline:3px solid var(--blue,#3B5BDB);outline-offset:-3px}
+.b-go em,.s-go em{font-style:normal;font-weight:800;font-size:11px;padding:0 6px;border-radius:999px;border:1px solid}
+em.easy{color:#18805E;border-color:#7FD1B4;background:#E3F7EF}em.medium{color:#9A5B00;border-color:#F0C27A;background:#FDF1DC}em.hard{color:#B4285E;border-color:#EFA3C0;background:#FCE6EF}
+.pask-more{border:1.5px dashed var(--line,#D9DDEB);background:none;border-radius:10px;padding:8px;font:700 13px var(--body,system-ui);color:var(--ink-2,#4A4F6E);cursor:pointer}
+.pask-cats button i{font-style:normal;opacity:.65;font-weight:600;margin-left:2px}
+.pask-frow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pask-frow select{border:1.5px solid var(--line,#D9DDEB);border-radius:10px;padding:5px 8px;font:700 13px var(--body,system-ui);background:var(--surface,#fff);color:var(--ink,#161A33);max-width:100%}
+.pask-diff[hidden]{display:none}
+.pask-diff button.easy[aria-pressed="true"]{background:#18805E;border-color:#18805E}.pask-diff button.medium[aria-pressed="true"]{background:#B86E00;border-color:#B86E00}.pask-diff button.hard[aria-pressed="true"]{background:#B4285E;border-color:#B4285E}
+.am-links a.go-app{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33);font-weight:800}
+/* header button */
+.pask-hbtn{display:flex;align-items:center;gap:6px;height:38px;padding:0 11px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:700 14px var(--body,system-ui);flex:none;cursor:pointer}
+.pask-hbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.pask-hbtn:hover{border-color:var(--ink-3)}
+@media (max-width:760px){.pask-hbtn{height:34px;width:34px;padding:0;justify-content:center}.pask-hbtn span{display:none}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .s-go[aria-selected="true"],:root:not([data-theme="light"]) .s-go:hover{background:#2E2A17}:root:not([data-theme="light"]) em.easy,:root:not([data-theme="light"]) em.medium,:root:not([data-theme="light"]) em.hard{background:transparent}}
+:root[data-theme="dark"] .s-go[aria-selected="true"],:root[data-theme="dark"] .s-go:hover{background:#2E2A17}
+:root[data-theme="dark"] em.easy,:root[data-theme="dark"] em.medium,:root[data-theme="dark"] em.hard{background:transparent}
+@media (max-width:440px){.top-in:has(.pask-hbtn){gap:8px}.top-in:has(.pask-hbtn) .brand{font-size:15.5px;letter-spacing:-.01em;min-width:0}.top-in:has(.pask-hbtn) .xp small{font-size:10.5px}.pask-hbtn{width:32px;height:32px}}
+</style><script>/* LangKit: Python / Java / C++ switcher shared by the DSA pages, notes and crunch list. */
+(function(){
+if(window.LangKit)return;
+const KEY='dsa-lang-v1',NAMES={py:'Python',java:'Java',cpp:'C++'},ORDER=['py','java','cpp'];
+let cur='py';try{const v=JSON.parse(localStorage.getItem(KEY));if(NAMES[v])cur=v}catch(e){}
+const subs=new Set();
+const W=s=>new Set(s.split(' '));
+const KW={java:W('abstract boolean break byte case catch char class continue default do double else enum extends final finally float for if implements import instanceof int interface long new null package private protected public return short static super switch this throw throws try void while var true false record yield'),
+  cpp:W('auto bool break case catch char class const constexpr continue default delete do double else enum explicit false float for friend if inline int long namespace new nullptr operator private protected public return short signed sizeof static struct switch template this throw true try typedef typename unsigned using virtual void while uint32_t size_t'),
+  py:W('and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield True False None self')};
+const BI={java:W('Math System Arrays Collections Integer Long Double Character String StringBuilder List ArrayList Map HashMap TreeMap Set HashSet Deque ArrayDeque PriorityQueue Queue LinkedList Iterator Objects Comparator Optional Boolean'),
+  py:W('len range enumerate zip sorted reversed min max sum abs print int str float list dict set tuple map filter any all isinstance ord chr divmod iter next super object deque defaultdict Counter heapq bisect math collections functools lru_cache cache inf'),
+  cpp:W('vector string unordered_map unordered_set map set queue deque priority_queue stack pair array function greater less min max swap sort reverse accumulate lower_bound upper_bound make_pair to_string stoi stoll abs iota cout getline stringstream max_element min_element find prev next list tolower toupper isalnum isalpha isdigit INT_MAX INT_MIN LLONG_MAX LLONG_MIN __builtin_popcount')};
+const DECL=W('int long void boolean bool double char float short byte auto unsigned var');
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function hlLine(src,lang){
+  const re=lang==='py'?/(#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b0x[0-9a-fA-F]+\b|\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)|([\s\S])/g:/(\/\/.*$|\/\*.*?\*\/)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b0x[0-9a-fA-F]+[uUlL]*\b|\b\d+(?:\.\d+)?[LlUuFf]*\b)|([A-Za-z_]\w*)|([\s\S])/g;
+  const kw=KW[lang],bi=BI[lang];let out='',m,prev='';
+  while((m=re.exec(src))){const [t,c,s,n,w]=m;
+    if(c)out+=`<span class="c">${esc(c)}<\/span>`;
+    else if(s)out+=`<span class="s">${esc(s)}<\/span>`;
+    else if(n)out+=`<span class="m">${n}<\/span>`;
+    else if(w){
+      const call=/^\s*\(/.test(src.slice(re.lastIndex));
+      if(lang==='py'){out+=kw.has(w)?`<span class="k">${w}<\/span>`:(prev==='def'||prev==='class')?`<span class="f">${w}<\/span>`:bi.has(w)?`<span class="b">${w}<\/span>`:w}
+      else if(kw.has(w))out+=`<span class="k">${w}<\/span>`;
+      else if(call&&(DECL.has(prev)||(/^[A-Za-z_]\w*$/.test(prev)&&!kw.has(prev))||/[>\]*&]$/.test(prev)))out+=`<span class="f">${w}<\/span>`;
+      else if(bi.has(w))out+=`<span class="b">${w}<\/span>`;
+      else if(/^[A-Z][a-z]\w*$/.test(w)||/^[A-Z]\w*Node$/.test(w))out+=`<span class="ty">${w}<\/span>`;
+      else out+=w;
+    } else out+=esc(t);
+    if(!/^\s+$/.test(t))prev=w||t.trim();
+  }
+  return out||' ';
+}
+function codeHTML(src,lang){
+  const lines=String(src).replace(/^\n+/,'').replace(/\s+$/,'').split('\n');
+  return lines.map((l,i)=>`<div class="cl" data-l="${i+1}"><span class="n">${i+1}<\/span><span class="t">${hlLine(l,lang)}<\/span><\/div>`).join('');
+}
+function tabs(avail){
+  return `<div class="lsw" role="group" aria-label="Code language">${ORDER.map(l=>`<button type="button" data-lang="${l}" aria-pressed="${l===cur}"${avail&&!avail.includes(l)?' disabled title="Not available"':''}>${NAMES[l]}<\/button>`).join('')}<\/div>`;
+}
+function set(l){if(!NAMES[l]||l===cur)return;cur=l;try{localStorage.setItem(KEY,JSON.stringify(l))}catch(e){}
+  document.querySelectorAll('.lsw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===cur));
+  subs.forEach(f=>{try{f(cur)}catch(e){console.error(e)}})}
+document.addEventListener('click',e=>{const b=e.target.closest('.lsw button[data-lang]');if(!b||b.disabled)return;
+  const y=b.getBoundingClientRect().top;set(b.dataset.lang);
+  requestAnimationFrame(()=>{const n=b.isConnected?b:null;if(n){const d=n.getBoundingClientRect().top-y;if(Math.abs(d)>2)window.scrollBy(0,d)}})});
+addEventListener('storage',e=>{if(e.key===KEY){try{const v=JSON.parse(e.newValue);if(NAMES[v]){cur=v;subs.forEach(f=>f(cur));document.querySelectorAll('.lsw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===cur))}}catch(_){}}});
+const css=`.lsw{display:flex;gap:4px;justify-content:flex-end;margin:0 0 6px}
+.lsw button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:2px 10px;font:700 12px/1.6 var(--body,system-ui,sans-serif);cursor:pointer}
+.lsw button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.lsw button:disabled{opacity:.4;cursor:not-allowed}
+.code .ty{color:#8FD3FF}
+.lnote{margin:6px 0 0;font-size:13.5px;color:var(--ink-2,#4A4F6E);background:var(--paper,#F4F6FB);border-left:3px solid var(--amber,#E89A1C);padding:6px 10px;border-radius:0 8px 8px 0}`;
+const st=document.createElement('style');st.textContent=css;(document.head||document.documentElement).appendChild(st);
+window.LangKit={get:()=>cur,set,on:f=>(subs.add(f),()=>subs.delete(f)),name:l=>NAMES[l||cur],codeHTML,tabs,hl:hlLine,esc};
+})();
+</script><script>(function(){"use strict";
+if(window.AskPip)return;
+const PAGE=(location.pathname.split('/').pop()||'index.html').replace(/\.html$/,'')||'index';
+const LSK='rdd-ask-v1';
+const store={get(){try{return JSON.parse(localStorage.getItem(LSK))||{log:[]}}catch(e){return{log:[]}}},put(v){try{localStorage.setItem(LSK,JSON.stringify(v))}catch(e){}}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=(s,r)=>(r||document).querySelector(s),$$=(s,r)=>[...(r||document).querySelectorAll(s)];
+
+/* ───────────── text processing ───────────── */
+const STOP=new Set('a an the is are was were be been being to of in on for and or what whats how do does did i im me my you your can could should would will it its this that these those with by from as at which when why who there their them we us our please tell explain show give about into vs versus difference between between some any get use using used if than then also just like way ways need want know mean means define definition'.split(' '));
+const PHRASE=[[/big[\s-]?o\b/g,' bigo '],[/\bo\(\s*1\s*\)/g,' constant '],[/\bo\(\s*n\s*\)/g,' linear '],[/\bo\(\s*log\s*n\s*\)/g,' logarithmic '],[/\bn\s*\+\s*1\b/g,' nplus1 '],[/\bk-?th\b/g,' kth '],[/\bc\+\+/g,' cpp '],[/\bsde[\s-]?2\b/g,' sde2 '],[/\bsde[\s-]?1\b/g,' sde1 '],[/\bl4\b/g,' l4 '],[/\bl7\b/g,' l7 '],[/\b2pc\b/g,' 2pc '],[/\bwrite[\s-]through\b/g,' writethrough '],[/\bcache[\s-]aside\b/g,' cacheaside '],[/\bmerge\s+k\b/g,' merge k ']];
+const SYN={dp:'dynamic programming',bfs:'bfs breadth first',dfs:'dfs depth first',ll:'linked list',lc:'leetcode',pq:'priority queue heap',bst:'binary search tree bst',db:'database',dbs:'database',lb:'load balancer',sd:'system design',hld:'hld high level design',lld:'lld low level design',oop:'oop object oriented',oops:'oop object oriented',mq:'message queue',kv:'key value',dsu:'union find disjoint',uf:'union find',mst:'minimum spanning tree',hashmap:'hash map hashmap',hashtable:'hash map',hashset:'hash set',dict:'dictionary hash map',dictionary:'dictionary hash map',tc:'time complexity',sc:'space complexity',algo:'algorithm',algos:'algorithm',ds:'data structure',dsa:'dsa data structure algorithm',twosum:'two sum',tinyurl:'url shortener tinyurl',bitly:'url shortener',whatsapp:'whatsapp chat',messenger:'chat',twitter:'twitter feed',instagram:'instagram feed',ig:'instagram feed',yt:'youtube video',netflix:'netflix video',ola:'uber ride',lyft:'uber ride',bms:'bookmyshow ticket',bookmyshow:'bookmyshow ticket booking',gc:'garbage collection',jvm:'jvm java',jwt:'jwt token',sql:'sql relational',nosql:'nosql',k8s:'kubernetes',mongo:'mongodb',postgres:'postgres sql',mysql:'mysql sql',rabbit:'rabbitmq',sqs:'sqs queue',api:'api',apis:'api',ttl:'ttl expiry',lfu:'lfu cache',lru:'lru cache',kafka:'kafka queue',redis:'redis cache',ws:'websocket',websockets:'websocket',sse:'sse server sent events',recursive:'recursion',recurse:'recursion',backtrack:'backtracking',memo:'memoization',memoize:'memoization',tabulate:'tabulation',subarray:'subarray',substring:'substring',palindromic:'palindrome',anagrams:'anagram',intervals:'interval',monotonic:'monotonic',xor:'xor bit',bitwise:'bit',bits:'bit',trie:'trie prefix tree',tries:'trie',heaps:'heap',graphs:'graph',trees:'tree',stacks:'stack',queues:'queue',pointers:'pointer',arrays:'array',strings:'string',matrices:'matrix',grids:'grid',islands:'island'};
+const HAS=Object.prototype.hasOwnProperty;let STOPST=null;
+function stem(w){if(w.length>5&&w.endsWith('ing')){let r=w.slice(0,-3);if(/([bdgmnprt])\1$/.test(r))r=r.slice(0,-1);return r}if(w.length>4&&w.endsWith('ies'))return w.slice(0,-3)+'y';if(w.length>4&&w.endsWith('es')&&/(ss|sh|ch|x|z)es$/.test(w))return w.slice(0,-2);if(w.length>3&&w.endsWith('s')&&!w.endsWith('ss')&&!w.endsWith('us')&&!w.endsWith('is'))return w.slice(0,-1);if(w.length>5&&w.endsWith('ed'))return w.slice(0,-2);return w}
+function norm(s){s=String(s||'').toLowerCase().replace(/<[^>]+>/g,' ').replace(/&[a-z]+;/g,' ');for(const [r,v] of PHRASE)s=s.replace(r,v);return s.replace(/[’']/g,'').replace(/[^a-z0-9²]+/g,' ').trim()}
+function toks(s,keepStop){const out=[];for(let w of norm(s).split(' ')){if(!w)continue;if(!keepStop&&STOP.has(w))continue;if(w.length===1&&!/[0-9k]/.test(w))continue;const syn=HAS.call(SYN,w)?SYN[w]:null;if(syn){for(const x of syn.split(' '))out.push(stem(x))}else out.push(stem(w))}return out}
+
+/* ───────────── index ───────────── */
+let KB=null,IDX=null,BYID=Object.create(null),META=null;
+function plainText(h){return String(h||'').replace(/<[^>]+>/g,' ').replace(/&[a-z]+;/g,' ').replace(/\s+/g,' ').trim()}
+function build(){STOPST=new Set([...STOP].map(stem));
+  const docs=KB.map((e,i)=>{BYID[e.i]=e;
+    const q=new Set(toks(e.t+' '+e.q.join(' '))),w=new Set(toks((e.w||'')+' '+(e.sub||'')+' '+(e.cat||''))),a=new Set(toks(plainText((e.h||'')+' '+e.a).slice(0,700)));
+    const qn=' '+norm(e.t)+' ',qall=' '+e.q.map(norm).join(' | ')+' ';
+    const vs=e.q.slice(0,8).map(v=>new Set(toks(v,true)));
+    return {e,q,w,a,qn,qall,vs}});
+  const df=Object.create(null);for(const d of docs){const u=new Set([...d.q,...d.w,...d.a]);for(const t of u)df[t]=(df[t]||0)+1}
+  const N=docs.length,idf=Object.create(null);for(const t in df)idf[t]=Math.log(1+(N-df[t]+.5)/(df[t]+.5));
+  const vocab=Object.keys(df);const byLen=Object.create(null);for(const v of vocab)(byLen[v.length]=byLen[v.length]||[]).push(v);
+  const rdf=Object.create(null);for(const e of KB)for(const w of norm(e.t+' '+e.q.slice(0,4).join(' ')+' '+(e.w||'')).split(' '))if(w.length>3)rdf[w]=(rdf[w]||0)+1;
+  const rByLen=Object.create(null);for(const v in rdf)(rByLen[v.length]=rByLen[v.length]||[]).push(v);
+  IDX={docs,idf,df,vocab,byLen,N,rdf,rByLen}}
+function lev(a,b,max){if(Math.abs(a.length-b.length)>max)return max+1;const m=a.length,n=b.length;let pp=null,prev=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){const cur=[i];let best=i;for(let j=1;j<=n;j++){const c=a[i-1]===b[j-1]?0:1;let v=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+c);
+      if(pp&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])v=Math.min(v,pp[j-2]+1);cur.push(v);if(v<best)best=v}if(best>max)return max+1;pp=prev;prev=cur}return prev[n]}
+const fixCache=Object.create(null);
+function fix(t){if(IDX.df[t]||t.length<4||/^\d+$/.test(t))return t;if(t in fixCache)return fixCache[t];
+  const max=t.length>=8?2:1;let best=null,bd=9,bf=0;
+  for(let L=t.length-max;L<=t.length+max;L++)for(const v of IDX.byLen[L]||[]){if(v[0]!==t[0]&&max<2)continue;const d=lev(t,v,max);if(d<=max&&(d<bd||(d===bd&&IDX.df[v]>bf))){best=v;bd=d;bf=IDX.df[v]}}
+  return fixCache[t]=best||t}
+const rfixCache=Object.create(null);
+function fixRaw(w){if(IDX.rdf[w]||w.length<4||/^\d+$/.test(w))return w;if(w in rfixCache)return rfixCache[w];const max=w.length>=8?2:1;let best=null,bd=9,bf=0;
+  for(let L=w.length-max;L<=w.length+max;L++)for(const v of IDX.rByLen[L]||[]){if(v[0]!==w[0])continue;const d=lev(w,v,max);if(d<=max&&(d<bd||(d===bd&&IDX.rdf[v]>bf))){best=v;bd=d;bf=IDX.rdf[v]}}
+  return rfixCache[w]=best||w}
+let FIXED='',UNK=0,FIXN=0;
+function qToks(raw){const out=[];const fixed=[];UNK=0;FIXN=0;for(let w of norm(raw).split(' ')){if(!w)continue;if(STOP.has(w)||(w.length===1&&!/[0-9k]/.test(w))){fixed.push(w);continue}
+    if(!HAS.call(SYN,w)&&!IDX.df[stem(w)]){const f=fixRaw(w);if(f!==w)FIXN++;else if(!/^\d+$/.test(w)&&!IDX.df[fix(stem(w))])UNK++;w=f}fixed.push(w);const syn=HAS.call(SYN,w)?SYN[w]:null;if(syn)for(const x of syn.split(' '))out.push(stem(x));else out.push(fix(stem(w)))}FIXED=fixed.join(' ');return out}
+function prefixExpand(t){if(t.length<2)return[t];const out=[];for(const v of IDX.vocab)if(v.startsWith(t)&&v!==t){out.push(v);if(out.length>6)break}return out}
+
+function search(q,opt={}){
+  if(!IDX)return[];
+  const raw=String(q||'');let qt=qToks(raw);const qn=FIXED||norm(raw);
+  if(opt.prefix&&qt.length){const last=qt[qt.length-1];if(!IDX.df[last]){const ex=prefixExpand(last);if(ex.length)qt=qt.slice(0,-1).concat(ex.slice(0,3))}}
+  qt=[...new Set(qt)];
+  const numM=raw.match(/(?:\b(?:lc|leetcode|problem|#)\s*#?\s*(\d{1,4})\b)|^\s*(\d{1,4})\s*$/i);const num=numM?+(numM[1]||numM[2]):null;
+  const cmp=/\bvs\b|versus|difference|compare|better than|or\b/.test(raw.toLowerCase());
+  const design=/\bdesign\b/.test(qn);
+  const whatis=/^(what|explain|define|describe|how does|how do)/.test(qn);
+  const totalW=(qt.reduce((s,t)=>s+(IDX.idf[t]||0),0)+UNK*4.5+FIXN*1.5)||1;
+  const bigr=[];const qtoks=qn.split(' ').filter(w=>w&&!STOP.has(w));for(let i=0;i+1<qtoks.length;i++)bigr.push(' '+qtoks[i]+' '+qtoks[i+1]+' ');
+  const res=[];
+  const qs=new Set(toks(qn,true));const wt=t=>STOPST.has(t)?.35:1;let qW=0;for(const t of qs)qW+=wt(t);
+  for(const d of IDX.docs){const e=d.e;let s=0,cov=0;
+    let jac=0;if(qs.size){for(const v of d.vs){let inter=0,vW=0;for(const t of v)vW+=wt(t);for(const t of qs)if(v.has(t))inter+=wt(t);const j=inter/(qW+vW-inter);if(j>jac)jac=j}}
+    for(const t of qt){const f=IDX.idf[t]||0;if(!f)continue;let hit=0;if(d.q.has(t)){s+=3*f;hit=1}else if(d.w.has(t)){s+=1.4*f;hit=.7}else if(d.a.has(t)){s+=.7*f;hit=.4}cov+=hit*f}
+    if(num!=null&&e.n===num)s+=numM[1]?40:25;
+    if(jac>=.34)s+=10*jac;
+    if(s<=0)continue;
+    if(!totalW||totalW===1&&!qt.length)cov=jac*totalW;
+    for(const b of bigr)if(d.qall.includes(b))s+=2.2;
+    const tn=d.qn.trim();if(tn.length>3&&(' '+qn+' ').includes(' '+tn+' '))s+=6+tn.split(' ').length;
+    if(qn.length>5&&d.qall.includes(' '+qn+' '))s+=8;
+    if(cmp&&/\bvs\b/.test(e.t))s+=3;
+    if(design&&(e.cat==='System design classics'||e.cat==='System design problems'))s+=2.5;
+    if(whatis&&(e.k==='topic'||e.k==='cur'))s+=1.2;
+    if(e.s&&e.s===PAGE)s+=.8;
+    if(norm(e.t)===qn)s+=5;
+    if(e.k==='cur')s+=.6;else if(e.k==='topic')s+=.4;
+    if(e.k==='rx')s*=.86;else if(e.k==='quiz')s*=.8;else if(e.k==='list'||e.k==='cx')s*=.9;
+    res.push({e,s,cov:qt.length?cov/totalW:jac})}
+  res.sort((a,b)=>b.s-a.s);
+  return res.slice(0,opt.limit||8)}
+
+/* ───────────── live AI (claude.ai only) ───────────── */
+let samplePromise=null,sampleFn=null,liveOK=null;
+function getSample(){if(samplePromise)return samplePromise;
+  if(!window.claude||typeof window.claude.use!=='function')return samplePromise=Promise.resolve(null);
+  return samplePromise=window.claude.use('sample').then(s=>{sampleFn=s||null;liveOK=!!s;return sampleFn}).catch(()=>{liveOK=false;return null})}
+
+/* ───────────── UI ───────────── */
+let root,body,bank,form,ta,sug,live,chatBtn,bankBtn,opened=false,loading=null,state=store.get(),aborter=null;
+const LANG=()=>{try{const v=JSON.parse(localStorage.getItem('dsa-lang-v1'));return['py','java','cpp'].includes(v)?v:'py'}catch(e){return'py'}};
+function loadKB(){if(KB)return Promise.resolve();if(loading)return loading;
+  loading=new Promise((ok,bad)=>{if(window.ASK_KB){ok();return}const s=document.createElement('script');s.src='ask-kb.js';s.onload=ok;s.onerror=()=>bad(new Error('kb'));document.head.appendChild(s)})
+    .then(()=>{META=window.ASK_KB.meta;KB=window.ASK_KB.kb;build();
+      const n=KB.length;root.querySelector('.pask-ttl small').textContent=`${n.toLocaleString('en-US')} prepared answers · ${META.q.toLocaleString('en-US')} ways to ask`});
+  return loading}
+function mount(){
+  const fab=document.createElement('button');fab.className='pask-fab';fab.type='button';fab.setAttribute('aria-label','Ask Pip a question (Ctrl+K)');fab.title='Ask Pip (Ctrl+K)';
+  fab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 10a2.5 2.5 0 1 1 3.3 2.4c-.5.2-.8.6-.8 1.1v.5"/><circle cx="12" cy="16.6" r=".6" fill="currentColor"/><\/svg><span>Ask Pip<\/span>';
+  fab.onclick=()=>open();document.body.appendChild(fab);
+  root=document.createElement('div');root.className='pask';root.hidden=true;root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-label','Ask Pip');
+  root.innerHTML=`<div class="pask-scrim"><\/div><section class="pask-panel">
+   <header class="pask-head"><div class="pask-av" aria-hidden="true">🐥<\/div><div class="pask-ttl"><b>Ask Pip<\/b><small>Loading answers…<\/small><\/div><span class="pask-live" hidden title="Questions without a prepared answer can be sent to Claude">✨ Live AI<\/span><button class="pask-x" type="button" aria-label="Close">&times;<\/button><\/header>
+   <div class="pask-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-tab="chat">💬 Chat<\/button><button type="button" role="tab" aria-selected="false" data-tab="bank">🔎 Browse questions<\/button><button type="button" class="pask-clear" title="Clear the conversation">Clear chat<\/button><\/div>
+   <div class="pask-body" data-view="chat" aria-live="polite"><\/div>
+   <div class="pask-body" data-view="bank" hidden><\/div>
+   <form class="pask-form" autocomplete="off"><div class="pask-sug" role="listbox" hidden><\/div><textarea rows="1" placeholder="Ask anything… “LC 76”, “BFS vs DFS”" aria-label="Your question"><\/textarea><button class="pask-send" type="submit" aria-label="Send" disabled>➤<\/button><\/form>
+  <\/section>`;
+  document.body.appendChild(root);
+  body=root.querySelector('[data-view="chat"]');bank=root.querySelector('[data-view="bank"]');form=root.querySelector('.pask-form');ta=form.querySelector('textarea');sug=form.querySelector('.pask-sug');live=root.querySelector('.pask-live');
+  root.querySelector('.pask-x').onclick=close;root.querySelector('.pask-scrim').onclick=close;
+  root.querySelector('.pask-clear').onclick=()=>{state.log=[];save();renderLog()};
+  $$('.pask-tabs [data-tab]',root).forEach(b=>b.onclick=()=>tab(b.dataset.tab));
+  form.onsubmit=e=>{e.preventDefault();const v=ta.value.trim();if(!v)return;const sel=sug.querySelector('[aria-selected="true"]');ta.value='';autosize();hideSug();if(sel&&sel.dataset.id){if(!(sel.dataset.open&&goTo(BYID[sel.dataset.id])))askId(sel.dataset.id,sel.dataset.q)}else ask(v)};
+  ta.addEventListener('input',()=>{autosize();form.querySelector('.pask-send').disabled=!ta.value.trim();suggest()});
+  ta.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit?form.requestSubmit():form.onsubmit(e);return}
+    if(!sug.hidden&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();const bs=$$('.s-go',sug);let i=bs.findIndex(b=>b.getAttribute('aria-selected')==='true');bs.forEach(b=>b.setAttribute('aria-selected','false'));i=e.key==='ArrowDown'?Math.min(bs.length-1,i+1):Math.max(-1,i-1);if(i>=0)bs[i].setAttribute('aria-selected','true')}
+    if(e.key==='Escape'&&!sug.hidden){e.stopPropagation();hideSug()}});
+  ta.addEventListener('blur',()=>setTimeout(()=>{if(!sug.contains(document.activeElement))hideSug()},250));
+  ['mousedown','pointerdown'].forEach(ev=>sug.addEventListener(ev,e=>e.preventDefault()));
+  root.addEventListener('keydown',e=>{if(e.key==='Escape'){close();return}
+    if(e.key==='Tab'){const f=$$('button:not([disabled]),a[href],textarea,input,summary',root).filter(x=>x.offsetParent);const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}});
+  root.addEventListener('click',onClick);
+  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();opened?close():open()}else if(e.key==='Escape'&&opened&&!root.contains(e.target)){close()}});
+  if(window.LangKit)window.LangKit.on(()=>$$('.ap-cw',root).forEach(drawCode));
+}
+function autosize(){ta.style.height='auto';ta.style.height=Math.min(120,ta.scrollHeight)+'px'}
+let prevFocus=null;
+function open(q){if(!root)mount();prevFocus=document.activeElement;root.hidden=false;opened=true;document.documentElement.style.overflow='hidden';
+  loadKB().then(()=>{renderLog();if(q)ask(q)}).catch(()=>{body.innerHTML='<div class="am-p"><p>Couldn’t load the answers file. Check your connection and try again.<\/p><\/div>'});
+  getSample().then(s=>{live.hidden=!s});
+  setTimeout(()=>ta.focus(),60)}
+function close(){if(!root||root.hidden)return;root.hidden=true;opened=false;document.documentElement.style.overflow='';hideSug();if(aborter)aborter.abort();if(prevFocus&&prevFocus.focus)prevFocus.focus()}
+function tab(t){$$('.pask-tabs [data-tab]',root).forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));body.hidden=t!=='chat';bank.hidden=t!=='bank';form.hidden=t!=='chat';root.querySelector('.pask-clear').hidden=t!=='chat';if(t==='bank')renderBank()}
+function save(){state.log=state.log.slice(-40);store.put(state)}
+
+/* suggestions while typing */
+let sugT=0;
+function suggest(){clearTimeout(sugT);sugT=setTimeout(()=>{const v=ta.value.trim();if(!IDX||v.length<2){hideSug();return}
+  const r=search(v,{prefix:true,limit:6}).filter(x=>x.s>2);if(!r.length){hideSug();return}
+  sug.innerHTML=`<div class="pask-sug-h">${'ontouchstart' in window?'Tap':'Click'} to open it in the app · 💬 for Pip’s answer<\/div>`+r.map(x=>{const e=x.e,go=canGo(e),w=where(e);
+    return `<div class="pask-srow"><button type="button" class="s-go" role="option" aria-selected="false" data-id="${e.i}" data-q="${esc(e.t)}"${go?' data-open="1"':''}><span>${esc(short(e.t,90))}<\/span><small>${esc(kindLabel(e))}${w&&w!==kindLabel(e)?' · '+esc(w):''}${go?' <b>Open ↗<\/b>':' · answer here'}<\/small><\/button>${go?`<button type="button" class="s-ans" data-id="${e.i}" data-q="${esc(e.t)}" title="Show Pip’s answer here" aria-label="Show Pip’s answer here">💬<\/button>`:''}<\/div>`}).join('');sug.hidden=false},90)}
+function hideSug(){if(sug){sug.hidden=true;sug.innerHTML=''}}
+const short=(s,n)=>s.length>n?s.slice(0,n-1)+'…':s;
+function kindLabel(e){return{prob:'Problem',topic:'Topic',post:'Concept',quiz:'Quiz',rx:'Reflex',cur:e.cat,list:'List',cx:'Complexity'}[e.k]||''}
+/* jump to where an answer lives in the app */
+const topicName=s=>(META&&META.topics&&s&&META.topics[s])||'';
+function inApp(e){for(const [,h] of (e&&e.L)||[]){if(!/^https?:/i.test(h)&&/^[\w-]+\.html(#[\w-]+)?$/.test(h))return h}return null}
+function canGo(e){const h=inApp(e);if(!h)return false;const m=/^([\w-]+)\.html(#.*)?$/.exec(h);return !(m[1]===PAGE&&!m[2])}
+function goHref(h){const m=/^([\w-]+)\.html(?:#([\w-]+))?$/.exec(h||'');if(!m)return false;
+  if(m[1]!==PAGE){close();location.href=h;return true}
+  if(!m[2])return false;const t=document.getElementById(m[2]);close();
+  if(!t){location.hash='#'+m[2];return true}
+  for(let d=t.parentElement;d;d=d.parentElement)if(d.tagName==='DETAILS'&&!d.open)d.open=true;
+  document.querySelectorAll('.flash-target').forEach(x=>x.classList.remove('flash-target'));
+  try{history.replaceState(null,'','#'+m[2])}catch(_){}
+  requestAnimationFrame(()=>{t.scrollIntoView({behavior:'smooth',block:'start'});void t.offsetWidth;t.classList.add('flash-target')});return true}
+function goTo(e){if(!canGo(e))return false;track('find',e.t);return goHref(inApp(e))}
+function where(e){const t=topicName(e.s);return t||(e.k==='cur'?e.cat:'')}
+
+/* conversation */
+const SMALL=[[/^(hi+|hello|hey+|yo|hola|namaste|good (morning|afternoon|evening))\b[\s!.,]*(pip)?[\s!.]*$/i,'Hi! 🐥 Ask me about a problem, a pattern, system design, Java, behavioral questions or this app. Not sure where to start? Try one of the suggestions above.'],
+  [/^(thanks?( you)?|thx|ty|cool|ok(ay)?|great|nice|awesome|got it|perfect)\b[\s!.,]*(pip)?[\s!.]*$/i,'Happy to help! Say your approach out loud before you code. That’s what I’m here for. 🐥'],
+  [/^(bye|good ?night|see you|cya)\b/i,'Good luck! Come back tomorrow to keep your streak alive. 🐥']];
+const track=(type,detail)=>{try{dispatchEvent(new CustomEvent('dojo:track',{detail:{type,detail}}))}catch(e){}};
+function ask(q){track('ask',q);for(const [re,t] of SMALL)if(re.test(q.trim())){state.log.push({r:'u',t:q},{r:'s',t});save();renderLog(true);return}
+  const r=search(q,{limit:8});state.log.push({r:'u',t:q});
+  const top=r[0];const conf=top?(top.cov>=.55&&top.s>=4.5?'hi':top.cov>=.35&&top.s>=3?'mid':'lo'):'lo';
+  if(conf==='lo')state.log.push({r:'n',q,alts:r.filter(x=>x.cov>=.25).slice(0,5).map(x=>x.e.i)});
+  else state.log.push({r:'p',id:top.e.i,q,c:conf,alts:r.slice(1,6).map(x=>x.e.i)});
+  save();renderLog(true)}
+function askId(id,label){state.log.push({r:'u',t:label||(BYID[id]&&BYID[id].t)||''});const r=search(label||'',{limit:6}).filter(x=>x.e.i!==id);state.log.push({r:'p',id,q:label,c:'hi',alts:r.slice(0,5).map(x=>x.e.i)});save();renderLog(true)}
+function welcome(){
+  const page=META&&META.topics[PAGE];
+  const here=page?KB.filter(e=>e.s===PAGE):[];
+  const pick=[];
+  if(page){const t=here.find(e=>e.k==='topic');if(t)pick.push([t.i,`What is ${t.t}?`]);const p=here.filter(e=>e.k==='prob');if(p.length)pick.push([p[(new Date().getDate())%p.length].i,`How do I solve ${p[(new Date().getDate())%p.length].t}?`]);const c=here.find(e=>e.k==='cx');if(c)pick.push([c.i,`Complexities to know for ${page}`]);const po=here.filter(e=>e.k==='post');if(po.length)pick.push([po[1%po.length].i,po[1%po.length].t])}
+  const gen=[['c-ci-approach','How do I approach a coding interview?'],['c-cmp-bfs-dfs','BFS vs DFS?'],['c-sd-chat','Design WhatsApp'],['c-ci-pattern','Which pattern should I use?'],['c-bh-star','How do I answer behavioral questions?'],['c-app-ask','What can I ask you?']];
+  for(const g of gen){if(pick.length>=6)break;if(BYID[g[0]])pick.push(g)}
+  return `<div class="am-p"><h4>Hi! I’m Pip 🐥<\/h4><p>Ask me about any problem (by name or LeetCode number), pattern, complexity, system design, Java/Spring, behavioral questions or this app. I answer instantly from ${KB.length.toLocaleString('en-US')} prepared answers.${liveOK?' If I don’t have one, I can ask Claude live.':''}<\/p>
+   <div class="am-rel"><span>${page?'Try, for '+esc(page):'Try'}<\/span><div class="am-chips">${pick.map(([id,l])=>`<button type="button" data-ask="${id}" data-q="${esc(l)}">${esc(l)}<\/button>`).join('')}<\/div><\/div><\/div>`}
+function renderLog(scroll){
+  const parts=[welcome()];
+  for(const m of state.log){
+    if(m.r==='u')parts.push(`<div class="am-u">${esc(m.t)}<\/div>`);
+    else if(m.r==='p'){const e=BYID[m.id];if(e)parts.push(answerHTML(e,m))}
+    else if(m.r==='n')parts.push(noneHTML(m));
+    else if(m.r==='ai')parts.push(aiHTML(m.t,m.q,false));
+    else if(m.r==='s')parts.push(`<div class="am-p"><p>${esc(m.t)}<\/p><\/div>`)}
+  body.innerHTML=parts.join('');$$('.ap-cw',body).forEach(drawCode);
+  if(scroll){const last=[...body.children].reverse().find(x=>x.classList.contains('am-u'));(last||body.lastElementChild).scrollIntoView({block:'start'})}}
+function relChips(ids){const es=ids.map(i=>BYID[i]).filter(Boolean);if(!es.length)return'';return `<div class="am-rel"><span>You might also ask<\/span><div class="am-chips">${es.map(e=>`<button type="button" data-ask="${e.i}" data-q="${esc(short(e.t,90))}">${esc(short(e.t,90))}<\/button>`).join('')}<\/div><\/div>`}
+function linksHTML(e,m){const ia=inApp(e);const ls=(e.L||[]).map(([l,h])=>{const ext=/^https?:/.test(h);if(h===ia&&canGo(e)){const w=topicName(e.s);return `<a class="go-app" href="${esc(h)}" data-link="1">Go to it${w?' in '+esc(w):''} →<\/a>`}return `<a href="${esc(h)}"${ext?' target="_blank" rel="noopener"':''} data-link="1">${esc(l)}${ext?' ↗':''}<\/a>`});
+  if(liveOK&&m)ls.push(`<button type="button" class="go-ai" data-ai="${esc(m.q||e.t)}" data-ctx="${e.i}">✨ Go deeper with AI<\/button>`);
+  return ls.length?`<div class="am-links">${ls.join('')}<\/div>`:''}
+function answerHTML(e,m){
+  const meta=`<div class="am-meta"><span class="ch">${esc(kindLabel(e))}<\/span>${e.sub?`<span>${esc(e.sub)}<\/span>`:e.cat&&e.k!=='cur'?`<span>${esc(e.cat)}<\/span>`:''}<\/div>`;
+  let h=`<div class="am-p">${meta}<h4>${esc(e.t)}<\/h4>`;
+  if(m&&m.c==='mid')h+=`<p class="am-note">Closest match for “${esc(short(m.q||'',60))}”. Not it? Pick one below${liveOK?' or ask the AI':''}.<\/p>`;
+  if(e.k==='prob'){
+    if(e.ask)h+=`<p>${esc(e.ask)}<\/p>`;
+    if(e.h)h+=`<div class="am-hint"><b>💡 Hint<\/b>${e.h}<\/div>`;
+    h+=`<details><summary>🧭 Full approach<\/summary><div>${e.a}<\/div><\/details>`;
+    if(e.c&&Object.keys(e.c).length)h+=`<details class="ap-cdet"><summary>💻 Code<\/summary><div class="ap-cw" data-id="${e.i}"><\/div><\/details>`}
+  else{h+=e.a;if(e.c&&Object.keys(e.c).length)h+=`<details class="ap-cdet"${e.k==='topic'?'':' open'}><summary>💻 ${esc(e.ct||'Code')}<\/summary><div class="ap-cw" data-id="${e.i}"><\/div><\/details>`}
+  h+=linksHTML(e,m);
+  const rel=[...(e.r||[]),...((m&&m.alts)||[])].filter((v,i,a)=>a.indexOf(v)===i&&v!==e.i).slice(0,5);
+  h+=relChips(rel)+'<\/div>';return h}
+function drawCode(w){const e=BYID[w.dataset.id];if(!e||!e.c)return;const avail=Object.keys(e.c);let l=window.LangKit?window.LangKit.get():LANG();if(!e.c[l])l=avail.includes('py')?'py':avail[0];
+  const L=window.LangKit;
+  const tabs=avail.length>1?(L?L.tabs(avail):`<div class="lsw">${avail.map(x=>`<button type="button" data-lang="${x}" aria-pressed="${x===l}">${{py:'Python',java:'Java',cpp:'C++'}[x]}<\/button>`).join('')}<\/div>`):'';
+  const code=L?`<div class="ap-code">${L.codeHTML(e.c[l],l)}<\/div>`:`<pre class="ap-pre">${esc(e.c[l])}<\/pre>`;
+  w.innerHTML=tabs+code;
+  if(!L)$$('.lsw button',w).forEach(b=>b.onclick=ev=>{ev.stopPropagation();try{localStorage.setItem('dsa-lang-v1',JSON.stringify(b.dataset.lang))}catch(_){}$$('.ap-cw',root).forEach(drawCode)})}
+function noneHTML(m){const alts=(m.alts||[]).map(i=>BYID[i]).filter(Boolean);
+  let h=`<div class="am-p"><h4>I don’t have a prepared answer for that yet<\/h4>`;
+  if(liveOK)h+=`<p>I can ask Claude for a fresh answer.<\/p><div class="am-links"><button type="button" class="go-ai" data-ai="${esc(m.q)}">✨ Ask Claude live<\/button><\/div>`;
+  else h+=`<p>Try rephrasing with a problem name, a LeetCode number or a key term (e.g. “sliding window”, “consistent hashing”). You can also browse the <b>Question bank<\/b>.<\/p>`;
+  if(alts.length)h+=`<div class="am-rel"><span>Closest prepared answers<\/span><div class="am-chips">${alts.map(e=>`<button type="button" data-ask="${e.i}" data-q="${esc(short(e.t,90))}">${esc(short(e.t,90))}<\/button>`).join('')}<\/div><\/div>`;
+  return h+'<\/div>'}
+
+/* markdown-lite for AI text */
+function mdLite(src){const lines=String(src).split('\n');let out='',i=0;
+  const inl=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1<\/code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1<\/b>').replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<i>$2<\/i>');
+  while(i<lines.length){const l=lines[i];
+    if(/^```/.test(l)){const buf=[];i++;while(i<lines.length&&!/^```/.test(lines[i]))buf.push(lines[i++]);i++;out+=`<pre class="ap-pre">${esc(buf.join('\n'))}<\/pre>`;continue}
+    if(/^\s*[-*•] /.test(l)){let items='';while(i<lines.length&&/^\s*[-*•] /.test(lines[i]))items+=`<li>${inl(lines[i++].replace(/^\s*[-*•] /,''))}<\/li>`;out+=`<ul>${items}<\/ul>`;continue}
+    if(/^\s*\d+[.)] /.test(l)){let items='';while(i<lines.length&&/^\s*\d+[.)] /.test(lines[i]))items+=`<li>${inl(lines[i++].replace(/^\s*\d+[.)] /,''))}<\/li>`;out+=`<ol>${items}<\/ol>`;continue}
+    if(/^#{1,4} /.test(l)){out+=`<p><b>${inl(l.replace(/^#+ /,''))}<\/b><\/p>`;i++;continue}
+    if(!l.trim()){i++;continue}
+    const buf=[];while(i<lines.length&&lines[i].trim()&&!/^(```|\s*[-*•] |\s*\d+[.)] |#{1,4} )/.test(lines[i]))buf.push(lines[i++]);out+=`<p>${inl(buf.join(' '))}<\/p>`}
+  return out}
+function aiHTML(text,q,pending){return `<div class="am-p ai"><div class="am-meta"><span class="ch ai-tag">✨ Claude · live answer<\/span><\/div>${pending&&!text?'<span class="am-typing" aria-label="Thinking"><i><\/i><i><\/i><i><\/i><\/span>':mdLite(text)}<\/div>`}
+async function askAI(q,ctxId){const s=await getSample();if(!s)return;track('ai',q);
+  const r=search(q,{limit:3}).map(x=>x.e);if(ctxId&&BYID[ctxId]&&!r.includes(BYID[ctxId]))r.unshift(BYID[ctxId]);
+  const notes=r.slice(0,3).map((e,i)=>`[${i+1}] ${e.t}\n${plainText((e.h||'')+' '+e.a).slice(0,1400)}`).join('\n\n');
+  const hist=state.log.slice(-6).filter(m=>m.r==='u'||m.r==='ai').map(m=>(m.r==='u'?'Learner: ':'Pip: ')+String(m.t).slice(0,600)).join('\n');
+  const lang={py:'Python',java:'Java',cpp:'C++'}[window.LangKit?window.LangKit.get():LANG()];
+  const prompt=`You are Pip, a friendly rubber-duck tutor inside "Rubber Duck Dojo", an interview-prep app for DSA and system design aimed at SDE-2 roles. Answer the learner's question accurately and concisely: under about 250 words unless code is needed. Use short paragraphs, "- " bullet lists and fenced code blocks; when you show code, use ${lang}. State time and space complexity for algorithms. If the reference notes below are relevant, build on them without mentioning them. If the question is unrelated to programming, interviews or careers, answer briefly and steer back to studying.\n\nReference notes from the app:\n${notes||'(none)'}\n\nRecent conversation:\n${hist||'(none)'}\n\nQuestion: ${q}`;
+  state.log.push({r:'u',t:q});save();renderLog(true);
+  const holder=document.createElement('div');holder.innerHTML=aiHTML('',q,true);const card=holder.firstElementChild;body.appendChild(card);card.scrollIntoView({block:'nearest'});
+  if(aborter)aborter.abort();aborter=new AbortController();let text='';
+  try{const res=await s(prompt,{cache:false,signal:aborter.signal,onText:({text:t})=>{text=t;card.innerHTML=aiHTML(t,q,true).replace(/^<div class="am-p ai">|<\/div>$/g,'')}});
+    text=(res&&res.text)||text;state.log.push({r:'ai',t:text,q});save();renderLog(false);body.lastElementChild.scrollIntoView({block:'nearest'})}
+  catch(err){const code=err&&err.code;let msg='Live AI isn’t available right now.';
+    if(code==='rate_limited')msg='Live AI is busy. Please try again in a minute.';else if(code==='not_granted'){msg='Live AI wasn’t allowed, so I’ll stick to prepared answers.';liveOK=false;live.hidden=true}
+    else if(err&&err.name==='AbortError')msg='Stopped.';
+    if(err&&err.text){state.log.push({r:'ai',t:err.text,q});save();renderLog(false)}else card.innerHTML=`<p class="am-note">${esc(msg)}<\/p>`}}
+function onClick(e){
+  const a=e.target.closest('[data-ask]');if(a&&!a.closest('.pask-list')){e.preventDefault();if(a.tagName==='LI'){askId(a.dataset.ask,a.textContent.replace(/\s+/g,' ').trim().split(/ (LeetCode|HLD|LLD)/)[0])}else askId(a.dataset.ask,a.dataset.q);return}
+  const s=e.target.closest('.pask-sug button');if(s){e.preventDefault();const id=s.dataset.id;ta.value='';autosize();form.querySelector('.pask-send').disabled=true;hideSug();if(s.classList.contains('s-go')&&s.dataset.open&&goTo(BYID[id]))return;askId(id,s.dataset.q);return}
+  const ai=e.target.closest('[data-ai]');if(ai){askAI(ai.dataset.ai,ai.dataset.ctx);return}
+  const lk=e.target.closest('a[data-link]');if(lk){const h=lk.getAttribute('href');
+    const fm=/^#film-([\w-]+)/.exec(h);if(fm){e.preventDefault();close();if(window.Cinema&&window.Cinema.films[fm[1]])window.Cinema.open(fm[1]);else location.href='index.html#film-'+fm[1];return}
+    if(!/^https?:/i.test(h)){e.preventDefault();if(!goHref(h))location.href=h}
+    return}
+}
+
+/* browse questions */
+const KINDS=[['prob','Problems'],['quiz','Quiz'],['post','Concepts'],['rx','Reflexes'],['topic','Topics'],['cur','Interview guides'],['','Everything']];
+const kindOf=e=>e.k==='list'||e.k==='cx'?'topic':e.k;
+const diffOf=e=>{const m=/\b(Easy|Medium|Hard)\b/.exec(e.sub||'');return m?m[1]:''};
+let bKind='prob',bTopic='all',bDiff='',bQ='',bankN=80;
+function renderBank(){if(!KB){bank.innerHTML='<p>Loading…<\/p>';return}
+  if(!bank.dataset.ready){bank.dataset.ready=1;
+    const kc={};KB.forEach(e=>{const k=kindOf(e);kc[k]=(kc[k]||0)+1});kc['']=KB.length;
+    const T=META.topics,dsa=Object.keys(T).filter(k=>!k.startsWith('sd-')),sd=Object.keys(T).filter(k=>k.startsWith('sd-'));
+    bank.innerHTML=`<div class="pask-bank-top"><input type="search" placeholder="Search: “two sum”, “LC 76”, “LRU”, “parking lot”…" aria-label="Search questions">
+      <div class="pask-cats" data-f="k" role="group" aria-label="Type">${KINDS.map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${k===bKind}">${l} <i>${(kc[k]||0).toLocaleString('en-US')}<\/i><\/button>`).join('')}<\/div>
+      <div class="pask-frow"><select aria-label="Topic"><option value="all">All topics<\/option><optgroup label="DSA">${dsa.map(k=>`<option value="${k}">${esc(T[k])}<\/option>`).join('')}<\/optgroup><optgroup label="System design">${sd.map(k=>`<option value="${k}">${esc(T[k])}<\/option>`).join('')}<\/optgroup>${T[PAGE]?'':''}<\/select>
+      <div class="pask-cats pask-diff" data-f="d" role="group" aria-label="Difficulty">${[['','Any'],['Easy','Easy'],['Medium','Medium'],['Hard','Hard']].map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${k===bDiff}" class="${k.toLowerCase()}">${l}<\/button>`).join('')}<\/div><\/div>
+      <span class="pask-count"><\/span><\/div><div class="pask-list"><\/div>`;
+    const inp=$('input',bank);inp.addEventListener('input',()=>{bQ=inp.value;bankN=80;drawBank()});
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const f=$('.b-go',bank);if(f)f.click()}});
+    $('select',bank).addEventListener('change',e=>{bTopic=e.target.value;bankN=80;drawBank()});
+    $$('.pask-cats',bank).forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(g.dataset.f==='k')bKind=b.dataset.v;else bDiff=b.dataset.v;$$('button',g).forEach(x=>x.setAttribute('aria-pressed',x===b));bankN=80;drawBank()}));
+    bank.addEventListener('click',e=>{const m=e.target.closest('.pask-more');if(m){bankN+=200;drawBank();return}
+      const g=e.target.closest('.b-go');if(g){const en=BYID[g.dataset.id];if(g.dataset.open&&goTo(en))return;tab('chat');askId(g.dataset.id,g.dataset.q);return}
+      const an=e.target.closest('.b-ans');if(an){tab('chat');askId(an.dataset.id,an.dataset.q)}})}
+  drawBank()}
+const TORD=()=>Object.keys(META.topics);
+function drawBank(){const tord=TORD();const tr=s=>{const i=tord.indexOf(s);return i<0?99:i};
+  const diffOn=bKind==='prob'||bKind==='';$('.pask-diff',bank).hidden=!diffOn;const dsel=diffOn?bDiff:'';
+  const ok=e=>(!bKind||kindOf(e)===bKind)&&(bTopic==='all'||e.s===bTopic)&&(!dsel||diffOf(e)===dsel);
+  let list;const q=bQ.trim();
+  if(q.length>1){const r=search(q,{limit:600,prefix:true}).filter(x=>ok(x.e));const cut=Math.max(1.5,r.length?r[0].s*.2:0);list=r.filter(x=>x.s>=cut).map(x=>x.e)}
+  else list=KB.map((e,i)=>[e,i]).filter(([e])=>ok(e)).sort((a,b)=>tr(a[0].s)-tr(b[0].s)||catRank(a[0].cat)-catRank(b[0].cat)||a[1]-b[1]).map(x=>x[0]);
+  $('.pask-count',bank).textContent=`${list.length.toLocaleString('en-US')} question${list.length===1?'':'s'}${q.length>1?' match':''} · tap one to open it in the app, 💬 for Pip’s answer`;
+  let h='',cur=null;
+  for(const e of list.slice(0,bankN)){
+    if(q.length<2){const g=topicName(e.s)||e.cat;if(g!==cur){cur=g;h+=`<h5>${esc(g)}<\/h5>`}}
+    const go=canGo(e),d=diffOf(e);
+    const title=e.k==='topic'?`What is ${e.t}?`:e.k==='rx'?`When I see “${short(e.t,100)}”, what do I do?`:e.t;
+    const meta=[kindLabel(e)!==e.cat||e.k!=='cur'?kindLabel(e):'',e.n?'LeetCode '+e.n:'',q.length>1?where(e):''].filter(Boolean);
+    h+=`<div class="pask-row"><button type="button" class="b-go" data-id="${e.i}" data-q="${esc(short(title,120))}"${go?' data-open="1"':''}><span>${esc(short(title,150))}<\/span><small>${d?`<em class="${d.toLowerCase()}">${d}<\/em>`:''}${esc(meta.join(' · '))}${go?' <b>Open ↗<\/b>':' · answer in chat'}<\/small><\/button>${go?`<button type="button" class="b-ans" data-id="${e.i}" data-q="${esc(short(title,120))}" title="Show Pip’s answer" aria-label="Show Pip’s answer">💬<\/button>`:''}<\/div>`}
+  if(list.length>bankN)h+=`<button type="button" class="pask-more">Show more (${(list.length-bankN).toLocaleString('en-US')} left)<\/button>`;
+  $('.pask-list',bank).innerHTML=h||`<p class="am-note">Nothing matches${bKind||bTopic!=='all'||dsel?' with these filters':''}. Try another word${bKind!==''?', or pick “Everything”':''}.<\/p>`}
+const CAT_ORDER=['Coding interview','DSA topics','DSA problems','DSA concepts','Algorithms','Complexity','System design','System design classics','System design topics','System design problems','System design concepts','OOP & LLD','Java & Spring','Behavioral','Using this app','Reflexes: see this → do that','Quiz questions'];
+const catRank=c=>{const i=CAT_ORDER.indexOf(c);return i<0?99:i};
+function browse(q){open();loadKB().then(()=>{tab('bank');const inp=$('input',bank);if(q!=null&&inp){inp.value=q;bQ=q;drawBank()}setTimeout(()=>inp&&inp.focus(),80)})}
+function headerBtn(){const top=$('.top-in');if(!top||$('.pask-hbtn',top))return;
+  const b=document.createElement('button');b.type='button';b.className='pask-hbtn';b.title='Browse & search questions (/)';b.setAttribute('aria-label','Browse and search questions');
+  b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><\/svg><span>Browse<\/span>';b.onclick=()=>browse();
+  const after=$('.saved-btn',top)||$('#svTop',top)||$('.home-btn',top);if(after)after.after(b);else top.prepend(b)}
+
+/* boot */
+function boot(){mount();headerBtn();setTimeout(headerBtn,600);setTimeout(headerBtn,2000);
+  document.addEventListener('keydown',e=>{if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target;if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;e.preventDefault();browse()});
+  if(/^#browse$/.test(location.hash))browse();if(/^#ask(=|$)/.test(location.hash)){const q=decodeURIComponent(location.hash.slice(5)||'');open(q||undefined)}
+  // warm the AI capability check quietly so the badge is ready
+  setTimeout(getSample,1500);
+  window.addEventListener('hashchange',()=>{if(/^#ask(=|$)/.test(location.hash)){const q=decodeURIComponent(location.hash.slice(5)||'');try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}open(q||undefined)}})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
+})();
+</script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--cin-start--><style>.cin-lock,.cin-lock body{overflow:hidden}
 .cin{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:16px}
 .cin[hidden]{display:none}
@@ -1206,12 +1717,12 @@ function finish(){const f=P.f;const w=LS.get();w[f.id]=1;LS.put(w);document.disp
   const lab=f.lab?(here===f.slug?'#'+f.lab:f.slug+'.html#'+f.lab):'';
   const yt=(f.yt||[]).map(s=>`<a class="cin-yt" href="https://www.youtube.com/results?search_query=${encodeURIComponent(s)}" target="_blank" rel="noopener">▶ ${s.replace(/[<]/g,'&lt;')}<\/a>`).join('');
   P.end.innerHTML=`<div class="cin-end-in"><p class="cin-end-eb">✦ Pattern unlocked<\/p><h3>${f.title}<\/h3><ul>${(f.recap||[]).map(r=>`<li>${r}<\/li>`).join('')}<\/ul>
-   <div class="cin-end-row"><button class="cin-pill pri" data-a="replay">↻ Replay<\/button>${lab?`<a class="cin-pill" data-a="lab" href="${lab}">🧪 Try it in the lab<\/a>`:''}${nextFilm(f)?`<button class="cin-pill" data-a="next">Next film: ${nextFilm(f).title} →<\/button>`:''}<\/div>
+   <div class="cin-end-row"><button class="cin-pill pri" data-a="replay">↻ Replay<\/button>${lab?`<a class="cin-pill" data-a="lab" href="${lab}">${f.labTx||'🧪 Try it in the lab'}<\/a>`:''}${nextFilm(f)?`<button class="cin-pill" data-a="next">Next film: ${nextFilm(f).title} →<\/button>`:''}<\/div>
    ${yt?`<p class="cin-yt-h">Want another angle? Search YouTube:<\/p><div class="cin-end-row">${yt}<\/div>`:''}<\/div>`;
   P.end.hidden=false;ui();
   P.end.querySelector('[data-a="replay"]').onclick=()=>{P.t=0;toggle(true)};
   const nx=P.end.querySelector('[data-a="next"]');if(nx)nx.onclick=()=>open(nextFilm(f).id,true);
-  const lb=P.end.querySelector('[data-a="lab"]');if(lb&&here===f.slug)lb.onclick=e=>{e.preventDefault();close();const el=document.getElementById(f.lab);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})};
+  const lb=P.end.querySelector('[data-a="lab"]');if(lb&&here===f.slug)lb.onclick=e=>{e.preventDefault();close();const el=document.getElementById(f.lab);if(el){el.scrollIntoView({behavior:'smooth',block:'start'});el.classList.remove('flash-target');void el.offsetWidth;el.classList.add('flash-target')}};
   setTimeout(()=>{const b=P.end.querySelector('button');if(b)b.focus()},50)}
 function nextFilm(f){const i=ORDER.indexOf(f.id);for(let k=i+1;k<ORDER.length;k++){const g=FILMS[ORDER[k]];if(g.track===f.track)return g}return null}
 function open(id,autoplay=true){const f=FILMS[id];if(!f)return;if(!P)buildPlayer();compile(f);
@@ -1995,6 +2506,419 @@ C.add({id:'sd-rate',slug:'sd-hld',track:'sd',n:6,title:'Token bucket rate limite
   K.step('With many gateways, keep each client’s tokens in Redis and refill and spend them atomically in one Lua script.',{dur:5});
 });
 })();
+</script><script>(function(){"use strict";const C=window.Cinema;if(!C)return;
+/* Films for the most-asked problems. Each film runs the real algorithm while building its keyframes,
+   so every number on screen is computed, not typed. meta.prob = the problem card it belongs to. */
+function tx(K,id,x,y,text,o){K.el(id,K.has(id)?Object.assign({x,y,text},o||{}):Object.assign({t:'txt',x,y,text,fs:20,col:'white',font:'b',fw:700},o||{}))}
+function ptr(K,id,x,y,label,c,up){
+  if(up)K.el(id,{t:'arrow',x,y:y+46,x2:x,y2:y+8,stroke:c||'amber',lw:3,text:label,col:c||'amber',ly:28,font:'b',fs:15,z:5});
+  else K.el(id,{t:'arrow',x,y:y-46,x2:x,y2:y-8,stroke:c||'amber',lw:3,text:label,col:c||'amber',ly:-28,font:'b',fs:15,z:5})}
+function cmp(K,y,a,b){
+  K.el('cb1',{t:'bar',x:430,y,w:400,h:22,v:a.v,sc:'rose',text:a.text,fill:'ghost',stroke:'faint',glow:.4});
+  K.el('cb1l',{t:'txt',x:215,y,text:a.label,fs:17,col:'rose',anchor:'end',font:'b'});
+  K.el('cb2',{t:'bar',x:430,y:y+50,w:400,h:22,v:b.v,sc:'mint',text:b.text,fill:'ghost',stroke:'faint',glow:.6});
+  K.el('cb2l',{t:'txt',x:215,y:y+50,text:b.label,fs:17,col:'mint',anchor:'end',font:'b'})}
+const SOLVE='✍️ Solve it now';
+const yt=(...a)=>a;
+
+/* ───────── 1 · Number of Islands ───────── */
+C.add({id:'pf-islands',slug:'graphs',track:'prob',n:1,title:'Number of Islands',topic:'Graphs · LeetCode 200',lab:'p-200',labTx:SOLVE,prob:'p-200',
+  blurb:'Scan the grid; every new piece of land starts a flood fill that sinks its whole island.',
+  yt:yt('NeetCode number of islands','flood fill DFS BFS grid'),
+  recap:['Scan every cell once','New unvisited land → count += 1, then flood-fill the whole island','Flooding marks cells so they are never counted again','O(R · C) time']},K=>{
+  K.title('LEETCODE 200','Number of Islands','Count groups of connected land');
+  K.step('1 is land, 0 is water. Land touching up, down, left or right is the same island.',{dur:4});
+  K.untitle();
+  const G=['110010','110000','001000','000111','010011'],R=G.length,Cc=G[0].length,S=58,x0=480-(Cc-1)*S/2,y0=110;
+  for(let r=0;r<R;r++)for(let c=0;c<Cc;c++){const land=G[r][c]==='1';K.el(`g${r}_${c}`,{t:'box',x:x0+c*S,y:y0+r*S,w:S-6,h:S-6,rx:9,fill:land?'#2B3A6E':'panel',stroke:land?'blue':'ghost',lw:1.5,text:G[r][c],fs:18,col:land?'white':'faint'})}
+  tx(K,'cnt',480,y0+R*S+12,'islands = 0',{fs:24,col:'amber',font:'d',fw:800});
+  K.step('Walk the grid row by row, counting islands as we find them.',{dur:3});
+  K.chapter('Scan and flood');
+  const cols=['#5CE1FF','#3DF5B8','#FFC24B','#FF5C93','#B194FF'];const seen={};let n=0;
+  for(let r=0;r<R;r++)for(let c=0;c<Cc;c++){if(G[r][c]!=='1'||seen[r+','+c])continue;
+    n++;const col=cols[(n-1)%cols.length];
+    K.el('scan',{t:'ring',x:x0+c*S,y:y0+r*S,r:S*.55,stroke:'amber',lw:3,glow:.8,z:6});
+    K.step(n===1?`Cell (${r}, ${c}) is land we haven't seen. That's a new island: count it.`:`(${r}, ${c}) is new land → island #${n}.`,{dur:n===1?3.6:2.2});
+    const q=[[r,c]];seen[r+','+c]=1;const order=[];
+    while(q.length){const [a,b]=q.shift();order.push([a,b]);for(const [dr,dc] of [[1,0],[-1,0],[0,1],[0,-1]]){const nr=a+dr,nc=b+dc;if(nr<0||nc<0||nr>=R||nc>=Cc||G[nr][nc]!=='1'||seen[nr+','+nc])continue;seen[nr+','+nc]=1;q.push([nr,nc])}}
+    order.forEach(([a,b])=>K.el(`g${a}_${b}`,{fill:col,fo:.55,stroke:col,glow:.6,text:'#'+n,col:'white',fs:15}));
+    tx(K,'cnt',480,y0+R*S+12,'islands = '+n,{fs:24,col:'amber',font:'d',fw:800});
+    K.step(n===1?`Flood it: visit every connected land cell and mark it, so the scan never counts this island again (${order.length} cells).`:order.length>1?`Flood fill marks all ${order.length} of its cells.`:'A single cell on its own is still an island.',{dur:n===1?4.6:2.4});
+    order.forEach(([a,b])=>K.el(`g${a}_${b}`,{glow:0}))}
+  K.del('scan');
+  K.chapter('The cost');
+  tx(K,'cnt',480,y0+R*S+12,`answer = ${n} islands`,{fs:26,col:'mint',font:'d',fw:800,glow:.6});
+  K.step(`The scan finds ${n} islands. Every cell is looked at by the scan once and flooded at most once: O(rows × cols).`,{dur:5});
+});
+
+/* ───────── 2 · Course Schedule (Kahn) ───────── */
+C.add({id:'pf-courses',slug:'graphs',track:'prob',n:2,title:'Course Schedule',topic:'Graphs · LeetCode 207',lab:'p-207',labTx:SOLVE,prob:'p-207',
+  blurb:'Take courses whose prerequisites are done; if you ever get stuck, there is a cycle.',
+  yt:yt('NeetCode course schedule','Kahn algorithm topological sort'),
+  recap:['Count unmet prerequisites per course (in-degree)','Queue every course with 0 and take it','Taking a course lowers its dependants’ counts; new zeros join the queue','Fewer than n taken → a cycle → impossible']},K=>{
+  K.title('LEETCODE 207','Course Schedule','Can you finish every course?');
+  K.step('Some courses need others first. Can you find an order that finishes all of them?',{dur:3.8});
+  K.untitle();
+  const P={0:[150,200],1:[340,110],2:[340,290],3:[540,110],5:[540,290],4:[740,110]};
+  const E=[[0,1],[0,2],[1,3],[2,3],[3,4],[2,5]];const indeg={};for(const k in P)indeg[k]=0;E.forEach(([a,b])=>indeg[b]++);
+  E.forEach(([a,b])=>K.el(`e${a}${b}`,{t:'arrow',x:P[a][0],y:P[a][1],x2:P[b][0],y2:P[b][1],pad:34,stroke:'faint',lw:2.5}));
+  const node=(k,o)=>K.el('n'+k,Object.assign({t:'dot',x:P[k][0],y:P[k][1],r:30,fill:'panel',stroke:'blue',lw:3,text:'C'+k,col:'white',fs:17,sub:'needs '+indeg[k],subc:indeg[k]?'rose':'mint',sy:22,z:3},o||{}));
+  for(const k in P)node(k);
+  tx(K,'ql',100,380,'queue:',{fs:17,col:'dim',font:'m',anchor:'start'});
+  K.step('An arrow A → B means “take A before B”. Under each course: how many prerequisites it still needs.',{dur:4.4});
+  K.chapter('Kahn’s algorithm');
+  let q=Object.keys(P).filter(k=>indeg[k]===0).map(Number);const order=[];
+  const showQ=()=>{for(let i=0;i<6;i++)K.has('q'+i)&&K.del('q'+i);q.forEach((v,i)=>K.el('q'+i,{t:'box',x:210+i*58,y:380,w:48,h:40,text:'C'+v,fs:16,stroke:'mint',fill:'ghost'}))};
+  showQ();q.forEach(k=>node(k,{stroke:'mint',glow:.6}));
+  K.step('Courses that need nothing can be taken now. They go into the queue.',{dur:3});
+  while(q.length){const k=q.shift();order.push(k);
+    node(k,{fill:'mint',col:'bg',stroke:'mint',glow:.9,sub:'taken #'+order.length,subc:'mint'});
+    const outs=E.filter(([a])=>a===k);outs.forEach(([a,b])=>{K.el(`e${a}${b}`,{stroke:'mint',flow:1});indeg[b]--});
+    const fresh=outs.map(e=>e[1]).filter(b=>indeg[b]===0);
+    outs.forEach(([a,b])=>{if(!order.includes(b))node(b,{sub:'needs '+indeg[b],subc:indeg[b]?'rose':'mint',stroke:indeg[b]?'blue':'mint',glow:indeg[b]?0:.6})});
+    q.push(...fresh);showQ();
+    K.step(order.length===1?`Take C${k}. Each course that depended on it now needs one fewer.${fresh.length?' '+fresh.map(f=>'C'+f).join(' and ')+(fresh.length>1?' reach':' reaches')+' zero → into the queue.':''}`:`Take C${k}.${fresh.length?' '+fresh.map(f=>'C'+f).join(', ')+' unlocked.':''}`,{dur:order.length===1?4.6:2.4});
+    outs.forEach(([a,b])=>K.el(`e${a}${b}`,{stroke:'dim',flow:0}))}
+  tx(K,'ord',480,428,'order: '+order.map(v=>'C'+v).join(' → '),{fs:20,col:'mint',font:'m',glow:.5});
+  K.step(`All ${order.length} courses taken, so it’s possible. That list is a valid order.`,{dur:3.6});
+  K.chapter('A cycle');K.delAll();
+  const Q={0:[330,240],1:[630,240],2:[480,110]};[[0,1],[1,2],[2,0]].forEach(([a,b])=>K.el(`c${a}${b}`,{t:'arrow',x:Q[a][0],y:Q[a][1],x2:Q[b][0],y2:Q[b][1],pad:34,stroke:'rose',lw:3,bend:a===2?-20:20}));
+  [0,1,2].forEach(k=>K.el('m'+k,{t:'dot',x:Q[k][0],y:Q[k][1],r:30,fill:'panel',stroke:'rose',lw:3,text:'C'+k,col:'white',fs:17,sub:'needs 1',subc:'rose',sy:22}));
+  tx(K,'cy',480,380,'queue is empty from the start → 0 of 3 taken',{fs:21,col:'rose',font:'m'});
+  K.step('If the courses form a loop, nobody ever reaches zero. Fewer than n taken means a cycle: impossible. O(V + E).',{dur:5});
+});
+
+/* ───────── 3 · Trapping Rain Water ───────── */
+C.add({id:'pf-trap',slug:'two-pointers',track:'prob',n:3,title:'Trapping Rain Water',topic:'Two Pointers · LeetCode 42',lab:'p-42',labTx:SOLVE,prob:'p-42',
+  blurb:'Water over a bar is limited by the lower of the tallest walls on each side. Two pointers settle the lower side first.',
+  yt:yt('NeetCode trapping rain water','trapping rain water two pointers'),
+  recap:['water[i] = min(tallest left, tallest right) − height[i]','Pointers at both ends, tracking lmax and rmax','The side with the lower wall is safe to settle now','O(n) time, O(1) space']},K=>{
+  K.title('LEETCODE 42','Trapping Rain Water','How much rain do the bars hold?');
+  K.step('Rain falls on these bars. How many units of water stay trapped between them?',{dur:3.6});
+  K.untitle();
+  const h=[0,1,0,2,1,0,1,3,2,1,2,1],n=h.length,U=34,BW=46,xs=K.row(n,BW,8),base=360;
+  h.forEach((v,i)=>{K.el('b'+i,{t:'box',x:xs[i],y:base-v*U/2,w:BW,h:Math.max(4,v*U),rx:4,fill:'blue',fo:.85,stroke:'blue',lw:1});K.el('i'+i,{t:'txt',x:xs[i],y:base+18,text:String(v),fs:14,col:'dim',font:'m'})});
+  K.step('Water above a bar can rise to the lower of the tallest wall on its left and on its right.',{dur:4.4});
+  K.chapter('Two pointers');
+  let l=0,r=n-1,lm=0,rm=0,tot=0,k=0;
+  tx(K,'st',480,92,'',{fs:19,col:'white',font:'m'});tx(K,'tt',480,425,'water = 0',{fs:22,col:'cyan',font:'d',fw:800});
+  while(l<r){k++;let i,w;
+    if(h[l]<h[r]){lm=Math.max(lm,h[l]);w=lm-h[l];i=l;l++}else{rm=Math.max(rm,h[r]);w=rm-h[r];i=r;r--}
+    tot+=w;
+    ptr(K,'pl',xs[Math.min(l,n-1)],base-150,'L','cyan');ptr(K,'pr',xs[Math.max(r,0)],base-150,'R','rose');
+    if(w>0)K.el('w'+i,{t:'box',x:xs[i],y:base-h[i]*U-w*U/2,w:BW,h:w*U,rx:4,fill:'cyan',fo:.45,stroke:'cyan',lw:1,glow:.5});
+    tx(K,'st',480,92,`lmax ${lm} · rmax ${rm} · settled bar ${i}: +${w}`,{fs:19,col:'white',font:'m'});
+    tx(K,'tt',480,425,'water = '+tot,{fs:22,col:'cyan',font:'d',fw:800});
+    K.step(k===1?'The left wall is lower, so the left side is the limit: settle bar 0 now. Nothing on the right can lower its cap.':k===2?'Bar 1 is the new tallest on the left: no water on top of it.':w>0&&k<6?`Bar ${i} sits under a wall of ${i<l?lm:rm}: it holds ${w}.`:'',{dur:k<=2?4:w>0&&k<6?2.6:1.1,tr:.45})}
+  K.del('pl','pr');
+  tx(K,'tt',480,425,`trapped water = ${tot}`,{fs:26,col:'mint',font:'d',fw:800,glow:.7});
+  K.step(`Total: ${tot} units, in one pass with two variables. O(n) time, O(1) space.`,{dur:4});
+});
+
+/* ───────── 4 · Product of Array Except Self ───────── */
+C.add({id:'pf-product',slug:'hashing',track:'prob',n:4,title:'Product Except Self',topic:'Arrays · LeetCode 238',lab:'p-238',labTx:SOLVE,prob:'p-238',
+  blurb:'Everything to my left × everything to my right, in two sweeps and no division.',
+  yt:yt('NeetCode product of array except self','prefix suffix product'),
+  recap:['answer[i] = (product of the left part) × (product of the right part)','Pass 1, left → right: running product of everything before i','Pass 2, right → left: multiply in everything after i','O(n) time, no division']},K=>{
+  K.title('LEETCODE 238','Product of Array Except Self','No division allowed');
+  K.step('For every position, multiply all the other numbers. Dividing the total is not allowed.',{dur:3.8});
+  K.untitle();
+  const a=[1,2,3,4],n=4,xs=K.row(n,84,26);
+  const rowL=(id,y,label,c)=>tx(K,id,120,y,label,{fs:16,col:c||'dim',font:'m',anchor:'end'});
+  a.forEach((v,i)=>K.el('a'+i,{t:'box',x:xs[i],y:120,w:84,h:58,text:v,sub:'i='+i,fs:26}));rowL('la',120,'nums');
+  K.step('Each answer is two halves: the product to the left of i times the product to the right of i.',{dur:4.2});
+  K.chapter('Left pass');rowL('ll',212,'left',  'cyan');
+  let run=1;const L=[];
+  for(let i=0;i<n;i++){L.push(run);K.el('l'+i,{t:'box',x:xs[i],y:212,w:84,h:52,text:run,fs:22,stroke:'cyan',glow:.5});
+    ptr(K,'p',xs[i],120-30,'i','amber');tx(K,'run',820,212,'run = '+run,{fs:18,col:'cyan',font:'m'});
+    K.step(i===0?'Nothing is left of index 0, so its left product is 1.':`Left of index ${i}: ${a.slice(0,i).join(' × ')} = ${run}.`,{dur:i===0?3:2.2});
+    K.el('l'+i,{glow:0});run*=a[i]}
+  K.chapter('Right pass');rowL('lr',300,'× right','rose');
+  run=1;const ans=[];
+  for(let i=n-1;i>=0;i--){ans[i]=L[i]*run;
+    ptr(K,'p',xs[i],120-30,'i','amber');tx(K,'run',820,300,'run = '+run,{fs:18,col:'rose',font:'m'});
+    K.el('r'+i,{t:'box',x:xs[i],y:300,w:84,h:52,text:`${L[i]}×${run}`,fs:18,stroke:'rose',glow:.5});
+    K.el('o'+i,{t:'box',x:xs[i],y:388,w:84,h:52,text:ans[i],fs:22,stroke:'mint',fill:'mint',fo:.18,glow:.6});
+    K.step(i===n-1?'Now walk back from the right, keeping a running product of everything after i.':`Right of index ${i} is ${run}. Answer = ${L[i]} × ${run} = ${ans[i]}.`,{dur:i===n-1?3.6:2.4});
+    K.el('r'+i,{glow:0});K.el('o'+i,{glow:0});run*=a[i]}
+  K.del('p','run');rowL('lo',388,'answer','mint');
+  K.step(`Answer [${ans.join(', ')}]: two passes, no division, O(n) time.`,{dur:3.8});
+});
+
+/* ───────── 5 · Search in Rotated Sorted Array ───────── */
+C.add({id:'pf-rotated',slug:'binary-search',track:'prob',n:5,title:'Search a Rotated Array',topic:'Binary Search · LeetCode 33',lab:'p-33',labTx:SOLVE,prob:'p-33',
+  blurb:'One half around mid is always sorted. Check whether the target fits inside it.',
+  yt:yt('NeetCode search in rotated sorted array','rotated sorted array binary search'),
+  recap:['Compare nums[lo] with nums[mid] to find the sorted half','Target inside that half’s range → search it','Otherwise → search the other half','Still O(log n)']},K=>{
+  K.title('LEETCODE 33','Search in a Rotated Sorted Array','Find 0 in [4, 5, 6, 7, 0, 1, 2]');
+  K.step('A sorted array was rotated, so it’s two sorted runs glued together. Can we still binary search?',{dur:4});
+  K.untitle();
+  const a=[4,5,6,7,0,1,2],n=a.length,t=0,xs=K.row(n,76,14);
+  a.forEach((v,i)=>K.el('c'+i,{t:'box',x:xs[i],y:250,w:76,h:68,text:v,sub:'i='+i,fs:26,stroke:i<4?'violet':'cyan'}));
+  tx(K,'tg',480,110,'target = 0',{fs:26,col:'amber',font:'d',fw:800});
+  K.step('Violet: the first sorted run. Cyan: the second. Whichever middle you pick, one side of it is fully sorted.',{dur:4.6});
+  K.chapter('Halving');
+  let lo=0,hi=n-1,k=0;const dead=new Set();
+  while(lo<=hi){k++;const mid=(lo+hi)>>1;
+    ptr(K,'pl',xs[lo],250+44,'lo','cyan',true);ptr(K,'pm',xs[mid],250-44,'mid','amber');ptr(K,'ph',xs[hi],250+44,'hi','rose',true);
+    if(lo===hi)K.del('ph');
+    if(a[mid]===t){K.el('c'+mid,{fill:'mint',fo:.3,stroke:'mint',glow:1});tx(K,'why',480,400,`nums[${mid}] = ${t}  →  found at index ${mid}`,{fs:22,col:'mint',font:'m',glow:.5});K.step(`Found ${t} at index ${mid} in ${k} looks.`,{dur:3});break}
+    let msg;
+    if(a[lo]<=a[mid]){const inL=a[lo]<=t&&t<a[mid];msg=`left half ${a[lo]}…${a[mid]} is sorted; ${t} ${inL?'is':'is not'} in it → go ${inL?'left':'right'}`;
+      tx(K,'why',480,400,msg,{fs:19,col:'white',font:'m'});K.step(k===1?`Mid is 7. ${a[lo]} ≤ ${a[mid]}, so the left half is sorted. 0 is not between 4 and 7, so it must be on the right.`:msg,{dur:k===1?5:3});
+      if(inL){for(let i=mid;i<=hi;i++)dead.add(i);hi=mid-1}else{for(let i=lo;i<=mid;i++)dead.add(i);lo=mid+1}}
+    else{const inR=a[mid]<t&&t<=a[hi];msg=`right half ${a[mid]}…${a[hi]} is sorted; ${t} ${inR?'is':'is not'} in it → go ${inR?'right':'left'}`;
+      tx(K,'why',480,400,msg,{fs:19,col:'white',font:'m'});K.step(msg,{dur:3.2});
+      if(inR){for(let i=lo;i<=mid;i++)dead.add(i);lo=mid+1}else{for(let i=mid;i<=hi;i++)dead.add(i);hi=mid-1}}
+    dead.forEach(i=>K.el('c'+i,{o:.25}))}
+  K.step('Each look throws away half the array, rotation or not: O(log n).',{dur:3.4});
+});
+
+/* ───────── 6 · Koko Eating Bananas ───────── */
+C.add({id:'pf-koko',slug:'binary-search',track:'prob',n:6,title:'Koko Eating Bananas',topic:'Binary Search on the answer · LeetCode 875',lab:'p-875',labTx:SOLVE,prob:'p-875',
+  blurb:'Don’t search the array, search the answer: the slowest speed that still finishes in time.',
+  yt:yt('NeetCode koko eating bananas','binary search on answer'),
+  recap:['If speed k works, every faster speed works too: ✗✗✗✓✓✓','Binary search the speed between 1 and the biggest pile','Check a guess by simulating: Σ ceil(pile / k) ≤ h','O(n log max)']},K=>{
+  K.title('LEETCODE 875','Koko Eating Bananas','Slowest speed to finish in 8 hours');
+  K.step('Koko eats one pile per hour at k bananas an hour. She has 8 hours. What is the slowest k that works?',{dur:4.6});
+  K.untitle();
+  const piles=[3,6,7,11],H=8,px=K.row(4,90,40,300);
+  piles.forEach((v,i)=>{K.el('p'+i,{t:'box',x:px[i],y:180-v*6,w:70,h:v*12,rx:8,fill:'amber',fo:.7,stroke:'amber',text:v,fs:20,col:'bg'});K.el('ph'+i,{t:'txt',x:px[i],y:205,text:'',fs:15,col:'dim',font:'m'})});
+  const sx=K.row(11,44,6,480);for(let k=1;k<=11;k++)K.el('s'+k,{t:'box',x:sx[k-1],y:360,w:44,h:44,text:k,fs:17,stroke:'faint'});
+  tx(K,'sl',480,318,'speed k',{fs:15,col:'dim',font:'m'});
+  K.step('Key idea: if speed k is fast enough, any faster speed is too. So the speeds look like ✗ ✗ ✗ ✓ ✓ ✓: binary search for the first ✓.',{dur:5.2});
+  K.chapter('Guess and check');
+  let lo=1,hi=11,step=0;
+  while(lo<hi){step++;const mid=(lo+hi)>>1;const hrs=piles.map(p=>Math.ceil(p/mid)),tot=hrs.reduce((a,b)=>a+b,0),ok=tot<=H;
+    hrs.forEach((h,i)=>K.el('ph'+i,{text:h+' h',col:ok?'mint':'rose'}));
+    ptr(K,'pm',sx[mid-1],360-30,'k = '+mid,'amber');
+    K.el('s'+mid,{stroke:ok?'mint':'rose',fill:ok?'mint':'rose',fo:.25,glow:.7});
+    tx(K,'tt',480,425,`k = ${mid}: ${hrs.join(' + ')} = ${tot} hours ${ok?'≤ 8 ✓ try slower':'> 8 ✗ go faster'}`,{fs:19,col:ok?'mint':'rose',font:'m'});
+    K.step(step===1?`Try the middle speed ${mid}: ${tot} hours. ${ok?'That works, so the answer is '+mid+' or slower.':'Too slow.'}`:`Try ${mid}: ${tot} hours. ${ok?'Works → look slower.':'Too slow → look faster.'}`,{dur:step===1?4.4:3});
+    K.el('s'+mid,{glow:0});
+    if(ok){hi=mid;for(let k=mid+1;k<=11;k++)K.el('s'+k,{o:.3})}else{lo=mid+1;for(let k=1;k<=mid;k++)K.el('s'+k,{o:.3})}}
+  K.el('s'+lo,{o:1,fill:'mint',fo:.5,stroke:'mint',glow:1});K.del('pm');
+  tx(K,'tt',480,425,`answer: k = ${lo}`,{fs:24,col:'mint',font:'d',fw:800,glow:.6});
+  K.step(`The slowest speed that finishes in 8 hours is ${lo}. Only ${step} guesses instead of trying all 11.`,{dur:4});
+});
+
+/* ───────── 7 · LRU Cache ───────── */
+C.add({id:'pf-lru',slug:'linked-list',track:'prob',n:7,title:'LRU Cache',topic:'Linked List + Hash Map · LeetCode 146',lab:'p-146',labTx:SOLVE,prob:'p-146',
+  blurb:'A hash map finds the node, a doubly linked list keeps the “last used” order. Both in O(1).',
+  yt:yt('NeetCode LRU cache','LRU cache doubly linked list hashmap'),
+  recap:['Map: key → node, for O(1) lookup','Doubly linked list: least recent at the front, most recent at the back','get / put moves the node to the back','Over capacity → remove the front node and its map entry']},K=>{
+  K.title('LEETCODE 146','LRU Cache','Capacity 2: evict the least recently used');
+  K.step('A cache holds 2 items. When it’s full, it throws out the item that was used longest ago.',{dur:4});
+  K.untitle();
+  tx(K,'hl',140,110,'LEAST recent',{fs:14,col:'rose',font:'m'});tx(K,'tl',820,110,'MOST recent',{fs:14,col:'mint',font:'m'});
+  K.el('H',{t:'box',x:140,y:170,w:90,h:50,text:'head',fs:15,fill:'ghost',stroke:'dim',dash:true});K.el('T',{t:'box',x:820,y:170,w:90,h:50,text:'tail',fs:15,fill:'ghost',stroke:'dim',dash:true});
+  tx(K,'ml',480,300,'map: key → node',{fs:15,col:'violet',font:'m'});
+  let L=[];const store={};const cap=2;
+  const lay=(hl,c)=>{const xs=L.length===1?[480]:K.row(L.length,110,90);L.forEach((k,i)=>K.el('n'+k,{t:'box',x:xs[i],y:170,w:110,h:56,text:`${k}:${store[k]}`,fs:20,stroke:k===hl?(c||'amber'):'blue',glow:k===hl?.8:0,z:3}));
+    const ids=['H',...L.map(k=>'n'+k),'T'];const X=k=>k==='H'?140:k==='T'?820:xs[L.indexOf(+k.slice(1))];
+    for(let i=0;i<4;i++)K.has('lk'+i)&&K.del('lk'+i);
+    for(let i=0;i+1<ids.length;i++)K.el('lk'+i,{t:'line',x:X(ids[i])+(ids[i]==='H'?45:55),y:170,x2:X(ids[i+1])-(ids[i+1]==='T'?45:55),y2:170,stroke:'dim',lw:2,text:'⇄',fs:14,ly:-14});
+    for(const k of [1,2,3,4])K.has('m'+k)&&!L.includes(k)&&K.del('m'+k);
+    L.forEach((k,i)=>K.el('m'+k,{t:'box',x:300+i*120+([1,2,3,4].indexOf(k))*0,y:360,w:96,h:44,text:`${k} → •`,fs:17,stroke:'violet',fill:'ghost'}));
+    L.forEach((k,i)=>K.el('m'+k,{x:K.row(L.length,100,30)[i]}))};
+  const ops=[['put',1,1],['put',2,2],['get',1],['put',3,3],['get',2],['put',4,4],['get',1],['get',3]];
+  K.chapter('Operations');
+  ops.forEach(([op,k,v],idx)=>{let cap_='';let res=null;
+    if(op==='put'){if(k in store){L=L.filter(x=>x!==k)}store[k]=v;L.push(k);
+      if(L.length>cap){const ev=L.shift();delete store[ev];K.el('n'+ev,{y:80,o:0,stroke:'rose'});K.del('n'+ev);cap_=` Full, so evict the front: key ${ev}.`}
+      lay(k,'mint');tx(K,'op',480,420,`put(${k}, ${v})${cap_?'  → evict '+cap_.match(/key (\d+)/)[1]:''}`,{fs:22,col:'amber',font:'m',fw:800});
+      K.step(idx===0?'put(1, 1): new key, so add a node at the back (most recent) and point the map at it.':`put(${k}, ${v}): add at the back.${cap_}`,{dur:idx===0?4:cap_?3.8:2.4})}
+    else{if(k in store){L=L.filter(x=>x!==k);L.push(k);res=store[k];lay(k,'mint')}else{res=-1;lay(null)}
+      tx(K,'op',480,420,`get(${k}) → ${res}`,{fs:22,col:res===-1?'rose':'mint',font:'m',fw:800});
+      K.step(res===-1?`get(${k}): not in the map → −1 (it was evicted).`:idx===2?`get(1): the map finds the node instantly. Using it makes it most recent, so move it to the back.`:`get(${k}) → ${res}, and move it to the back.`,{dur:idx===2?4.4:2.6})}});
+  K.step('Both operations are O(1): the map jumps to the node, and the linked list moves or removes it without searching.',{dur:4.4});
+});
+
+/* ───────── 8 · Lowest Common Ancestor ───────── */
+C.add({id:'pf-lca',slug:'recursion',track:'prob',n:8,title:'Lowest Common Ancestor',topic:'Trees · LeetCode 236',lab:'p-236',labTx:SOLVE,prob:'p-236',
+  blurb:'Each subtree reports “I found p or q” upward. The first node that hears from both sides is the answer.',
+  yt:yt('NeetCode lowest common ancestor binary tree','LCA recursion explained'),
+  recap:['Return the node if it is p or q (or None if empty)','Ask left and right','Both sides found something → this node is the LCA','One side → pass it up; O(n)']},K=>{
+  K.title('LEETCODE 236','Lowest Common Ancestor','The deepest node above both 6 and 4');
+  K.step('Find the lowest node that has both 6 and 4 somewhere below it (a node can be its own ancestor).',{dur:4.2});
+  K.untitle();
+  const V=[3,5,1,6,2,0,8,null,null,7,4],POS={0:[480,90],1:[300,180],2:[660,180],3:[200,280],4:[400,280],5:[580,280],6:[740,280],9:[340,380],10:[460,380]};
+  const kids=i=>{/* level order with nulls → explicit */const m={0:[1,2],1:[3,4],2:[5,6],4:[9,10]};return m[i]||[]};
+  for(const i in POS)for(const c of kids(+i))K.el(`e${i}_${c}`,{t:'line',x:POS[i][0],y:POS[i][1],x2:POS[c][0],y2:POS[c][1],pad:26,stroke:'faint',lw:2.5});
+  for(const i in POS)K.el('n'+i,{t:'dot',x:POS[i][0],y:POS[i][1],r:26,fill:'panel',stroke:V[i]===6||V[i]===4?'amber':'blue',lw:3,text:String(V[i]),col:'white',fs:20,glow:V[i]===6||V[i]===4?.7:0,z:2});
+  K.step('Amber nodes are p = 6 and q = 4. Each call returns what it found below it: the node, or nothing.',{dur:4.4});
+  K.chapter('Answers flow up');
+  let answer=null;const ret={};
+  const visit=i=>{if(!(i in POS))return null;const [a,b]=kids(i);const l=a!=null?visit(a):null,r=b!=null?visit(b):null;
+    let out;if(V[i]===6||V[i]===4)out=i;else if(l!=null&&r!=null){out=i;answer=answer??i}else out=l??r;
+    ret[i]=out;K.el('n'+i,{sub:out==null?'∅':'↑ '+V[out],subc:out==null?'dim':'mint',sy:20});
+    if(answer===i&&l!=null&&r!=null){K.el('n'+i,{fill:'mint',col:'bg',stroke:'mint',glow:1});K.step(`Node ${V[i]} hears ${V[l]} from the left and ${V[r]} from the right. Both found → ${V[i]} is the LCA.`,{dur:4.6})}
+    else if(V[i]===6||V[i]===4)K.step(`Node ${V[i]} is one of the targets, so it reports itself upward.`,{dur:2.8});
+    else K.step(out==null?`Node ${V[i]}: nothing found below → reports ∅.`:`Node ${V[i]}: only one side found something → passes ${V[out]} up.`,{dur:2});
+    return out};
+  visit(0);
+  K.step(`The root receives 5 from the left and ∅ from the right, so the answer is ${V[answer]}. Every node visited once: O(n).`,{dur:4.6});
+});
+
+/* ───────── 9 · Find Median from Data Stream ───────── */
+C.add({id:'pf-median',slug:'heap',track:'prob',n:9,title:'Median of a Stream',topic:'Two Heaps · LeetCode 295',lab:'p-295',labTx:SOLVE,prob:'p-295',
+  blurb:'Keep the lower half in a max-heap and the upper half in a min-heap. The median sits at their tops.',
+  yt:yt('NeetCode find median from data stream','two heaps median'),
+  recap:['Lower half → max-heap, upper half → min-heap','Insert into lower, move its top to upper, rebalance sizes','Median = top of lower (odd) or the average of both tops (even)','O(log n) insert, O(1) median']},K=>{
+  K.title('LEETCODE 295','Median from a Data Stream','Numbers arrive one at a time');
+  K.step('Numbers keep arriving. After each one, report the median, without sorting everything again.',{dur:4});
+  K.untitle();
+  K.el('lo',{t:'box',x:300,y:245,w:240,h:230,fill:'ghost',stroke:'blue',dash:true,rx:18});tx(K,'lol',300,118,'lower half · max-heap',{fs:16,col:'blue',font:'m'});
+  K.el('hi',{t:'box',x:660,y:245,w:240,h:230,fill:'ghost',stroke:'mint',dash:true,rx:18});tx(K,'hil',660,118,'upper half · min-heap',{fs:16,col:'mint',font:'m'});
+  K.step('Split the numbers into a lower half and an upper half. Each heap gives its edge value instantly.',{dur:4});
+  K.chapter('Stream');
+  const lo=[],hi=[];const stream=[5,15,1,3,8];
+  const draw=(nw)=>{const L=[...lo].sort((a,b)=>b-a),Hh=[...hi].sort((a,b)=>a-b);
+    for(const v of stream)if(!lo.includes(v)&&!hi.includes(v))K.has('v'+v)&&K.del('v'+v);
+    L.forEach((v,i)=>K.el('v'+v,{t:'box',x:300,y:170+i*56,w:150,h:46,text:v,fs:22,stroke:i===0?'blue':'faint',fill:i===0?'blue':'panel',fo:i===0?.3:1,glow:v===nw?.8:0,z:3}));
+    Hh.forEach((v,i)=>K.el('v'+v,{t:'box',x:660,y:170+i*56,w:150,h:46,text:v,fs:22,stroke:i===0?'mint':'faint',fill:i===0?'mint':'panel',fo:i===0?.3:1,glow:v===nw?.8:0,z:3}))};
+  stream.forEach((x,k)=>{lo.push(x);lo.sort((a,b)=>b-a);hi.push(lo.shift());hi.sort((a,b)=>a-b);if(hi.length>lo.length){lo.push(hi.shift());lo.sort((a,b)=>b-a)}
+    draw(x);const med=lo.length>hi.length?lo[0]:(lo[0]+hi[0])/2;
+    tx(K,'md',480,420,`after ${stream.slice(0,k+1).join(', ')}  →  median ${med}`,{fs:21,col:'amber',font:'m',fw:800});
+    K.step(k===0?'5 arrives. One number: the median is 5.':k===1?`15 is bigger, so it belongs in the upper half. Two numbers: average the tops, (5 + 15) / 2 = 10.`:lo.length>hi.length?`${x} arrives and the halves rebalance. Odd count: the median is the lower top, ${lo[0]}.`:`${x} arrives. Even count: (${lo[0]} + ${hi[0]}) / 2 = ${med}.`,{dur:k<2?3.8:3.4})});
+  K.step('Each insert costs O(log n) heap work; reading the median is O(1).',{dur:3.4});
+});
+
+/* ───────── 10 · House Robber ───────── */
+C.add({id:'pf-robber',slug:'dp',track:'prob',n:10,title:'House Robber',topic:'Dynamic Programming · LeetCode 198',lab:'p-198',labTx:SOLVE,prob:'p-198',
+  blurb:'At every house: skip it, or rob it and add the best from two houses back.',
+  yt:yt('NeetCode house robber','house robber dynamic programming'),
+  recap:['dp[i] = best total using houses 0 … i','Skip i → dp[i − 1]; rob i → dp[i − 2] + money[i]','Take the bigger one','Only the last two values matter → O(1) space']},K=>{
+  K.title('LEETCODE 198','House Robber','Neighbouring houses can’t both be robbed');
+  K.step('Each house holds money. Robbing two neighbours sets off the alarm. What’s the most you can take?',{dur:4});
+  K.untitle();
+  const m=[2,7,9,3,1],n=m.length,xs=K.row(n,96,34);
+  m.forEach((v,i)=>K.el('h'+i,{t:'box',x:xs[i],y:150,w:96,h:80,text:'₹'+v,fs:26,sub:'house '+i,stroke:'amber'}));
+  tx(K,'dl',90,300,'best',{fs:15,col:'dim',font:'m'});
+  K.step('Let best[i] be the most you can take from houses 0 to i. Build it left to right.',{dur:3.6});
+  K.chapter('Rob or skip');
+  const dp=[];
+  for(let i=0;i<n;i++){const skip=i?dp[i-1]:0,rob=(i>1?dp[i-2]:0)+m[i];dp[i]=Math.max(skip,rob);
+    K.el('d'+i,{t:'box',x:xs[i],y:300,w:96,h:62,text:dp[i],fs:26,stroke:'mint',fill:'mint',fo:.15,glow:.7});
+    if(i)K.el('ar'+i,{t:'arrow',x:xs[i-1],y:300,x2:xs[i],y2:300,pad:52,stroke:rob>=skip?'faint':'cyan',lw:2.5,text:'skip '+skip,fs:12,ly:-44,col:'cyan'});
+    if(i>1)K.el('ab'+i,{t:'arrow',x:xs[i-2],y:340,x2:xs[i],y2:340,pad:30,bend:-30,stroke:rob>=skip?'mint':'faint',lw:2.5,text:`rob ${dp[i-2]} + ${m[i]}`,fs:13,ly:30,col:'mint'});
+    tx(K,'eq',480,418,i===0?'best[0] = 2':i===1?'best[1] = max(2, 7) = 7':`best[${i}] = max(skip ${skip}, rob ${dp[i-2]} + ${m[i]} = ${rob}) = ${dp[i]}`,{fs:20,col:'white',font:'m'});
+    K.step(i===0?'One house: rob it.':i===1?'Two houses: take the richer one, 7.':i===2?`House 2: skipping keeps 7. Robbing adds 9 to best[0] = 2, giving 11. Rob it.`:`House ${i}: skip → ${skip}, rob → ${rob}. Keep ${dp[i]}.`,{dur:i===2?4.6:3});
+    K.el('d'+i,{glow:0})}
+  tx(K,'eq',480,418,`answer = ${dp[n-1]}  (houses 0, 2, 4)`,{fs:24,col:'mint',font:'d',fw:800,glow:.6});
+  K.step(`The best is ${dp[n-1]}. Each step only looked back two places, so two variables are enough: O(n) time, O(1) space.`,{dur:4.6});
+});
+
+/* ───────── 11 · Longest Common Subsequence ───────── */
+C.add({id:'pf-lcs',slug:'dp',track:'prob',n:11,title:'Longest Common Subsequence',topic:'2-D DP · LeetCode 1143',lab:'p-1143',labTx:SOLVE,prob:'p-1143',
+  blurb:'A table over prefixes of both strings. Letters match → diagonal + 1; otherwise the best of up or left.',
+  yt:yt('NeetCode longest common subsequence','LCS dynamic programming table'),
+  recap:['dp[i][j] = LCS of the first i letters of a and first j of b','Last letters match → dp[i−1][j−1] + 1','Otherwise → max(dp[i−1][j], dp[i][j−1])','O(m · n) time']},K=>{
+  K.title('LEETCODE 1143','Longest Common Subsequence','"abcde" and "ace"');
+  K.step('Find the longest sequence of letters appearing in both strings in the same order (gaps allowed).',{dur:4});
+  K.untitle();
+  const A='ace',B='abcde',R=A.length+1,Cc=B.length+1,S=66,x0=480-(Cc-1)*S/2+30,y0=130;
+  for(let j=1;j<Cc;j++)tx(K,'cb'+j,x0+j*S,y0-50,B[j-1],{fs:24,col:'cyan',font:'m'});
+  for(let i=1;i<R;i++)tx(K,'ca'+i,x0-50,y0+i*S,A[i-1],{fs:24,col:'violet',font:'m'});
+  const dp=Array.from({length:R},()=>Array(Cc).fill(0));
+  for(let i=0;i<R;i++)for(let j=0;j<Cc;j++)K.el(`c${i}_${j}`,{t:'box',x:x0+j*S,y:y0+i*S,w:S-6,h:S-6,rx:8,text:(i&&j)?'':'0',fs:20,stroke:'ghost',col:'dim'});
+  K.step('Rows are prefixes of "ace", columns are prefixes of "abcde". An empty prefix has LCS 0.',{dur:4});
+  K.chapter('Fill the table');
+  let first=true,firstMiss=true;
+  for(let i=1;i<R;i++)for(let j=1;j<Cc;j++){const match=A[i-1]===B[j-1];
+    dp[i][j]=match?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
+    K.el(`c${i}_${j}`,{text:dp[i][j],col:'white',stroke:match?'mint':'blue',fill:match?'mint':'panel',fo:match?.25:1,glow:.7});
+    if(match)K.el('ar',{t:'arrow',x:x0+(j-1)*S,y:y0+(i-1)*S,x2:x0+j*S,y2:y0+i*S,pad:26,stroke:'mint',lw:3,z:5});else K.has('ar')&&K.del('ar');
+    const say=match&&first?`'${A[i-1]}' = '${B[j-1]}': a match. Take the diagonal (both strings without this letter) and add 1.`:!match&&firstMiss?`'${A[i-1]}' ≠ '${B[j-1]}': drop a letter from one string. Take the bigger of the cell above and the cell to the left.`:'';
+    if(match)first=false;else firstMiss=false;
+    K.step(say,{dur:say?4.6:.55,tr:.3});K.el(`c${i}_${j}`,{glow:0})}
+  K.has('ar')&&K.del('ar');
+  K.chapter('Read the answer');
+  let i=R-1,j=Cc-1;const pick=[];while(i&&j){if(A[i-1]===B[j-1]){pick.push(A[i-1]);K.el(`c${i}_${j}`,{stroke:'amber',fill:'amber',fo:.4,glow:.9});i--;j--}else if(dp[i-1][j]>=dp[i][j-1])i--;else j--}
+  tx(K,'ans',480,y0+R*S+10,`LCS = ${dp[R-1][Cc-1]}  ("${pick.reverse().join('')}")`,{fs:24,col:'mint',font:'d',fw:800,glow:.6});
+  K.step(`Bottom-right holds the answer, ${dp[R-1][Cc-1]}. Walking back through the matches spells "${pick.join('')}". O(m × n).`,{dur:4.6});
+});
+
+/* ───────── 12 · Jump Game ───────── */
+C.add({id:'pf-jump',slug:'greedy-intervals',track:'prob',n:12,title:'Jump Game',topic:'Greedy · LeetCode 55',lab:'p-55',labTx:SOLVE,prob:'p-55',
+  blurb:'Track the farthest index you can reach. If you ever stand beyond it, you are stuck.',
+  yt:yt('NeetCode jump game','jump game greedy farthest reach'),
+  recap:['far = the farthest index reachable so far','At each i: if i > far → stuck; else far = max(far, i + nums[i])','Reaching the last index → true','O(n), no recursion']},K=>{
+  K.title('LEETCODE 55','Jump Game','Can you reach the last index?');
+  K.step('Each number is the longest jump you may take from there. Can you reach the end?',{dur:3.6});
+  K.untitle();
+  const run=(a,y,tag)=>{const n=a.length,xs=K.row(n,76,20);a.forEach((v,i)=>K.el(`${tag}${i}`,{t:'box',x:xs[i],y,w:76,h:64,text:v,sub:'i='+i,fs:26}));
+    let far=0,ok=true;
+    for(let i=0;i<n;i++){
+      if(i>far){K.el(`${tag}${i}`,{stroke:'rose',fill:'rose',fo:.25,glow:.9});tx(K,tag+'m',480,y+70,`i = ${i} is beyond far = ${far} → stuck → false`,{fs:20,col:'rose',font:'m',fw:800});K.step(`Index ${i} is past the farthest reachable point (${far}). Stuck.`,{dur:3.4});ok=false;break}
+      const nf=Math.max(far,i+a[i]);
+      {const L0=xs[0]-38,R0=xs[Math.min(nf,n-1)]+38;K.el(tag+'reach',{t:'box',x:(L0+R0)/2,y:y-52,w:R0-L0,h:10,rx:5,fill:nf>=n-1?'mint':'cyan',fo:.8,stroke:'none',lw:0,glow:.5})}
+      K.el(`${tag}${i}`,{stroke:'amber',glow:.6});
+      tx(K,tag+'m',480,y+70,`far = max(${far}, ${i} + ${a[i]}) = ${nf}`,{fs:19,col:'white',font:'m'});
+      K.step(tag==='a'&&i===0?'Start at index 0. The bar shows everything reachable so far.':nf>=n-1?`From ${i} you can reach ${nf}: the last index is covered → true.`:'',{dur:tag==='a'&&i===0?3.4:nf>=n-1?3.2:1.4});
+      K.el(`${tag}${i}`,{glow:0});far=nf;if(far>=n-1){K.el(`${tag}${n-1}`,{stroke:'mint',fill:'mint',fo:.25,glow:.9});break}}
+    return ok};
+  K.chapter('Reachable');run([2,3,1,1,4],150,'a');
+  K.chapter('Stuck');run([3,2,1,0,4],340,'b');
+  K.step('One pass, one number to track: O(n) time, O(1) space.',{dur:3.4});
+});
+
+/* ───────── 13 · Parking Lot (LLD) ───────── */
+C.add({id:'pf-parking',slug:'sd-lld',track:'prob',n:13,title:'Design a Parking Lot',topic:'LLD classic',lab:'p-parkinglot',labTx:SOLVE,prob:'p-parkinglot',
+  blurb:'From use cases to classes: who owns what, what varies, and how a car gets in and out.',
+  yt:yt('parking lot low level design','LLD parking lot java'),
+  recap:['Scope first: park, pay, exit, free spots','Nouns → classes; the owner of the data gets the method','Vehicle types and spot sizes → enums','Pricing and spot choice vary → Strategy interfaces, injected']},K=>{
+  K.title('LLD CLASSIC','Design a Parking Lot','From requirements to classes');
+  K.step('Start with scope: a car enters, gets a ticket and a spot, leaves, and pays by the hour.',{dur:4});
+  K.untitle();
+  const box=(id,x,y,t,c,sub)=>K.el(id,{t:'box',x,y,w:170,h:58,text:t,fs:18,font:'d',stroke:c||'blue',sub:sub||'',sfs:12});
+  K.chapter('The nouns');
+  box('lot',480,80,'ParkingLot','cyan');K.step('The nouns become classes. ParkingLot is the entry point.',{dur:3});
+  box('lvl',250,190,'Level');K.el('e1',{t:'line',x:480,y:80,x2:250,y2:190,pad:36,stroke:'cyan',lw:2.5,text:'◆ has levels',fs:13,col:'cyan'});
+  box('spot',250,300,'ParkingSpot','blue','size: SMALL / MEDIUM / LARGE');K.el('e2',{t:'line',x:250,y:190,x2:250,y2:300,pad:32,stroke:'blue',lw:2.5,text:'◆ has spots',fs:13,col:'blue',lx:-56,ly:0});
+  K.step('A lot owns levels, a level owns spots. Filled diamond = composition: they’re created and destroyed with the lot.',{dur:4.6});
+  box('veh',710,190,'Vehicle','amber','type: BIKE / CAR / TRUCK');box('tix',710,300,'Ticket','amber','spot · entry time');
+  K.el('e3',{t:'line',x:710,y:300,x2:250,y2:300,pad:88,stroke:'amber',lw:2,dash:true,text:'refers to',fs:13,col:'amber'});
+  K.step('Vehicle types and spot sizes come from a fixed list, so use enums. A Ticket records the spot and the entry time.',{dur:4.6});
+  K.chapter('What varies');
+  K.el('st1',{t:'box',x:480,y:405,w:230,h:52,text:'«interface» PricingPolicy',fs:15,stroke:'mint',dash:true});
+  K.el('st2',{t:'box',x:780,y:405,w:180,h:52,text:'«interface» SpotAllocator',fs:13,stroke:'mint',dash:true});
+  K.el('e4',{t:'line',x:480,y:80,x2:480,y2:405,pad:30,stroke:'mint',lw:2,dash:true,text:'uses (injected)',fs:13,col:'mint',lx:60});
+  K.step('Pricing rules and spot choice will change, so they sit behind interfaces handed to the lot: the Strategy pattern.',{dur:4.6});
+  K.chapter('A car enters and leaves');K.delAll();
+  const fl=['park(car)','allocator finds a free MEDIUM spot','spot.occupy() — atomic','Ticket(spot, 10:00)','exit at 13:00','pricing.fee(3 h) = ₹60','spot.free()'];
+  fl.forEach((s,i)=>{K.el('f'+i,{t:'box',x:480,y:66+i*56,w:420,h:44,text:s,fs:16,stroke:i===2?'rose':i===5?'mint':'blue',font:'m'});if(i)K.el('fa'+i,{t:'arrow',x:480,y:66+(i-1)*56,x2:480,y2:66+i*56,pad:22,stroke:'dim',lw:2});
+    if(i===0||i===2||i===5||i===6)K.step(i===0?'Follow one car through the classes.':i===2?'Two cars may grab the same spot at once, so occupying it must be atomic (a lock or compare-and-set).':i===5?'At exit, the injected pricing policy computes the fee.':'The spot is freed for the next car.',{dur:i===2?4.4:3})});
+});
+
+/* ───────── 14 · URL Shortener (HLD) ───────── */
+C.add({id:'pf-tinyurl',slug:'sd-hld',track:'prob',n:14,title:'Design a URL Shortener',topic:'HLD classic',lab:'p-urlshortener',labTx:SOLVE,prob:'p-urlshortener',
+  blurb:'Unique short codes from counter ranges and Base62, then a cache-first redirect path.',
+  yt:yt('system design url shortener','tinyurl system design'),
+  recap:['Writes are rare, reads are huge (100 : 1)','IDs: each server leases a counter range, encodes the number in Base62','Read path: cache → DB → 302 redirect','Scale reads with a cache and replicas']},K=>{
+  K.title('HLD CLASSIC','Design a URL Shortener','Make long links short, redirect fast');
+  K.step('Two operations: shorten a long URL, and redirect a short one. Redirects outnumber writes about 100 to 1.',{dur:4.2});
+  K.untitle();
+  const b=(id,x,y,w,t,c)=>K.el(id,{t:'box',x,y,w,h:58,text:t,fs:16,font:'d',stroke:c||'blue'});
+  K.chapter('Shorten');
+  b('cl',110,150,140,'Client','white');b('api',330,150,160,'API servers','cyan');b('idg',570,150,180,'ID range lease','violet');b('db',800,150,150,'Database','amber');
+  K.el('w1',{t:'arrow',x:110,y:150,x2:330,y2:150,pad:76,stroke:'cyan',lw:2.5,flow:1,text:'POST /shorten',fs:13,col:'cyan'});
+  K.el('w2',{t:'arrow',x:330,y:150,x2:570,y2:150,pad:88,stroke:'violet',lw:2.5,text:'next id',fs:13,col:'violet'});
+  K.step('Each API server leases a block of numbers from a counter, say 1,000,000 to 1,000,999, and hands them out locally. No collisions, no per-request coordination.',{dur:5.4});
+  const id=125;const B62='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';let n=id,s='';while(n){s=B62[n%62]+s;n=Math.floor(n/62)}
+  tx(K,'b62',480,260,`id ${id}  →  Base62  →  "${s}"   (125 = 2 × 62 + 1)`,{fs:20,col:'violet',font:'m',fw:800,glow:.4});
+  K.el('w3',{t:'arrow',x:570,y:150,x2:800,y2:150,pad:90,stroke:'amber',lw:2.5,text:'save',fs:13,col:'amber'});
+  K.step(`Encode the number in Base62 (digits plus lower and upper case letters) to get a short code: ${id} becomes "${s}". Store code → long URL.`,{dur:5});
+  K.chapter('Redirect');
+  b('cl2',110,370,140,'Browser','white');b('api2',330,370,160,'API servers','cyan');b('ca',570,370,160,'Redis cache','mint');
+  K.el('r1',{t:'arrow',x:110,y:370,x2:330,y2:370,pad:76,stroke:'cyan',lw:2.5,flow:1,text:`GET /${s}`,fs:13,col:'cyan'});
+  K.el('r2',{t:'arrow',x:330,y:370,x2:570,y2:370,pad:84,stroke:'mint',lw:2.5,flow:1,text:'hit (most of the time)',fs:13,col:'mint'});
+  K.step('Reads dominate, so check the cache first. Popular links are almost always there.',{dur:3.6});
+  K.el('r3',{t:'arrow',x:570,y:370,x2:800,y2:150,pad:60,stroke:'amber',lw:2,dash:true,text:'miss → DB, then fill cache',fs:13,col:'amber',bend:-30});
+  K.el('r4',{t:'arrow',x:330,y:385,x2:110,y2:385,pad:76,stroke:'white',lw:2.5,bend:-40,text:'302 → long URL',fs:13,col:'white',ly:16});
+  K.step('Respond with a 302 redirect. A 302 sends every click through you, so you can count clicks; a 301 would let browsers cache it.',{dur:5});
+});
+})();
 </script><script>(function(){const C=window.Cinema;if(!C)return;const root=document.getElementById('cineHome');if(!root)return;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let tab='dsa';
@@ -2007,7 +2931,7 @@ function feat(){const id=pick(),f=C.films[id];C.compile(f);const w=W();const n=C
 function grid(){const w=W(),g=root.querySelector('#cfGrid');g.innerHTML='';
   C.order.filter(id=>C.films[id].track===tab).forEach(id=>{const f=C.films[id];C.compile(f);
     const b=document.createElement('button');b.className='fpost';b.setAttribute('aria-label','Play film: '+f.title);
-    b.innerHTML=`<span class="fp-pv"><span class="fp-n">${f.track==='dsa'?'DSA':'SD'} ${f.n}<\/span>${w[id]?'<span class="fp-w">✓ watched<\/span>':''}<span class="fp-d">${C.fmt(f.T)}<\/span><\/span><b>${esc(f.title)}<\/b><small>${esc(f.topic)}<\/small>`;
+    b.innerHTML=`<span class="fp-pv"><span class="fp-n">${f.track==='dsa'?'DSA':f.track==='sd'?'SD':'★'} ${f.n}<\/span>${w[id]?'<span class="fp-w">✓ watched<\/span>':''}<span class="fp-d">${C.fmt(f.T)}<\/span><\/span><b>${esc(f.title)}<\/b><small>${esc(f.topic)}<\/small>`;
     g.appendChild(b);C.preview(b.querySelector('.fp-pv'),id,{});b.onclick=()=>C.open(id)});
   const n=C.order.filter(i=>w[i]).length;root.querySelector('#cfCount').textContent=n+' / '+C.order.length+' films watched';root.querySelector('#cfBar').style.width=(n/C.order.length*100)+'%'}
 root.querySelectorAll('.cine-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;root.querySelectorAll('.cine-tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));grid()});
@@ -2018,514 +2942,3 @@ const cv=root.querySelector('.cine-stars');if(cv&&C.Stars&&!(window.matchMedia&&
   const loop=now=>{if(!on)return;const dt=Math.min(.1,(now-(last||now))/1000);last=now;t+=dt;st.draw(dt,t);requestAnimationFrame(loop)};
   new IntersectionObserver(es=>{on=es[0].isIntersecting;if(on){last=0;requestAnimationFrame(loop)}}).observe(root)}
 })();</script><!--cin-end-->
-<!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
-.pask-fab:hover{transform:translateY(-2px)}
-.pask-fab svg{width:20px;height:20px;flex:none}
-.pask-fab span{white-space:nowrap}
-@media (max-width:640px){.pask-fab{padding:0;width:46px;justify-content:center}.pask-fab span{display:none}}
-@media print{.pask-fab,.pask{display:none!important}}
-.pask{position:fixed;inset:0;z-index:950}
-.pask[hidden]{display:none}
-.pask-scrim{position:absolute;inset:0;background:rgba(10,12,30,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:askFade .2s ease}
-.pask-panel{position:absolute;top:0;right:0;bottom:0;width:min(480px,100vw);display:flex;flex-direction:column;background:var(--paper,#F4F6FB);color:var(--ink,#161A33);border-left:2px solid var(--ink,#161A33);box-shadow:-12px 0 40px rgba(10,12,40,.25);animation:askIn .28s cubic-bezier(.2,.9,.25,1.05);font:15px/1.5 var(--body,system-ui,sans-serif)}
-@keyframes askIn{from{transform:translateX(30px);opacity:0}}
-@keyframes askFade{from{opacity:0}}
-@media (max-width:640px){.pask-panel{width:100vw;border-left:0}}
-.pask-head{display:flex;align-items:center;gap:10px;padding:12px 14px 10px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff)}
-.pask-av{width:40px;height:40px;flex:none;border-radius:50%;border:2px solid var(--ink,#161A33);background:#FFF4CC;display:grid;place-items:center;font-size:22px}
-.pask-ttl{display:grid;line-height:1.2;min-width:0}
-.pask-ttl b{font:800 18px var(--display,system-ui)}
-.pask-ttl small{color:var(--ink-3,#6E749B);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pask-live{flex:none;font:800 11.5px var(--body,system-ui);color:#6B3FD8;background:#EFE8FF;border-radius:999px;padding:3px 9px;white-space:nowrap}
-.pask-live[hidden]{display:none}
-.pask-x{margin-left:auto;flex:none;width:36px;height:36px;border-radius:10px;border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);font-size:22px;line-height:1;cursor:pointer}
-.pask-tabs{display:flex;gap:6px;padding:8px 14px;border-bottom:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff)}
-.pask-tabs button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:4px 13px;font:800 13.5px var(--body,system-ui);cursor:pointer}
-.pask-tabs button[aria-selected="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
-.pask-tabs .pask-clear{margin-left:auto;border:0;background:none;color:var(--ink-3,#6E749B);font-weight:700;font-size:12.5px;padding:4px 6px}
-.pask-body{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;padding:14px;display:flex;flex-direction:column;gap:12px}
-.pask-body[hidden]{display:none}
-.am-u{align-self:flex-end;max-width:85%;background:var(--ink,#161A33);color:var(--paper,#fff);border-radius:16px 16px 4px 16px;padding:8px 13px;font-weight:600;overflow-wrap:anywhere}
-.am-p{align-self:stretch;background:var(--surface,#fff);border:1.5px solid var(--line,#D9DDEB);border-radius:4px 16px 16px 16px;padding:12px 14px;display:grid;gap:8px;min-width:0}
-.am-p.ai{border-color:#B9A2F5;background:linear-gradient(180deg,#FBF9FF,var(--surface,#fff))}
-.am-p p{margin:0}
-.am-p ul,.am-p ol{margin:0;padding-left:20px;display:grid;gap:3px}
-.am-p code{font-family:var(--mono,ui-monospace,monospace);font-size:.86em;background:var(--blue-soft,#E3E6FD);padding:.05em .35em;border-radius:5px}
-.am-p h4{margin:0;font:800 17px/1.25 var(--display,system-ui);letter-spacing:-.01em}
-.am-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--ink-3,#6E749B);font-weight:700}
-.am-meta .ch{background:var(--paper,#F4F6FB);border:1px solid var(--line,#D9DDEB);border-radius:999px;padding:1px 8px}
-.am-meta .ai-tag{background:#EFE8FF;color:#6B3FD8;border-color:transparent}
-.am-hint{background:#FFF7DD;border:1.5px dashed #E8B53A;border-radius:10px;padding:8px 11px;display:grid;gap:4px;font-size:14.5px}
-.am-p details{border:1.5px solid var(--line,#D9DDEB);border-radius:10px;background:var(--paper,#F4F6FB)}
-.am-p details>summary{cursor:pointer;padding:7px 11px;font-weight:800;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px}
-.am-p details>summary::-webkit-details-marker{display:none}
-.am-p details>summary::after{content:'▸';margin-left:auto;color:var(--ink-3,#6E749B);transition:transform .15s}
-.am-p details[open]>summary::after{transform:rotate(90deg)}
-.am-p details>div{padding:2px 11px 10px;display:grid;gap:7px;font-size:14.5px}
-.ap-pre{margin:0;background:var(--code-bg,#0C0F24);color:var(--code-ink,#E6E8F5);border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,ui-monospace,monospace);white-space:pre;overflow-x:auto}
-.ap-code{background:var(--code-bg,#0C0F24);color:var(--code-ink,#E6E8F5);border-radius:10px;font:12.5px/1.55 var(--mono,ui-monospace,monospace);overflow:auto;padding:8px 0;max-height:420px}
-.ap-code .cl{display:flex;white-space:pre;padding-right:14px;min-width:max-content}
-.ap-code .cl .n{flex:none;width:2.4em;text-align:right;padding-right:10px;color:#5A618C;user-select:none}
-.ap-code .k{color:#A9B2FF}.ap-code .s{color:#86E3C3}.ap-code .c{color:#7F86B3;font-style:italic}.ap-code .m{color:#FFC86B}.ap-code .b{color:#FF9CC2}.ap-code .f{color:#fff;font-weight:600}.ap-code .t .t{color:#8FD3FF}
-.am-p .lsw{display:flex;gap:6px;flex-wrap:wrap}
-.am-p .lsw button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:2px 11px;font:800 12.5px var(--body,system-ui);cursor:pointer}
-.am-p .lsw button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
-.am-p .lsw button:disabled{opacity:.4;cursor:not-allowed}
-.ap-tbl{overflow-x:auto}
-.ap-tbl table{border-collapse:collapse;width:100%;font-size:13.5px}
-.ap-tbl th,.ap-tbl td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line,#D9DDEB);vertical-align:top}
-.ap-tbl th{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3,#6E749B)}
-.ap-rx{display:grid;gap:2px;background:var(--paper,#F4F6FB);border-radius:10px;padding:9px 11px}
-.ap-rx span{font-size:12px;font-weight:700;color:var(--ink-3,#6E749B);text-transform:uppercase;letter-spacing:.05em}
-.ap-rx b{margin-bottom:6px}
-.am-p li[data-ask]{cursor:pointer;text-decoration:underline;text-decoration-color:var(--line,#D9DDEB);text-underline-offset:3px}
-.am-p li[data-ask]:hover{text-decoration-color:var(--ink,#161A33)}
-.am-links{display:flex;flex-wrap:wrap;gap:6px}
-.am-links a,.am-links button{font:800 13px var(--body,system-ui);text-decoration:none;color:var(--ink,#161A33);border:1.5px solid var(--ink,#161A33);background:var(--surface,#fff);border-radius:999px;padding:4px 11px;cursor:pointer}
-.am-links .go-ai{border-color:#8E6CF0;color:#5B33C9;background:#F5F0FF}
-.am-rel{display:grid;gap:5px}
-.am-rel>span{font-size:12px;font-weight:800;color:var(--ink-3,#6E749B);text-transform:uppercase;letter-spacing:.06em}
-.am-chips{display:flex;flex-wrap:wrap;gap:6px}
-.am-chips button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);border-radius:12px;padding:5px 10px;font:600 13.5px var(--body,system-ui);text-align:left;cursor:pointer}
-.am-chips button:hover{border-color:var(--ink-3,#6E749B)}
-.am-note{font-size:13.5px;color:var(--ink-2,#4A4F6E)}
-.am-typing{display:inline-flex;gap:4px}
-.am-typing i{width:7px;height:7px;border-radius:50%;background:#8E6CF0;animation:askDot 1s infinite}
-.am-typing i:nth-child(2){animation-delay:.15s}.am-typing i:nth-child(3){animation-delay:.3s}
-@keyframes askDot{50%{opacity:.25;transform:translateY(-3px)}}
-.pask-form{position:relative;border-top:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:flex-end}
-.pask-form[hidden]{display:none}
-.pask-form textarea{flex:1 1 auto;resize:none;border:2px solid var(--ink,#161A33);border-radius:14px;padding:9px 12px;font:16px/1.4 var(--body,system-ui);background:var(--paper,#F4F6FB);color:var(--ink,#161A33);max-height:120px;min-height:44px}
-.pask-form textarea:focus{outline:none;box-shadow:0 0 0 3px #FFD24A}
-.pask-send{flex:none;width:44px;height:44px;border-radius:12px;border:2px solid var(--ink,#161A33);background:var(--ink,#161A33);color:var(--paper,#fff);font-size:18px;cursor:pointer}
-.pask-send:disabled{opacity:.4;cursor:default}
-.pask-sug{position:absolute;left:12px;right:12px;bottom:calc(100% - 4px);background:var(--surface,#fff);border:2px solid var(--ink,#161A33);border-radius:12px;box-shadow:0 -10px 30px rgba(10,12,40,.15);overflow:hidden;display:grid}
-.pask-sug[hidden]{display:none}
-.pask-bank-top{display:grid;gap:8px;position:sticky;top:-14px;background:var(--paper,#F4F6FB);padding:0 0 8px;z-index:1}
-.pask-bank-top input{border:2px solid var(--ink,#161A33);border-radius:12px;padding:8px 12px;font:15px var(--body,system-ui);background:var(--surface,#fff);color:var(--ink,#161A33)}
-.pask-cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-.pask-cats::-webkit-scrollbar{display:none}
-.pask-cats button{flex:none;border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:3px 10px;font:700 12.5px var(--body,system-ui);cursor:pointer;white-space:nowrap}
-.pask-cats button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
-.pask-count{font-size:12.5px;color:var(--ink-3,#6E749B);font-weight:700}
-.pask-list{display:grid;gap:4px}
-.pask-list h5{margin:10px 0 2px;font:800 12px var(--body,system-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3,#6E749B)}
-.pask-more{justify-self:center;margin-top:6px;border:1.5px solid var(--ink,#161A33)!important;font-weight:800!important}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pask-fab{border-color:#0B0E22;box-shadow:3px 3px 0 #0B0E22}:root:not([data-theme="light"]) .am-hint{background:#3A2F12;border-color:#8A6A1F}:root:not([data-theme="light"]) .am-p.ai{background:linear-gradient(180deg,#221B3D,var(--surface,#1A1E3A))}:root:not([data-theme="light"]) .pask-live,:root:not([data-theme="light"]) .am-meta .ai-tag,:root:not([data-theme="light"]) .am-links .go-ai{background:#2C2350;color:#C9B6FF;border-color:#6E55C9}:root:not([data-theme="light"]) .pask-av{background:#3A3315}}
-:root[data-theme="dark"] .am-hint{background:#3A2F12;border-color:#8A6A1F}
-:root[data-theme="dark"] .am-p.ai{background:linear-gradient(180deg,#221B3D,var(--surface,#1A1E3A))}
-:root[data-theme="dark"] .pask-live,:root[data-theme="dark"] .am-meta .ai-tag,:root[data-theme="dark"] .am-links .go-ai{background:#2C2350;color:#C9B6FF;border-color:#6E55C9}
-
-:root[data-theme="dark"] .pask-av{background:#3A3315}
-
-/* suggestions: open in app, or 💬 for the answer */
-.pask-sug{max-height:min(60vh,420px);overflow-y:auto}
-.pask-sug-h{padding:6px 12px;font:700 11.5px var(--body,system-ui);color:var(--ink-3,#6E749B);border-bottom:1px solid var(--line,#D9DDEB);background:var(--paper,#F4F6FB)}
-.pask-srow,.pask-row{display:flex;align-items:stretch;min-width:0}
-.pask-srow{border-bottom:1px solid var(--line,#D9DDEB)}.pask-srow:last-child{border-bottom:0}
-.s-go,.b-go{flex:1;min-width:0;border:0;background:none;color:var(--ink,#161A33);text-align:left;cursor:pointer;display:grid;gap:2px;font:600 14px/1.35 var(--body,system-ui)}
-.s-go{padding:8px 12px}
-.s-go small,.b-go small{color:var(--ink-3,#6E749B);font-size:12px;font-weight:600;display:flex;flex-wrap:wrap;gap:0 6px;align-items:center}
-.s-go small b,.b-go small b{color:var(--blue,#3B5BDB);font-weight:800}
-.s-go[aria-selected="true"],.s-go:hover,.s-go:focus-visible{background:#FFF4CC;outline:0}
-.s-ans,.b-ans{flex:none;width:46px;border:0;border-left:1px solid var(--line,#D9DDEB);background:none;cursor:pointer;font-size:16px;color:var(--ink-2,#4A4F6E)}
-.s-ans:hover,.b-ans:hover{background:var(--paper,#F4F6FB)}
-.pask-list{gap:6px}
-.pask-row{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);border-radius:10px;overflow:hidden}
-.pask-row:hover{border-color:var(--ink-3,#6E749B)}
-.b-go{padding:8px 11px}.b-go:focus-visible{outline:3px solid var(--blue,#3B5BDB);outline-offset:-3px}
-.b-go em,.s-go em{font-style:normal;font-weight:800;font-size:11px;padding:0 6px;border-radius:999px;border:1px solid}
-em.easy{color:#18805E;border-color:#7FD1B4;background:#E3F7EF}em.medium{color:#9A5B00;border-color:#F0C27A;background:#FDF1DC}em.hard{color:#B4285E;border-color:#EFA3C0;background:#FCE6EF}
-.pask-more{border:1.5px dashed var(--line,#D9DDEB);background:none;border-radius:10px;padding:8px;font:700 13px var(--body,system-ui);color:var(--ink-2,#4A4F6E);cursor:pointer}
-.pask-cats button i{font-style:normal;opacity:.65;font-weight:600;margin-left:2px}
-.pask-frow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.pask-frow select{border:1.5px solid var(--line,#D9DDEB);border-radius:10px;padding:5px 8px;font:700 13px var(--body,system-ui);background:var(--surface,#fff);color:var(--ink,#161A33);max-width:100%}
-.pask-diff[hidden]{display:none}
-.pask-diff button.easy[aria-pressed="true"]{background:#18805E;border-color:#18805E}.pask-diff button.medium[aria-pressed="true"]{background:#B86E00;border-color:#B86E00}.pask-diff button.hard[aria-pressed="true"]{background:#B4285E;border-color:#B4285E}
-.am-links a.go-app{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33);font-weight:800}
-/* header button */
-.pask-hbtn{display:flex;align-items:center;gap:6px;height:38px;padding:0 11px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:700 14px var(--body,system-ui);flex:none;cursor:pointer}
-.pask-hbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
-.pask-hbtn:hover{border-color:var(--ink-3)}
-@media (max-width:760px){.pask-hbtn{height:34px;width:34px;padding:0;justify-content:center}.pask-hbtn span{display:none}}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .s-go[aria-selected="true"],:root:not([data-theme="light"]) .s-go:hover{background:#2E2A17}:root:not([data-theme="light"]) em.easy,:root:not([data-theme="light"]) em.medium,:root:not([data-theme="light"]) em.hard{background:transparent}}
-:root[data-theme="dark"] .s-go[aria-selected="true"],:root[data-theme="dark"] .s-go:hover{background:#2E2A17}
-:root[data-theme="dark"] em.easy,:root[data-theme="dark"] em.medium,:root[data-theme="dark"] em.hard{background:transparent}
-@media (max-width:440px){.top-in:has(.pask-hbtn){gap:8px}.top-in:has(.pask-hbtn) .brand{font-size:15.5px;letter-spacing:-.01em;min-width:0}.top-in:has(.pask-hbtn) .xp small{font-size:10.5px}.pask-hbtn{width:32px;height:32px}}
-</style><script>/* LangKit: Python / Java / C++ switcher shared by the DSA pages, notes and crunch list. */
-(function(){
-if(window.LangKit)return;
-const KEY='dsa-lang-v1',NAMES={py:'Python',java:'Java',cpp:'C++'},ORDER=['py','java','cpp'];
-let cur='py';try{const v=JSON.parse(localStorage.getItem(KEY));if(NAMES[v])cur=v}catch(e){}
-const subs=new Set();
-const W=s=>new Set(s.split(' '));
-const KW={java:W('abstract boolean break byte case catch char class continue default do double else enum extends final finally float for if implements import instanceof int interface long new null package private protected public return short static super switch this throw throws try void while var true false record yield'),
-  cpp:W('auto bool break case catch char class const constexpr continue default delete do double else enum explicit false float for friend if inline int long namespace new nullptr operator private protected public return short signed sizeof static struct switch template this throw true try typedef typename unsigned using virtual void while uint32_t size_t'),
-  py:W('and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield True False None self')};
-const BI={java:W('Math System Arrays Collections Integer Long Double Character String StringBuilder List ArrayList Map HashMap TreeMap Set HashSet Deque ArrayDeque PriorityQueue Queue LinkedList Iterator Objects Comparator Optional Boolean'),
-  py:W('len range enumerate zip sorted reversed min max sum abs print int str float list dict set tuple map filter any all isinstance ord chr divmod iter next super object deque defaultdict Counter heapq bisect math collections functools lru_cache cache inf'),
-  cpp:W('vector string unordered_map unordered_set map set queue deque priority_queue stack pair array function greater less min max swap sort reverse accumulate lower_bound upper_bound make_pair to_string stoi stoll abs iota cout getline stringstream max_element min_element find prev next list tolower toupper isalnum isalpha isdigit INT_MAX INT_MIN LLONG_MAX LLONG_MIN __builtin_popcount')};
-const DECL=W('int long void boolean bool double char float short byte auto unsigned var');
-const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-function hlLine(src,lang){
-  const re=lang==='py'?/(#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b0x[0-9a-fA-F]+\b|\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)|([\s\S])/g:/(\/\/.*$|\/\*.*?\*\/)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b0x[0-9a-fA-F]+[uUlL]*\b|\b\d+(?:\.\d+)?[LlUuFf]*\b)|([A-Za-z_]\w*)|([\s\S])/g;
-  const kw=KW[lang],bi=BI[lang];let out='',m,prev='';
-  while((m=re.exec(src))){const [t,c,s,n,w]=m;
-    if(c)out+=`<span class="c">${esc(c)}<\/span>`;
-    else if(s)out+=`<span class="s">${esc(s)}<\/span>`;
-    else if(n)out+=`<span class="m">${n}<\/span>`;
-    else if(w){
-      const call=/^\s*\(/.test(src.slice(re.lastIndex));
-      if(lang==='py'){out+=kw.has(w)?`<span class="k">${w}<\/span>`:(prev==='def'||prev==='class')?`<span class="f">${w}<\/span>`:bi.has(w)?`<span class="b">${w}<\/span>`:w}
-      else if(kw.has(w))out+=`<span class="k">${w}<\/span>`;
-      else if(call&&(DECL.has(prev)||(/^[A-Za-z_]\w*$/.test(prev)&&!kw.has(prev))||/[>\]*&]$/.test(prev)))out+=`<span class="f">${w}<\/span>`;
-      else if(bi.has(w))out+=`<span class="b">${w}<\/span>`;
-      else if(/^[A-Z][a-z]\w*$/.test(w)||/^[A-Z]\w*Node$/.test(w))out+=`<span class="ty">${w}<\/span>`;
-      else out+=w;
-    } else out+=esc(t);
-    if(!/^\s+$/.test(t))prev=w||t.trim();
-  }
-  return out||' ';
-}
-function codeHTML(src,lang){
-  const lines=String(src).replace(/^\n+/,'').replace(/\s+$/,'').split('\n');
-  return lines.map((l,i)=>`<div class="cl" data-l="${i+1}"><span class="n">${i+1}<\/span><span class="t">${hlLine(l,lang)}<\/span><\/div>`).join('');
-}
-function tabs(avail){
-  return `<div class="lsw" role="group" aria-label="Code language">${ORDER.map(l=>`<button type="button" data-lang="${l}" aria-pressed="${l===cur}"${avail&&!avail.includes(l)?' disabled title="Not available"':''}>${NAMES[l]}<\/button>`).join('')}<\/div>`;
-}
-function set(l){if(!NAMES[l]||l===cur)return;cur=l;try{localStorage.setItem(KEY,JSON.stringify(l))}catch(e){}
-  document.querySelectorAll('.lsw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===cur));
-  subs.forEach(f=>{try{f(cur)}catch(e){console.error(e)}})}
-document.addEventListener('click',e=>{const b=e.target.closest('.lsw button[data-lang]');if(!b||b.disabled)return;
-  const y=b.getBoundingClientRect().top;set(b.dataset.lang);
-  requestAnimationFrame(()=>{const n=b.isConnected?b:null;if(n){const d=n.getBoundingClientRect().top-y;if(Math.abs(d)>2)window.scrollBy(0,d)}})});
-addEventListener('storage',e=>{if(e.key===KEY){try{const v=JSON.parse(e.newValue);if(NAMES[v]){cur=v;subs.forEach(f=>f(cur));document.querySelectorAll('.lsw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===cur))}}catch(_){}}});
-const css=`.lsw{display:flex;gap:4px;justify-content:flex-end;margin:0 0 6px}
-.lsw button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:2px 10px;font:700 12px/1.6 var(--body,system-ui,sans-serif);cursor:pointer}
-.lsw button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
-.lsw button:disabled{opacity:.4;cursor:not-allowed}
-.code .ty{color:#8FD3FF}
-.lnote{margin:6px 0 0;font-size:13.5px;color:var(--ink-2,#4A4F6E);background:var(--paper,#F4F6FB);border-left:3px solid var(--amber,#E89A1C);padding:6px 10px;border-radius:0 8px 8px 0}`;
-const st=document.createElement('style');st.textContent=css;(document.head||document.documentElement).appendChild(st);
-window.LangKit={get:()=>cur,set,on:f=>(subs.add(f),()=>subs.delete(f)),name:l=>NAMES[l||cur],codeHTML,tabs,hl:hlLine,esc};
-})();
-</script><script>(function(){"use strict";
-if(window.AskPip)return;
-const PAGE=(location.pathname.split('/').pop()||'index.html').replace(/\.html$/,'')||'index';
-const LSK='rdd-ask-v1';
-const store={get(){try{return JSON.parse(localStorage.getItem(LSK))||{log:[]}}catch(e){return{log:[]}}},put(v){try{localStorage.setItem(LSK,JSON.stringify(v))}catch(e){}}};
-const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const $=(s,r)=>(r||document).querySelector(s),$$=(s,r)=>[...(r||document).querySelectorAll(s)];
-
-/* ───────────── text processing ───────────── */
-const STOP=new Set('a an the is are was were be been being to of in on for and or what whats how do does did i im me my you your can could should would will it its this that these those with by from as at which when why who there their them we us our please tell explain show give about into vs versus difference between between some any get use using used if than then also just like way ways need want know mean means define definition'.split(' '));
-const PHRASE=[[/big[\s-]?o\b/g,' bigo '],[/\bo\(\s*1\s*\)/g,' constant '],[/\bo\(\s*n\s*\)/g,' linear '],[/\bo\(\s*log\s*n\s*\)/g,' logarithmic '],[/\bn\s*\+\s*1\b/g,' nplus1 '],[/\bk-?th\b/g,' kth '],[/\bc\+\+/g,' cpp '],[/\bsde[\s-]?2\b/g,' sde2 '],[/\bsde[\s-]?1\b/g,' sde1 '],[/\bl4\b/g,' l4 '],[/\bl7\b/g,' l7 '],[/\b2pc\b/g,' 2pc '],[/\bwrite[\s-]through\b/g,' writethrough '],[/\bcache[\s-]aside\b/g,' cacheaside '],[/\bmerge\s+k\b/g,' merge k ']];
-const SYN={dp:'dynamic programming',bfs:'bfs breadth first',dfs:'dfs depth first',ll:'linked list',lc:'leetcode',pq:'priority queue heap',bst:'binary search tree bst',db:'database',dbs:'database',lb:'load balancer',sd:'system design',hld:'hld high level design',lld:'lld low level design',oop:'oop object oriented',oops:'oop object oriented',mq:'message queue',kv:'key value',dsu:'union find disjoint',uf:'union find',mst:'minimum spanning tree',hashmap:'hash map hashmap',hashtable:'hash map',hashset:'hash set',dict:'dictionary hash map',dictionary:'dictionary hash map',tc:'time complexity',sc:'space complexity',algo:'algorithm',algos:'algorithm',ds:'data structure',dsa:'dsa data structure algorithm',twosum:'two sum',tinyurl:'url shortener tinyurl',bitly:'url shortener',whatsapp:'whatsapp chat',messenger:'chat',twitter:'twitter feed',instagram:'instagram feed',ig:'instagram feed',yt:'youtube video',netflix:'netflix video',ola:'uber ride',lyft:'uber ride',bms:'bookmyshow ticket',bookmyshow:'bookmyshow ticket booking',gc:'garbage collection',jvm:'jvm java',jwt:'jwt token',sql:'sql relational',nosql:'nosql',k8s:'kubernetes',mongo:'mongodb',postgres:'postgres sql',mysql:'mysql sql',rabbit:'rabbitmq',sqs:'sqs queue',api:'api',apis:'api',ttl:'ttl expiry',lfu:'lfu cache',lru:'lru cache',kafka:'kafka queue',redis:'redis cache',ws:'websocket',websockets:'websocket',sse:'sse server sent events',recursive:'recursion',recurse:'recursion',backtrack:'backtracking',memo:'memoization',memoize:'memoization',tabulate:'tabulation',subarray:'subarray',substring:'substring',palindromic:'palindrome',anagrams:'anagram',intervals:'interval',monotonic:'monotonic',xor:'xor bit',bitwise:'bit',bits:'bit',trie:'trie prefix tree',tries:'trie',heaps:'heap',graphs:'graph',trees:'tree',stacks:'stack',queues:'queue',pointers:'pointer',arrays:'array',strings:'string',matrices:'matrix',grids:'grid',islands:'island'};
-const HAS=Object.prototype.hasOwnProperty;let STOPST=null;
-function stem(w){if(w.length>5&&w.endsWith('ing')){let r=w.slice(0,-3);if(/([bdgmnprt])\1$/.test(r))r=r.slice(0,-1);return r}if(w.length>4&&w.endsWith('ies'))return w.slice(0,-3)+'y';if(w.length>4&&w.endsWith('es')&&/(ss|sh|ch|x|z)es$/.test(w))return w.slice(0,-2);if(w.length>3&&w.endsWith('s')&&!w.endsWith('ss')&&!w.endsWith('us')&&!w.endsWith('is'))return w.slice(0,-1);if(w.length>5&&w.endsWith('ed'))return w.slice(0,-2);return w}
-function norm(s){s=String(s||'').toLowerCase().replace(/<[^>]+>/g,' ').replace(/&[a-z]+;/g,' ');for(const [r,v] of PHRASE)s=s.replace(r,v);return s.replace(/[’']/g,'').replace(/[^a-z0-9²]+/g,' ').trim()}
-function toks(s,keepStop){const out=[];for(let w of norm(s).split(' ')){if(!w)continue;if(!keepStop&&STOP.has(w))continue;if(w.length===1&&!/[0-9k]/.test(w))continue;const syn=HAS.call(SYN,w)?SYN[w]:null;if(syn){for(const x of syn.split(' '))out.push(stem(x))}else out.push(stem(w))}return out}
-
-/* ───────────── index ───────────── */
-let KB=null,IDX=null,BYID=Object.create(null),META=null;
-function plainText(h){return String(h||'').replace(/<[^>]+>/g,' ').replace(/&[a-z]+;/g,' ').replace(/\s+/g,' ').trim()}
-function build(){STOPST=new Set([...STOP].map(stem));
-  const docs=KB.map((e,i)=>{BYID[e.i]=e;
-    const q=new Set(toks(e.t+' '+e.q.join(' '))),w=new Set(toks((e.w||'')+' '+(e.sub||'')+' '+(e.cat||''))),a=new Set(toks(plainText((e.h||'')+' '+e.a).slice(0,700)));
-    const qn=' '+norm(e.t)+' ',qall=' '+e.q.map(norm).join(' | ')+' ';
-    const vs=e.q.slice(0,8).map(v=>new Set(toks(v,true)));
-    return {e,q,w,a,qn,qall,vs}});
-  const df=Object.create(null);for(const d of docs){const u=new Set([...d.q,...d.w,...d.a]);for(const t of u)df[t]=(df[t]||0)+1}
-  const N=docs.length,idf=Object.create(null);for(const t in df)idf[t]=Math.log(1+(N-df[t]+.5)/(df[t]+.5));
-  const vocab=Object.keys(df);const byLen=Object.create(null);for(const v of vocab)(byLen[v.length]=byLen[v.length]||[]).push(v);
-  const rdf=Object.create(null);for(const e of KB)for(const w of norm(e.t+' '+e.q.slice(0,4).join(' ')+' '+(e.w||'')).split(' '))if(w.length>3)rdf[w]=(rdf[w]||0)+1;
-  const rByLen=Object.create(null);for(const v in rdf)(rByLen[v.length]=rByLen[v.length]||[]).push(v);
-  IDX={docs,idf,df,vocab,byLen,N,rdf,rByLen}}
-function lev(a,b,max){if(Math.abs(a.length-b.length)>max)return max+1;const m=a.length,n=b.length;let pp=null,prev=Array.from({length:n+1},(_,j)=>j);
-  for(let i=1;i<=m;i++){const cur=[i];let best=i;for(let j=1;j<=n;j++){const c=a[i-1]===b[j-1]?0:1;let v=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+c);
-      if(pp&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])v=Math.min(v,pp[j-2]+1);cur.push(v);if(v<best)best=v}if(best>max)return max+1;pp=prev;prev=cur}return prev[n]}
-const fixCache=Object.create(null);
-function fix(t){if(IDX.df[t]||t.length<4||/^\d+$/.test(t))return t;if(t in fixCache)return fixCache[t];
-  const max=t.length>=8?2:1;let best=null,bd=9,bf=0;
-  for(let L=t.length-max;L<=t.length+max;L++)for(const v of IDX.byLen[L]||[]){if(v[0]!==t[0]&&max<2)continue;const d=lev(t,v,max);if(d<=max&&(d<bd||(d===bd&&IDX.df[v]>bf))){best=v;bd=d;bf=IDX.df[v]}}
-  return fixCache[t]=best||t}
-const rfixCache=Object.create(null);
-function fixRaw(w){if(IDX.rdf[w]||w.length<4||/^\d+$/.test(w))return w;if(w in rfixCache)return rfixCache[w];const max=w.length>=8?2:1;let best=null,bd=9,bf=0;
-  for(let L=w.length-max;L<=w.length+max;L++)for(const v of IDX.rByLen[L]||[]){if(v[0]!==w[0])continue;const d=lev(w,v,max);if(d<=max&&(d<bd||(d===bd&&IDX.rdf[v]>bf))){best=v;bd=d;bf=IDX.rdf[v]}}
-  return rfixCache[w]=best||w}
-let FIXED='',UNK=0,FIXN=0;
-function qToks(raw){const out=[];const fixed=[];UNK=0;FIXN=0;for(let w of norm(raw).split(' ')){if(!w)continue;if(STOP.has(w)||(w.length===1&&!/[0-9k]/.test(w))){fixed.push(w);continue}
-    if(!HAS.call(SYN,w)&&!IDX.df[stem(w)]){const f=fixRaw(w);if(f!==w)FIXN++;else if(!/^\d+$/.test(w)&&!IDX.df[fix(stem(w))])UNK++;w=f}fixed.push(w);const syn=HAS.call(SYN,w)?SYN[w]:null;if(syn)for(const x of syn.split(' '))out.push(stem(x));else out.push(fix(stem(w)))}FIXED=fixed.join(' ');return out}
-function prefixExpand(t){if(t.length<2)return[t];const out=[];for(const v of IDX.vocab)if(v.startsWith(t)&&v!==t){out.push(v);if(out.length>6)break}return out}
-
-function search(q,opt={}){
-  if(!IDX)return[];
-  const raw=String(q||'');let qt=qToks(raw);const qn=FIXED||norm(raw);
-  if(opt.prefix&&qt.length){const last=qt[qt.length-1];if(!IDX.df[last]){const ex=prefixExpand(last);if(ex.length)qt=qt.slice(0,-1).concat(ex.slice(0,3))}}
-  qt=[...new Set(qt)];
-  const numM=raw.match(/(?:\b(?:lc|leetcode|problem|#)\s*#?\s*(\d{1,4})\b)|^\s*(\d{1,4})\s*$/i);const num=numM?+(numM[1]||numM[2]):null;
-  const cmp=/\bvs\b|versus|difference|compare|better than|or\b/.test(raw.toLowerCase());
-  const design=/\bdesign\b/.test(qn);
-  const whatis=/^(what|explain|define|describe|how does|how do)/.test(qn);
-  const totalW=(qt.reduce((s,t)=>s+(IDX.idf[t]||0),0)+UNK*4.5+FIXN*1.5)||1;
-  const bigr=[];const qtoks=qn.split(' ').filter(w=>w&&!STOP.has(w));for(let i=0;i+1<qtoks.length;i++)bigr.push(' '+qtoks[i]+' '+qtoks[i+1]+' ');
-  const res=[];
-  const qs=new Set(toks(qn,true));const wt=t=>STOPST.has(t)?.35:1;let qW=0;for(const t of qs)qW+=wt(t);
-  for(const d of IDX.docs){const e=d.e;let s=0,cov=0;
-    let jac=0;if(qs.size){for(const v of d.vs){let inter=0,vW=0;for(const t of v)vW+=wt(t);for(const t of qs)if(v.has(t))inter+=wt(t);const j=inter/(qW+vW-inter);if(j>jac)jac=j}}
-    for(const t of qt){const f=IDX.idf[t]||0;if(!f)continue;let hit=0;if(d.q.has(t)){s+=3*f;hit=1}else if(d.w.has(t)){s+=1.4*f;hit=.7}else if(d.a.has(t)){s+=.7*f;hit=.4}cov+=hit*f}
-    if(num!=null&&e.n===num)s+=numM[1]?40:25;
-    if(jac>=.34)s+=10*jac;
-    if(s<=0)continue;
-    if(!totalW||totalW===1&&!qt.length)cov=jac*totalW;
-    for(const b of bigr)if(d.qall.includes(b))s+=2.2;
-    const tn=d.qn.trim();if(tn.length>3&&(' '+qn+' ').includes(' '+tn+' '))s+=6+tn.split(' ').length;
-    if(qn.length>5&&d.qall.includes(' '+qn+' '))s+=8;
-    if(cmp&&/\bvs\b/.test(e.t))s+=3;
-    if(design&&(e.cat==='System design classics'||e.cat==='System design problems'))s+=2.5;
-    if(whatis&&(e.k==='topic'||e.k==='cur'))s+=1.2;
-    if(e.s&&e.s===PAGE)s+=.8;
-    if(norm(e.t)===qn)s+=5;
-    if(e.k==='cur')s+=.6;else if(e.k==='topic')s+=.4;
-    if(e.k==='rx')s*=.86;else if(e.k==='quiz')s*=.8;else if(e.k==='list'||e.k==='cx')s*=.9;
-    res.push({e,s,cov:qt.length?cov/totalW:jac})}
-  res.sort((a,b)=>b.s-a.s);
-  return res.slice(0,opt.limit||8)}
-
-/* ───────────── live AI (claude.ai only) ───────────── */
-let samplePromise=null,sampleFn=null,liveOK=null;
-function getSample(){if(samplePromise)return samplePromise;
-  if(!window.claude||typeof window.claude.use!=='function')return samplePromise=Promise.resolve(null);
-  return samplePromise=window.claude.use('sample').then(s=>{sampleFn=s||null;liveOK=!!s;return sampleFn}).catch(()=>{liveOK=false;return null})}
-
-/* ───────────── UI ───────────── */
-let root,body,bank,form,ta,sug,live,chatBtn,bankBtn,opened=false,loading=null,state=store.get(),aborter=null;
-const LANG=()=>{try{const v=JSON.parse(localStorage.getItem('dsa-lang-v1'));return['py','java','cpp'].includes(v)?v:'py'}catch(e){return'py'}};
-function loadKB(){if(KB)return Promise.resolve();if(loading)return loading;
-  loading=new Promise((ok,bad)=>{if(window.ASK_KB){ok();return}const s=document.createElement('script');s.src='ask-kb.js';s.onload=ok;s.onerror=()=>bad(new Error('kb'));document.head.appendChild(s)})
-    .then(()=>{META=window.ASK_KB.meta;KB=window.ASK_KB.kb;build();
-      const n=KB.length;root.querySelector('.pask-ttl small').textContent=`${n.toLocaleString('en-US')} prepared answers · ${META.q.toLocaleString('en-US')} ways to ask`});
-  return loading}
-function mount(){
-  const fab=document.createElement('button');fab.className='pask-fab';fab.type='button';fab.setAttribute('aria-label','Ask Pip a question (Ctrl+K)');fab.title='Ask Pip (Ctrl+K)';
-  fab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 10a2.5 2.5 0 1 1 3.3 2.4c-.5.2-.8.6-.8 1.1v.5"/><circle cx="12" cy="16.6" r=".6" fill="currentColor"/><\/svg><span>Ask Pip<\/span>';
-  fab.onclick=()=>open();document.body.appendChild(fab);
-  root=document.createElement('div');root.className='pask';root.hidden=true;root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-label','Ask Pip');
-  root.innerHTML=`<div class="pask-scrim"><\/div><section class="pask-panel">
-   <header class="pask-head"><div class="pask-av" aria-hidden="true">🐥<\/div><div class="pask-ttl"><b>Ask Pip<\/b><small>Loading answers…<\/small><\/div><span class="pask-live" hidden title="Questions without a prepared answer can be sent to Claude">✨ Live AI<\/span><button class="pask-x" type="button" aria-label="Close">&times;<\/button><\/header>
-   <div class="pask-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-tab="chat">💬 Chat<\/button><button type="button" role="tab" aria-selected="false" data-tab="bank">🔎 Browse questions<\/button><button type="button" class="pask-clear" title="Clear the conversation">Clear chat<\/button><\/div>
-   <div class="pask-body" data-view="chat" aria-live="polite"><\/div>
-   <div class="pask-body" data-view="bank" hidden><\/div>
-   <form class="pask-form" autocomplete="off"><div class="pask-sug" role="listbox" hidden><\/div><textarea rows="1" placeholder="Ask anything… “LC 76”, “BFS vs DFS”" aria-label="Your question"><\/textarea><button class="pask-send" type="submit" aria-label="Send" disabled>➤<\/button><\/form>
-  <\/section>`;
-  document.body.appendChild(root);
-  body=root.querySelector('[data-view="chat"]');bank=root.querySelector('[data-view="bank"]');form=root.querySelector('.pask-form');ta=form.querySelector('textarea');sug=form.querySelector('.pask-sug');live=root.querySelector('.pask-live');
-  root.querySelector('.pask-x').onclick=close;root.querySelector('.pask-scrim').onclick=close;
-  root.querySelector('.pask-clear').onclick=()=>{state.log=[];save();renderLog()};
-  $$('.pask-tabs [data-tab]',root).forEach(b=>b.onclick=()=>tab(b.dataset.tab));
-  form.onsubmit=e=>{e.preventDefault();const v=ta.value.trim();if(!v)return;const sel=sug.querySelector('[aria-selected="true"]');ta.value='';autosize();hideSug();if(sel&&sel.dataset.id){if(!(sel.dataset.open&&goTo(BYID[sel.dataset.id])))askId(sel.dataset.id,sel.dataset.q)}else ask(v)};
-  ta.addEventListener('input',()=>{autosize();form.querySelector('.pask-send').disabled=!ta.value.trim();suggest()});
-  ta.addEventListener('keydown',e=>{
-    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit?form.requestSubmit():form.onsubmit(e);return}
-    if(!sug.hidden&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();const bs=$$('.s-go',sug);let i=bs.findIndex(b=>b.getAttribute('aria-selected')==='true');bs.forEach(b=>b.setAttribute('aria-selected','false'));i=e.key==='ArrowDown'?Math.min(bs.length-1,i+1):Math.max(-1,i-1);if(i>=0)bs[i].setAttribute('aria-selected','true')}
-    if(e.key==='Escape'&&!sug.hidden){e.stopPropagation();hideSug()}});
-  ta.addEventListener('blur',()=>setTimeout(()=>{if(!sug.contains(document.activeElement))hideSug()},250));
-  ['mousedown','pointerdown'].forEach(ev=>sug.addEventListener(ev,e=>e.preventDefault()));
-  root.addEventListener('keydown',e=>{if(e.key==='Escape'){close();return}
-    if(e.key==='Tab'){const f=$$('button:not([disabled]),a[href],textarea,input,summary',root).filter(x=>x.offsetParent);const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}});
-  root.addEventListener('click',onClick);
-  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();opened?close():open()}else if(e.key==='Escape'&&opened&&!root.contains(e.target)){close()}});
-  if(window.LangKit)window.LangKit.on(()=>$$('.ap-cw',root).forEach(drawCode));
-}
-function autosize(){ta.style.height='auto';ta.style.height=Math.min(120,ta.scrollHeight)+'px'}
-let prevFocus=null;
-function open(q){if(!root)mount();prevFocus=document.activeElement;root.hidden=false;opened=true;document.documentElement.style.overflow='hidden';
-  loadKB().then(()=>{renderLog();if(q)ask(q)}).catch(()=>{body.innerHTML='<div class="am-p"><p>Couldn’t load the answers file. Check your connection and try again.<\/p><\/div>'});
-  getSample().then(s=>{live.hidden=!s});
-  setTimeout(()=>ta.focus(),60)}
-function close(){if(!root||root.hidden)return;root.hidden=true;opened=false;document.documentElement.style.overflow='';hideSug();if(aborter)aborter.abort();if(prevFocus&&prevFocus.focus)prevFocus.focus()}
-function tab(t){$$('.pask-tabs [data-tab]',root).forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));body.hidden=t!=='chat';bank.hidden=t!=='bank';form.hidden=t!=='chat';root.querySelector('.pask-clear').hidden=t!=='chat';if(t==='bank')renderBank()}
-function save(){state.log=state.log.slice(-40);store.put(state)}
-
-/* suggestions while typing */
-let sugT=0;
-function suggest(){clearTimeout(sugT);sugT=setTimeout(()=>{const v=ta.value.trim();if(!IDX||v.length<2){hideSug();return}
-  const r=search(v,{prefix:true,limit:6}).filter(x=>x.s>2);if(!r.length){hideSug();return}
-  sug.innerHTML=`<div class="pask-sug-h">${'ontouchstart' in window?'Tap':'Click'} to open it in the app · 💬 for Pip’s answer<\/div>`+r.map(x=>{const e=x.e,go=canGo(e),w=where(e);
-    return `<div class="pask-srow"><button type="button" class="s-go" role="option" aria-selected="false" data-id="${e.i}" data-q="${esc(e.t)}"${go?' data-open="1"':''}><span>${esc(short(e.t,90))}<\/span><small>${esc(kindLabel(e))}${w&&w!==kindLabel(e)?' · '+esc(w):''}${go?' <b>Open ↗<\/b>':' · answer here'}<\/small><\/button>${go?`<button type="button" class="s-ans" data-id="${e.i}" data-q="${esc(e.t)}" title="Show Pip’s answer here" aria-label="Show Pip’s answer here">💬<\/button>`:''}<\/div>`}).join('');sug.hidden=false},90)}
-function hideSug(){if(sug){sug.hidden=true;sug.innerHTML=''}}
-const short=(s,n)=>s.length>n?s.slice(0,n-1)+'…':s;
-function kindLabel(e){return{prob:'Problem',topic:'Topic',post:'Concept',quiz:'Quiz',rx:'Reflex',cur:e.cat,list:'List',cx:'Complexity'}[e.k]||''}
-/* jump to where an answer lives in the app */
-const topicName=s=>(META&&META.topics&&s&&META.topics[s])||'';
-function inApp(e){for(const [,h] of (e&&e.L)||[]){if(!/^https?:/i.test(h)&&/^[\w-]+\.html(#[\w-]+)?$/.test(h))return h}return null}
-function canGo(e){const h=inApp(e);if(!h)return false;const m=/^([\w-]+)\.html(#.*)?$/.exec(h);return !(m[1]===PAGE&&!m[2])}
-function goHref(h){const m=/^([\w-]+)\.html(?:#([\w-]+))?$/.exec(h||'');if(!m)return false;
-  if(m[1]!==PAGE){close();location.href=h;return true}
-  if(!m[2])return false;const t=document.getElementById(m[2]);close();
-  if(!t){location.hash='#'+m[2];return true}
-  for(let d=t.parentElement;d;d=d.parentElement)if(d.tagName==='DETAILS'&&!d.open)d.open=true;
-  document.querySelectorAll('.flash-target').forEach(x=>x.classList.remove('flash-target'));
-  try{history.replaceState(null,'','#'+m[2])}catch(_){}
-  requestAnimationFrame(()=>{t.scrollIntoView({behavior:'smooth',block:'start'});void t.offsetWidth;t.classList.add('flash-target')});return true}
-function goTo(e){if(!canGo(e))return false;track('find',e.t);return goHref(inApp(e))}
-function where(e){const t=topicName(e.s);return t||(e.k==='cur'?e.cat:'')}
-
-/* conversation */
-const SMALL=[[/^(hi+|hello|hey+|yo|hola|namaste|good (morning|afternoon|evening))\b[\s!.,]*(pip)?[\s!.]*$/i,'Hi! 🐥 Ask me about a problem, a pattern, system design, Java, behavioral questions or this app. Not sure where to start? Try one of the suggestions above.'],
-  [/^(thanks?( you)?|thx|ty|cool|ok(ay)?|great|nice|awesome|got it|perfect)\b[\s!.,]*(pip)?[\s!.]*$/i,'Happy to help! Say your approach out loud before you code. That’s what I’m here for. 🐥'],
-  [/^(bye|good ?night|see you|cya)\b/i,'Good luck! Come back tomorrow to keep your streak alive. 🐥']];
-const track=(type,detail)=>{try{dispatchEvent(new CustomEvent('dojo:track',{detail:{type,detail}}))}catch(e){}};
-function ask(q){track('ask',q);for(const [re,t] of SMALL)if(re.test(q.trim())){state.log.push({r:'u',t:q},{r:'s',t});save();renderLog(true);return}
-  const r=search(q,{limit:8});state.log.push({r:'u',t:q});
-  const top=r[0];const conf=top?(top.cov>=.55&&top.s>=4.5?'hi':top.cov>=.35&&top.s>=3?'mid':'lo'):'lo';
-  if(conf==='lo')state.log.push({r:'n',q,alts:r.filter(x=>x.cov>=.25).slice(0,5).map(x=>x.e.i)});
-  else state.log.push({r:'p',id:top.e.i,q,c:conf,alts:r.slice(1,6).map(x=>x.e.i)});
-  save();renderLog(true)}
-function askId(id,label){state.log.push({r:'u',t:label||(BYID[id]&&BYID[id].t)||''});const r=search(label||'',{limit:6}).filter(x=>x.e.i!==id);state.log.push({r:'p',id,q:label,c:'hi',alts:r.slice(0,5).map(x=>x.e.i)});save();renderLog(true)}
-function welcome(){
-  const page=META&&META.topics[PAGE];
-  const here=page?KB.filter(e=>e.s===PAGE):[];
-  const pick=[];
-  if(page){const t=here.find(e=>e.k==='topic');if(t)pick.push([t.i,`What is ${t.t}?`]);const p=here.filter(e=>e.k==='prob');if(p.length)pick.push([p[(new Date().getDate())%p.length].i,`How do I solve ${p[(new Date().getDate())%p.length].t}?`]);const c=here.find(e=>e.k==='cx');if(c)pick.push([c.i,`Complexities to know for ${page}`]);const po=here.filter(e=>e.k==='post');if(po.length)pick.push([po[1%po.length].i,po[1%po.length].t])}
-  const gen=[['c-ci-approach','How do I approach a coding interview?'],['c-cmp-bfs-dfs','BFS vs DFS?'],['c-sd-chat','Design WhatsApp'],['c-ci-pattern','Which pattern should I use?'],['c-bh-star','How do I answer behavioral questions?'],['c-app-ask','What can I ask you?']];
-  for(const g of gen){if(pick.length>=6)break;if(BYID[g[0]])pick.push(g)}
-  return `<div class="am-p"><h4>Hi! I’m Pip 🐥<\/h4><p>Ask me about any problem (by name or LeetCode number), pattern, complexity, system design, Java/Spring, behavioral questions or this app. I answer instantly from ${KB.length.toLocaleString('en-US')} prepared answers.${liveOK?' If I don’t have one, I can ask Claude live.':''}<\/p>
-   <div class="am-rel"><span>${page?'Try, for '+esc(page):'Try'}<\/span><div class="am-chips">${pick.map(([id,l])=>`<button type="button" data-ask="${id}" data-q="${esc(l)}">${esc(l)}<\/button>`).join('')}<\/div><\/div><\/div>`}
-function renderLog(scroll){
-  const parts=[welcome()];
-  for(const m of state.log){
-    if(m.r==='u')parts.push(`<div class="am-u">${esc(m.t)}<\/div>`);
-    else if(m.r==='p'){const e=BYID[m.id];if(e)parts.push(answerHTML(e,m))}
-    else if(m.r==='n')parts.push(noneHTML(m));
-    else if(m.r==='ai')parts.push(aiHTML(m.t,m.q,false));
-    else if(m.r==='s')parts.push(`<div class="am-p"><p>${esc(m.t)}<\/p><\/div>`)}
-  body.innerHTML=parts.join('');$$('.ap-cw',body).forEach(drawCode);
-  if(scroll){const last=[...body.children].reverse().find(x=>x.classList.contains('am-u'));(last||body.lastElementChild).scrollIntoView({block:'start'})}}
-function relChips(ids){const es=ids.map(i=>BYID[i]).filter(Boolean);if(!es.length)return'';return `<div class="am-rel"><span>You might also ask<\/span><div class="am-chips">${es.map(e=>`<button type="button" data-ask="${e.i}" data-q="${esc(short(e.t,90))}">${esc(short(e.t,90))}<\/button>`).join('')}<\/div><\/div>`}
-function linksHTML(e,m){const ia=inApp(e);const ls=(e.L||[]).map(([l,h])=>{const ext=/^https?:/.test(h);if(h===ia&&canGo(e)){const w=topicName(e.s);return `<a class="go-app" href="${esc(h)}" data-link="1">Go to it${w?' in '+esc(w):''} →<\/a>`}return `<a href="${esc(h)}"${ext?' target="_blank" rel="noopener"':''} data-link="1">${esc(l)}${ext?' ↗':''}<\/a>`});
-  if(liveOK&&m)ls.push(`<button type="button" class="go-ai" data-ai="${esc(m.q||e.t)}" data-ctx="${e.i}">✨ Go deeper with AI<\/button>`);
-  return ls.length?`<div class="am-links">${ls.join('')}<\/div>`:''}
-function answerHTML(e,m){
-  const meta=`<div class="am-meta"><span class="ch">${esc(kindLabel(e))}<\/span>${e.sub?`<span>${esc(e.sub)}<\/span>`:e.cat&&e.k!=='cur'?`<span>${esc(e.cat)}<\/span>`:''}<\/div>`;
-  let h=`<div class="am-p">${meta}<h4>${esc(e.t)}<\/h4>`;
-  if(m&&m.c==='mid')h+=`<p class="am-note">Closest match for “${esc(short(m.q||'',60))}”. Not it? Pick one below${liveOK?' or ask the AI':''}.<\/p>`;
-  if(e.k==='prob'){
-    if(e.ask)h+=`<p>${esc(e.ask)}<\/p>`;
-    if(e.h)h+=`<div class="am-hint"><b>💡 Hint<\/b>${e.h}<\/div>`;
-    h+=`<details><summary>🧭 Full approach<\/summary><div>${e.a}<\/div><\/details>`;
-    if(e.c&&Object.keys(e.c).length)h+=`<details class="ap-cdet"><summary>💻 Code<\/summary><div class="ap-cw" data-id="${e.i}"><\/div><\/details>`}
-  else{h+=e.a;if(e.c&&Object.keys(e.c).length)h+=`<details class="ap-cdet"${e.k==='topic'?'':' open'}><summary>💻 ${esc(e.ct||'Code')}<\/summary><div class="ap-cw" data-id="${e.i}"><\/div><\/details>`}
-  h+=linksHTML(e,m);
-  const rel=[...(e.r||[]),...((m&&m.alts)||[])].filter((v,i,a)=>a.indexOf(v)===i&&v!==e.i).slice(0,5);
-  h+=relChips(rel)+'<\/div>';return h}
-function drawCode(w){const e=BYID[w.dataset.id];if(!e||!e.c)return;const avail=Object.keys(e.c);let l=window.LangKit?window.LangKit.get():LANG();if(!e.c[l])l=avail.includes('py')?'py':avail[0];
-  const L=window.LangKit;
-  const tabs=avail.length>1?(L?L.tabs(avail):`<div class="lsw">${avail.map(x=>`<button type="button" data-lang="${x}" aria-pressed="${x===l}">${{py:'Python',java:'Java',cpp:'C++'}[x]}<\/button>`).join('')}<\/div>`):'';
-  const code=L?`<div class="ap-code">${L.codeHTML(e.c[l],l)}<\/div>`:`<pre class="ap-pre">${esc(e.c[l])}<\/pre>`;
-  w.innerHTML=tabs+code;
-  if(!L)$$('.lsw button',w).forEach(b=>b.onclick=ev=>{ev.stopPropagation();try{localStorage.setItem('dsa-lang-v1',JSON.stringify(b.dataset.lang))}catch(_){}$$('.ap-cw',root).forEach(drawCode)})}
-function noneHTML(m){const alts=(m.alts||[]).map(i=>BYID[i]).filter(Boolean);
-  let h=`<div class="am-p"><h4>I don’t have a prepared answer for that yet<\/h4>`;
-  if(liveOK)h+=`<p>I can ask Claude for a fresh answer.<\/p><div class="am-links"><button type="button" class="go-ai" data-ai="${esc(m.q)}">✨ Ask Claude live<\/button><\/div>`;
-  else h+=`<p>Try rephrasing with a problem name, a LeetCode number or a key term (e.g. “sliding window”, “consistent hashing”). You can also browse the <b>Question bank<\/b>.<\/p>`;
-  if(alts.length)h+=`<div class="am-rel"><span>Closest prepared answers<\/span><div class="am-chips">${alts.map(e=>`<button type="button" data-ask="${e.i}" data-q="${esc(short(e.t,90))}">${esc(short(e.t,90))}<\/button>`).join('')}<\/div><\/div>`;
-  return h+'<\/div>'}
-
-/* markdown-lite for AI text */
-function mdLite(src){const lines=String(src).split('\n');let out='',i=0;
-  const inl=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1<\/code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1<\/b>').replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<i>$2<\/i>');
-  while(i<lines.length){const l=lines[i];
-    if(/^```/.test(l)){const buf=[];i++;while(i<lines.length&&!/^```/.test(lines[i]))buf.push(lines[i++]);i++;out+=`<pre class="ap-pre">${esc(buf.join('\n'))}<\/pre>`;continue}
-    if(/^\s*[-*•] /.test(l)){let items='';while(i<lines.length&&/^\s*[-*•] /.test(lines[i]))items+=`<li>${inl(lines[i++].replace(/^\s*[-*•] /,''))}<\/li>`;out+=`<ul>${items}<\/ul>`;continue}
-    if(/^\s*\d+[.)] /.test(l)){let items='';while(i<lines.length&&/^\s*\d+[.)] /.test(lines[i]))items+=`<li>${inl(lines[i++].replace(/^\s*\d+[.)] /,''))}<\/li>`;out+=`<ol>${items}<\/ol>`;continue}
-    if(/^#{1,4} /.test(l)){out+=`<p><b>${inl(l.replace(/^#+ /,''))}<\/b><\/p>`;i++;continue}
-    if(!l.trim()){i++;continue}
-    const buf=[];while(i<lines.length&&lines[i].trim()&&!/^(```|\s*[-*•] |\s*\d+[.)] |#{1,4} )/.test(lines[i]))buf.push(lines[i++]);out+=`<p>${inl(buf.join(' '))}<\/p>`}
-  return out}
-function aiHTML(text,q,pending){return `<div class="am-p ai"><div class="am-meta"><span class="ch ai-tag">✨ Claude · live answer<\/span><\/div>${pending&&!text?'<span class="am-typing" aria-label="Thinking"><i><\/i><i><\/i><i><\/i><\/span>':mdLite(text)}<\/div>`}
-async function askAI(q,ctxId){const s=await getSample();if(!s)return;track('ai',q);
-  const r=search(q,{limit:3}).map(x=>x.e);if(ctxId&&BYID[ctxId]&&!r.includes(BYID[ctxId]))r.unshift(BYID[ctxId]);
-  const notes=r.slice(0,3).map((e,i)=>`[${i+1}] ${e.t}\n${plainText((e.h||'')+' '+e.a).slice(0,1400)}`).join('\n\n');
-  const hist=state.log.slice(-6).filter(m=>m.r==='u'||m.r==='ai').map(m=>(m.r==='u'?'Learner: ':'Pip: ')+String(m.t).slice(0,600)).join('\n');
-  const lang={py:'Python',java:'Java',cpp:'C++'}[window.LangKit?window.LangKit.get():LANG()];
-  const prompt=`You are Pip, a friendly rubber-duck tutor inside "Rubber Duck Dojo", an interview-prep app for DSA and system design aimed at SDE-2 roles. Answer the learner's question accurately and concisely: under about 250 words unless code is needed. Use short paragraphs, "- " bullet lists and fenced code blocks; when you show code, use ${lang}. State time and space complexity for algorithms. If the reference notes below are relevant, build on them without mentioning them. If the question is unrelated to programming, interviews or careers, answer briefly and steer back to studying.\n\nReference notes from the app:\n${notes||'(none)'}\n\nRecent conversation:\n${hist||'(none)'}\n\nQuestion: ${q}`;
-  state.log.push({r:'u',t:q});save();renderLog(true);
-  const holder=document.createElement('div');holder.innerHTML=aiHTML('',q,true);const card=holder.firstElementChild;body.appendChild(card);card.scrollIntoView({block:'nearest'});
-  if(aborter)aborter.abort();aborter=new AbortController();let text='';
-  try{const res=await s(prompt,{cache:false,signal:aborter.signal,onText:({text:t})=>{text=t;card.innerHTML=aiHTML(t,q,true).replace(/^<div class="am-p ai">|<\/div>$/g,'')}});
-    text=(res&&res.text)||text;state.log.push({r:'ai',t:text,q});save();renderLog(false);body.lastElementChild.scrollIntoView({block:'nearest'})}
-  catch(err){const code=err&&err.code;let msg='Live AI isn’t available right now.';
-    if(code==='rate_limited')msg='Live AI is busy. Please try again in a minute.';else if(code==='not_granted'){msg='Live AI wasn’t allowed, so I’ll stick to prepared answers.';liveOK=false;live.hidden=true}
-    else if(err&&err.name==='AbortError')msg='Stopped.';
-    if(err&&err.text){state.log.push({r:'ai',t:err.text,q});save();renderLog(false)}else card.innerHTML=`<p class="am-note">${esc(msg)}<\/p>`}}
-function onClick(e){
-  const a=e.target.closest('[data-ask]');if(a&&!a.closest('.pask-list')){e.preventDefault();if(a.tagName==='LI'){askId(a.dataset.ask,a.textContent.replace(/\s+/g,' ').trim().split(/ (LeetCode|HLD|LLD)/)[0])}else askId(a.dataset.ask,a.dataset.q);return}
-  const s=e.target.closest('.pask-sug button');if(s){e.preventDefault();const id=s.dataset.id;ta.value='';autosize();form.querySelector('.pask-send').disabled=true;hideSug();if(s.classList.contains('s-go')&&s.dataset.open&&goTo(BYID[id]))return;askId(id,s.dataset.q);return}
-  const ai=e.target.closest('[data-ai]');if(ai){askAI(ai.dataset.ai,ai.dataset.ctx);return}
-  const lk=e.target.closest('a[data-link]');if(lk){const h=lk.getAttribute('href');
-    const fm=/^#film-([\w-]+)/.exec(h);if(fm){e.preventDefault();close();if(window.Cinema&&window.Cinema.films[fm[1]])window.Cinema.open(fm[1]);else location.href='index.html#film-'+fm[1];return}
-    if(!/^https?:/i.test(h)){e.preventDefault();if(!goHref(h))location.href=h}
-    return}
-}
-
-/* browse questions */
-const KINDS=[['prob','Problems'],['quiz','Quiz'],['post','Concepts'],['rx','Reflexes'],['topic','Topics'],['cur','Interview guides'],['','Everything']];
-const kindOf=e=>e.k==='list'||e.k==='cx'?'topic':e.k;
-const diffOf=e=>{const m=/\b(Easy|Medium|Hard)\b/.exec(e.sub||'');return m?m[1]:''};
-let bKind='prob',bTopic='all',bDiff='',bQ='',bankN=80;
-function renderBank(){if(!KB){bank.innerHTML='<p>Loading…<\/p>';return}
-  if(!bank.dataset.ready){bank.dataset.ready=1;
-    const kc={};KB.forEach(e=>{const k=kindOf(e);kc[k]=(kc[k]||0)+1});kc['']=KB.length;
-    const T=META.topics,dsa=Object.keys(T).filter(k=>!k.startsWith('sd-')),sd=Object.keys(T).filter(k=>k.startsWith('sd-'));
-    bank.innerHTML=`<div class="pask-bank-top"><input type="search" placeholder="Search: “two sum”, “LC 76”, “LRU”, “parking lot”…" aria-label="Search questions">
-      <div class="pask-cats" data-f="k" role="group" aria-label="Type">${KINDS.map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${k===bKind}">${l} <i>${(kc[k]||0).toLocaleString('en-US')}<\/i><\/button>`).join('')}<\/div>
-      <div class="pask-frow"><select aria-label="Topic"><option value="all">All topics<\/option><optgroup label="DSA">${dsa.map(k=>`<option value="${k}">${esc(T[k])}<\/option>`).join('')}<\/optgroup><optgroup label="System design">${sd.map(k=>`<option value="${k}">${esc(T[k])}<\/option>`).join('')}<\/optgroup>${T[PAGE]?'':''}<\/select>
-      <div class="pask-cats pask-diff" data-f="d" role="group" aria-label="Difficulty">${[['','Any'],['Easy','Easy'],['Medium','Medium'],['Hard','Hard']].map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${k===bDiff}" class="${k.toLowerCase()}">${l}<\/button>`).join('')}<\/div><\/div>
-      <span class="pask-count"><\/span><\/div><div class="pask-list"><\/div>`;
-    const inp=$('input',bank);inp.addEventListener('input',()=>{bQ=inp.value;bankN=80;drawBank()});
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const f=$('.b-go',bank);if(f)f.click()}});
-    $('select',bank).addEventListener('change',e=>{bTopic=e.target.value;bankN=80;drawBank()});
-    $$('.pask-cats',bank).forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(g.dataset.f==='k')bKind=b.dataset.v;else bDiff=b.dataset.v;$$('button',g).forEach(x=>x.setAttribute('aria-pressed',x===b));bankN=80;drawBank()}));
-    bank.addEventListener('click',e=>{const m=e.target.closest('.pask-more');if(m){bankN+=200;drawBank();return}
-      const g=e.target.closest('.b-go');if(g){const en=BYID[g.dataset.id];if(g.dataset.open&&goTo(en))return;tab('chat');askId(g.dataset.id,g.dataset.q);return}
-      const an=e.target.closest('.b-ans');if(an){tab('chat');askId(an.dataset.id,an.dataset.q)}})}
-  drawBank()}
-const TORD=()=>Object.keys(META.topics);
-function drawBank(){const tord=TORD();const tr=s=>{const i=tord.indexOf(s);return i<0?99:i};
-  const diffOn=bKind==='prob'||bKind==='';$('.pask-diff',bank).hidden=!diffOn;const dsel=diffOn?bDiff:'';
-  const ok=e=>(!bKind||kindOf(e)===bKind)&&(bTopic==='all'||e.s===bTopic)&&(!dsel||diffOf(e)===dsel);
-  let list;const q=bQ.trim();
-  if(q.length>1){const r=search(q,{limit:600,prefix:true}).filter(x=>ok(x.e));const cut=Math.max(1.5,r.length?r[0].s*.2:0);list=r.filter(x=>x.s>=cut).map(x=>x.e)}
-  else list=KB.map((e,i)=>[e,i]).filter(([e])=>ok(e)).sort((a,b)=>tr(a[0].s)-tr(b[0].s)||catRank(a[0].cat)-catRank(b[0].cat)||a[1]-b[1]).map(x=>x[0]);
-  $('.pask-count',bank).textContent=`${list.length.toLocaleString('en-US')} question${list.length===1?'':'s'}${q.length>1?' match':''} · tap one to open it in the app, 💬 for Pip’s answer`;
-  let h='',cur=null;
-  for(const e of list.slice(0,bankN)){
-    if(q.length<2){const g=topicName(e.s)||e.cat;if(g!==cur){cur=g;h+=`<h5>${esc(g)}<\/h5>`}}
-    const go=canGo(e),d=diffOf(e);
-    const title=e.k==='topic'?`What is ${e.t}?`:e.k==='rx'?`When I see “${short(e.t,100)}”, what do I do?`:e.t;
-    const meta=[kindLabel(e)!==e.cat||e.k!=='cur'?kindLabel(e):'',e.n?'LeetCode '+e.n:'',q.length>1?where(e):''].filter(Boolean);
-    h+=`<div class="pask-row"><button type="button" class="b-go" data-id="${e.i}" data-q="${esc(short(title,120))}"${go?' data-open="1"':''}><span>${esc(short(title,150))}<\/span><small>${d?`<em class="${d.toLowerCase()}">${d}<\/em>`:''}${esc(meta.join(' · '))}${go?' <b>Open ↗<\/b>':' · answer in chat'}<\/small><\/button>${go?`<button type="button" class="b-ans" data-id="${e.i}" data-q="${esc(short(title,120))}" title="Show Pip’s answer" aria-label="Show Pip’s answer">💬<\/button>`:''}<\/div>`}
-  if(list.length>bankN)h+=`<button type="button" class="pask-more">Show more (${(list.length-bankN).toLocaleString('en-US')} left)<\/button>`;
-  $('.pask-list',bank).innerHTML=h||`<p class="am-note">Nothing matches${bKind||bTopic!=='all'||dsel?' with these filters':''}. Try another word${bKind!==''?', or pick “Everything”':''}.<\/p>`}
-const CAT_ORDER=['Coding interview','DSA topics','DSA problems','DSA concepts','Algorithms','Complexity','System design','System design classics','System design topics','System design problems','System design concepts','OOP & LLD','Java & Spring','Behavioral','Using this app','Reflexes: see this → do that','Quiz questions'];
-const catRank=c=>{const i=CAT_ORDER.indexOf(c);return i<0?99:i};
-function browse(q){open();loadKB().then(()=>{tab('bank');const inp=$('input',bank);if(q!=null&&inp){inp.value=q;bQ=q;drawBank()}setTimeout(()=>inp&&inp.focus(),80)})}
-function headerBtn(){const top=$('.top-in');if(!top||$('.pask-hbtn',top))return;
-  const b=document.createElement('button');b.type='button';b.className='pask-hbtn';b.title='Browse & search questions (/)';b.setAttribute('aria-label','Browse and search questions');
-  b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><\/svg><span>Browse<\/span>';b.onclick=()=>browse();
-  const after=$('.saved-btn',top)||$('#svTop',top)||$('.home-btn',top);if(after)after.after(b);else top.prepend(b)}
-
-/* boot */
-function boot(){mount();headerBtn();setTimeout(headerBtn,600);setTimeout(headerBtn,2000);
-  document.addEventListener('keydown',e=>{if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target;if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;e.preventDefault();browse()});
-  if(/^#browse$/.test(location.hash))browse();if(/^#ask(=|$)/.test(location.hash)){const q=decodeURIComponent(location.hash.slice(5)||'');open(q||undefined)}
-  // warm the AI capability check quietly so the badge is ready
-  setTimeout(getSample,1500);
-  window.addEventListener('hashchange',()=>{if(/^#ask(=|$)/.test(location.hash)){const q=decodeURIComponent(location.hash.slice(5)||'');try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}open(q||undefined)}})}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
-window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
-})();
-</script><!--ask-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
