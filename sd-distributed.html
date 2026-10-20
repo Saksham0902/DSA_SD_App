@@ -3238,5 +3238,59 @@ window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},searc
 })();
 </script><!--ask-end-->
 <!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
+<!--cards-start--><style>.prob dl.think.tk{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;background:none;padding:0;margin:10px 0}
+.prob dl.think.tk .tk-s{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px 10px;display:grid;gap:3px;align-content:start;min-width:0}
+.prob dl.think.tk .tk-s+.tk-s::before{content:"→";position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:var(--surface);color:var(--ink-3);font:800 11px/16px var(--body,inherit);text-align:center;z-index:1}
+.prob dl.think.tk dt{display:flex;align-items:center;gap:6px;margin:0;font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--blue)}
+.prob dl.think.tk dt i{font-style:normal;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:var(--surface);font:800 12px var(--display,inherit);letter-spacing:0}
+.prob dl.think.tk dt small{margin-left:auto;font:700 10.5px var(--mono,monospace);color:var(--ink-3)}
+.prob dl.think.tk dd{margin:0;font-size:14px;line-height:1.45;color:var(--ink)}
+.prob dl.think.tk .tk-s:nth-child(2) dt{color:var(--mint)}.prob dl.think.tk .tk-s:nth-child(2) dt i{background:var(--mint)}
+.prob dl.think.tk .tk-s:nth-child(3) dt{color:var(--amber)}.prob dl.think.tk .tk-s:nth-child(3) dt i{background:var(--amber)}
+.prob dl.think.tk .tk-s:nth-child(4) dt{color:var(--rose)}.prob dl.think.tk .tk-s:nth-child(4) dt i{background:var(--rose)}
+@media (max-width:640px){.prob dl.think.tk{grid-template-columns:1fr;gap:10px}.prob dl.think.tk .tk-s+.tk-s::before{content:"↓";left:50%;top:-13px;transform:translateX(-50%)}}
+.cxv{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:2px}
+.cxv-k{font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+.cxv-c{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--cxc);background:color-mix(in srgb,var(--cxc) 12%,var(--surface));border-radius:10px;padding:3px 9px 3px 7px}
+.cxv-c b{font:800 13.5px var(--mono,monospace);color:var(--ink)}
+.cxv-c small{font:700 10.5px var(--body,inherit);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.cxv-m{display:inline-grid;grid-template-columns:repeat(6,5px);gap:2px;align-items:end;height:14px}
+.cxv-m i{display:block;border-radius:2px;background:var(--line)}
+.cxv-m i:nth-child(1){height:4px}.cxv-m i:nth-child(2){height:6px}.cxv-m i:nth-child(3){height:8px}.cxv-m i:nth-child(4){height:10px}.cxv-m i:nth-child(5){height:12px}.cxv-m i:nth-child(6){height:14px}
+.cxv-m i.on{background:var(--cxc)}
+.cxv-c.bf{opacity:.75;border-style:dashed}
+.cxv-ar{color:var(--ink-3);font-weight:800}
+.cxv-s{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);border-radius:10px;padding:3px 9px;font:700 12.5px var(--mono,monospace);color:var(--ink-2)}
+.cxv-s small{font:700 10.5px var(--body,inherit);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.cxv-note{flex-basis:100%;font-size:12.5px;color:var(--ink-3);font-weight:600}</style><script>(function(){
+const ICON={notice:'👀',tool:'🧰',order:'🔢',trap:'⚠️',watch:'👁',why:'💡',plan:'🗺',state:'🧠',check:'✅'};
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function strip(dl){if(dl.classList.contains('tk'))return;const dts=[...dl.children].filter(x=>x.tagName==='DT');if(dts.length<2||dts.length>4)return;
+  const steps=dts.map((dt,i)=>{const dd=dt.nextElementSibling&&dt.nextElementSibling.tagName==='DD'?dt.nextElementSibling:null;const w=document.createElement('div');w.className='tk-s';
+    const k=dt.textContent.trim().toLowerCase();dt.innerHTML=`<i aria-hidden="true">${i+1}</i>${esc(dt.textContent.trim())}`;w.append(dt);if(dd)w.append(dd);return w});
+  dl.innerHTML='';steps.forEach(s=>dl.append(s));dl.style.setProperty('--n',steps.length);dl.classList.add('tk')}
+/* ---- complexity ---- */
+const COL=['#139E80','#2BA982','#3B6FE0','#7C62D9','#E08A1C','#D93D6E'],NAME=['constant','logarithmic','linear','n log n','polynomial','exponential'];
+function rank(t){const s=t.replace(/\s+/g,'');if(/^O\(log/.test(s)&&!/\)[^)]*[a-zA-Z]/.test(s.replace(/^O\(log[^)]*\)?/,'')))return 1;if(/!|ⁿ|\^n|2\^|ᴸ|C\(n,k\)|[0-9]ⁿ/.test(s))return 5;if(/[²³⁴]|\^2|\^3/.test(s))return 4;
+  const noLog=s.replace(/log\([^)]*\)|log[a-zA-Z]+|log/g,'');const vars=noLog.match(/[a-zA-Z]+/g)||[];const real=vars.filter(v=>!/^(O|total|characters|length|output|size|len|each|per|op|max|min)$/.test(v));
+  if(/log/.test(s))return real.length?3:1;if(!real.length)return /total|length|len|characters|output|size/.test(s)?2:0;
+  if(/^(R·C|R\*C|V\+E|m\+n|n\+m|\|s\|\+\|t\|)$/.test(noLog.replace(/^O\(|\)$/g,'')))return 2;
+  if(/[·*×]/.test(noLog)){const f=noLog.replace(/^O\(|\)$/g,'').split(/[·*×]/).filter(x=>/[a-zA-Z]/.test(x));return f.length>=2?4:2}return 2}
+function terms(text){const out=[];const re=/O\(((?:[^()]|\([^()]*\))*)\)/g;let m;while((m=re.exec(text))){const after=text.slice(re.lastIndex,re.lastIndex+24).toLowerCase();
+  const kind=/^\s*(time|build|query|per|each|calls|both|worst)/.test(after)?'time':/^\s*(space|extra)/.test(after)?'space':/^\s*stack/.test(after)?'stack':/^\s*queue/.test(after)?'queue':'';out.push({t:'O('+m[1]+')',kind})}return out}
+function chip(t,lab,bf){const r=rank(t);return `<span class="cxv-c${bf?' bf':''}" style="--cxc:${COL[r]}" title="${NAME[r]}"><span class="cxv-m" aria-hidden="true">${[0,1,2,3,4,5].map(i=>`<i class="${i<=r?'on':''}"></i>`).join('')}</span><b>${esc(t)}</b><small>${esc(lab)}</small></span>`}
+function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.cxv)return;const sp=[...meta.children].find(x=>/^\s*Complexity/.test(x.textContent));if(!sp)return;
+  const text=sp.textContent.replace(/^\s*Complexity\s*/,'');const T=terms(text);if(!T.length)return;meta.dataset.cxv=1;
+  const main=T[0],rest=T.slice(1);const bfx=card.querySelector('.qx-r:not(.key)');const bft=bfx?terms(bfx.textContent).filter(x=>x.kind!=='space')[0]:null;
+  let h=`<span class="cxv-k">Complexity</span>`;
+  if(bft&&rank(bft.t)>rank(main.t))h+=chip(bft.t,'brute force',true)+`<span class="cxv-ar" aria-hidden="true">→</span>`;
+  h+=chip(main.t,main.kind&&main.kind!=='time'?main.kind:'time');
+  for(const r of rest)h+=`<span class="cxv-s"><small>${esc(r.kind||'space')}</small>${esc(r.t)}</span>`;
+  const plain=text.replace(/O\(((?:[^()]|\([^()]*\))*)\)/g,'').replace(/\b(time|space|stack|extra|and|both ways)\b/g,'').replace(/[,;≈\s]+/g,'');
+  if(plain.length>2)h+=`<span class="cxv-note">${esc(text)}</span>`;
+  const box=document.createElement('div');box.className='cxv';box.innerHTML=h;sp.hidden=true;sp.after(box)}
+function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
 </body>
 </html>

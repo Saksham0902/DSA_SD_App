@@ -3731,5 +3731,210 @@ window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},searc
 })();
 </script><!--ask-end-->
 <!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
+<!--exv-start--><style>.exv{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:8px 0 2px;padding:10px 10px 8px;border-radius:10px;background:var(--surface);border:1px dashed var(--line);overflow-x:auto;min-width:0}
+.exv-in,.exv-out{display:grid;gap:8px;min-width:0;justify-items:start}
+.exv-arrow{font:800 22px var(--display,inherit);color:var(--ink-3);flex:none}
+.exv-v{display:grid;gap:3px;justify-items:start;min-width:0}
+.exv-v>em{font:700 11px var(--mono,monospace);font-style:normal;color:var(--ink-3)}
+.exv-row{display:flex;gap:3px;align-items:flex-start}
+.exv-c{display:grid;justify-items:center;gap:1px}
+.exv-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid var(--line);border-radius:7px;background:var(--paper);font:700 12.5px var(--mono,monospace);color:var(--ink);white-space:nowrap}
+.exv-c small{font:600 10px var(--mono,monospace);color:var(--ink-3)}
+.exv-c.hl b{background:var(--mint-soft);border-color:var(--mint)}
+.exv-c.mk b{background:var(--blue-soft);border-color:var(--blue)}
+.exv-c.ch b{min-width:24px;padding:0 3px}
+.exv-ar{color:var(--ink-3);font-weight:800;align-self:center;padding:0 1px;font-size:13px}
+.exv-null{font:700 12px var(--mono,monospace);color:var(--ink-3);align-self:center}
+.exv-chip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--paper);font:700 12.5px var(--mono,monospace)}
+.exv-chip i{font-style:normal;color:var(--ink-3);font-weight:600}
+.exv-big{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--ink);border-radius:10px;padding:4px 12px;background:var(--paper);font:800 16px var(--mono,monospace);box-shadow:2px 2px 0 var(--ink)}
+.exv-big.exv-yes{border-color:var(--mint);box-shadow:2px 2px 0 var(--mint);color:var(--ink)}.exv-big.exv-no{border-color:var(--rose);box-shadow:2px 2px 0 var(--rose);color:var(--ink)}
+.exv-words{display:flex;flex-wrap:wrap;gap:4px;max-width:520px}
+.exv-words span{border:1.5px solid var(--line);border-radius:7px;padding:2px 8px;background:var(--paper);font:700 12.5px var(--mono,monospace)}
+.exv-groups{display:flex;flex-wrap:wrap;gap:6px}
+.exv-groups>div{display:flex;flex-wrap:wrap;gap:3px;border:1.5px dashed var(--ink-3);border-radius:10px;padding:4px}
+.exv-groups span{border:1.5px solid var(--line);border-radius:7px;padding:1px 7px;background:var(--paper);font:700 12px var(--mono,monospace)}
+.exv-groups>div:nth-child(5n+1){border-color:#5B74E8}.exv-groups>div:nth-child(5n+2){border-color:#2BA982}.exv-groups>div:nth-child(5n+3){border-color:#E09A2B}.exv-groups>div:nth-child(5n+4){border-color:#C9568A}.exv-groups>div:nth-child(5n){border-color:#7C62D9}
+table.exv-g{border-collapse:separate;border-spacing:2px}
+table.exv-g td{min-width:24px;height:24px;padding:0 3px;text-align:center;border:1.5px solid var(--line);border-radius:5px;background:var(--paper);font:700 11.5px var(--mono,monospace)}
+table.exv-g td.on{background:var(--mint-soft);border-color:var(--mint)}
+table.exv-g td.w{background:var(--blue-soft);border-color:var(--blue)}
+table.exv-g th{font:600 9.5px var(--mono,monospace);color:var(--ink-3);padding:0 2px}
+svg.exv-s{display:block;max-width:100%;height:auto;overflow:visible}
+svg.exv-s .e{stroke:var(--ink-3);stroke-width:1.5;fill:none}
+svg.exv-s circle{fill:var(--paper);stroke:var(--ink-2);stroke-width:1.5}
+svg.exv-s .mk circle{fill:var(--blue-soft);stroke:var(--blue);stroke-width:2}
+svg.exv-s .hl circle{fill:var(--mint-soft);stroke:var(--mint);stroke-width:2}
+svg.exv-s text{font:700 11px var(--mono,monospace);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+svg.exv-s .w{font-size:10px;fill:var(--ink-2);paint-order:stroke;stroke:var(--surface);stroke-width:3.5px}
+svg.exv-s .ax{stroke:var(--line);stroke-width:1}
+svg.exv-s .tk{font:600 9.5px var(--mono,monospace);fill:var(--ink-3)}
+svg.exv-s .col{fill:var(--blue)}
+svg.exv-s .iv{fill:var(--blue-soft);stroke:var(--blue);stroke-width:1.5}
+svg.exv-s .iv.hl{fill:var(--mint-soft);stroke:var(--mint)}
+svg.exv-s .pt{fill:var(--blue)}svg.exv-s .pt.hl{fill:var(--mint);stroke:var(--surface);stroke-width:2}
+svg.exv-s .cyc{stroke:var(--rose);stroke-width:1.8;fill:none;stroke-dasharray:4 3}</style><script>(function(){
+const PAGE=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function splitTop(s){const out=[];let d=0,q=null,cur='';for(const ch of s){if(q){cur+=ch;if(ch===q)q=null;continue}if(ch==='"'||ch==="'")q=ch;if('[({'.includes(ch))d++;if('])}'.includes(ch))d--;if(ch===','&&d===0){out.push(cur);cur='';continue}cur+=ch}out.push(cur);return out.map(x=>x.trim()).filter(Boolean)}
+function val(v){v=v.trim();try{return JSON.parse(v)}catch(e){}const nm=/^(-?\d+(?:\.\d+)?)\s*\([^)]*\)$/.exec(v);if(nm)return +nm[1];try{return JSON.parse(v.replace(/\bNone\b/g,'null').replace(/\bTrue\b/g,'true').replace(/\bFalse\b/g,'false').replace(/'/g,'"'))}catch(e){return undefined}}
+function parseIn(s){const vars=[],notes={};for(const p of splitTop(s)){const m=/^([A-Za-z_]\w*)\s*=\s*([\s\S]+)$/.exec(p);if(m){const v=val(m[2]);if(v!==undefined)vars.push([m[1],v]);continue}
+  const c=/tail connects to index (\d+)/.exec(p);if(c)notes.cycle=+c[1];const sh=/shared tail starts at (-?\d+)/.exec(p);if(sh)notes.shared=+sh[1]}return{vars,notes}}
+const isNum=x=>typeof x==='number';
+const flat=v=>Array.isArray(v)&&v.every(x=>!Array.isArray(x)&&(x===null||typeof x!=='object'));
+const rect=v=>Array.isArray(v)&&v.length&&v.every(r=>Array.isArray(r)&&r.length===v[0].length&&r.every(x=>!Array.isArray(x)));
+const TREE=/^(root|subRoot|root1|root2|tree)$/,LIST=/^(head|l1|l2|list1|list2|listA|listB)$/,COLS=/^(height|heights|prices|temperatures|piles|weights)$/;
+const ADJ=/^(graph|adjList)$/,EDGE=/^(edges|prerequisites|times|flights|connections|roads)$/,IV=/^(intervals|newInterval|firstList|secondList|meetings)$/;
+/* ---------- primitives ---------- */
+function tiles(a,{idx=true,mark=new Set(),hl=new Set(),ch=false}={}){return `<div class="exv-row">${a.map((x,i)=>`<span class="exv-c${ch?' ch':''}${hl.has(i)?' hl':mark.has(i)?' mk':''}"><b>${x===null?'∅':esc(x)}</b>${idx?`<small>${i}</small>`:''}</span>`).join('')}</div>`}
+function chain(a,{cycle=null,hl=new Set()}={}){if(!a.length)return '<span class="exv-null">∅ empty list</span>';
+  let h=a.map((x,i)=>`<span class="exv-c${hl.has(i)?' hl':cycle===i?' mk':''}"><b>${esc(x)}</b><small>${cycle===i?'↺ '+i:''}</small></span>`).join('<span class="exv-ar">→</span>');
+  h+=cycle!=null?`<span class="exv-ar" style="color:var(--rose)">↩ to ${cycle}</span>`:'<span class="exv-ar">→</span><span class="exv-null">∅</span>';return `<div class="exv-row">${h}</div>`}
+function cols(a){const W=Math.max(120,a.length*24),H=86,max=Math.max(1,...a.map(x=>Math.abs(+x||0))),bw=16;
+  let h=`<svg class="exv-s" viewBox="0 -4 ${W} ${H+18}" style="width:${W}px"><line class="ax" x1="0" x2="${W}" y1="${H}" y2="${H}"/>`;
+  a.forEach((v,i)=>{const x=i*24+4,hh=Math.max(v?2:0,(H-14)*Math.abs(v)/max),y=H-hh;h+=`<rect class="col" x="${x}" y="${y}" width="${bw}" height="${hh}" rx="3"/><text class="tk" x="${x+bw/2}" y="${y-6}">${esc(v)}</text><text class="tk" x="${x+bw/2}" y="${H+9}">${i}</text>`});
+  return h+'</svg>'}
+function grid(m,{hl=null}={}){const C=m[0].length;const vs=new Set(m.flat().map(String));const bin=[...vs].every(x=>x==='0'||x==='1');let h='<table class="exv-g"><tr><th></th>'+m[0].map((_,c)=>`<th>${c}</th>`).join('')+'</tr>';
+  m.forEach((r,ri)=>{h+=`<tr><th>${ri}</th>`+r.map((x,c)=>{const s=String(x);const cls=(hl&&hl.has(ri+','+c))?'w':(bin&&s==='1')?'on':'';return `<td class="${cls}">${esc(s==='.'?'·':s)}</td>`}).join('')+'</tr>'});return h+'</table>'}
+function tree(vals,{mark=new Set(),hl=new Set()}={}){if(!vals.length||vals[0]===null)return '<span class="exv-null">∅ empty tree</span>';
+  const nodes=vals.map((v,i)=>v===null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
+  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
+  const W=x*36+10,H=(maxd+1)*46+8,pos=i=>[P[i][0]*36+23,P[i][1]*46+20];
+  let h=`<svg class="exv-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line class="e" x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
+  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);h+=`<g class="${hl.has(n.v)?'hl':mark.has(n.v)?'mk':''}"><circle cx="${a}" cy="${b}" r="13"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
+  return h+'</svg>'}
+function graph(edges,{n=null,dir=false,flip=false,hl=new Set(),ids:extra=[]}={}){const ids=new Set(extra);if(n!=null&&n<=16)for(let i=0;i<n;i++)ids.add(i);
+  for(const e of edges){ids.add(e[0]);ids.add(e[1])}const L=[...ids].sort((a,b)=>a-b);if(L.length>16||!L.length)return null;
+  const R=L.length<=3?40:L.length<=6?58:76,cx=R+22,cy=R+20,P={};L.forEach((id,i)=>{const a=-Math.PI/2+i*2*Math.PI/L.length;P[id]=[cx+R*Math.cos(a),cy+R*Math.sin(a)]});
+  const W=2*cx,H=2*cy;let h=`<svg class="exv-s" viewBox="0 0 ${W} ${H}" style="width:${W}px"><defs><marker id="exvA" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink-3)"/></marker></defs>`;
+  for(const e of edges){let [a,b]=e;if(flip)[a,b]=[b,a];const [x1,y1]=P[a],[x2,y2]=P[b];const dx=x2-x1,dy=y2-y1,l=Math.hypot(dx,dy)||1,ux=dx/l,uy=dy/l;
+    h+=`<line class="e" x1="${x1+ux*14}" y1="${y1+uy*14}" x2="${x2-ux*(dir?16:14)}" y2="${y2-uy*(dir?16:14)}"${dir?' marker-end="url(#exvA)"':''}/>`;
+    if(e.length>2)h+=`<text class="w" x="${(x1+x2)/2-uy*8}" y="${(y1+y2)/2+ux*8}">${esc(e[2])}</text>`}
+  for(const id of L){const [x,y]=P[id];h+=`<g class="${hl.has(id)?'hl':''}"><circle cx="${x}" cy="${y}" r="12"/><text x="${x}" y="${y}">${esc(id)}</text></g>`}return h+'</svg>'}
+function ivals(rows){const all=rows.flatMap(r=>r.list.flat());const lo=Math.min(...all),hi=Math.max(...all);if(!isFinite(lo))return '';const span=Math.max(1,hi-lo),W=Math.min(420,Math.max(180,span*22)),sx=v=>12+(v-lo)/span*(W-24);
+  let y=4,h='';for(const r of rows){if(r.label){h+=`<text class="tk" x="0" y="${y+6}" style="text-anchor:start">${esc(r.label)}</text>`;y+=12}
+    const lanes=[];for(const [a,b] of r.list){let li=lanes.findIndex(e=>e<a);if(li<0){lanes.push(b);li=lanes.length-1}else lanes[li]=b;
+      h+=`<rect class="iv${r.hl?' hl':''}" x="${sx(a)}" y="${y+li*16}" width="${Math.max(3,sx(b)-sx(a))}" height="12" rx="4"/><text class="tk" x="${sx(a)}" y="${y+li*16+6}" style="text-anchor:end" dx="-2">${a}</text><text class="tk" x="${sx(b)}" y="${y+li*16+6}" style="text-anchor:start" dx="2">${b}</text>`}
+    y+=Math.max(1,lanes.length)*16+6}
+  h+=`<line class="ax" x1="12" x2="${W-12}" y1="${y}" y2="${y}"/>`;const step=Math.max(1,Math.ceil(span/10));for(let v=Math.ceil(lo/step)*step;v<=hi;v+=step)h+=`<text class="tk" x="${sx(v)}" y="${y+9}">${v}</text>`;
+  return `<svg class="exv-s" viewBox="-14 0 ${W+28} ${y+16}" style="width:${W+28}px">${h}</svg>`}
+function scatter(pts,hl){const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]),lx=Math.min(0,...xs),hx=Math.max(0,...xs),ly=Math.min(0,...ys),hy=Math.max(0,...ys),sp=Math.max(1,hx-lx,hy-ly),S=150,sx=v=>14+(v-lx)/sp*(S-28),sy=v=>S-14-(v-ly)/sp*(S-28);
+  let h=`<svg class="exv-s" viewBox="0 0 ${S} ${S}" style="width:${S}px"><line class="ax" x1="${sx(lx)}" x2="${sx(hx)}" y1="${sy(0)}" y2="${sy(0)}"/><line class="ax" x1="${sx(0)}" x2="${sx(0)}" y1="${sy(ly)}" y2="${sy(hy)}"/><text class="tk" x="${sx(0)-6}" y="${sy(0)+8}">0</text>`;
+  for(const p of pts){const on=hl.has(p.join());h+=`<circle class="pt${on?' hl':''}" cx="${sx(p[0])}" cy="${sy(p[1])}" r="${on?6:4.5}"/><text class="tk" x="${sx(p[0])}" y="${sy(p[1])-10}">${esc('('+p.join(',')+')')}</text>`}return h+'</svg>'}
+const words=a=>`<div class="exv-words">${a.map(w=>`<span>${esc(w===''?'""':w)}</span>`).join('')}</div>`;
+const groups=a=>`<div class="exv-groups">${a.map(g=>`<div>${(Array.isArray(g)?g:[g]).map(w=>`<span>${esc(w===''?'""':w)}</span>`).join('')}</div>`).join('')}</div>`;
+const lab=(n,body)=>`<div class="exv-v"><em>${esc(n)}</em>${body}</div>`;
+/* ---------- choose a picture for one variable ---------- */
+function draw(name,v,ctx){
+  if(TREE.test(name)&&Array.isArray(v))return lab(name,tree(v,{mark:ctx.mark}));
+  if(Array.isArray(v)&&flat(v)&&(LIST.test(name)||(name==='head'))&&v.every(x=>!Array.isArray(x)))return lab(name,chain(v,{cycle:name==='head'?ctx.notes.cycle??null:null,hl:ctx.shared!=null?new Set(v.map((x,i)=>i).filter(i=>v.slice(i).join()===ctx.sharedTail)):new Set()}));
+  if(name==='lists'&&Array.isArray(v))return lab(name,v.length?`<div style="display:grid;gap:4px">${v.map(l=>chain(l)).join('')}</div>`:'<span class="exv-null">no lists</span>');
+  if(EDGE.test(name)&&rect(v)&&v[0].length>=2&&v.every(e=>isNum(e[0])&&isNum(e[1]))){const g=graph(v,{n:ctx.n,dir:name!=='edges'&&name!=='connections'&&name!=='roads',flip:name==='prerequisites'});if(g)return lab(name+(name==='prerequisites'?' (b → a)':''),g)}
+  if(ADJ.test(name)&&Array.isArray(v)&&v.every(r=>Array.isArray(r)&&r.every(Number.isInteger))){const off=name==='adjList'?1:0,E=[],seen=new Set();
+    v.forEach((r,i)=>r.forEach(j=>{const a=i+off,k=Math.min(a,j)+'-'+Math.max(a,j);if(!seen.has(k)){seen.add(k);E.push([a,j])}}));
+    const ids=v.map((_,i)=>i+off);const g=graph(E,{n:null,ids});if(g)return lab(name+' (adjacency list)',g)}
+  if(IV.test(name)&&Array.isArray(v)){const L=rect(v)?v:(flat(v)&&v.length===2?[v]:null);if(L&&L.every(r=>r.length===2&&isNum(r[0])))return lab(name,ivals([{list:L}]))}
+  if(name==='points'&&PAGE==='greedy-intervals'&&rect(v)&&v[0].length===2)return lab(name+' (as intervals)',ivals([{list:v}]));
+  if(name==='points'&&rect(v)&&v[0].length===2)return lab(name,scatter(v,ctx.ptHl||new Set()));
+  if(rect(v)&&v.length<=14&&v[0].length<=16)return lab(name,grid(v));
+  if(Array.isArray(v)&&flat(v)){if(!v.length)return lab(name,'<span class="exv-null">[ ] empty</span>');
+    if(COLS.test(name)&&v.every(isNum)&&v.length<=24&&v.every(x=>x>=0))return lab(name,cols(v));
+    if(v.every(x=>typeof x==='string')&&v.some(x=>x.length>1))return lab(name,words(v));
+    if(v.length<=40)return lab(name,tiles(v,{mark:ctx.idxMark&&ctx.idxMark[name]||new Set()}))}
+  if(Array.isArray(v)&&v.every(Array.isArray))return lab(name,groups(v));
+  if(typeof v==='string'&&v.length>1&&v.length<=40)return lab(name,tiles([...v],{ch:true}));
+  return null}
+function bits(n){const w=Math.max(8,Math.ceil(n.toString(2).length/4)*4);if(w>32)return null;const s=(n>>>0).toString(2).padStart(w,'0').slice(-w);
+  return `<div class="exv-row">${[...s].map((b,i)=>`<span class="exv-c ch${b==='1'?' hl':''}"><b>${b}</b><small>${w-1-i}</small></span>`).join('')}</div>`}
+function scalars(list){return list.length?`<div class="exv-row" style="flex-wrap:wrap;gap:6px">${list.map(([n,v])=>`<span class="exv-chip"><i>${esc(n)} =</i>${esc(typeof v==='string'?'"'+v+'"':v)}</span>`).join('')}</div>`:''}
+function drawOut(o,ctx){const v=val(o);if(v===undefined)return null;
+  if(typeof v==='boolean')return `<span class="exv-big ${v?'exv-yes':'exv-no'}">${v?'✓ true':'✗ false'}</span>`;
+  if(PAGE==='bits'&&Number.isInteger(v)&&v>=0&&v<2**32&&v>3){const b=bits(v);if(b)return `<div class="exv-v"><span class="exv-big">${v}</span>${b}</div>`}
+  if(isNum(v)||v===null)return `<span class="exv-big">${esc(v===null?'null':v)}</span>`;
+  if(typeof v==='string')return v.length>1&&v.length<=40?tiles([...v],{ch:true,idx:false}):`<span class="exv-big">"${esc(v)}"</span>`;
+  if(!Array.isArray(v))return null;
+  if(ctx.kind==='tree'&&flat(v)&&(v.includes(null)||ctx.treeLen===v.length))return tree(v);
+  if(ctx.kind==='list'&&flat(v))return chain(v);
+  if(ctx.kind==='iv'&&(rect(v)||!v.length))return v.length?ivals([{list:v,hl:true}]):'<span class="exv-null">[ ]</span>';
+  if(ctx.kind==='pts'&&rect(v))return null;
+  if(rect(v)&&ctx.kind==='grid'&&v.length===ctx.gridR)return grid(v);
+  if(ctx.kind==='grid'&&ctx.gridV&&(rect(v)||!v.length)&&v.every(p=>p.length===2&&Number.isInteger(p[0])&&Number.isInteger(p[1])&&p[0]<ctx.gridV.length&&p[1]<ctx.gridV[0].length))return grid(ctx.gridV,{hl:new Set(v.map(p=>p.join()))});
+  if(flat(v)){if(!v.length)return '<span class="exv-null">[ ] empty</span>';if(v.every(x=>typeof x==='string')&&v.some(x=>x.length>1))return words(v);return v.length<=40?tiles(v,{idx:false}):null}
+  if(v.every(Array.isArray))return groups(v);return null}
+function build(ex){const io=ex.querySelector('.io');if(!io)return;const codes=io.querySelectorAll('code');if(codes.length<2)return;
+  const inTx=codes[0].textContent,outTx=codes[1].textContent;const {vars,notes}=parseIn(inTx);
+  if(/^same\b/i.test(inTx.trim())){const prev=ex.previousElementSibling&&ex.previousElementSibling.__vars;if(prev){const own=new Set(vars.map(x=>x[0]));vars.unshift(...prev.filter(pv=>!own.has(pv[0])&&!isNum(pv[1])))}}
+  ex.__vars=vars;if(!vars.length)return;
+  const ctx={notes,n:null,mark:new Set(),kind:'',ptHl:null};
+  for(const [n,v] of vars){if((n==='n'||n==='numCourses')&&isNum(v))ctx.n=v;if((n==='p'||n==='q'||n==='target')&&isNum(v)&&vars.some(([m])=>TREE.test(m)))ctx.mark.add(v);
+    if(TREE.test(n)&&Array.isArray(v)){ctx.kind='tree';ctx.treeLen=v.length}else if(LIST.test(n)||n==='lists')ctx.kind=ctx.kind||'list';else if(IV.test(n))ctx.kind='iv';else if(n==='points')ctx.kind='pts';else if(rect(v)&&!EDGE.test(n)&&!ADJ.test(n)){ctx.kind=ctx.kind||'grid';ctx.gridR=v.length;ctx.gridV=v}}
+  if(notes.shared!=null){const la=(vars.find(([n])=>n==='listA')||[])[1]||[];const i=la.indexOf(notes.shared);if(i>=0){ctx.shared=notes.shared;ctx.sharedTail=la.slice(i).join()}}
+  if(ctx.kind==='pts'){const ov=val(outTx);if(rect(ov))ctx.ptHl=new Set(ov.map(p=>p.join()))}
+  const pics=[],sc=[];
+  const drawn=new Set();if(PAGE==='bits')for(const [n,v] of vars)if(Number.isInteger(v)&&v>=0&&v<2**32){const b=bits(v);if(b){pics.push(lab(n+' = '+v,b));drawn.add(n)}}
+  for(const [n,v] of vars){if(drawn.has(n))continue;if(isNum(v)||typeof v==='boolean'||v===null||(typeof v==='string'&&v.length<=1)){sc.push([n,v]);continue}const h=draw(n,v,ctx);if(h)pics.push(h);else sc.push([n,v])}
+  if(!pics.length)return;
+  const out=drawOut(outTx,ctx);
+  const box=document.createElement('div');box.className='exv';
+  box.innerHTML=`<div class="exv-in">${pics.join('')}${scalars(sc.filter(([n,v])=>!(typeof v==='string'&&v.length>40)))}</div>${out?`<span class="exv-arrow" aria-hidden="true">→</span><div class="exv-out"><div class="exv-v"><em>output</em>${out}</div></div>`:''}`;
+  box.setAttribute('aria-hidden','true');io.after(box)}
+function run(){document.querySelectorAll('.ex').forEach(ex=>{if(ex.dataset.exv)return;ex.dataset.exv=1;try{build(ex)}catch(e){console.warn('exv',e)}})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,60)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--exv-end-->
+<!--cards-start--><style>.prob dl.think.tk{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;background:none;padding:0;margin:10px 0}
+.prob dl.think.tk .tk-s{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px 10px;display:grid;gap:3px;align-content:start;min-width:0}
+.prob dl.think.tk .tk-s+.tk-s::before{content:"→";position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:var(--surface);color:var(--ink-3);font:800 11px/16px var(--body,inherit);text-align:center;z-index:1}
+.prob dl.think.tk dt{display:flex;align-items:center;gap:6px;margin:0;font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--blue)}
+.prob dl.think.tk dt i{font-style:normal;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:var(--surface);font:800 12px var(--display,inherit);letter-spacing:0}
+.prob dl.think.tk dt small{margin-left:auto;font:700 10.5px var(--mono,monospace);color:var(--ink-3)}
+.prob dl.think.tk dd{margin:0;font-size:14px;line-height:1.45;color:var(--ink)}
+.prob dl.think.tk .tk-s:nth-child(2) dt{color:var(--mint)}.prob dl.think.tk .tk-s:nth-child(2) dt i{background:var(--mint)}
+.prob dl.think.tk .tk-s:nth-child(3) dt{color:var(--amber)}.prob dl.think.tk .tk-s:nth-child(3) dt i{background:var(--amber)}
+.prob dl.think.tk .tk-s:nth-child(4) dt{color:var(--rose)}.prob dl.think.tk .tk-s:nth-child(4) dt i{background:var(--rose)}
+@media (max-width:640px){.prob dl.think.tk{grid-template-columns:1fr;gap:10px}.prob dl.think.tk .tk-s+.tk-s::before{content:"↓";left:50%;top:-13px;transform:translateX(-50%)}}
+.cxv{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:2px}
+.cxv-k{font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+.cxv-c{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--cxc);background:color-mix(in srgb,var(--cxc) 12%,var(--surface));border-radius:10px;padding:3px 9px 3px 7px}
+.cxv-c b{font:800 13.5px var(--mono,monospace);color:var(--ink)}
+.cxv-c small{font:700 10.5px var(--body,inherit);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.cxv-m{display:inline-grid;grid-template-columns:repeat(6,5px);gap:2px;align-items:end;height:14px}
+.cxv-m i{display:block;border-radius:2px;background:var(--line)}
+.cxv-m i:nth-child(1){height:4px}.cxv-m i:nth-child(2){height:6px}.cxv-m i:nth-child(3){height:8px}.cxv-m i:nth-child(4){height:10px}.cxv-m i:nth-child(5){height:12px}.cxv-m i:nth-child(6){height:14px}
+.cxv-m i.on{background:var(--cxc)}
+.cxv-c.bf{opacity:.75;border-style:dashed}
+.cxv-ar{color:var(--ink-3);font-weight:800}
+.cxv-s{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);border-radius:10px;padding:3px 9px;font:700 12.5px var(--mono,monospace);color:var(--ink-2)}
+.cxv-s small{font:700 10.5px var(--body,inherit);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.cxv-note{flex-basis:100%;font-size:12.5px;color:var(--ink-3);font-weight:600}</style><script>(function(){
+const ICON={notice:'👀',tool:'🧰',order:'🔢',trap:'⚠️',watch:'👁',why:'💡',plan:'🗺',state:'🧠',check:'✅'};
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function strip(dl){if(dl.classList.contains('tk'))return;const dts=[...dl.children].filter(x=>x.tagName==='DT');if(dts.length<2||dts.length>4)return;
+  const steps=dts.map((dt,i)=>{const dd=dt.nextElementSibling&&dt.nextElementSibling.tagName==='DD'?dt.nextElementSibling:null;const w=document.createElement('div');w.className='tk-s';
+    const k=dt.textContent.trim().toLowerCase();dt.innerHTML=`<i aria-hidden="true">${i+1}</i>${esc(dt.textContent.trim())}`;w.append(dt);if(dd)w.append(dd);return w});
+  dl.innerHTML='';steps.forEach(s=>dl.append(s));dl.style.setProperty('--n',steps.length);dl.classList.add('tk')}
+/* ---- complexity ---- */
+const COL=['#139E80','#2BA982','#3B6FE0','#7C62D9','#E08A1C','#D93D6E'],NAME=['constant','logarithmic','linear','n log n','polynomial','exponential'];
+function rank(t){const s=t.replace(/\s+/g,'');if(/^O\(log/.test(s)&&!/\)[^)]*[a-zA-Z]/.test(s.replace(/^O\(log[^)]*\)?/,'')))return 1;if(/!|ⁿ|\^n|2\^|ᴸ|C\(n,k\)|[0-9]ⁿ/.test(s))return 5;if(/[²³⁴]|\^2|\^3/.test(s))return 4;
+  const noLog=s.replace(/log\([^)]*\)|log[a-zA-Z]+|log/g,'');const vars=noLog.match(/[a-zA-Z]+/g)||[];const real=vars.filter(v=>!/^(O|total|characters|length|output|size|len|each|per|op|max|min)$/.test(v));
+  if(/log/.test(s))return real.length?3:1;if(!real.length)return /total|length|len|characters|output|size/.test(s)?2:0;
+  if(/^(R·C|R\*C|V\+E|m\+n|n\+m|\|s\|\+\|t\|)$/.test(noLog.replace(/^O\(|\)$/g,'')))return 2;
+  if(/[·*×]/.test(noLog)){const f=noLog.replace(/^O\(|\)$/g,'').split(/[·*×]/).filter(x=>/[a-zA-Z]/.test(x));return f.length>=2?4:2}return 2}
+function terms(text){const out=[];const re=/O\(((?:[^()]|\([^()]*\))*)\)/g;let m;while((m=re.exec(text))){const after=text.slice(re.lastIndex,re.lastIndex+24).toLowerCase();
+  const kind=/^\s*(time|build|query|per|each|calls|both|worst)/.test(after)?'time':/^\s*(space|extra)/.test(after)?'space':/^\s*stack/.test(after)?'stack':/^\s*queue/.test(after)?'queue':'';out.push({t:'O('+m[1]+')',kind})}return out}
+function chip(t,lab,bf){const r=rank(t);return `<span class="cxv-c${bf?' bf':''}" style="--cxc:${COL[r]}" title="${NAME[r]}"><span class="cxv-m" aria-hidden="true">${[0,1,2,3,4,5].map(i=>`<i class="${i<=r?'on':''}"></i>`).join('')}</span><b>${esc(t)}</b><small>${esc(lab)}</small></span>`}
+function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.cxv)return;const sp=[...meta.children].find(x=>/^\s*Complexity/.test(x.textContent));if(!sp)return;
+  const text=sp.textContent.replace(/^\s*Complexity\s*/,'');const T=terms(text);if(!T.length)return;meta.dataset.cxv=1;
+  const main=T[0],rest=T.slice(1);const bfx=card.querySelector('.qx-r:not(.key)');const bft=bfx?terms(bfx.textContent).filter(x=>x.kind!=='space')[0]:null;
+  let h=`<span class="cxv-k">Complexity</span>`;
+  if(bft&&rank(bft.t)>rank(main.t))h+=chip(bft.t,'brute force',true)+`<span class="cxv-ar" aria-hidden="true">→</span>`;
+  h+=chip(main.t,main.kind&&main.kind!=='time'?main.kind:'time');
+  for(const r of rest)h+=`<span class="cxv-s"><small>${esc(r.kind||'space')}</small>${esc(r.t)}</span>`;
+  const plain=text.replace(/O\(((?:[^()]|\([^()]*\))*)\)/g,'').replace(/\b(time|space|stack|extra|and|both ways)\b/g,'').replace(/[,;≈\s]+/g,'');
+  if(plain.length>2)h+=`<span class="cxv-note">${esc(text)}</span>`;
+  const box=document.createElement('div');box.className='cxv';box.innerHTML=h;sp.hidden=true;sp.after(box)}
+function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
 </body>
 </html>
