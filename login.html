@@ -186,4 +186,445 @@ $('fForgot').onsubmit=async e=>{e.preventDefault();const em=$('fgEmail').value.t
   lock(false,btn);say('If an account exists for '+em+', a reset link is on its way. Check spam too.',true)};
 $('guest').onclick=()=>{A.setHint({guest:true});location.replace(next)};
 })();</script>
+<!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
+.pask-fab:hover{transform:translateY(-2px)}
+.pask-fab svg{width:20px;height:20px;flex:none}
+.pask-fab span{white-space:nowrap}
+@media (max-width:640px){.pask-fab{padding:0;width:46px;justify-content:center}.pask-fab span{display:none}}
+@media print{.pask-fab,.pask{display:none!important}}
+.pask{position:fixed;inset:0;z-index:950}
+.pask[hidden]{display:none}
+.pask-scrim{position:absolute;inset:0;background:rgba(10,12,30,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:askFade .2s ease}
+.pask-panel{position:absolute;top:0;right:0;bottom:0;width:min(480px,100vw);display:flex;flex-direction:column;background:var(--paper,#F4F6FB);color:var(--ink,#161A33);border-left:2px solid var(--ink,#161A33);box-shadow:-12px 0 40px rgba(10,12,40,.25);animation:askIn .28s cubic-bezier(.2,.9,.25,1.05);font:15px/1.5 var(--body,system-ui,sans-serif)}
+@keyframes askIn{from{transform:translateX(30px);opacity:0}}
+@keyframes askFade{from{opacity:0}}
+@media (max-width:640px){.pask-panel{width:100vw;border-left:0}}
+.pask-head{display:flex;align-items:center;gap:10px;padding:12px 14px 10px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff)}
+.pask-av{width:40px;height:40px;flex:none;border-radius:50%;border:2px solid var(--ink,#161A33);background:#FFF4CC;display:grid;place-items:center;font-size:22px}
+.pask-ttl{display:grid;line-height:1.2;min-width:0}
+.pask-ttl b{font:800 18px var(--display,system-ui)}
+.pask-ttl small{color:var(--ink-3,#6E749B);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pask-live{flex:none;font:800 11.5px var(--body,system-ui);color:#6B3FD8;background:#EFE8FF;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.pask-live[hidden]{display:none}
+.pask-x{margin-left:auto;flex:none;width:36px;height:36px;border-radius:10px;border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);font-size:22px;line-height:1;cursor:pointer}
+.pask-tabs{display:flex;gap:6px;padding:8px 14px;border-bottom:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff)}
+.pask-tabs button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:4px 13px;font:800 13.5px var(--body,system-ui);cursor:pointer}
+.pask-tabs button[aria-selected="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.pask-tabs .pask-clear{margin-left:auto;border:0;background:none;color:var(--ink-3,#6E749B);font-weight:700;font-size:12.5px;padding:4px 6px}
+.pask-body{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;padding:14px;display:flex;flex-direction:column;gap:12px}
+.pask-body[hidden]{display:none}
+.am-u{align-self:flex-end;max-width:85%;background:var(--ink,#161A33);color:var(--paper,#fff);border-radius:16px 16px 4px 16px;padding:8px 13px;font-weight:600;overflow-wrap:anywhere}
+.am-p{align-self:stretch;background:var(--surface,#fff);border:1.5px solid var(--line,#D9DDEB);border-radius:4px 16px 16px 16px;padding:12px 14px;display:grid;gap:8px;min-width:0}
+.am-p.ai{border-color:#B9A2F5;background:linear-gradient(180deg,#FBF9FF,var(--surface,#fff))}
+.am-p p{margin:0}
+.am-p ul,.am-p ol{margin:0;padding-left:20px;display:grid;gap:3px}
+.am-p code{font-family:var(--mono,ui-monospace,monospace);font-size:.86em;background:var(--blue-soft,#E3E6FD);padding:.05em .35em;border-radius:5px}
+.am-p h4{margin:0;font:800 17px/1.25 var(--display,system-ui);letter-spacing:-.01em}
+.am-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--ink-3,#6E749B);font-weight:700}
+.am-meta .ch{background:var(--paper,#F4F6FB);border:1px solid var(--line,#D9DDEB);border-radius:999px;padding:1px 8px}
+.am-meta .ai-tag{background:#EFE8FF;color:#6B3FD8;border-color:transparent}
+.am-hint{background:#FFF7DD;border:1.5px dashed #E8B53A;border-radius:10px;padding:8px 11px;display:grid;gap:4px;font-size:14.5px}
+.am-p details{border:1.5px solid var(--line,#D9DDEB);border-radius:10px;background:var(--paper,#F4F6FB)}
+.am-p details>summary{cursor:pointer;padding:7px 11px;font-weight:800;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px}
+.am-p details>summary::-webkit-details-marker{display:none}
+.am-p details>summary::after{content:'▸';margin-left:auto;color:var(--ink-3,#6E749B);transition:transform .15s}
+.am-p details[open]>summary::after{transform:rotate(90deg)}
+.am-p details>div{padding:2px 11px 10px;display:grid;gap:7px;font-size:14.5px}
+.ap-pre{margin:0;background:var(--code-bg,#0C0F24);color:var(--code-ink,#E6E8F5);border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,ui-monospace,monospace);white-space:pre;overflow-x:auto}
+.ap-code{background:var(--code-bg,#0C0F24);color:var(--code-ink,#E6E8F5);border-radius:10px;font:12.5px/1.55 var(--mono,ui-monospace,monospace);overflow:auto;padding:8px 0;max-height:420px}
+.ap-code .cl{display:flex;white-space:pre;padding-right:14px;min-width:max-content}
+.ap-code .cl .n{flex:none;width:2.4em;text-align:right;padding-right:10px;color:#5A618C;user-select:none}
+.ap-code .k{color:#A9B2FF}.ap-code .s{color:#86E3C3}.ap-code .c{color:#7F86B3;font-style:italic}.ap-code .m{color:#FFC86B}.ap-code .b{color:#FF9CC2}.ap-code .f{color:#fff;font-weight:600}.ap-code .t .t{color:#8FD3FF}
+.am-p .lsw{display:flex;gap:6px;flex-wrap:wrap}
+.am-p .lsw button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:2px 11px;font:800 12.5px var(--body,system-ui);cursor:pointer}
+.am-p .lsw button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.am-p .lsw button:disabled{opacity:.4;cursor:not-allowed}
+.ap-tbl{overflow-x:auto}
+.ap-tbl table{border-collapse:collapse;width:100%;font-size:13.5px}
+.ap-tbl th,.ap-tbl td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line,#D9DDEB);vertical-align:top}
+.ap-tbl th{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3,#6E749B)}
+.ap-rx{display:grid;gap:2px;background:var(--paper,#F4F6FB);border-radius:10px;padding:9px 11px}
+.ap-rx span{font-size:12px;font-weight:700;color:var(--ink-3,#6E749B);text-transform:uppercase;letter-spacing:.05em}
+.ap-rx b{margin-bottom:6px}
+.am-p li[data-ask]{cursor:pointer;text-decoration:underline;text-decoration-color:var(--line,#D9DDEB);text-underline-offset:3px}
+.am-p li[data-ask]:hover{text-decoration-color:var(--ink,#161A33)}
+.am-links{display:flex;flex-wrap:wrap;gap:6px}
+.am-links a,.am-links button{font:800 13px var(--body,system-ui);text-decoration:none;color:var(--ink,#161A33);border:1.5px solid var(--ink,#161A33);background:var(--surface,#fff);border-radius:999px;padding:4px 11px;cursor:pointer}
+.am-links .go-ai{border-color:#8E6CF0;color:#5B33C9;background:#F5F0FF}
+.am-rel{display:grid;gap:5px}
+.am-rel>span{font-size:12px;font-weight:800;color:var(--ink-3,#6E749B);text-transform:uppercase;letter-spacing:.06em}
+.am-chips{display:flex;flex-wrap:wrap;gap:6px}
+.am-chips button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);border-radius:12px;padding:5px 10px;font:600 13.5px var(--body,system-ui);text-align:left;cursor:pointer}
+.am-chips button:hover{border-color:var(--ink-3,#6E749B)}
+.am-note{font-size:13.5px;color:var(--ink-2,#4A4F6E)}
+.am-typing{display:inline-flex;gap:4px}
+.am-typing i{width:7px;height:7px;border-radius:50%;background:#8E6CF0;animation:askDot 1s infinite}
+.am-typing i:nth-child(2){animation-delay:.15s}.am-typing i:nth-child(3){animation-delay:.3s}
+@keyframes askDot{50%{opacity:.25;transform:translateY(-3px)}}
+.pask-form{position:relative;border-top:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:flex-end}
+.pask-form[hidden]{display:none}
+.pask-form textarea{flex:1 1 auto;resize:none;border:2px solid var(--ink,#161A33);border-radius:14px;padding:9px 12px;font:16px/1.4 var(--body,system-ui);background:var(--paper,#F4F6FB);color:var(--ink,#161A33);max-height:120px;min-height:44px}
+.pask-form textarea:focus{outline:none;box-shadow:0 0 0 3px #FFD24A}
+.pask-send{flex:none;width:44px;height:44px;border-radius:12px;border:2px solid var(--ink,#161A33);background:var(--ink,#161A33);color:var(--paper,#fff);font-size:18px;cursor:pointer}
+.pask-send:disabled{opacity:.4;cursor:default}
+.pask-sug{position:absolute;left:12px;right:12px;bottom:calc(100% - 4px);background:var(--surface,#fff);border:2px solid var(--ink,#161A33);border-radius:12px;box-shadow:0 -10px 30px rgba(10,12,40,.15);overflow:hidden;display:grid}
+.pask-sug[hidden]{display:none}
+.pask-sug button{border:0;border-bottom:1px solid var(--line,#D9DDEB);background:none;color:var(--ink,#161A33);text-align:left;padding:8px 12px;font:600 14px var(--body,system-ui);cursor:pointer;display:flex;gap:8px;align-items:baseline}
+.pask-sug button:last-child{border-bottom:0}
+.pask-sug button small{margin-left:auto;flex:none;color:var(--ink-3,#6E749B);font-size:11.5px;font-weight:700}
+.pask-sug button[aria-selected="true"],.pask-sug button:hover{background:#FFF4CC}
+.pask-bank-top{display:grid;gap:8px;position:sticky;top:-14px;background:var(--paper,#F4F6FB);padding:0 0 8px;z-index:1}
+.pask-bank-top input{border:2px solid var(--ink,#161A33);border-radius:12px;padding:8px 12px;font:15px var(--body,system-ui);background:var(--surface,#fff);color:var(--ink,#161A33)}
+.pask-cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.pask-cats::-webkit-scrollbar{display:none}
+.pask-cats button{flex:none;border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:3px 10px;font:700 12.5px var(--body,system-ui);cursor:pointer;white-space:nowrap}
+.pask-cats button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.pask-count{font-size:12.5px;color:var(--ink-3,#6E749B);font-weight:700}
+.pask-list{display:grid;gap:4px}
+.pask-list h5{margin:10px 0 2px;font:800 12px var(--body,system-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3,#6E749B)}
+.pask-list button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);border-radius:10px;padding:7px 11px;text-align:left;font:600 14px/1.35 var(--body,system-ui);cursor:pointer;display:grid;gap:1px}
+.pask-list button small{color:var(--ink-3,#6E749B);font-size:12px;font-weight:600}
+.pask-list button:hover{border-color:var(--ink-3,#6E749B)}
+.pask-more{justify-self:center;margin-top:6px;border:1.5px solid var(--ink,#161A33)!important;font-weight:800!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pask-fab{border-color:#0B0E22;box-shadow:3px 3px 0 #0B0E22}:root:not([data-theme="light"]) .am-hint{background:#3A2F12;border-color:#8A6A1F}:root:not([data-theme="light"]) .am-p.ai{background:linear-gradient(180deg,#221B3D,var(--surface,#1A1E3A))}:root:not([data-theme="light"]) .pask-live,:root:not([data-theme="light"]) .am-meta .ai-tag,:root:not([data-theme="light"]) .am-links .go-ai{background:#2C2350;color:#C9B6FF;border-color:#6E55C9}:root:not([data-theme="light"]) .pask-sug button[aria-selected="true"],:root:not([data-theme="light"]) .pask-sug button:hover{background:#2E2A17}:root:not([data-theme="light"]) .pask-av{background:#3A3315}}
+:root[data-theme="dark"] .am-hint{background:#3A2F12;border-color:#8A6A1F}
+:root[data-theme="dark"] .am-p.ai{background:linear-gradient(180deg,#221B3D,var(--surface,#1A1E3A))}
+:root[data-theme="dark"] .pask-live,:root[data-theme="dark"] .am-meta .ai-tag,:root[data-theme="dark"] .am-links .go-ai{background:#2C2350;color:#C9B6FF;border-color:#6E55C9}
+:root[data-theme="dark"] .pask-sug button[aria-selected="true"],:root[data-theme="dark"] .pask-sug button:hover{background:#2E2A17}
+:root[data-theme="dark"] .pask-av{background:#3A3315}
+</style><script>/* LangKit: Python / Java / C++ switcher shared by the DSA pages, notes and crunch list. */
+(function(){
+if(window.LangKit)return;
+const KEY='dsa-lang-v1',NAMES={py:'Python',java:'Java',cpp:'C++'},ORDER=['py','java','cpp'];
+let cur='py';try{const v=JSON.parse(localStorage.getItem(KEY));if(NAMES[v])cur=v}catch(e){}
+const subs=new Set();
+const W=s=>new Set(s.split(' '));
+const KW={java:W('abstract boolean break byte case catch char class continue default do double else enum extends final finally float for if implements import instanceof int interface long new null package private protected public return short static super switch this throw throws try void while var true false record yield'),
+  cpp:W('auto bool break case catch char class const constexpr continue default delete do double else enum explicit false float for friend if inline int long namespace new nullptr operator private protected public return short signed sizeof static struct switch template this throw true try typedef typename unsigned using virtual void while uint32_t size_t'),
+  py:W('and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield True False None self')};
+const BI={java:W('Math System Arrays Collections Integer Long Double Character String StringBuilder List ArrayList Map HashMap TreeMap Set HashSet Deque ArrayDeque PriorityQueue Queue LinkedList Iterator Objects Comparator Optional Boolean'),
+  py:W('len range enumerate zip sorted reversed min max sum abs print int str float list dict set tuple map filter any all isinstance ord chr divmod iter next super object deque defaultdict Counter heapq bisect math collections functools lru_cache cache inf'),
+  cpp:W('vector string unordered_map unordered_set map set queue deque priority_queue stack pair array function greater less min max swap sort reverse accumulate lower_bound upper_bound make_pair to_string stoi stoll abs iota cout getline stringstream max_element min_element find prev next list tolower toupper isalnum isalpha isdigit INT_MAX INT_MIN LLONG_MAX LLONG_MIN __builtin_popcount')};
+const DECL=W('int long void boolean bool double char float short byte auto unsigned var');
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function hlLine(src,lang){
+  const re=lang==='py'?/(#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b0x[0-9a-fA-F]+\b|\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)|([\s\S])/g:/(\/\/.*$|\/\*.*?\*\/)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b0x[0-9a-fA-F]+[uUlL]*\b|\b\d+(?:\.\d+)?[LlUuFf]*\b)|([A-Za-z_]\w*)|([\s\S])/g;
+  const kw=KW[lang],bi=BI[lang];let out='',m,prev='';
+  while((m=re.exec(src))){const [t,c,s,n,w]=m;
+    if(c)out+=`<span class="c">${esc(c)}<\/span>`;
+    else if(s)out+=`<span class="s">${esc(s)}<\/span>`;
+    else if(n)out+=`<span class="m">${n}<\/span>`;
+    else if(w){
+      const call=/^\s*\(/.test(src.slice(re.lastIndex));
+      if(lang==='py'){out+=kw.has(w)?`<span class="k">${w}<\/span>`:(prev==='def'||prev==='class')?`<span class="f">${w}<\/span>`:bi.has(w)?`<span class="b">${w}<\/span>`:w}
+      else if(kw.has(w))out+=`<span class="k">${w}<\/span>`;
+      else if(call&&(DECL.has(prev)||(/^[A-Za-z_]\w*$/.test(prev)&&!kw.has(prev))||/[>\]*&]$/.test(prev)))out+=`<span class="f">${w}<\/span>`;
+      else if(bi.has(w))out+=`<span class="b">${w}<\/span>`;
+      else if(/^[A-Z][a-z]\w*$/.test(w)||/^[A-Z]\w*Node$/.test(w))out+=`<span class="ty">${w}<\/span>`;
+      else out+=w;
+    } else out+=esc(t);
+    if(!/^\s+$/.test(t))prev=w||t.trim();
+  }
+  return out||' ';
+}
+function codeHTML(src,lang){
+  const lines=String(src).replace(/^\n+/,'').replace(/\s+$/,'').split('\n');
+  return lines.map((l,i)=>`<div class="cl" data-l="${i+1}"><span class="n">${i+1}<\/span><span class="t">${hlLine(l,lang)}<\/span><\/div>`).join('');
+}
+function tabs(avail){
+  return `<div class="lsw" role="group" aria-label="Code language">${ORDER.map(l=>`<button type="button" data-lang="${l}" aria-pressed="${l===cur}"${avail&&!avail.includes(l)?' disabled title="Not available"':''}>${NAMES[l]}<\/button>`).join('')}<\/div>`;
+}
+function set(l){if(!NAMES[l]||l===cur)return;cur=l;try{localStorage.setItem(KEY,JSON.stringify(l))}catch(e){}
+  document.querySelectorAll('.lsw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===cur));
+  subs.forEach(f=>{try{f(cur)}catch(e){console.error(e)}})}
+document.addEventListener('click',e=>{const b=e.target.closest('.lsw button[data-lang]');if(!b||b.disabled)return;
+  const y=b.getBoundingClientRect().top;set(b.dataset.lang);
+  requestAnimationFrame(()=>{const n=b.isConnected?b:null;if(n){const d=n.getBoundingClientRect().top-y;if(Math.abs(d)>2)window.scrollBy(0,d)}})});
+addEventListener('storage',e=>{if(e.key===KEY){try{const v=JSON.parse(e.newValue);if(NAMES[v]){cur=v;subs.forEach(f=>f(cur));document.querySelectorAll('.lsw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===cur))}}catch(_){}}});
+const css=`.lsw{display:flex;gap:4px;justify-content:flex-end;margin:0 0 6px}
+.lsw button{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:2px 10px;font:700 12px/1.6 var(--body,system-ui,sans-serif);cursor:pointer}
+.lsw button[aria-pressed="true"]{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.lsw button:disabled{opacity:.4;cursor:not-allowed}
+.code .ty{color:#8FD3FF}
+.lnote{margin:6px 0 0;font-size:13.5px;color:var(--ink-2,#4A4F6E);background:var(--paper,#F4F6FB);border-left:3px solid var(--amber,#E89A1C);padding:6px 10px;border-radius:0 8px 8px 0}`;
+const st=document.createElement('style');st.textContent=css;(document.head||document.documentElement).appendChild(st);
+window.LangKit={get:()=>cur,set,on:f=>(subs.add(f),()=>subs.delete(f)),name:l=>NAMES[l||cur],codeHTML,tabs,hl:hlLine,esc};
+})();
+</script><script>(function(){"use strict";
+if(window.AskPip)return;
+const PAGE=(location.pathname.split('/').pop()||'index.html').replace(/\.html$/,'')||'index';
+const LSK='rdd-ask-v1';
+const store={get(){try{return JSON.parse(localStorage.getItem(LSK))||{log:[]}}catch(e){return{log:[]}}},put(v){try{localStorage.setItem(LSK,JSON.stringify(v))}catch(e){}}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=(s,r)=>(r||document).querySelector(s),$$=(s,r)=>[...(r||document).querySelectorAll(s)];
+
+/* ───────────── text processing ───────────── */
+const STOP=new Set('a an the is are was were be been being to of in on for and or what whats how do does did i im me my you your can could should would will it its this that these those with by from as at which when why who there their them we us our please tell explain show give about into vs versus difference between between some any get use using used if than then also just like way ways need want know mean means define definition'.split(' '));
+const PHRASE=[[/big[\s-]?o\b/g,' bigo '],[/\bo\(\s*1\s*\)/g,' constant '],[/\bo\(\s*n\s*\)/g,' linear '],[/\bo\(\s*log\s*n\s*\)/g,' logarithmic '],[/\bn\s*\+\s*1\b/g,' nplus1 '],[/\bk-?th\b/g,' kth '],[/\bc\+\+/g,' cpp '],[/\bsde[\s-]?2\b/g,' sde2 '],[/\bsde[\s-]?1\b/g,' sde1 '],[/\bl4\b/g,' l4 '],[/\bl7\b/g,' l7 '],[/\b2pc\b/g,' 2pc '],[/\bwrite[\s-]through\b/g,' writethrough '],[/\bcache[\s-]aside\b/g,' cacheaside '],[/\bmerge\s+k\b/g,' merge k ']];
+const SYN={dp:'dynamic programming',bfs:'bfs breadth first',dfs:'dfs depth first',ll:'linked list',lc:'leetcode',pq:'priority queue heap',bst:'binary search tree bst',db:'database',dbs:'database',lb:'load balancer',sd:'system design',hld:'hld high level design',lld:'lld low level design',oop:'oop object oriented',oops:'oop object oriented',mq:'message queue',kv:'key value',dsu:'union find disjoint',uf:'union find',mst:'minimum spanning tree',hashmap:'hash map hashmap',hashtable:'hash map',hashset:'hash set',dict:'dictionary hash map',dictionary:'dictionary hash map',tc:'time complexity',sc:'space complexity',algo:'algorithm',algos:'algorithm',ds:'data structure',dsa:'dsa data structure algorithm',twosum:'two sum',tinyurl:'url shortener tinyurl',bitly:'url shortener',whatsapp:'whatsapp chat',messenger:'chat',twitter:'twitter feed',instagram:'instagram feed',ig:'instagram feed',yt:'youtube video',netflix:'netflix video',ola:'uber ride',lyft:'uber ride',bms:'bookmyshow ticket',bookmyshow:'bookmyshow ticket booking',gc:'garbage collection',jvm:'jvm java',jwt:'jwt token',sql:'sql relational',nosql:'nosql',k8s:'kubernetes',mongo:'mongodb',postgres:'postgres sql',mysql:'mysql sql',rabbit:'rabbitmq',sqs:'sqs queue',api:'api',apis:'api',ttl:'ttl expiry',lfu:'lfu cache',lru:'lru cache',kafka:'kafka queue',redis:'redis cache',ws:'websocket',websockets:'websocket',sse:'sse server sent events',recursive:'recursion',recurse:'recursion',backtrack:'backtracking',memo:'memoization',memoize:'memoization',tabulate:'tabulation',subarray:'subarray',substring:'substring',palindromic:'palindrome',anagrams:'anagram',intervals:'interval',monotonic:'monotonic',xor:'xor bit',bitwise:'bit',bits:'bit',trie:'trie prefix tree',tries:'trie',heaps:'heap',graphs:'graph',trees:'tree',stacks:'stack',queues:'queue',pointers:'pointer',arrays:'array',strings:'string',matrices:'matrix',grids:'grid',islands:'island'};
+const HAS=Object.prototype.hasOwnProperty;let STOPST=null;
+function stem(w){if(w.length>5&&w.endsWith('ing')){let r=w.slice(0,-3);if(/([bdgmnprt])\1$/.test(r))r=r.slice(0,-1);return r}if(w.length>4&&w.endsWith('ies'))return w.slice(0,-3)+'y';if(w.length>4&&w.endsWith('es')&&/(ss|sh|ch|x|z)es$/.test(w))return w.slice(0,-2);if(w.length>3&&w.endsWith('s')&&!w.endsWith('ss')&&!w.endsWith('us')&&!w.endsWith('is'))return w.slice(0,-1);if(w.length>5&&w.endsWith('ed'))return w.slice(0,-2);return w}
+function norm(s){s=String(s||'').toLowerCase().replace(/<[^>]+>/g,' ').replace(/&[a-z]+;/g,' ');for(const [r,v] of PHRASE)s=s.replace(r,v);return s.replace(/[’']/g,'').replace(/[^a-z0-9²]+/g,' ').trim()}
+function toks(s,keepStop){const out=[];for(let w of norm(s).split(' ')){if(!w)continue;if(!keepStop&&STOP.has(w))continue;if(w.length===1&&!/[0-9k]/.test(w))continue;const syn=HAS.call(SYN,w)?SYN[w]:null;if(syn){for(const x of syn.split(' '))out.push(stem(x))}else out.push(stem(w))}return out}
+
+/* ───────────── index ───────────── */
+let KB=null,IDX=null,BYID=Object.create(null),META=null;
+function plainText(h){return String(h||'').replace(/<[^>]+>/g,' ').replace(/&[a-z]+;/g,' ').replace(/\s+/g,' ').trim()}
+function build(){STOPST=new Set([...STOP].map(stem));
+  const docs=KB.map((e,i)=>{BYID[e.i]=e;
+    const q=new Set(toks(e.t+' '+e.q.join(' '))),w=new Set(toks((e.w||'')+' '+(e.sub||'')+' '+(e.cat||''))),a=new Set(toks(plainText((e.h||'')+' '+e.a).slice(0,700)));
+    const qn=' '+norm(e.t)+' ',qall=' '+e.q.map(norm).join(' | ')+' ';
+    const vs=e.q.slice(0,8).map(v=>new Set(toks(v,true)));
+    return {e,q,w,a,qn,qall,vs}});
+  const df=Object.create(null);for(const d of docs){const u=new Set([...d.q,...d.w,...d.a]);for(const t of u)df[t]=(df[t]||0)+1}
+  const N=docs.length,idf=Object.create(null);for(const t in df)idf[t]=Math.log(1+(N-df[t]+.5)/(df[t]+.5));
+  const vocab=Object.keys(df);const byLen=Object.create(null);for(const v of vocab)(byLen[v.length]=byLen[v.length]||[]).push(v);
+  const rdf=Object.create(null);for(const e of KB)for(const w of norm(e.t+' '+e.q.slice(0,4).join(' ')+' '+(e.w||'')).split(' '))if(w.length>3)rdf[w]=(rdf[w]||0)+1;
+  const rByLen=Object.create(null);for(const v in rdf)(rByLen[v.length]=rByLen[v.length]||[]).push(v);
+  IDX={docs,idf,df,vocab,byLen,N,rdf,rByLen}}
+function lev(a,b,max){if(Math.abs(a.length-b.length)>max)return max+1;const m=a.length,n=b.length;let pp=null,prev=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){const cur=[i];let best=i;for(let j=1;j<=n;j++){const c=a[i-1]===b[j-1]?0:1;let v=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+c);
+      if(pp&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])v=Math.min(v,pp[j-2]+1);cur.push(v);if(v<best)best=v}if(best>max)return max+1;pp=prev;prev=cur}return prev[n]}
+const fixCache=Object.create(null);
+function fix(t){if(IDX.df[t]||t.length<4||/^\d+$/.test(t))return t;if(t in fixCache)return fixCache[t];
+  const max=t.length>=8?2:1;let best=null,bd=9,bf=0;
+  for(let L=t.length-max;L<=t.length+max;L++)for(const v of IDX.byLen[L]||[]){if(v[0]!==t[0]&&max<2)continue;const d=lev(t,v,max);if(d<=max&&(d<bd||(d===bd&&IDX.df[v]>bf))){best=v;bd=d;bf=IDX.df[v]}}
+  return fixCache[t]=best||t}
+const rfixCache=Object.create(null);
+function fixRaw(w){if(IDX.rdf[w]||w.length<4||/^\d+$/.test(w))return w;if(w in rfixCache)return rfixCache[w];const max=w.length>=8?2:1;let best=null,bd=9,bf=0;
+  for(let L=w.length-max;L<=w.length+max;L++)for(const v of IDX.rByLen[L]||[]){if(v[0]!==w[0])continue;const d=lev(w,v,max);if(d<=max&&(d<bd||(d===bd&&IDX.rdf[v]>bf))){best=v;bd=d;bf=IDX.rdf[v]}}
+  return rfixCache[w]=best||w}
+let FIXED='',UNK=0,FIXN=0;
+function qToks(raw){const out=[];const fixed=[];UNK=0;FIXN=0;for(let w of norm(raw).split(' ')){if(!w)continue;if(STOP.has(w)||(w.length===1&&!/[0-9k]/.test(w))){fixed.push(w);continue}
+    if(!HAS.call(SYN,w)&&!IDX.df[stem(w)]){const f=fixRaw(w);if(f!==w)FIXN++;else if(!/^\d+$/.test(w)&&!IDX.df[fix(stem(w))])UNK++;w=f}fixed.push(w);const syn=HAS.call(SYN,w)?SYN[w]:null;if(syn)for(const x of syn.split(' '))out.push(stem(x));else out.push(fix(stem(w)))}FIXED=fixed.join(' ');return out}
+function prefixExpand(t){if(t.length<2)return[t];const out=[];for(const v of IDX.vocab)if(v.startsWith(t)&&v!==t){out.push(v);if(out.length>6)break}return out}
+
+function search(q,opt={}){
+  if(!IDX)return[];
+  const raw=String(q||'');let qt=qToks(raw);const qn=FIXED||norm(raw);
+  if(opt.prefix&&qt.length){const last=qt[qt.length-1];if(!IDX.df[last]){const ex=prefixExpand(last);if(ex.length)qt=qt.slice(0,-1).concat(ex.slice(0,3))}}
+  qt=[...new Set(qt)];
+  const numM=raw.match(/(?:\b(?:lc|leetcode|problem|#)\s*#?\s*(\d{1,4})\b)|^\s*(\d{1,4})\s*$/i);const num=numM?+(numM[1]||numM[2]):null;
+  const cmp=/\bvs\b|versus|difference|compare|better than|or\b/.test(raw.toLowerCase());
+  const design=/\bdesign\b/.test(qn);
+  const whatis=/^(what|explain|define|describe|how does|how do)/.test(qn);
+  const totalW=(qt.reduce((s,t)=>s+(IDX.idf[t]||0),0)+UNK*4.5+FIXN*1.5)||1;
+  const bigr=[];const qtoks=qn.split(' ').filter(w=>w&&!STOP.has(w));for(let i=0;i+1<qtoks.length;i++)bigr.push(' '+qtoks[i]+' '+qtoks[i+1]+' ');
+  const res=[];
+  const qs=new Set(toks(qn,true));const wt=t=>STOPST.has(t)?.35:1;let qW=0;for(const t of qs)qW+=wt(t);
+  for(const d of IDX.docs){const e=d.e;let s=0,cov=0;
+    let jac=0;if(qs.size){for(const v of d.vs){let inter=0,vW=0;for(const t of v)vW+=wt(t);for(const t of qs)if(v.has(t))inter+=wt(t);const j=inter/(qW+vW-inter);if(j>jac)jac=j}}
+    for(const t of qt){const f=IDX.idf[t]||0;if(!f)continue;let hit=0;if(d.q.has(t)){s+=3*f;hit=1}else if(d.w.has(t)){s+=1.4*f;hit=.7}else if(d.a.has(t)){s+=.7*f;hit=.4}cov+=hit*f}
+    if(num!=null&&e.n===num)s+=numM[1]?40:25;
+    if(jac>=.34)s+=10*jac;
+    if(s<=0)continue;
+    if(!totalW||totalW===1&&!qt.length)cov=jac*totalW;
+    for(const b of bigr)if(d.qall.includes(b))s+=2.2;
+    const tn=d.qn.trim();if(tn.length>3&&(' '+qn+' ').includes(' '+tn+' '))s+=6+tn.split(' ').length;
+    if(qn.length>5&&d.qall.includes(' '+qn+' '))s+=8;
+    if(cmp&&/\bvs\b/.test(e.t))s+=3;
+    if(design&&(e.cat==='System design classics'||e.cat==='System design problems'))s+=2.5;
+    if(whatis&&(e.k==='topic'||e.k==='cur'))s+=1.2;
+    if(e.s&&e.s===PAGE)s+=.8;
+    if(norm(e.t)===qn)s+=5;
+    if(e.k==='cur')s+=.6;else if(e.k==='topic')s+=.4;
+    if(e.k==='rx')s*=.86;else if(e.k==='quiz')s*=.8;else if(e.k==='list'||e.k==='cx')s*=.9;
+    res.push({e,s,cov:qt.length?cov/totalW:jac})}
+  res.sort((a,b)=>b.s-a.s);
+  return res.slice(0,opt.limit||8)}
+
+/* ───────────── live AI (claude.ai only) ───────────── */
+let samplePromise=null,sampleFn=null,liveOK=null;
+function getSample(){if(samplePromise)return samplePromise;
+  if(!window.claude||typeof window.claude.use!=='function')return samplePromise=Promise.resolve(null);
+  return samplePromise=window.claude.use('sample').then(s=>{sampleFn=s||null;liveOK=!!s;return sampleFn}).catch(()=>{liveOK=false;return null})}
+
+/* ───────────── UI ───────────── */
+let root,body,bank,form,ta,sug,live,chatBtn,bankBtn,opened=false,loading=null,state=store.get(),aborter=null;
+const LANG=()=>{try{const v=JSON.parse(localStorage.getItem('dsa-lang-v1'));return['py','java','cpp'].includes(v)?v:'py'}catch(e){return'py'}};
+function loadKB(){if(KB)return Promise.resolve();if(loading)return loading;
+  loading=new Promise((ok,bad)=>{if(window.ASK_KB){ok();return}const s=document.createElement('script');s.src='ask-kb.js';s.onload=ok;s.onerror=()=>bad(new Error('kb'));document.head.appendChild(s)})
+    .then(()=>{META=window.ASK_KB.meta;KB=window.ASK_KB.kb;build();
+      const n=KB.length;root.querySelector('.pask-ttl small').textContent=`${n.toLocaleString('en-US')} prepared answers · ${META.q.toLocaleString('en-US')} ways to ask`});
+  return loading}
+function mount(){
+  const fab=document.createElement('button');fab.className='pask-fab';fab.type='button';fab.setAttribute('aria-label','Ask Pip a question (Ctrl+K)');fab.title='Ask Pip (Ctrl+K)';
+  fab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 10a2.5 2.5 0 1 1 3.3 2.4c-.5.2-.8.6-.8 1.1v.5"/><circle cx="12" cy="16.6" r=".6" fill="currentColor"/><\/svg><span>Ask Pip<\/span>';
+  fab.onclick=()=>open();document.body.appendChild(fab);
+  root=document.createElement('div');root.className='pask';root.hidden=true;root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-label','Ask Pip');
+  root.innerHTML=`<div class="pask-scrim"><\/div><section class="pask-panel">
+   <header class="pask-head"><div class="pask-av" aria-hidden="true">🐥<\/div><div class="pask-ttl"><b>Ask Pip<\/b><small>Loading answers…<\/small><\/div><span class="pask-live" hidden title="Questions without a prepared answer can be sent to Claude">✨ Live AI<\/span><button class="pask-x" type="button" aria-label="Close">&times;<\/button><\/header>
+   <div class="pask-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-tab="chat">💬 Chat<\/button><button type="button" role="tab" aria-selected="false" data-tab="bank">📚 Question bank<\/button><button type="button" class="pask-clear" title="Clear the conversation">Clear chat<\/button><\/div>
+   <div class="pask-body" data-view="chat" aria-live="polite"><\/div>
+   <div class="pask-body" data-view="bank" hidden><\/div>
+   <form class="pask-form" autocomplete="off"><div class="pask-sug" role="listbox" hidden><\/div><textarea rows="1" placeholder="Ask anything… “LC 76”, “BFS vs DFS”" aria-label="Your question"><\/textarea><button class="pask-send" type="submit" aria-label="Send" disabled>➤<\/button><\/form>
+  <\/section>`;
+  document.body.appendChild(root);
+  body=root.querySelector('[data-view="chat"]');bank=root.querySelector('[data-view="bank"]');form=root.querySelector('.pask-form');ta=form.querySelector('textarea');sug=form.querySelector('.pask-sug');live=root.querySelector('.pask-live');
+  root.querySelector('.pask-x').onclick=close;root.querySelector('.pask-scrim').onclick=close;
+  root.querySelector('.pask-clear').onclick=()=>{state.log=[];save();renderLog()};
+  $$('.pask-tabs [data-tab]',root).forEach(b=>b.onclick=()=>tab(b.dataset.tab));
+  form.onsubmit=e=>{e.preventDefault();const v=ta.value.trim();if(!v)return;const sel=sug.querySelector('[aria-selected="true"]');ta.value='';autosize();hideSug();if(sel&&sel.dataset.id){askId(sel.dataset.id,sel.dataset.q)}else ask(v)};
+  ta.addEventListener('input',()=>{autosize();form.querySelector('.pask-send').disabled=!ta.value.trim();suggest()});
+  ta.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit?form.requestSubmit():form.onsubmit(e);return}
+    if(!sug.hidden&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();const bs=$$('button',sug);let i=bs.findIndex(b=>b.getAttribute('aria-selected')==='true');bs.forEach(b=>b.setAttribute('aria-selected','false'));i=e.key==='ArrowDown'?Math.min(bs.length-1,i+1):Math.max(-1,i-1);if(i>=0)bs[i].setAttribute('aria-selected','true')}
+    if(e.key==='Escape'&&!sug.hidden){e.stopPropagation();hideSug()}});
+  ta.addEventListener('blur',()=>setTimeout(hideSug,150));
+  root.addEventListener('keydown',e=>{if(e.key==='Escape'){close();return}
+    if(e.key==='Tab'){const f=$$('button:not([disabled]),a[href],textarea,input,summary',root).filter(x=>x.offsetParent);const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}});
+  root.addEventListener('click',onClick);
+  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();opened?close():open()}else if(e.key==='Escape'&&opened&&!root.contains(e.target)){close()}});
+  if(window.LangKit)window.LangKit.on(()=>$$('.ap-cw',root).forEach(drawCode));
+}
+function autosize(){ta.style.height='auto';ta.style.height=Math.min(120,ta.scrollHeight)+'px'}
+let prevFocus=null;
+function open(q){if(!root)mount();prevFocus=document.activeElement;root.hidden=false;opened=true;document.documentElement.style.overflow='hidden';
+  loadKB().then(()=>{renderLog();if(q)ask(q)}).catch(()=>{body.innerHTML='<div class="am-p"><p>Couldn’t load the answers file. Check your connection and try again.<\/p><\/div>'});
+  getSample().then(s=>{live.hidden=!s});
+  setTimeout(()=>ta.focus(),60)}
+function close(){if(!root||root.hidden)return;root.hidden=true;opened=false;document.documentElement.style.overflow='';hideSug();if(aborter)aborter.abort();if(prevFocus&&prevFocus.focus)prevFocus.focus()}
+function tab(t){$$('.pask-tabs [data-tab]',root).forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));body.hidden=t!=='chat';bank.hidden=t!=='bank';form.hidden=t!=='chat';root.querySelector('.pask-clear').hidden=t!=='chat';if(t==='bank')renderBank()}
+function save(){state.log=state.log.slice(-40);store.put(state)}
+
+/* suggestions while typing */
+let sugT=0;
+function suggest(){clearTimeout(sugT);sugT=setTimeout(()=>{const v=ta.value.trim();if(!IDX||v.length<2){hideSug();return}
+  const r=search(v,{prefix:true,limit:6}).filter(x=>x.s>2);if(!r.length){hideSug();return}
+  sug.innerHTML=r.map(x=>`<button type="button" role="option" aria-selected="false" data-id="${x.e.i}" data-q="${esc(x.e.t)}">${esc(short(x.e.t,80))}<small>${esc(kindLabel(x.e))}<\/small><\/button>`).join('');sug.hidden=false},90)}
+function hideSug(){if(sug){sug.hidden=true;sug.innerHTML=''}}
+const short=(s,n)=>s.length>n?s.slice(0,n-1)+'…':s;
+function kindLabel(e){return{prob:'Problem',topic:'Topic',post:'Concept',quiz:'Quiz',rx:'Reflex',cur:e.cat,list:'List',cx:'Complexity'}[e.k]||''}
+
+/* conversation */
+const SMALL=[[/^(hi+|hello|hey+|yo|hola|namaste|good (morning|afternoon|evening))\b[\s!.,]*(pip)?[\s!.]*$/i,'Hi! 🐥 Ask me about a problem, a pattern, system design, Java, behavioral questions or this app. Not sure where to start? Try one of the suggestions above.'],
+  [/^(thanks?( you)?|thx|ty|cool|ok(ay)?|great|nice|awesome|got it|perfect)\b[\s!.,]*(pip)?[\s!.]*$/i,'Happy to help! Say your approach out loud before you code. That’s what I’m here for. 🐥'],
+  [/^(bye|good ?night|see you|cya)\b/i,'Good luck! Come back tomorrow to keep your streak alive. 🐥']];
+function ask(q){for(const [re,t] of SMALL)if(re.test(q.trim())){state.log.push({r:'u',t:q},{r:'s',t});save();renderLog(true);return}
+  const r=search(q,{limit:8});state.log.push({r:'u',t:q});
+  const top=r[0];const conf=top?(top.cov>=.55&&top.s>=4.5?'hi':top.cov>=.35&&top.s>=3?'mid':'lo'):'lo';
+  if(conf==='lo')state.log.push({r:'n',q,alts:r.filter(x=>x.cov>=.25).slice(0,5).map(x=>x.e.i)});
+  else state.log.push({r:'p',id:top.e.i,q,c:conf,alts:r.slice(1,6).map(x=>x.e.i)});
+  save();renderLog(true)}
+function askId(id,label){state.log.push({r:'u',t:label||(BYID[id]&&BYID[id].t)||''});const r=search(label||'',{limit:6}).filter(x=>x.e.i!==id);state.log.push({r:'p',id,q:label,c:'hi',alts:r.slice(0,5).map(x=>x.e.i)});save();renderLog(true)}
+function welcome(){
+  const page=META&&META.topics[PAGE];
+  const here=page?KB.filter(e=>e.s===PAGE):[];
+  const pick=[];
+  if(page){const t=here.find(e=>e.k==='topic');if(t)pick.push([t.i,`What is ${t.t}?`]);const p=here.filter(e=>e.k==='prob');if(p.length)pick.push([p[(new Date().getDate())%p.length].i,`How do I solve ${p[(new Date().getDate())%p.length].t}?`]);const c=here.find(e=>e.k==='cx');if(c)pick.push([c.i,`Complexities to know for ${page}`]);const po=here.filter(e=>e.k==='post');if(po.length)pick.push([po[1%po.length].i,po[1%po.length].t])}
+  const gen=[['c-ci-approach','How do I approach a coding interview?'],['c-cmp-bfs-dfs','BFS vs DFS?'],['c-sd-chat','Design WhatsApp'],['c-ci-pattern','Which pattern should I use?'],['c-bh-star','How do I answer behavioral questions?'],['c-app-ask','What can I ask you?']];
+  for(const g of gen){if(pick.length>=6)break;if(BYID[g[0]])pick.push(g)}
+  return `<div class="am-p"><h4>Hi! I’m Pip 🐥<\/h4><p>Ask me about any problem (by name or LeetCode number), pattern, complexity, system design, Java/Spring, behavioral questions or this app. I answer instantly from ${KB.length.toLocaleString('en-US')} prepared answers.${liveOK?' If I don’t have one, I can ask Claude live.':''}<\/p>
+   <div class="am-rel"><span>${page?'Try, for '+esc(page):'Try'}<\/span><div class="am-chips">${pick.map(([id,l])=>`<button type="button" data-ask="${id}" data-q="${esc(l)}">${esc(l)}<\/button>`).join('')}<\/div><\/div><\/div>`}
+function renderLog(scroll){
+  const parts=[welcome()];
+  for(const m of state.log){
+    if(m.r==='u')parts.push(`<div class="am-u">${esc(m.t)}<\/div>`);
+    else if(m.r==='p'){const e=BYID[m.id];if(e)parts.push(answerHTML(e,m))}
+    else if(m.r==='n')parts.push(noneHTML(m));
+    else if(m.r==='ai')parts.push(aiHTML(m.t,m.q,false));
+    else if(m.r==='s')parts.push(`<div class="am-p"><p>${esc(m.t)}<\/p><\/div>`)}
+  body.innerHTML=parts.join('');$$('.ap-cw',body).forEach(drawCode);
+  if(scroll){const last=[...body.children].reverse().find(x=>x.classList.contains('am-u'));(last||body.lastElementChild).scrollIntoView({block:'start'})}}
+function relChips(ids){const es=ids.map(i=>BYID[i]).filter(Boolean);if(!es.length)return'';return `<div class="am-rel"><span>You might also ask<\/span><div class="am-chips">${es.map(e=>`<button type="button" data-ask="${e.i}" data-q="${esc(short(e.t,90))}">${esc(short(e.t,90))}<\/button>`).join('')}<\/div><\/div>`}
+function linksHTML(e,m){const ls=(e.L||[]).map(([l,h])=>{const ext=/^https?:/.test(h);return `<a href="${esc(h)}"${ext?' target="_blank" rel="noopener"':''} data-link="1">${esc(l)}${ext?' ↗':''}<\/a>`});
+  if(liveOK&&m)ls.push(`<button type="button" class="go-ai" data-ai="${esc(m.q||e.t)}" data-ctx="${e.i}">✨ Go deeper with AI<\/button>`);
+  return ls.length?`<div class="am-links">${ls.join('')}<\/div>`:''}
+function answerHTML(e,m){
+  const meta=`<div class="am-meta"><span class="ch">${esc(kindLabel(e))}<\/span>${e.sub?`<span>${esc(e.sub)}<\/span>`:e.cat&&e.k!=='cur'?`<span>${esc(e.cat)}<\/span>`:''}<\/div>`;
+  let h=`<div class="am-p">${meta}<h4>${esc(e.t)}<\/h4>`;
+  if(m&&m.c==='mid')h+=`<p class="am-note">Closest match for “${esc(short(m.q||'',60))}”. Not it? Pick one below${liveOK?' or ask the AI':''}.<\/p>`;
+  if(e.k==='prob'){
+    if(e.ask)h+=`<p>${esc(e.ask)}<\/p>`;
+    if(e.h)h+=`<div class="am-hint"><b>💡 Hint<\/b>${e.h}<\/div>`;
+    h+=`<details><summary>🧭 Full approach<\/summary><div>${e.a}<\/div><\/details>`;
+    if(e.c&&Object.keys(e.c).length)h+=`<details class="ap-cdet"><summary>💻 Code<\/summary><div class="ap-cw" data-id="${e.i}"><\/div><\/details>`}
+  else{h+=e.a;if(e.c&&Object.keys(e.c).length)h+=`<details class="ap-cdet"${e.k==='topic'?'':' open'}><summary>💻 ${esc(e.ct||'Code')}<\/summary><div class="ap-cw" data-id="${e.i}"><\/div><\/details>`}
+  h+=linksHTML(e,m);
+  const rel=[...(e.r||[]),...((m&&m.alts)||[])].filter((v,i,a)=>a.indexOf(v)===i&&v!==e.i).slice(0,5);
+  h+=relChips(rel)+'<\/div>';return h}
+function drawCode(w){const e=BYID[w.dataset.id];if(!e||!e.c)return;const avail=Object.keys(e.c);let l=window.LangKit?window.LangKit.get():LANG();if(!e.c[l])l=avail.includes('py')?'py':avail[0];
+  const L=window.LangKit;
+  const tabs=avail.length>1?(L?L.tabs(avail):`<div class="lsw">${avail.map(x=>`<button type="button" data-lang="${x}" aria-pressed="${x===l}">${{py:'Python',java:'Java',cpp:'C++'}[x]}<\/button>`).join('')}<\/div>`):'';
+  const code=L?`<div class="ap-code">${L.codeHTML(e.c[l],l)}<\/div>`:`<pre class="ap-pre">${esc(e.c[l])}<\/pre>`;
+  w.innerHTML=tabs+code;
+  if(!L)$$('.lsw button',w).forEach(b=>b.onclick=ev=>{ev.stopPropagation();try{localStorage.setItem('dsa-lang-v1',JSON.stringify(b.dataset.lang))}catch(_){}$$('.ap-cw',root).forEach(drawCode)})}
+function noneHTML(m){const alts=(m.alts||[]).map(i=>BYID[i]).filter(Boolean);
+  let h=`<div class="am-p"><h4>I don’t have a prepared answer for that yet<\/h4>`;
+  if(liveOK)h+=`<p>I can ask Claude for a fresh answer.<\/p><div class="am-links"><button type="button" class="go-ai" data-ai="${esc(m.q)}">✨ Ask Claude live<\/button><\/div>`;
+  else h+=`<p>Try rephrasing with a problem name, a LeetCode number or a key term (e.g. “sliding window”, “consistent hashing”). You can also browse the <b>Question bank<\/b>.<\/p>`;
+  if(alts.length)h+=`<div class="am-rel"><span>Closest prepared answers<\/span><div class="am-chips">${alts.map(e=>`<button type="button" data-ask="${e.i}" data-q="${esc(short(e.t,90))}">${esc(short(e.t,90))}<\/button>`).join('')}<\/div><\/div>`;
+  return h+'<\/div>'}
+
+/* markdown-lite for AI text */
+function mdLite(src){const lines=String(src).split('\n');let out='',i=0;
+  const inl=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1<\/code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1<\/b>').replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<i>$2<\/i>');
+  while(i<lines.length){const l=lines[i];
+    if(/^```/.test(l)){const buf=[];i++;while(i<lines.length&&!/^```/.test(lines[i]))buf.push(lines[i++]);i++;out+=`<pre class="ap-pre">${esc(buf.join('\n'))}<\/pre>`;continue}
+    if(/^\s*[-*•] /.test(l)){let items='';while(i<lines.length&&/^\s*[-*•] /.test(lines[i]))items+=`<li>${inl(lines[i++].replace(/^\s*[-*•] /,''))}<\/li>`;out+=`<ul>${items}<\/ul>`;continue}
+    if(/^\s*\d+[.)] /.test(l)){let items='';while(i<lines.length&&/^\s*\d+[.)] /.test(lines[i]))items+=`<li>${inl(lines[i++].replace(/^\s*\d+[.)] /,''))}<\/li>`;out+=`<ol>${items}<\/ol>`;continue}
+    if(/^#{1,4} /.test(l)){out+=`<p><b>${inl(l.replace(/^#+ /,''))}<\/b><\/p>`;i++;continue}
+    if(!l.trim()){i++;continue}
+    const buf=[];while(i<lines.length&&lines[i].trim()&&!/^(```|\s*[-*•] |\s*\d+[.)] |#{1,4} )/.test(lines[i]))buf.push(lines[i++]);out+=`<p>${inl(buf.join(' '))}<\/p>`}
+  return out}
+function aiHTML(text,q,pending){return `<div class="am-p ai"><div class="am-meta"><span class="ch ai-tag">✨ Claude · live answer<\/span><\/div>${pending&&!text?'<span class="am-typing" aria-label="Thinking"><i><\/i><i><\/i><i><\/i><\/span>':mdLite(text)}<\/div>`}
+async function askAI(q,ctxId){const s=await getSample();if(!s)return;
+  const r=search(q,{limit:3}).map(x=>x.e);if(ctxId&&BYID[ctxId]&&!r.includes(BYID[ctxId]))r.unshift(BYID[ctxId]);
+  const notes=r.slice(0,3).map((e,i)=>`[${i+1}] ${e.t}\n${plainText((e.h||'')+' '+e.a).slice(0,1400)}`).join('\n\n');
+  const hist=state.log.slice(-6).filter(m=>m.r==='u'||m.r==='ai').map(m=>(m.r==='u'?'Learner: ':'Pip: ')+String(m.t).slice(0,600)).join('\n');
+  const lang={py:'Python',java:'Java',cpp:'C++'}[window.LangKit?window.LangKit.get():LANG()];
+  const prompt=`You are Pip, a friendly rubber-duck tutor inside "Rubber Duck Dojo", an interview-prep app for DSA and system design aimed at SDE-2 roles. Answer the learner's question accurately and concisely: under about 250 words unless code is needed. Use short paragraphs, "- " bullet lists and fenced code blocks; when you show code, use ${lang}. State time and space complexity for algorithms. If the reference notes below are relevant, build on them without mentioning them. If the question is unrelated to programming, interviews or careers, answer briefly and steer back to studying.\n\nReference notes from the app:\n${notes||'(none)'}\n\nRecent conversation:\n${hist||'(none)'}\n\nQuestion: ${q}`;
+  state.log.push({r:'u',t:q});save();renderLog(true);
+  const holder=document.createElement('div');holder.innerHTML=aiHTML('',q,true);const card=holder.firstElementChild;body.appendChild(card);card.scrollIntoView({block:'nearest'});
+  if(aborter)aborter.abort();aborter=new AbortController();let text='';
+  try{const res=await s(prompt,{cache:false,signal:aborter.signal,onText:({text:t})=>{text=t;card.innerHTML=aiHTML(t,q,true).replace(/^<div class="am-p ai">|<\/div>$/g,'')}});
+    text=(res&&res.text)||text;state.log.push({r:'ai',t:text,q});save();renderLog(false);body.lastElementChild.scrollIntoView({block:'nearest'})}
+  catch(err){const code=err&&err.code;let msg='Live AI isn’t available right now.';
+    if(code==='rate_limited')msg='Live AI is busy. Please try again in a minute.';else if(code==='not_granted'){msg='Live AI wasn’t allowed, so I’ll stick to prepared answers.';liveOK=false;live.hidden=true}
+    else if(err&&err.name==='AbortError')msg='Stopped.';
+    if(err&&err.text){state.log.push({r:'ai',t:err.text,q});save();renderLog(false)}else card.innerHTML=`<p class="am-note">${esc(msg)}<\/p>`}}
+function onClick(e){
+  const a=e.target.closest('[data-ask]');if(a&&!a.closest('.pask-list')){e.preventDefault();if(a.tagName==='LI'){askId(a.dataset.ask,a.textContent.replace(/\s+/g,' ').trim().split(/ (LeetCode|HLD|LLD)/)[0])}else askId(a.dataset.ask,a.dataset.q);return}
+  const s=e.target.closest('.pask-sug button');if(s){e.preventDefault();ta.value='';hideSug();askId(s.dataset.id,s.dataset.q);return}
+  const ai=e.target.closest('[data-ai]');if(ai){askAI(ai.dataset.ai,ai.dataset.ctx);return}
+  const lk=e.target.closest('a[data-link]');if(lk){const h=lk.getAttribute('href');
+    const fm=/^#film-([\w-]+)/.exec(h);if(fm){e.preventDefault();close();if(window.Cinema&&window.Cinema.films[fm[1]])window.Cinema.open(fm[1]);else location.href='index.html#film-'+fm[1];return}
+    const m=/^([\w-]+)\.html(#.*)?$/.exec(h);if(m&&m[1]===PAGE&&m[2]){e.preventDefault();close();const t=document.getElementById(m[2].slice(1));if(t){t.scrollIntoView({behavior:'smooth',block:'start'});const det=t.querySelector('.reveal');}else location.hash=m[2];return}
+    return}
+  const bl=e.target.closest('.pask-list [data-ask]');if(bl){tab('chat');askId(bl.dataset.ask,bl.dataset.q);return}
+}
+
+/* question bank */
+let bankCat='',bankQ='',bankN=60;
+function renderBank(){if(!KB){bank.innerHTML='<p>Loading…<\/p>';return}
+  if(!bank.dataset.ready){bank.dataset.ready=1;
+    const cats={};KB.forEach(e=>cats[e.cat]=(cats[e.cat]||0)+1);
+    const order=Object.keys(cats).sort((a,b)=>catRank(a)-catRank(b));
+    bank.innerHTML=`<div class="pask-bank-top"><input type="search" placeholder="Filter ${KB.length.toLocaleString('en-US')} questions…" aria-label="Filter questions"><div class="pask-cats"><button type="button" data-c="" aria-pressed="true">All<\/button>${order.map(c=>`<button type="button" data-c="${esc(c)}" aria-pressed="false">${esc(c)} · ${cats[c]}<\/button>`).join('')}<\/div><span class="pask-count"><\/span><\/div><div class="pask-list"><\/div>`;
+    const inp=$('input',bank);inp.addEventListener('input',()=>{bankQ=inp.value;bankN=60;drawBank()});
+    $$('.pask-cats button',bank).forEach(b=>b.onclick=()=>{bankCat=b.dataset.c;bankN=60;$$('.pask-cats button',bank).forEach(x=>x.setAttribute('aria-pressed',x===b));drawBank()});
+    bank.addEventListener('click',e=>{const m=e.target.closest('.pask-more');if(m){bankN+=120;drawBank()}})}
+  drawBank()}
+const CAT_ORDER=['Coding interview','DSA topics','DSA problems','DSA concepts','Algorithms','Complexity','System design','System design classics','System design topics','System design problems','System design concepts','OOP & LLD','Java & Spring','Behavioral','Using this app','Reflexes: see this → do that','Quiz questions'];
+const catRank=c=>{const i=CAT_ORDER.indexOf(c);return i<0?99:i};
+function drawBank(){let list;
+  if(bankQ.trim().length>1)list=search(bankQ,{limit:200,prefix:true}).map(x=>x.e).filter(e=>!bankCat||e.cat===bankCat);
+  else list=KB.filter(e=>!bankCat||e.cat===bankCat).map((e,i)=>[e,i]).sort((a,b)=>catRank(a[0].cat)-catRank(b[0].cat)||a[1]-b[1]).map(x=>x[0]);
+  $('.pask-count',bank).textContent=`${list.length.toLocaleString('en-US')} question${list.length===1?'':'s'}`;
+  let h='',cur=null;const show=list.slice(0,bankN);
+  for(const e of show){if(!bankQ&&e.cat!==cur){cur=e.cat;h+=`<h5>${esc(cur)}<\/h5>`}
+    const q=e.k==='prob'?`How do I solve ${e.t}?`:e.k==='topic'?`What is ${e.t}?`:e.k==='rx'?`When I see “${short(e.t,90)}”, what do I do?`:e.t;
+    h+=`<button type="button" data-ask="${e.i}" data-q="${esc(short(q,120))}">${esc(short(q,140))}${e.sub?`<small>${esc(e.sub)}<\/small>`:''}<\/button>`}
+  if(list.length>bankN)h+=`<button type="button" class="pask-more">Show more (${(list.length-bankN).toLocaleString('en-US')} left)<\/button>`;
+  $('.pask-list',bank).innerHTML=h||'<p class="am-note">Nothing matches. Try another word, or ask it in the chat.<\/p>'}
+
+/* boot */
+function boot(){mount();if(/^#ask(=|$)/.test(location.hash)){const q=decodeURIComponent(location.hash.slice(5)||'');open(q||undefined)}
+  // warm the AI capability check quietly so the badge is ready
+  setTimeout(getSample,1500);
+  window.addEventListener('hashchange',()=>{if(/^#ask(=|$)/.test(location.hash)){const q=decodeURIComponent(location.hash.slice(5)||'');try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}open(q||undefined)}})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+window.AskPip={open,close,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
+})();
+</script><!--ask-end-->
 </body></html>
