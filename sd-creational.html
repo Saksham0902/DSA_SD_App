@@ -2559,7 +2559,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--cards-start--><style>.prob dl.think.tk{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;background:none;padding:0;margin:10px 0}
 .prob dl.think.tk .tk-s{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px 10px;display:grid;gap:3px;align-content:start;min-width:0}
 .prob dl.think.tk .tk-s+.tk-s::before{content:"→";position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:var(--surface);color:var(--ink-3);font:800 11px/16px var(--body,inherit);text-align:center;z-index:1}
@@ -2701,5 +2700,6 @@ function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.q
   const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 </body>
 </html>

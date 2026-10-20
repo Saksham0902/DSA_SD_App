@@ -2785,7 +2785,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--exv-start--><style>.exv{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:8px 0 2px;padding:10px 10px 8px;border-radius:10px;background:var(--surface);border:1px dashed var(--line);overflow-x:auto;min-width:0}
 .exv-in,.exv-out{display:grid;gap:8px;min-width:0;justify-items:start}
 .exv-arrow{font:800 22px var(--display,inherit);color:var(--ink-3);flex:none}
@@ -4425,5 +4424,6 @@ document.querySelectorAll('.film-ban').forEach(b=>{const id=b.dataset.film,f=C.f
   const d=b.querySelector('.fb-d');if(d)d.textContent=C.fmt(f.T);
   b.addEventListener('click',()=>C.open(id))});
 mark();document.addEventListener('cinema:watched',mark)})();</script><!--cin-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 </body>
 </html>
