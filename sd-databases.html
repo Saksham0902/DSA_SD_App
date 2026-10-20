@@ -3,7 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!--pip-start--><style>html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}
+<!--auth-start--><script>(function(){var C={"firebase": {"apiKey": "", "authDomain": "", "projectId": "", "appId": ""}, "hosts": ["saksham0902.github.io"], "requireLogin": true, "allowGuest": true, "sdk": "https://cdn.jsdelivr.net/npm/firebase@10.14.1/"};var f=C.firebase||{};var on=!!(f.apiKey&&f.projectId&&C.hosts.indexOf(location.hostname)>=0);
+window.DOJO_AUTH_CFG=C;window.DOJO_AUTH_ON=on;if(!on||!C.requireLogin)return;
+var page=location.pathname.split('/').pop()||'index.html';if(page==='login.html')return;
+var s=null;try{s=JSON.parse(localStorage.getItem('rdd-auth-v1'))}catch(e){}
+if(s&&(s.uid||(s.guest&&C.allowGuest)))return;
+location.replace('login.html?next='+encodeURIComponent(page+location.search+location.hash));})();
+</script><!--auth-end--><!--pip-start--><style>html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}
 .pip-svg{display:block;width:100%;height:100%;overflow:visible}
 .pip-eye{transform-box:fill-box;transform-origin:center;animation:pipBlink 5s infinite}
 @keyframes pipBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
@@ -118,7 +124,7 @@ if(LS){Storage.prototype.setItem=function(k,v){
   let before=null;const mine=this===LS;
   if(mine){try{before=LS.getItem(k)}catch(e){}}
   rawSet.call(this,k,v);
-  if(!mine||k===KEY)return;
+  if(!mine||k===KEY||window.__dojoQuiet)return;
   try{
     if(isProg(k)){const a=J(before)||{},b=J(v)||{};const d=(+b.xp||0)-(+a.xp||0);if(d>0)add(d,'xp')}
     else if(k==='dsa-crunch-v1'){const d=cnt((J(v)||{}).done)-cnt((J(before)||{}).done);if(d>0)add(10*d,'crunch')}
@@ -2932,5 +2938,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 </body>
 </html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sign in · Rubber Duck Dojo</title><meta name="description" content="Sign in or create a free account to sync your Rubber Duck Dojo progress across devices.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>:root{
+  --paper:#F4F6FB; --surface:#FFFFFF; --ink:#161A33; --ink-2:#4A4F6E; --ink-3:#8A8FAD; --line:#D9DDEB; --dot:#D3D8E8;
+  --blue:#4453E8; --blue-soft:#E3E6FD; --amber:#E89A1C; --amber-soft:#FDF0D9; --mint:#139E80; --mint-soft:#D5F2E9; --rose:#DB3D6E; --rose-soft:#FBE1E9;
+  --rx-bg:#161A33; --rx-ink:#F4F6FB; --rx-acc:#F2AE45; --rx-dim:rgba(244,246,251,.62); --on-acc:#FFFFFF;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11142A; --surface:#1A1E3A; --ink:#E8EAF6; --ink-2:#AEB3D3; --ink-3:#6E749B; --line:#2E3463; --dot:#232854;
+  --blue:#7C88FF; --blue-soft:#262D6B; --amber:#F2AE45; --amber-soft:#3E3014; --mint:#3DD1A9; --mint-soft:#0F3D33; --rose:#FF6F98; --rose-soft:#4A1A2C;
+  --rx-bg:#2B3170; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11142A; --surface:#1A1E3A; --ink:#E8EAF6; --ink-2:#AEB3D3; --ink-3:#6E749B; --line:#2E3463; --dot:#232854;
+  --blue:#7C88FF; --blue-soft:#262D6B; --amber:#F2AE45; --amber-soft:#3E3014; --mint:#3DD1A9; --mint-soft:#0F3D33; --rose:#FF6F98; --rose-soft:#4A1A2C;
+  --rx-bg:#2B3170; color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;min-height:100%}
+body{background:var(--paper);color:var(--ink);font:16px/1.5 var(--body);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;line-height:1.05}
+p{margin:0}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+.wrap{min-height:100vh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+.brand{position:relative;overflow:hidden;color:#fff;padding:clamp(28px,5vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;
+  background:radial-gradient(60% 60% at 15% 10%,rgba(124,92,255,.55),transparent 70%),radial-gradient(50% 60% at 90% 90%,rgba(0,190,255,.35),transparent 70%),radial-gradient(35% 40% at 80% 15%,rgba(255,92,147,.25),transparent 70%),#070A1F}
+.brand::before{content:"";position:absolute;inset:0;background-image:radial-gradient(1.2px 1.2px at 12% 20%,#fff9,transparent),radial-gradient(1px 1px at 30% 70%,#fff8,transparent),radial-gradient(1.4px 1.4px at 55% 35%,#fffa,transparent),radial-gradient(1px 1px at 75% 60%,#fff7,transparent),radial-gradient(1.2px 1.2px at 88% 22%,#fff9,transparent),radial-gradient(1px 1px at 42% 88%,#fff6,transparent),radial-gradient(1px 1px at 8% 92%,#fff7,transparent),radial-gradient(1.3px 1.3px at 65% 8%,#fff8,transparent);pointer-events:none}
+.logo{position:relative;display:flex;align-items:center;gap:10px;font:800 20px var(--display);color:#fff;text-decoration:none}
+.logo svg{width:38px;height:38px}
+.pitch{position:relative;display:grid;gap:18px;max-width:30ch}
+.pitch h1{font-size:clamp(40px,5.4vw,68px);font-weight:800;letter-spacing:-.035em}
+.pitch h1 span{background:linear-gradient(90deg,#5CE1FF,#B194FF 55%,#FF5C93);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pitch p{color:#C5CBF2;font-size:17px;max-width:42ch}
+.stats{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:390px}
+.stats div{border:1px solid rgba(124,140,255,.35);background:rgba(20,26,70,.5);border-radius:14px;padding:10px 12px;backdrop-filter:blur(4px)}
+.stats b{display:block;font:800 22px var(--display);color:#fff}
+.stats small{color:#AEB6EA;font-size:13px}
+.duck{position:absolute;right:clamp(16px,4vw,48px);bottom:clamp(16px,4vw,40px);width:clamp(90px,12vw,150px);animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.duck{animation:none}}
+.side{display:grid;place-items:center;padding:clamp(20px,4vw,48px) 16px;background-image:radial-gradient(var(--dot) 1.1px,transparent 1.3px);background-size:24px 24px}
+.card{width:min(420px,100%);background:var(--surface);border:2px solid var(--ink);border-radius:22px;box-shadow:6px 6px 0 var(--ink);padding:clamp(20px,4vw,30px);display:grid;gap:16px}
+.card h2{font-size:28px;font-weight:800}
+.card .sub{color:var(--ink-2);font-size:15px;margin-top:8px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.tabs button{border:0;border-radius:9px;padding:8px 10px;background:transparent;font-weight:800;font-size:14.5px;color:var(--ink-2);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:1.5px solid var(--line);background:#fff;color:#1f1f1f;border-radius:12px;padding:11px 14px;font:700 15.5px var(--body);cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.gbtn:hover{border-color:#9aa0b8;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.or{display:flex;align-items:center;gap:10px;color:var(--ink-3);font-size:13px;font-weight:700}
+.or::before,.or::after{content:"";flex:1;height:1.5px;background:var(--line)}
+form{display:grid;gap:12px}
+form[hidden]{display:none}
+label{display:grid;gap:5px;font-weight:700;font-size:14px}
+.inp{position:relative}
+input[type=email],input[type=password],input[type=text]{width:100%;border:2px solid var(--line);border-radius:12px;padding:11px 13px;background:var(--paper);font-size:16px;transition:border-color .15s}
+input:focus{outline:none;border-color:var(--ink);background:var(--surface)}
+input[aria-invalid="true"]{border-color:var(--rose)}
+.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:13px;font-weight:800;color:var(--ink-3);cursor:pointer;padding:6px 8px}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:13.5px}
+.link{border:0;background:none;padding:0;color:var(--blue);font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:13.5px}
+.pri{width:100%;border:2px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:12px;padding:12px;font:800 16px var(--body);cursor:pointer;box-shadow:3px 3px 0 #FFD24A;transition:transform .12s}
+.pri:hover{transform:translateY(-1px)}
+.pri[disabled],.gbtn[disabled]{opacity:.6;cursor:progress}
+.meter{height:6px;border-radius:9px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--rose);transition:width .2s,background .2s}
+.hint{font-size:12.5px;color:var(--ink-3);font-weight:600}
+.msg{border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600}
+.msg:empty{display:none}
+.msg.err{background:var(--rose-soft);color:color-mix(in srgb,var(--rose) 75%,var(--ink))}
+.msg.ok{background:var(--mint-soft);color:color-mix(in srgb,var(--mint) 70%,var(--ink))}
+.guest{display:grid;gap:4px;text-align:center;border-top:1.5px dashed var(--line);padding-top:14px}
+.guest button{border:0;background:none;font-weight:800;color:var(--ink);cursor:pointer;font-size:15px;text-decoration:underline;text-underline-offset:4px}
+.guest small{color:var(--ink-3);font-size:12.5px}
+.fine{font-size:12px;color:var(--ink-3);text-align:center}
+.setup{display:grid;gap:10px}
+.setup[hidden]{display:none}
+@media (max-width:860px){.wrap{grid-template-columns:1fr}.brand{padding:22px 18px 26px;gap:16px}.pitch h1{font-size:34px}.pitch p{font-size:15px}.stats{display:none}.duck{display:none}.side{padding-top:22px}}
+</style><script>(function(){var C={"firebase": {"apiKey": "", "authDomain": "", "projectId": "", "appId": ""}, "hosts": ["saksham0902.github.io"], "requireLogin": true, "allowGuest": true, "sdk": "https://cdn.jsdelivr.net/npm/firebase@10.14.1/"};var f=C.firebase||{};var on=!!(f.apiKey&&f.projectId&&C.hosts.indexOf(location.hostname)>=0);
+window.DOJO_AUTH_CFG=C;window.DOJO_AUTH_ON=on;if(!on||!C.requireLogin)return;
+var page=location.pathname.split('/').pop()||'index.html';if(page==='login.html')return;
+var s=null;try{s=JSON.parse(localStorage.getItem('rdd-auth-v1'))}catch(e){}
+if(s&&(s.uid||(s.guest&&C.allowGuest)))return;
+location.replace('login.html?next='+encodeURIComponent(page+location.search+location.hash));})();
+</script></head>
+<body><div class="wrap">
+<section class="brand" aria-label="About Rubber Duck Dojo">
+  <a class="logo" href="index.html"><svg viewBox="0 0 120 110" aria-hidden="true"><ellipse cx="60" cy="98" rx="38" ry="7" fill="rgba(0,0,0,.25)"/><path d="M22 70c0-18 14-30 34-30h10c20 0 32 12 32 28 0 17-15 28-38 28S22 87 22 70z" fill="#FFD24A" stroke="#161A33" stroke-width="4"/><circle cx="66" cy="34" r="22" fill="#FFD24A" stroke="#161A33" stroke-width="4"/><circle cx="73" cy="30" r="3.6" fill="#161A33"/><path d="M86 36c8 0 14 2 14 5s-6 5-14 5c-4 0-6-2-6-5s2-5 6-5z" fill="#FF8A3D" stroke="#161A33" stroke-width="3.5"/><path d="M40 70c8 6 20 6 28 0" fill="none" stroke="#161A33" stroke-width="3.5" stroke-linecap="round"/></svg><span>Rubber Duck Dojo</span></a>
+  <div class="pitch"><h1>Every pattern, <span>one place.</span></h1>
+  <p>DSA and system design for SDE-2 interviews: labs, reflexes, code in Python, Java and C++, animated films and a study buddy who answers your questions.</p></div>
+  <div class="stats"><div><b>24</b><small>DSA + design topics</small></div><div><b>310</b><small>problems with code</small></div><div><b>19</b><small>animated films</small></div><div><b>1,300+</b><small>answers from Pip</small></div></div>
+  <div class="duck"><svg viewBox="0 0 120 110" aria-hidden="true"><ellipse cx="60" cy="98" rx="38" ry="7" fill="rgba(0,0,0,.25)"/><path d="M22 70c0-18 14-30 34-30h10c20 0 32 12 32 28 0 17-15 28-38 28S22 87 22 70z" fill="#FFD24A" stroke="#161A33" stroke-width="4"/><circle cx="66" cy="34" r="22" fill="#FFD24A" stroke="#161A33" stroke-width="4"/><circle cx="73" cy="30" r="3.6" fill="#161A33"/><path d="M86 36c8 0 14 2 14 5s-6 5-14 5c-4 0-6-2-6-5s2-5 6-5z" fill="#FF8A3D" stroke="#161A33" stroke-width="3.5"/><path d="M40 70c8 6 20 6 28 0" fill="none" stroke="#161A33" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+</section>
+<main class="side">
+  <div class="card">
+    <div class="setup" id="setup" hidden><h2>Welcome!</h2><p class="sub">Sign-in isn’t switched on for this copy of the app, so your progress is saved in this browser.</p><a class="pri" href="index.html" style="text-align:center;text-decoration:none">Open the app</a></div>
+    <div id="authUI">
+    <div style="display:grid;gap:16px">
+    <div><h2 id="ttl">Welcome back</h2><p class="sub" id="subt">Sign in to pick up where you left off, on any device.</p></div>
+    <div class="tabs" role="tablist" aria-label="Sign in or create account"><button type="button" role="tab" id="tIn" aria-selected="true">Sign in</button><button type="button" role="tab" id="tUp" aria-selected="false">Create account</button></div>
+    <button type="button" class="gbtn" id="google"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg><span>Continue with Google</span></button>
+    <div class="or">or with email</div>
+    <div class="msg" id="msg" role="alert" aria-live="assertive"></div>
+    <form id="fIn" novalidate>
+      <label>Email<input type="email" id="inEmail" autocomplete="email" required></label>
+      <label>Password<span class="inp"><input type="password" id="inPass" autocomplete="current-password" required><button type="button" class="eye" data-eye="inPass">Show</button></span></label>
+      <div class="row"><span></span><button type="button" class="link" id="toForgot">Forgot password?</button></div>
+      <button class="pri" type="submit">Sign in</button>
+    </form>
+    <form id="fUp" novalidate hidden>
+      <label>Your name<input type="text" id="upName" autocomplete="name" required maxlength="60"></label>
+      <label>Email<input type="email" id="upEmail" autocomplete="email" required></label>
+      <label>Password<span class="inp"><input type="password" id="upPass" autocomplete="new-password" required minlength="8"><button type="button" class="eye" data-eye="upPass">Show</button></span>
+        <span class="meter" aria-hidden="true"><i id="meter"></i></span><span class="hint" id="meterTx">At least 8 characters. Mix letters, numbers and symbols.</span></label>
+      <label>Confirm password<input type="password" id="upPass2" autocomplete="new-password" required></label>
+      <button class="pri" type="submit">Create account</button>
+      <p class="fine">We’ll email you a link to verify your address.</p>
+    </form>
+    <form id="fForgot" novalidate hidden>
+      <p class="sub" style="margin:0">Enter your email and we’ll send a link to set a new password.</p>
+      <label>Email<input type="email" id="fgEmail" autocomplete="email" required></label>
+      <button class="pri" type="submit">Send reset link</button>
+      <button type="button" class="link" id="backIn" style="justify-self:center">← Back to sign in</button>
+    </form>
+    <div class="guest" id="guestBox"><button type="button" id="guest">Continue as guest →</button><small>No account needed. Progress stays on this device only.</small></div>
+    <p class="fine">We store only your name, email and study progress. You can delete your account any time from the account menu.</p>
+    </div></div>
+  </div>
+</main>
+</div>
+<script src="auth.js"></script><script>(function(){"use strict";
+const $=id=>document.getElementById(id);
+const C=window.DOJO_AUTH_CFG||{},A=window.DojoAuth;
+const qs=new URLSearchParams(location.search);const next=A?A.safeNext(qs.get('next')):'index.html';
+const msg=$('msg');let busy=false,mode='in';
+function say(t,ok){msg.textContent=t||'';msg.className='msg'+(t?(ok?' ok':' err'):'')}
+function go(){location.replace(next)}
+if(!window.DOJO_AUTH_ON||!A){$('setup').hidden=false;$('authUI').hidden=true;return}
+if(!C.allowGuest)$('guestBox').hidden=true;
+function show(m){mode=m;$('fIn').hidden=m!=='in';$('fUp').hidden=m!=='up';$('fForgot').hidden=m!=='forgot';say('');
+  $('tIn').setAttribute('aria-selected',m==='in'||m==='forgot');$('tUp').setAttribute('aria-selected',m==='up');
+  $('ttl').textContent=m==='up'?'Create your account':m==='forgot'?'Reset your password':'Welcome back';
+  $('subt').textContent=m==='up'?'Free. Your progress syncs across all your devices.':m==='forgot'?'It happens to everyone.':'Sign in to pick up where you left off, on any device.';
+  $('google').hidden=m==='forgot';document.querySelector('.or').hidden=m==='forgot';
+  const f=m==='in'?$('inEmail'):m==='up'?$('upName'):$('fgEmail');setTimeout(()=>f.focus(),30)}
+$('tIn').onclick=()=>show('in');$('tUp').onclick=()=>show('up');$('toForgot').onclick=()=>{$('fgEmail').value=$('inEmail').value;show('forgot')};$('backIn').onclick=()=>show('in');
+if(qs.get('mode')==='signup')show('up');
+document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=$(b.dataset.eye);const s=i.type==='password';i.type=s?'text':'password';b.textContent=s?'Hide':'Show'});
+function strength(p){let s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[a-z]/.test(p)&&/[A-Z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^\w\s]/.test(p))s++;return s}
+$('upPass').addEventListener('input',e=>{const s=strength(e.target.value),w=[0,25,45,65,85,100][s];const m=$('meter');m.style.width=w+'%';m.style.background=s<2?'var(--rose)':s<4?'var(--amber)':'var(--mint)';
+  $('meterTx').textContent=!e.target.value?'At least 8 characters. Mix letters, numbers and symbols.':e.target.value.length<8?'Too short: at least 8 characters.':['Weak','Weak','Okay','Good','Strong','Very strong'][s]});
+function lock(on,btn){busy=on;document.querySelectorAll('.pri,.gbtn').forEach(b=>b.disabled=on);if(btn){if(on){btn.dataset.t=btn.innerHTML;btn.textContent='Please wait…'}else if(btn.dataset.t)btn.innerHTML=btn.dataset.t}}
+const okEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+function mark(id,bad){$(id).setAttribute('aria-invalid',bad?'true':'false')}
+let ready=A.load().then(({auth})=>{
+  auth.getRedirectResult().catch(e=>say(A.errText(e)));
+  auth.onAuthStateChanged(u=>{if(u&&!busy){A.setHint({uid:u.uid,name:u.displayName||'',email:u.email||'',photo:u.photoURL||''});go()}});
+  return auth}).catch(e=>{say('Couldn’t reach the sign-in service. Check your connection, or continue as a guest.');throw e});
+$('google').onclick=async()=>{const btn=$('google');say('');try{const auth=await ready;const fb=window.firebase;const p=new fb.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
+  lock(true,btn);try{const r=await auth.signInWithPopup(p);done(r.user)}
+  catch(e){if(e.code==='auth/popup-blocked'||e.code==='auth/operation-not-supported-in-this-environment'){await auth.signInWithRedirect(p);return}
+    if(e.code!=='auth/popup-closed-by-user'&&e.code!=='auth/cancelled-popup-request')say(A.errText(e));lock(false,btn)}}catch(e){lock(false,btn)}};
+function done(u){A.setHint({uid:u.uid,name:u.displayName||'',email:u.email||'',photo:u.photoURL||''});busy=false;go()}
+$('fIn').onsubmit=async e=>{e.preventDefault();const em=$('inEmail').value.trim(),pw=$('inPass').value;mark('inEmail',!okEmail(em));mark('inPass',!pw);
+  if(!okEmail(em))return say('Enter a valid email address.');if(!pw)return say('Enter your password.');
+  const btn=e.submitter||$('fIn').querySelector('.pri');lock(true,btn);say('');
+  try{const auth=await ready;const r=await auth.signInWithEmailAndPassword(em,pw);done(r.user)}catch(err){say(A.errText(err));lock(false,btn)}};
+$('fUp').onsubmit=async e=>{e.preventDefault();const nm=$('upName').value.trim(),em=$('upEmail').value.trim(),pw=$('upPass').value,pw2=$('upPass2').value;
+  mark('upName',!nm);mark('upEmail',!okEmail(em));mark('upPass',pw.length<8);mark('upPass2',pw!==pw2);
+  if(!nm)return say('Tell us your name.');if(!okEmail(em))return say('Enter a valid email address.');if(pw.length<8)return say('Use at least 8 characters for your password.');if(pw!==pw2)return say('The two passwords don’t match.');
+  const btn=e.submitter||$('fUp').querySelector('.pri');lock(true,btn);say('');
+  try{const auth=await ready;const r=await auth.createUserWithEmailAndPassword(em,pw);await r.user.updateProfile({displayName:nm});
+    try{await r.user.sendEmailVerification()}catch(_){}
+    say('Account created! Check your inbox to verify your email.',true);setTimeout(()=>done(auth.currentUser||r.user),900)}
+  catch(err){say(A.errText(err));lock(false,btn)}};
+$('fForgot').onsubmit=async e=>{e.preventDefault();const em=$('fgEmail').value.trim();mark('fgEmail',!okEmail(em));if(!okEmail(em))return say('Enter a valid email address.');
+  const btn=e.submitter||$('fForgot').querySelector('.pri');lock(true,btn);
+  try{const auth=await ready;await auth.sendPasswordResetEmail(em)}catch(err){if(err.code!=='auth/user-not-found'){say(A.errText(err));lock(false,btn);return}}
+  lock(false,btn);say('If an account exists for '+em+', a reset link is on its way. Check spam too.',true)};
+$('guest').onclick=()=>{A.setHint({guest:true});location.replace(next)};
+})();</script>
+</body></html>
