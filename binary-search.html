@@ -3936,5 +3936,92 @@ function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.
 function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
+<!--rxe-start--><style>.rxe{display:grid;gap:10px;margin:2px 0 12px}
+.rxe-plain{margin:0;font-size:15.5px;line-height:1.55;color:var(--rx-ink)}
+.rxe-plain b,.rxe-why b,.rxe-pr b{display:block;font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:var(--rx-acc);margin-bottom:3px}
+.rxe-pics{display:grid;gap:10px;background:#F4F6FB;color:#161A33;border-radius:14px;padding:12px;overflow-x:auto;min-width:0}
+.rxe-pics>b{font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:#6E749B}
+.rxe-t{font:700 12px var(--body,inherit);color:#4A4F6E}
+.rxe-why{margin:0;font-size:14.5px;line-height:1.5;color:var(--rx-dim)}
+.rxe-pr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rxe-pr b{display:inline;margin:0 4px 0 0}
+.rxe-pr a{font:700 13px var(--body,inherit);color:var(--rx-ink);text-decoration:none;border:1.5px solid rgba(244,246,251,.3);border-radius:999px;padding:3px 10px}
+.rxe-pr a:hover{border-color:var(--rx-acc);color:var(--rx-acc)}
+.rxe-tr{display:grid;gap:6px}
+.rxe-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
+.rxe-row .st{display:grid;gap:1px;font-size:13px;line-height:1.35;min-width:170px}
+.rxe-row .st b{font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-row .st span{color:#4A4F6E}
+.rxe-row.ok .st span{color:#0F7A5F;font-weight:700}.rxe-row.bad .st span{color:#B4204F;font-weight:700}
+.rxe-n{font:800 11px var(--mono,monospace);color:#6E749B;margin-right:6px}
+.rxe-tl{display:flex;gap:3px;align-items:flex-start}
+.rxe-c{display:grid;justify-items:center;gap:1px;min-width:28px}
+.rxe-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid #D9DDEB;border-radius:7px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33;white-space:nowrap}
+.rxe-c small{font:600 9.5px var(--mono,monospace);color:#6E749B;min-height:11px;white-space:nowrap}
+.rxe-c.on b{background:#FFE7B3;border-color:#E09A2B}
+.rxe-c.win b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-c.dim b{opacity:.4}
+.rxe-c small.p{color:#B86E00;font-weight:800}
+.rxe-g{border-collapse:separate;border-spacing:3px}
+.rxe-g td{min-width:28px;height:28px;text-align:center;border:1.5px solid #D9DDEB;border-radius:6px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-g td.x-g{background:#D6F3E9;border-color:#2BA982}.rxe-g td.x-a{background:#FFE7B3;border-color:#E09A2B}.rxe-g td.x-r{background:#FBE1E9;border-color:#DB3D6E}.rxe-g td.x-b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-grids{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.rxe-grids>div{display:grid;gap:4px}
+.rxe-kv{display:grid;gap:5px}
+.rxe-kv>div{opacity:1;color:#161A33;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rxe-kv .k{font:700 12.5px var(--mono,monospace);border-radius:7px;padding:3px 8px;background:#161A33;color:#fff}
+.rxe-kv .v{display:flex;gap:4px;flex-wrap:wrap}
+.rxe-kv .v span{color:#161A33;opacity:1;font:700 12.5px var(--mono,monospace);border:1.5px solid #D9DDEB;background:#fff;border-radius:7px;padding:2px 8px}
+.rxe-kv>div.x-g .v span{border-color:#2BA982;background:#D6F3E9}.rxe-kv>div.x-b .v span{border-color:#5B74E8;background:#DDE6FF}.rxe-kv>div.x-a .v span{border-color:#E09A2B;background:#FFE7B3}
+.rxe-cmp{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.rxe-cmp>div{border:1.5px solid #D9DDEB;background:#fff;border-radius:10px;padding:6px 10px;display:grid;gap:1px;min-width:120px}
+.rxe-cmp small{font:700 11.5px var(--body,inherit);color:#6E749B}
+.rxe-cmp b{font:700 13.5px var(--mono,monospace);color:#161A33}
+.rxe-cmp>div.ok{border-color:#2BA982;background:#E7F7F0}.rxe-cmp>div.bad{border-color:#DB3D6E;background:#FDECF1}
+.rxe-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.rxe-flow span{border:1.5px solid #161A33;background:#fff;border-radius:9px;padding:5px 10px;font:700 13px var(--body,inherit);color:#161A33;box-shadow:2px 2px 0 #161A33}
+.rxe-flow i{font-style:normal;color:#6E749B;font-weight:800}
+.rxe-code{margin:0;background:#161A33;color:#E6E9FF;border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,monospace);overflow-x:auto;white-space:pre}
+svg.rxe-s{display:block;max-width:100%;height:auto}
+svg.rxe-s line{stroke:#9AA0B8;stroke-width:1.5}
+svg.rxe-s circle{fill:#fff;stroke:#4A4F6E;stroke-width:1.5}
+svg.rxe-s .x-g circle{fill:#D6F3E9;stroke:#2BA982;stroke-width:2.2}svg.rxe-s .x-a circle{fill:#FFE7B3;stroke:#E09A2B;stroke-width:2.2}svg.rxe-s .x-r circle{fill:#FBE1E9;stroke:#DB3D6E;stroke-width:2.2}svg.rxe-s .x-b circle{fill:#DDE6FF;stroke:#5B74E8;stroke-width:2.2}
+svg.rxe-s text{font:700 12px var(--mono,monospace);fill:#161A33;text-anchor:middle;dominant-baseline:central}
+.rxe-ch{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rxe-ch .ar{color:#6E749B;font-weight:800}
+.rxe-ch .nt{font-size:12.5px;color:#4A4F6E;margin-left:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rxe-pics{background:#E4E8F5}}
+:root[data-theme="dark"] .rxe-pics{background:#E4E8F5}
+@media (max-width:640px){.rxe-row{grid-template-columns:1fr}.rxe-row .st{min-width:0}}</style><script>(function(){const RXD={"rx-sorted": {"plain": "Sorted data lets you throw away half the candidates with one comparison: look at the middle; if it’s too small, the answer can only be to the right, otherwise to the left. A million items need about 20 looks.", "pic": [{"t": "trace", "v": [1, 3, 5, 7, 9, 11, 13], "rows": [[{"lo": 0, "mid": 3, "hi": 6}, "7 < 9", "answer is right of mid → lo = 4", "", null], [{"lo": 4, "mid": 5, "hi": 6}, "11 > 9", "answer is left of mid → hi = 4", "", null], [{"lo": 4, "mid": 4, "hi": 4}, "9 = 9", "found at index 4", "ok", null]], "title": "target = 9"}], "probs": ["p-704", "p-35"], "ex": null}, "rx-firsttrue": {"plain": "Many questions are “where does false turn into true?” (first bad version, insert position). Keep lo and hi around that switch point. If mid is true, the first true is at mid or before it (hi = mid); if false, it’s after mid (lo = mid + 1). When lo meets hi, that’s the answer.", "pic": [{"t": "trace", "v": ["✗", "✗", "✗", "✓", "✓"], "rows": [[{"lo": 0, "mid": 2, "hi": 5}, "mid is ✗", "lo = 3", "", null], [{"lo": 3, "mid": 4, "hi": 5}, "mid is ✓", "hi = 4", "", null], [{"lo": 3, "mid": 3, "hi": 4}, "mid is ✓", "hi = 3", "", null], [{"lo": 3, "hi": 3}, "lo = hi", "first ✓ is index 3", "ok", null]], "title": "is version i bad?"}], "probs": ["p-278", "p-35", "p-34"], "ex": null}, "rx-invariant": {"plain": "Off-by-one bugs come from not deciding what lo and hi mean. Write one sentence first, for example “the answer is somewhere in [lo, hi]”. Then each branch must keep that sentence true: if mid might be the answer keep it (hi = mid); if it can’t be, skip it (lo = mid + 1).", "pic": [{"t": "code", "v": "lo, hi = 0, len(a)          # answer is in [lo, hi]\nwhile lo < hi:\n    mid = (lo + hi) // 2\n    if ok(mid): hi = mid    # mid could be it: keep it\n    else:       lo = mid + 1  # mid can't be it: drop it\nreturn lo", "title": "the “first true” template"}], "probs": ["p-704", "p-34"], "ex": null}, "rx-rounding": {"plain": "If a branch sets lo = mid (you’re finding the largest value that works), mid must round up. Otherwise, with lo and hi next to each other, mid equals lo again and the loop never moves.", "pic": [{"t": "compare", "v": [["lo 2, hi 3, mid rounds down → 2", "works → lo = 2 again: stuck forever", "bad"], ["mid rounds up → 3", "3² = 9 > 8 → hi = 2: done, answer 2", "ok"]], "title": "largest m with m² ≤ 8"}], "probs": ["p-69"], "ex": null}, "rx-rotated": {"plain": "A rotated sorted array is two sorted pieces. Whatever the middle is, one side of it is still in order (check nums[lo] ≤ nums[mid]). If the target fits inside that ordered side’s range, search there; otherwise search the other side.", "pic": [{"t": "trace", "v": [4, 5, 6, 7, 0, 1, 2], "rows": [[{"lo": 0, "mid": 3, "hi": 6}, "left half 4…7 is sorted", "0 is not in 4…7 → go right", "", null], [{"lo": 4, "mid": 5, "hi": 6}, "left half 0…1 is sorted", "0 is in it → go left", "", null], [{"lo": 4, "mid": 4, "hi": 4}, "nums[mid] = 0", "found at index 4", "ok", null]], "title": "target = 0"}], "probs": ["p-33", "p-153"], "ex": null}, "rx-findmin": {"plain": "The minimum is where the rotation “drop” happens. Compare the middle with the last element: if the middle is bigger, the drop (and the minimum) is to its right; otherwise the minimum is the middle or to its left.", "pic": [{"t": "trace", "v": [3, 4, 5, 1, 2], "rows": [[{"lo": 0, "mid": 2, "hi": 4}, "5 > 2", "minimum is right of mid → lo = 3", "", null], [{"lo": 3, "mid": 3, "hi": 4}, "1 < 2", "mid could be it → hi = 3", "", null], [{"lo": 3, "hi": 3}, "lo = hi", "minimum = 1", "ok", null]], "title": "nums = [3, 4, 5, 1, 2]"}], "probs": ["p-153"], "ex": null}, "rx-bisect": {"plain": "Python already has binary search. bisect_left gives the first position where x could go (the first index ≥ x). bisect_right gives the position just after the last x. Together they give the range of all copies of x.", "pic": [{"t": "trace", "v": [1, 2, 2, 2, 3], "rows": [[{"left": 1, "right": 4}, "x = 2", "copies of 2 are indexes 1 … 3", "ok", null]], "title": "bisect_left(a, 2) = 1 · bisect_right(a, 2) = 4"}], "probs": ["p-34", "p-35", "p-981"], "ex": null}, "rx-answer": {"plain": "Sometimes you can’t search the input, but you can search the answer. Ask “could speed k work?”. If k works, any bigger k works too, so the answers form ✗✗✗✓✓✓. Binary search for the first ✓, checking each guess with a quick greedy simulation.", "pic": [{"t": "compare", "v": [["speed 6", "1 + 1 + 2 + 2 = 6 h ✓ → try lower", ""], ["speed 3", "1 + 2 + 3 + 4 = 10 h ✗ → higher", "bad"], ["speed 5", "8 h ✓ → lower", ""], ["speed 4", "1 + 2 + 2 + 3 = 8 h ✓ → answer 4", "ok"]], "title": "piles = [3, 6, 7, 11], h = 8"}], "probs": ["p-875", "p-1011", "p-410"], "ex": null}, "rx-peak": {"plain": "Compare the middle with its right neighbour. If the right one is higher you’re walking uphill, and a peak must exist to the right. Otherwise one exists at mid or to its left. Every step halves the search.", "pic": [{"t": "trace", "v": [1, 2, 1, 3, 5, 6, 4], "rows": [[{"lo": 0, "mid": 3, "hi": 6}, "3 < 5", "uphill to the right → lo = 4", "", null], [{"lo": 4, "mid": 5, "hi": 6}, "6 > 4", "downhill → hi = 5", "", null], [{"lo": 4, "mid": 4, "hi": 5}, "5 < 6", "uphill → lo = 5 · peak at index 5", "ok", null]], "title": "nums"}], "probs": ["p-162"], "ex": null}, "rx-matrix": {"plain": "If each row continues where the previous one ended, the matrix is really one sorted list split into rows. Binary search positions 0 … R·C − 1 and turn a position into a cell with row = mid // C, col = mid % C.", "pic": [{"t": "grid", "v": [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], "hl": {"1,2": "a"}, "title": "position 6 → row 6 // 4 = 1, col 6 % 4 = 2 → 16"}], "probs": ["p-74"], "ex": null}, "rx-kth": {"plain": "Instead of searching positions, search the value itself. Guess a value and count how many items are ≤ it (quick in a sorted matrix). The k-th smallest is the first value whose count reaches k.", "pic": [{"t": "compare", "v": [["guess 12", "6 items ≤ 12 → too few", "bad"], ["guess 13", "8 items ≤ 13 → reaches k = 8", "ok"]], "title": "matrix [[1,5,9],[10,11,13],[12,13,15]], k = 8"}], "probs": ["p-378"], "ex": null}, "rx-median": {"plain": "The median splits all numbers into a left half and a right half. Binary search how many of the left half come from the shorter array (the rest come from the other). The split is right when every left number ≤ every right number.", "pic": [{"t": "kv", "v": [["left half", [1, 2], "g"], ["right half", [3], "b"]], "title": "nums1 = [1, 3], nums2 = [2] → median = largest on the left = 2"}], "probs": ["p-4"], "ex": null}, "rx-cxbslog": {"plain": "A loop that halves the range each time runs about log₂ n times: 1,000,000 shrinks to 1 in about 20 steps. Multiply by the work done in each step.", "pic": [{"t": "compare", "v": [["n = 1,000,000", "about 20 halvings", "ok"], ["n = 1,000,000,000", "about 30 halvings", "ok"]], "title": ""}], "probs": ["p-704"], "ex": null}, "rx-cxbsanswer": {"plain": "Searching the answer costs (number of guesses) × (cost of one check). The guesses are log of the size of the answer range; each check usually walks the input once.", "pic": [{"t": "compare", "v": [["answer range 1 … 10⁹", "about 30 guesses", ""], ["each guess", "one O(n) check", ""], ["total", "O(n log range)", "ok"]], "title": ""}], "probs": ["p-875", "p-1011"], "ex": null}, "rx-cxbssort": {"plain": "Binary search needs sorted data. Sorting costs O(n log n), more than simply scanning once (O(n)). Sort only when you’ll search many times afterwards.", "pic": [{"t": "compare", "v": [["one lookup", "just scan: O(n)", "ok"], ["many lookups", "sort once O(n log n), then O(log n) each", ""]], "title": ""}], "probs": [], "ex": null}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const T=s=>s.title?`<div class="rxe-t">${esc(s.title)}</div>`:'';
+function tiles(v,p){p=p||{};const lab={};const on=new Set();let win=null;
+  for(const k in p){if(k==='w'){win=p.w;continue}const i=p[k];if(i==null)continue;(lab[i]=lab[i]||[]).push(k);on.add(i)}
+  return `<div class="rxe-tl">${v.map((x,i)=>{const w=win&&i>=win[0]&&i<=win[1];return `<span class="rxe-c${on.has(i)?' on':w?' win':''}"><b>${esc(x)}</b><small class="${lab[i]?'p':''}">${lab[i]?esc(lab[i].join(' ')):i}</small></span>`}).join('')}</div>`}
+function trace(s){let h=T(s);if(!s.rows.length)return h+tiles(s.v,{});
+  h+='<div class="rxe-tr">'+s.rows.map((r,k)=>`<div class="rxe-row ${esc(r[3])}">${tiles(r[4]||s.v,r[0]||{})}<div class="st"><b><span class="rxe-n">${k+1}</span>${esc(r[1])}</b>${r[2]?`<span>${esc(r[2])}</span>`:''}</div></div>`).join('')+'</div>';return h}
+function grid(s){return `<div>${T(s)}<table class="rxe-g">${s.v.map((r,ri)=>'<tr>'+r.map((x,c)=>`<td class="${s.hl[ri+','+c]?'x-'+esc(s.hl[ri+','+c]):''}">${esc(x)}</td>`).join('')+'</tr>').join('')}</table></div>`}
+function kv(s){return T(s)+`<div class="rxe-kv">${s.v.map(r=>`<div class="${r[2]?'x-'+esc(r[2]):''}"><span class="k">${esc(r[0])}</span><span class="v">${r[1].map(x=>`<span>${esc(x)}</span>`).join('')}</span></div>`).join('')}</div>`}
+function compare(s){return T(s)+`<div class="rxe-cmp">${s.v.map(r=>`<div class="${esc(r[2]||'')}"><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join('')}</div>`}
+function flow(s){return T(s)+`<div class="rxe-flow">${s.v.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`}
+function code(s){return T(s)+`<pre class="rxe-code">${esc(s.v)}</pre>`}
+function chain(s){return T(s)+`<div class="rxe-ch">${s.v.map((x,i)=>`<span class="rxe-c${s.hl[i]?' on':''}"><b>${esc(x)}</b></span>`).join('<span class="ar">→</span>')}${s.note?`<span class="nt">${esc(s.note)}</span>`:''}</div>`}
+function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
+  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
+  const W=x*40+12,H=(maxd+1)*50+10,pos=i=>[P[i][0]*40+26,P[i][1]*50+22];let h=`<svg class="rxe-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
+  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);{const c=s.hl['#'+n.i]||s.hl[n.v];h+=`<g class="${c?'x-'+esc(c):''}">`}h+=`<circle cx="${a}" cy="${b}" r="14"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
+  return `<div>${T(s)}${h}</svg></div>`}
+const R={trace,grid,kv,compare,flow,code,chain,tree};
+function pics(list){if(!list||!list.length)return '';const gr=list.every(p=>p.t==='grid'||p.t==='tree');
+  const body=list.map(p=>R[p.t]?R[p.t](p):'').join('');return `<div class="rxe-pics"><b>Picture it</b>${gr?`<div class="rxe-grids">${body}</div>`:body}</div>`}
+function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.querySelector('.rxe'))return;const d=RXD[card.id];if(!d)return;
+  const det=card.querySelector('details');const why=det?(det.querySelector('p')||{}).innerHTML||'':'';
+  const probs=d.probs.map(id=>{const el=document.getElementById(id);const t=el&&el.querySelector('h4');return t?`<a href="#${id}">${esc(t.textContent)}</a>`:''}).filter(Boolean);
+  const box=document.createElement('div');box.className='rxe';
+  box.innerHTML=`<p class="rxe-plain"><b>In plain words</b>${esc(d.plain)}</p>${pics(d.pic)}${why?`<p class="rxe-why"><b>Why it works</b>${why}</p>`:''}${probs.length?`<div class="rxe-pr"><b>Practise it</b>${probs.join('')}</div>`:''}`;
+  const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
 </body>
 </html>

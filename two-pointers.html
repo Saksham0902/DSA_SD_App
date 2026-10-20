@@ -3921,5 +3921,92 @@ function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.
 function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
+<!--rxe-start--><style>.rxe{display:grid;gap:10px;margin:2px 0 12px}
+.rxe-plain{margin:0;font-size:15.5px;line-height:1.55;color:var(--rx-ink)}
+.rxe-plain b,.rxe-why b,.rxe-pr b{display:block;font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:var(--rx-acc);margin-bottom:3px}
+.rxe-pics{display:grid;gap:10px;background:#F4F6FB;color:#161A33;border-radius:14px;padding:12px;overflow-x:auto;min-width:0}
+.rxe-pics>b{font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:#6E749B}
+.rxe-t{font:700 12px var(--body,inherit);color:#4A4F6E}
+.rxe-why{margin:0;font-size:14.5px;line-height:1.5;color:var(--rx-dim)}
+.rxe-pr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rxe-pr b{display:inline;margin:0 4px 0 0}
+.rxe-pr a{font:700 13px var(--body,inherit);color:var(--rx-ink);text-decoration:none;border:1.5px solid rgba(244,246,251,.3);border-radius:999px;padding:3px 10px}
+.rxe-pr a:hover{border-color:var(--rx-acc);color:var(--rx-acc)}
+.rxe-tr{display:grid;gap:6px}
+.rxe-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
+.rxe-row .st{display:grid;gap:1px;font-size:13px;line-height:1.35;min-width:170px}
+.rxe-row .st b{font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-row .st span{color:#4A4F6E}
+.rxe-row.ok .st span{color:#0F7A5F;font-weight:700}.rxe-row.bad .st span{color:#B4204F;font-weight:700}
+.rxe-n{font:800 11px var(--mono,monospace);color:#6E749B;margin-right:6px}
+.rxe-tl{display:flex;gap:3px;align-items:flex-start}
+.rxe-c{display:grid;justify-items:center;gap:1px;min-width:28px}
+.rxe-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid #D9DDEB;border-radius:7px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33;white-space:nowrap}
+.rxe-c small{font:600 9.5px var(--mono,monospace);color:#6E749B;min-height:11px;white-space:nowrap}
+.rxe-c.on b{background:#FFE7B3;border-color:#E09A2B}
+.rxe-c.win b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-c.dim b{opacity:.4}
+.rxe-c small.p{color:#B86E00;font-weight:800}
+.rxe-g{border-collapse:separate;border-spacing:3px}
+.rxe-g td{min-width:28px;height:28px;text-align:center;border:1.5px solid #D9DDEB;border-radius:6px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-g td.x-g{background:#D6F3E9;border-color:#2BA982}.rxe-g td.x-a{background:#FFE7B3;border-color:#E09A2B}.rxe-g td.x-r{background:#FBE1E9;border-color:#DB3D6E}.rxe-g td.x-b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-grids{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.rxe-grids>div{display:grid;gap:4px}
+.rxe-kv{display:grid;gap:5px}
+.rxe-kv>div{opacity:1;color:#161A33;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rxe-kv .k{font:700 12.5px var(--mono,monospace);border-radius:7px;padding:3px 8px;background:#161A33;color:#fff}
+.rxe-kv .v{display:flex;gap:4px;flex-wrap:wrap}
+.rxe-kv .v span{color:#161A33;opacity:1;font:700 12.5px var(--mono,monospace);border:1.5px solid #D9DDEB;background:#fff;border-radius:7px;padding:2px 8px}
+.rxe-kv>div.x-g .v span{border-color:#2BA982;background:#D6F3E9}.rxe-kv>div.x-b .v span{border-color:#5B74E8;background:#DDE6FF}.rxe-kv>div.x-a .v span{border-color:#E09A2B;background:#FFE7B3}
+.rxe-cmp{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.rxe-cmp>div{border:1.5px solid #D9DDEB;background:#fff;border-radius:10px;padding:6px 10px;display:grid;gap:1px;min-width:120px}
+.rxe-cmp small{font:700 11.5px var(--body,inherit);color:#6E749B}
+.rxe-cmp b{font:700 13.5px var(--mono,monospace);color:#161A33}
+.rxe-cmp>div.ok{border-color:#2BA982;background:#E7F7F0}.rxe-cmp>div.bad{border-color:#DB3D6E;background:#FDECF1}
+.rxe-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.rxe-flow span{border:1.5px solid #161A33;background:#fff;border-radius:9px;padding:5px 10px;font:700 13px var(--body,inherit);color:#161A33;box-shadow:2px 2px 0 #161A33}
+.rxe-flow i{font-style:normal;color:#6E749B;font-weight:800}
+.rxe-code{margin:0;background:#161A33;color:#E6E9FF;border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,monospace);overflow-x:auto;white-space:pre}
+svg.rxe-s{display:block;max-width:100%;height:auto}
+svg.rxe-s line{stroke:#9AA0B8;stroke-width:1.5}
+svg.rxe-s circle{fill:#fff;stroke:#4A4F6E;stroke-width:1.5}
+svg.rxe-s .x-g circle{fill:#D6F3E9;stroke:#2BA982;stroke-width:2.2}svg.rxe-s .x-a circle{fill:#FFE7B3;stroke:#E09A2B;stroke-width:2.2}svg.rxe-s .x-r circle{fill:#FBE1E9;stroke:#DB3D6E;stroke-width:2.2}svg.rxe-s .x-b circle{fill:#DDE6FF;stroke:#5B74E8;stroke-width:2.2}
+svg.rxe-s text{font:700 12px var(--mono,monospace);fill:#161A33;text-anchor:middle;dominant-baseline:central}
+.rxe-ch{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rxe-ch .ar{color:#6E749B;font-weight:800}
+.rxe-ch .nt{font-size:12.5px;color:#4A4F6E;margin-left:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rxe-pics{background:#E4E8F5}}
+:root[data-theme="dark"] .rxe-pics{background:#E4E8F5}
+@media (max-width:640px){.rxe-row{grid-template-columns:1fr}.rxe-row .st{min-width:0}}</style><script>(function(){const RXD={"rx-pairsum": {"plain": "In a sorted array, put one finger at each end. If the pair is too small, only moving the left finger right can make it bigger; if too big, move the right finger left. Every step throws away one number for good, so it’s one pass.", "pic": [{"t": "trace", "v": [2, 7, 11, 15], "rows": [[{"l": 0, "r": 3}, "2 + 15 = 17", "too big → move r left", "", null], [{"l": 0, "r": 2}, "2 + 11 = 13", "too big → move r left", "", null], [{"l": 0, "r": 1}, "2 + 7 = 9", "found it", "ok", null]], "title": "numbers = [2, 7, 11, 15], target = 9"}], "probs": ["p-167", "p-15"], "ex": null}, "rx-container": {"plain": "Area = width × the shorter wall. Start as wide as possible. Moving the taller wall can never help (the short wall still limits you and the width shrinks), so always move the shorter one inward and keep the best area seen.", "pic": [{"t": "trace", "v": [1, 8, 6, 2, 5, 4, 8, 3, 7], "rows": [[{"l": 0, "r": 8}, "min(1, 7) × 8 = 8", "left is shorter → move l", "", null], [{"l": 1, "r": 8}, "min(8, 7) × 7 = 49", "best so far · right is shorter → move r", "ok", null], [{"l": 1, "r": 7}, "min(8, 3) × 6 = 18", "right is shorter → move r", "", null]], "title": "height = [1, 8, 6, 2, 5, 4, 8, 3, 7]"}], "probs": ["p-11"], "ex": null}, "rx-threesum": {"plain": "Sort first. Then pick the first number with a normal loop and find the other two with the pair-sum fingers on the part to its right. Skipping a number equal to the one before stops the same triplet appearing twice.", "pic": [{"t": "trace", "v": [-4, -1, -1, 0, 1, 2], "rows": [[{"l": 2, "r": 5}, "fix −1 (index 1): −1 + 2 = 1 ✓", "triplet [−1, −1, 2]", "ok", null], [{"l": 3, "r": 4}, "move both: 0 + 1 = 1 ✓", "triplet [−1, 0, 1]", "ok", null], [{"i": 2}, "next fixed number is −1 again", "same as before → skip", "bad", null]], "title": "sorted nums, need a pair summing to −(fixed)"}], "probs": ["p-15", "p-16", "p-18"], "ex": null}, "rx-palin": {"plain": "A palindrome reads the same from both ends, so compare the outermost pair and walk inward. If one deletion is allowed and you hit a mismatch, try deleting the left character or the right one; if either remainder is a palindrome, answer yes.", "pic": [{"t": "trace", "v": ["a", "b", "c", "a"], "rows": [[{"l": 0, "r": 3}, "'a' = 'a'", "match → move both in", "", null], [{"l": 1, "r": 2}, "'b' ≠ 'c'", "mismatch → try skipping one", "bad", null], [{"l": 2, "r": 2}, "skip 'b': \"c\" is a palindrome", "one deletion is enough", "ok", null]], "title": "s = \"abca\", one deletion allowed"}], "probs": ["p-125", "p-680"], "ex": null}, "rx-trap": {"plain": "Water above a bar = (the lower of the tallest wall on its left and on its right) − its height. With a pointer at each end, the side whose wall is lower is the limit, so you can settle that side right away and step inward.", "pic": [{"t": "trace", "v": [4, 2, 0, 3, 2, 5], "rows": [[{"l": 0, "r": 5}, "lmax 4 < rmax 5", "left side is the limit: 4 − 4 = 0", "", null], [{"l": 1, "r": 5}, "lmax 4", "+ (4 − 2) = 2 so far", "", null], [{"l": 2, "r": 5}, "lmax 4", "+ (4 − 0) → 6", "", null], [{"l": 3, "r": 5}, "lmax 4", "+ (4 − 3) → 7", "", null], [{"l": 4, "r": 5}, "lmax 4", "+ (4 − 2) → 9 total", "ok", null]], "title": "height = [4, 2, 0, 3, 2, 5]"}], "probs": ["p-42"], "ex": null}, "rx-slowfast": {"plain": "To change an array in place, use two indexes: a reader r that looks at every item, and a writer w that marks where the next kept item goes. When the reader finds something worth keeping, copy it to w and move w on. Everything before w is the answer.", "pic": [{"t": "trace", "v": [1, 1, 2, 2, 3], "rows": [[{"w": 1, "r": 1}, "1 equals the last kept", "skip", "", null], [{"w": 1, "r": 2}, "2 is new", "write at w=1, w → 2", "", [1, 2, 2, 2, 3]], [{"w": 2, "r": 3}, "2 equals the last kept", "skip", "", [1, 2, 2, 2, 3]], [{"w": 2, "r": 4}, "3 is new", "write at w=2 → answer length 3", "ok", [1, 2, 3, 2, 3]]], "title": "remove duplicates from [1, 1, 2, 2, 3]"}], "probs": ["p-26", "p-283"], "ex": null}, "rx-dutch": {"plain": "Keep three zones: everything before lo is 0, everything after hi is 2, and i scans the middle. A 0 is swapped to lo (both move on). A 2 is swapped to hi (hi shrinks, but i stays because the swapped-in value hasn’t been checked). A 1 just lets i move on.", "pic": [{"t": "trace", "v": [2, 0, 2, 1, 1, 0], "rows": [[{"lo": 0, "i": 0, "hi": 5}, "nums[i] = 2", "swap with hi, hi − 1", "", [2, 0, 2, 1, 1, 0]], [{"lo": 0, "i": 0, "hi": 4}, "nums[i] = 0", "swap with lo, lo + 1, i + 1", "", [0, 0, 2, 1, 1, 2]], [{"lo": 1, "i": 1, "hi": 4}, "nums[i] = 0", "lo + 1, i + 1", "", [0, 0, 2, 1, 1, 2]], [{"lo": 2, "i": 2, "hi": 4}, "nums[i] = 2", "swap with hi, hi − 1", "", [0, 0, 2, 1, 1, 2]], [{"lo": 2, "i": 4, "hi": 3}, "two 1s: i + 1 twice", "i passed hi → sorted", "ok", [0, 0, 1, 1, 2, 2]]], "title": "sort colours [2, 0, 2, 1, 1, 0]"}], "probs": ["p-75"], "ex": null}, "rx-mergeback": {"plain": "If the first array has empty space at its end, merge from the back. Compare the largest remaining number of each array and write the bigger one into the last free slot. Nothing you still need ever gets overwritten.", "pic": [{"t": "trace", "v": [1, 2, 3, 0, 0, 0], "rows": [[{"i": 5}, "3 vs 6 → 6 is bigger", "write 6 at the end", "", [1, 2, 3, 0, 0, 6]], [{"i": 4}, "3 vs 5 → 5", "write 5", "", [1, 2, 3, 0, 5, 6]], [{"i": 3}, "3 vs 2 → 3", "write 3", "", [1, 2, 3, 3, 5, 6]], [{"i": 2}, "2 vs 2", "write the 2 from nums2 → done", "ok", [1, 2, 2, 3, 5, 6]]], "title": "nums1 = [1, 2, 3, _, _, _], nums2 = [2, 5, 6]"}], "probs": ["p-88"], "ex": null}, "rx-subseq": {"plain": "To check that s appears inside t in order (gaps allowed), walk t once with one pointer and keep a second pointer at the next letter of s you still need. Advance it only when they match. If you use up all of s, the answer is yes.", "pic": [{"t": "trace", "v": ["a", "h", "b", "g", "d", "c"], "rows": [[{"i": 0}, "need 'a'", "match → now need 'b'", "ok", null], [{"i": 2}, "need 'b'", "match → now need 'c'", "ok", null], [{"i": 5}, "need 'c'", "match → all of \"abc\" found", "ok", null]], "title": "s = \"abc\", t = \"ahbgdc\""}], "probs": ["p-392"], "ex": null}, "rx-cycle": {"plain": "Send two runners around: slow takes 1 step, fast takes 2. Without a loop, fast falls off the end. With a loop, fast eventually laps slow and they land on the same node, like runners on a circular track.", "pic": [{"t": "trace", "v": [3, 2, 0, -4], "rows": [[{"slow": 0, "fast": 0}, "start", "the last node points back to index 1", "", null], [{"slow": 1, "fast": 2}, "step 1", "", "", null], [{"slow": 2, "fast": 1}, "step 2", "fast went 2 → 3 → back to 1", "", null], [{"slow": 3, "fast": 3}, "step 3", "they meet → cycle", "ok", null]], "title": "list 3 → 2 → 0 → −4 → (back to 2)"}], "probs": [], "ex": null}, "rx-cxtpmoves": {"plain": "Two pointers inside one while loop look like nested work, but count moves instead: each pointer only moves forward (or inward) and never comes back, so together they make at most about 2n moves. That’s O(n).", "pic": [{"t": "compare", "v": [["every pair", "n × n checks → O(n²)", "bad"], ["two pointers", "each moves ≤ n times → O(n)", "ok"]], "title": ""}], "probs": ["p-167", "p-11"], "ex": null}, "rx-cxtpsort": {"plain": "When you sort first, the total is the sort plus the scan. Sorting is O(n log n) and the scan is O(n); the bigger term wins, so say O(n log n). Mention space too: O(1) if you sort in place.", "pic": [{"t": "compare", "v": [["sort", "O(n log n)", ""], ["two-pointer scan", "O(n)", ""], ["total", "O(n log n)", "ok"]], "title": ""}], "probs": ["p-15", "p-16"], "ex": null}, "rx-cxtp3": {"plain": "k-Sum = (k − 2) ordinary loops around one two-pointer scan. Each loop multiplies by n, and the scan is n, so it’s n to the power (k − 1).", "pic": [{"t": "compare", "v": [["2Sum (sorted)", "O(n)", ""], ["3Sum: 1 loop + scan", "O(n²)", ""], ["4Sum: 2 loops + scan", "O(n³)", ""]], "title": ""}], "probs": ["p-15", "p-18"], "ex": null}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const T=s=>s.title?`<div class="rxe-t">${esc(s.title)}</div>`:'';
+function tiles(v,p){p=p||{};const lab={};const on=new Set();let win=null;
+  for(const k in p){if(k==='w'){win=p.w;continue}const i=p[k];if(i==null)continue;(lab[i]=lab[i]||[]).push(k);on.add(i)}
+  return `<div class="rxe-tl">${v.map((x,i)=>{const w=win&&i>=win[0]&&i<=win[1];return `<span class="rxe-c${on.has(i)?' on':w?' win':''}"><b>${esc(x)}</b><small class="${lab[i]?'p':''}">${lab[i]?esc(lab[i].join(' ')):i}</small></span>`}).join('')}</div>`}
+function trace(s){let h=T(s);if(!s.rows.length)return h+tiles(s.v,{});
+  h+='<div class="rxe-tr">'+s.rows.map((r,k)=>`<div class="rxe-row ${esc(r[3])}">${tiles(r[4]||s.v,r[0]||{})}<div class="st"><b><span class="rxe-n">${k+1}</span>${esc(r[1])}</b>${r[2]?`<span>${esc(r[2])}</span>`:''}</div></div>`).join('')+'</div>';return h}
+function grid(s){return `<div>${T(s)}<table class="rxe-g">${s.v.map((r,ri)=>'<tr>'+r.map((x,c)=>`<td class="${s.hl[ri+','+c]?'x-'+esc(s.hl[ri+','+c]):''}">${esc(x)}</td>`).join('')+'</tr>').join('')}</table></div>`}
+function kv(s){return T(s)+`<div class="rxe-kv">${s.v.map(r=>`<div class="${r[2]?'x-'+esc(r[2]):''}"><span class="k">${esc(r[0])}</span><span class="v">${r[1].map(x=>`<span>${esc(x)}</span>`).join('')}</span></div>`).join('')}</div>`}
+function compare(s){return T(s)+`<div class="rxe-cmp">${s.v.map(r=>`<div class="${esc(r[2]||'')}"><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join('')}</div>`}
+function flow(s){return T(s)+`<div class="rxe-flow">${s.v.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`}
+function code(s){return T(s)+`<pre class="rxe-code">${esc(s.v)}</pre>`}
+function chain(s){return T(s)+`<div class="rxe-ch">${s.v.map((x,i)=>`<span class="rxe-c${s.hl[i]?' on':''}"><b>${esc(x)}</b></span>`).join('<span class="ar">→</span>')}${s.note?`<span class="nt">${esc(s.note)}</span>`:''}</div>`}
+function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
+  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
+  const W=x*40+12,H=(maxd+1)*50+10,pos=i=>[P[i][0]*40+26,P[i][1]*50+22];let h=`<svg class="rxe-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
+  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);{const c=s.hl['#'+n.i]||s.hl[n.v];h+=`<g class="${c?'x-'+esc(c):''}">`}h+=`<circle cx="${a}" cy="${b}" r="14"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
+  return `<div>${T(s)}${h}</svg></div>`}
+const R={trace,grid,kv,compare,flow,code,chain,tree};
+function pics(list){if(!list||!list.length)return '';const gr=list.every(p=>p.t==='grid'||p.t==='tree');
+  const body=list.map(p=>R[p.t]?R[p.t](p):'').join('');return `<div class="rxe-pics"><b>Picture it</b>${gr?`<div class="rxe-grids">${body}</div>`:body}</div>`}
+function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.querySelector('.rxe'))return;const d=RXD[card.id];if(!d)return;
+  const det=card.querySelector('details');const why=det?(det.querySelector('p')||{}).innerHTML||'':'';
+  const probs=d.probs.map(id=>{const el=document.getElementById(id);const t=el&&el.querySelector('h4');return t?`<a href="#${id}">${esc(t.textContent)}</a>`:''}).filter(Boolean);
+  const box=document.createElement('div');box.className='rxe';
+  box.innerHTML=`<p class="rxe-plain"><b>In plain words</b>${esc(d.plain)}</p>${pics(d.pic)}${why?`<p class="rxe-why"><b>Why it works</b>${why}</p>`:''}${probs.length?`<div class="rxe-pr"><b>Practise it</b>${probs.join('')}</div>`:''}`;
+  const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
 </body>
 </html>

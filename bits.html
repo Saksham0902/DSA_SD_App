@@ -3755,5 +3755,92 @@ function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.
 function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
+<!--rxe-start--><style>.rxe{display:grid;gap:10px;margin:2px 0 12px}
+.rxe-plain{margin:0;font-size:15.5px;line-height:1.55;color:var(--rx-ink)}
+.rxe-plain b,.rxe-why b,.rxe-pr b{display:block;font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:var(--rx-acc);margin-bottom:3px}
+.rxe-pics{display:grid;gap:10px;background:#F4F6FB;color:#161A33;border-radius:14px;padding:12px;overflow-x:auto;min-width:0}
+.rxe-pics>b{font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:#6E749B}
+.rxe-t{font:700 12px var(--body,inherit);color:#4A4F6E}
+.rxe-why{margin:0;font-size:14.5px;line-height:1.5;color:var(--rx-dim)}
+.rxe-pr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rxe-pr b{display:inline;margin:0 4px 0 0}
+.rxe-pr a{font:700 13px var(--body,inherit);color:var(--rx-ink);text-decoration:none;border:1.5px solid rgba(244,246,251,.3);border-radius:999px;padding:3px 10px}
+.rxe-pr a:hover{border-color:var(--rx-acc);color:var(--rx-acc)}
+.rxe-tr{display:grid;gap:6px}
+.rxe-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
+.rxe-row .st{display:grid;gap:1px;font-size:13px;line-height:1.35;min-width:170px}
+.rxe-row .st b{font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-row .st span{color:#4A4F6E}
+.rxe-row.ok .st span{color:#0F7A5F;font-weight:700}.rxe-row.bad .st span{color:#B4204F;font-weight:700}
+.rxe-n{font:800 11px var(--mono,monospace);color:#6E749B;margin-right:6px}
+.rxe-tl{display:flex;gap:3px;align-items:flex-start}
+.rxe-c{display:grid;justify-items:center;gap:1px;min-width:28px}
+.rxe-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid #D9DDEB;border-radius:7px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33;white-space:nowrap}
+.rxe-c small{font:600 9.5px var(--mono,monospace);color:#6E749B;min-height:11px;white-space:nowrap}
+.rxe-c.on b{background:#FFE7B3;border-color:#E09A2B}
+.rxe-c.win b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-c.dim b{opacity:.4}
+.rxe-c small.p{color:#B86E00;font-weight:800}
+.rxe-g{border-collapse:separate;border-spacing:3px}
+.rxe-g td{min-width:28px;height:28px;text-align:center;border:1.5px solid #D9DDEB;border-radius:6px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-g td.x-g{background:#D6F3E9;border-color:#2BA982}.rxe-g td.x-a{background:#FFE7B3;border-color:#E09A2B}.rxe-g td.x-r{background:#FBE1E9;border-color:#DB3D6E}.rxe-g td.x-b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-grids{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.rxe-grids>div{display:grid;gap:4px}
+.rxe-kv{display:grid;gap:5px}
+.rxe-kv>div{opacity:1;color:#161A33;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rxe-kv .k{font:700 12.5px var(--mono,monospace);border-radius:7px;padding:3px 8px;background:#161A33;color:#fff}
+.rxe-kv .v{display:flex;gap:4px;flex-wrap:wrap}
+.rxe-kv .v span{color:#161A33;opacity:1;font:700 12.5px var(--mono,monospace);border:1.5px solid #D9DDEB;background:#fff;border-radius:7px;padding:2px 8px}
+.rxe-kv>div.x-g .v span{border-color:#2BA982;background:#D6F3E9}.rxe-kv>div.x-b .v span{border-color:#5B74E8;background:#DDE6FF}.rxe-kv>div.x-a .v span{border-color:#E09A2B;background:#FFE7B3}
+.rxe-cmp{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.rxe-cmp>div{border:1.5px solid #D9DDEB;background:#fff;border-radius:10px;padding:6px 10px;display:grid;gap:1px;min-width:120px}
+.rxe-cmp small{font:700 11.5px var(--body,inherit);color:#6E749B}
+.rxe-cmp b{font:700 13.5px var(--mono,monospace);color:#161A33}
+.rxe-cmp>div.ok{border-color:#2BA982;background:#E7F7F0}.rxe-cmp>div.bad{border-color:#DB3D6E;background:#FDECF1}
+.rxe-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.rxe-flow span{border:1.5px solid #161A33;background:#fff;border-radius:9px;padding:5px 10px;font:700 13px var(--body,inherit);color:#161A33;box-shadow:2px 2px 0 #161A33}
+.rxe-flow i{font-style:normal;color:#6E749B;font-weight:800}
+.rxe-code{margin:0;background:#161A33;color:#E6E9FF;border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,monospace);overflow-x:auto;white-space:pre}
+svg.rxe-s{display:block;max-width:100%;height:auto}
+svg.rxe-s line{stroke:#9AA0B8;stroke-width:1.5}
+svg.rxe-s circle{fill:#fff;stroke:#4A4F6E;stroke-width:1.5}
+svg.rxe-s .x-g circle{fill:#D6F3E9;stroke:#2BA982;stroke-width:2.2}svg.rxe-s .x-a circle{fill:#FFE7B3;stroke:#E09A2B;stroke-width:2.2}svg.rxe-s .x-r circle{fill:#FBE1E9;stroke:#DB3D6E;stroke-width:2.2}svg.rxe-s .x-b circle{fill:#DDE6FF;stroke:#5B74E8;stroke-width:2.2}
+svg.rxe-s text{font:700 12px var(--mono,monospace);fill:#161A33;text-anchor:middle;dominant-baseline:central}
+.rxe-ch{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rxe-ch .ar{color:#6E749B;font-weight:800}
+.rxe-ch .nt{font-size:12.5px;color:#4A4F6E;margin-left:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rxe-pics{background:#E4E8F5}}
+:root[data-theme="dark"] .rxe-pics{background:#E4E8F5}
+@media (max-width:640px){.rxe-row{grid-template-columns:1fr}.rxe-row .st{min-width:0}}</style><script>(function(){const RXD={"rx-xorpairs": {"plain": "XOR has two handy rules: x ^ x = 0 and x ^ 0 = x, and order doesn’t matter. So XOR-ing everything makes every pair cancel out, and only the single number is left.", "pic": [{"t": "compare", "v": [["x ^ x", "0: pairs cancel", ""], ["x ^ 0", "x", ""], ["4 ^ 1 ^ 2 ^ 1 ^ 2", "= 4", "ok"]], "title": ""}], "probs": ["p-136"], "ex": null}, "rx-lowclear": {"plain": "n − 1 flips the lowest 1-bit of n to 0 and the zeros below it to 1s. So n & (n − 1) is n with its lowest 1 removed. Repeat until n is 0, counting the loops: that’s the number of 1s.", "pic": [{"t": "compare", "v": [["1100 & 1011", "= 1000 (lowest 1 removed)", ""], ["1000 & 0111", "= 0000", ""], ["loops", "2 → 12 has two 1-bits", "ok"]], "title": ""}], "probs": ["p-191", "p-338"], "ex": null}, "rx-lowbit": {"plain": "In two’s complement, −x is “flip every bit, then add 1”. Every bit above the lowest 1 ends up opposite in x and −x, so x & −x keeps only the lowest 1-bit.", "pic": [{"t": "compare", "v": [["x = 12", "…01100", ""], ["−x", "…10100", ""], ["x & −x", "00100 = 4", "ok"]], "title": ""}], "probs": ["p-260"], "ex": null}, "rx-pow2": {"plain": "A power of two has exactly one 1-bit. Removing the lowest 1 (n & (n − 1)) leaves 0 only in that case. Check n > 0 too, because 0 also gives 0.", "pic": [{"t": "compare", "v": [["8 = 1000, 7 = 0111", "8 & 7 = 0 → power of two", "ok"], ["6 = 0110, 5 = 0101", "6 & 5 = 0100 → not", "bad"]], "title": ""}], "probs": ["p-231"], "ex": null}, "rx-checkbit": {"plain": "1 << i is a number with only bit i set. AND with it to test the bit, OR to set it, AND with its inverse to clear it, XOR to flip it.", "pic": [{"t": "code", "v": "(x >> i) & 1      # test bit i\nx | (1 << i)      # set it\nx & ~(1 << i)     # clear it\nx ^ (1 << i)      # toggle it", "title": ""}], "probs": ["p-191", "p-78"], "ex": null}, "rx-missingxor": {"plain": "XOR every index 0 … n together with every value in the array. Each number that’s present appears twice (once as an index, once as a value) and cancels; the missing one appears only once and survives.", "pic": [{"t": "compare", "v": [["indexes 0 ^ 1 ^ 2 ^ 3", "all of 0…n", ""], ["values 3 ^ 0 ^ 1", "all but the missing one", ""], ["XOR of both", "= 2 (the missing number)", "ok"]], "title": "nums = [3, 0, 1]"}], "probs": ["p-268"], "ex": null}, "rx-pymask": {"plain": "Python integers never overflow, and a negative number behaves as if it had infinitely many 1s in front. To imitate 32-bit integers, keep only the low 32 bits with & 0xFFFFFFFF, and convert results above 0x7FFFFFFF back to negative.", "pic": [{"t": "compare", "v": [["Python ints", "unbounded: no 32-bit wrap-around", ""], ["& 0xFFFFFFFF", "keep the low 32 bits", ""], ["result > 0x7FFFFFFF", "negative → ~(a ^ 0xFFFFFFFF)", ""]], "title": ""}], "probs": ["p-371", "p-190"], "ex": null}, "rx-masks": {"plain": "With n small items, each subset is an n-bit number: bit i = 1 means item i is in the subset. Counting from 0 to 2ⁿ − 1 lists every subset exactly once.", "pic": [{"t": "kv", "v": [["000", ["{ }"], ""], ["001", ["{a}"], ""], ["010", ["{b}"], ""], ["011", ["{a, b}"], ""], ["…", ["…"], ""], ["111", ["{a, b, c}"], "g"]], "title": "items a, b, c"}], "probs": ["p-78"], "ex": null}, "rx-dpbits": {"plain": "i >> 1 is i without its last bit, a smaller number you’ve already counted. So bits(i) = bits(i >> 1) + (the last bit of i).", "pic": [{"t": "trace", "v": [0, 1, 1, 2, 1, 2, 2, 3, 1], "rows": [[{"i": 5}, "5 = 101 → bits(2) + 1 = 2", "", "", null], [{"i": 6}, "6 = 110 → bits(3) + 0 = 2", "", "", null], [{"i": 7}, "7 = 111 → bits(3) + 1 = 3", "", "ok", null]], "title": "bits(i) for i = 0 … 8"}], "probs": ["p-338"], "ex": null}, "rx-split": {"plain": "XOR everything to get a ^ b (the two singles). They differ in at least one bit, the lowest 1-bit of a ^ b. Split all numbers by that bit: a and b fall into different groups, pairs stay together, and XOR-ing each group gives one single.", "pic": [{"t": "kv", "v": [["XOR of all", ["3 ^ 5 = 110"], ""], ["lowest set bit", ["010"], "a"], ["bit set", ["2", "3", "2", "→ 3"], "b"], ["bit not set", ["1", "1", "5", "→ 5"], "g"]], "title": "nums [1, 2, 1, 3, 2, 5]"}], "probs": ["p-260"], "ex": null}, "rx-mod3": {"plain": "Look at one bit position at a time and add up that bit over all numbers. Numbers that appear three times contribute a multiple of 3, so the count mod 3 is exactly the single number’s bit.", "pic": [{"t": "compare", "v": [["bit 0: 0 + 0 + 1 + 0", "1 → mod 3 = 1", ""], ["bit 1: 1 + 1 + 1 + 1", "4 → mod 3 = 1", ""], ["single number", "binary 11 = 3", "ok"]], "title": "nums [2, 2, 3, 2]"}], "probs": ["p-137"], "ex": null}, "rx-commonprefix": {"plain": "ANDing a whole range of numbers keeps only the leading bits that all of them share; every lower bit is 0 somewhere in the range. So shift left and right until they’re equal (that’s the shared prefix), then shift it back.", "pic": [{"t": "compare", "v": [["5 = 101, 7 = 111", "shift twice → 1 and 1", ""], ["shift back", "1 << 2 = 100 = 4", "ok"]], "title": "AND of 5, 6, 7"}], "probs": ["p-201"], "ex": null}, "rx-cxbtlog": {"plain": "Each n >>= 1 removes one binary digit, and n has about log₂ n digits. For a fixed 32- or 64-bit integer that’s at most 32 or 64 steps, a constant.", "pic": [{"t": "compare", "v": [["n = 1,000,000", "about 20 halvings", ""], ["32-bit integer", "≤ 32 steps → O(1)", "ok"]], "title": ""}], "probs": ["p-191", "p-190"], "ex": null}, "rx-cxbtkern": {"plain": "n &= n − 1 removes one 1-bit per loop, so the loop runs once per 1-bit, not once per bit position.", "pic": [{"t": "compare", "v": [["n = 1000 0000", "1 loop", "ok"], ["n = 1111 1111", "8 loops", ""]], "title": ""}], "probs": ["p-191"], "ex": null}, "rx-cxbtrange": {"plain": "When you need an answer for every number up to n, build each one from a smaller number you’ve already solved (i >> 1, or i & (i − 1)). Each takes O(1), so all of them take O(n).", "pic": [{"t": "compare", "v": [["count each number separately", "O(n log n)", ""], ["reuse a smaller answer", "O(n)", "ok"]], "title": ""}], "probs": ["p-338"], "ex": null}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const T=s=>s.title?`<div class="rxe-t">${esc(s.title)}</div>`:'';
+function tiles(v,p){p=p||{};const lab={};const on=new Set();let win=null;
+  for(const k in p){if(k==='w'){win=p.w;continue}const i=p[k];if(i==null)continue;(lab[i]=lab[i]||[]).push(k);on.add(i)}
+  return `<div class="rxe-tl">${v.map((x,i)=>{const w=win&&i>=win[0]&&i<=win[1];return `<span class="rxe-c${on.has(i)?' on':w?' win':''}"><b>${esc(x)}</b><small class="${lab[i]?'p':''}">${lab[i]?esc(lab[i].join(' ')):i}</small></span>`}).join('')}</div>`}
+function trace(s){let h=T(s);if(!s.rows.length)return h+tiles(s.v,{});
+  h+='<div class="rxe-tr">'+s.rows.map((r,k)=>`<div class="rxe-row ${esc(r[3])}">${tiles(r[4]||s.v,r[0]||{})}<div class="st"><b><span class="rxe-n">${k+1}</span>${esc(r[1])}</b>${r[2]?`<span>${esc(r[2])}</span>`:''}</div></div>`).join('')+'</div>';return h}
+function grid(s){return `<div>${T(s)}<table class="rxe-g">${s.v.map((r,ri)=>'<tr>'+r.map((x,c)=>`<td class="${s.hl[ri+','+c]?'x-'+esc(s.hl[ri+','+c]):''}">${esc(x)}</td>`).join('')+'</tr>').join('')}</table></div>`}
+function kv(s){return T(s)+`<div class="rxe-kv">${s.v.map(r=>`<div class="${r[2]?'x-'+esc(r[2]):''}"><span class="k">${esc(r[0])}</span><span class="v">${r[1].map(x=>`<span>${esc(x)}</span>`).join('')}</span></div>`).join('')}</div>`}
+function compare(s){return T(s)+`<div class="rxe-cmp">${s.v.map(r=>`<div class="${esc(r[2]||'')}"><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join('')}</div>`}
+function flow(s){return T(s)+`<div class="rxe-flow">${s.v.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`}
+function code(s){return T(s)+`<pre class="rxe-code">${esc(s.v)}</pre>`}
+function chain(s){return T(s)+`<div class="rxe-ch">${s.v.map((x,i)=>`<span class="rxe-c${s.hl[i]?' on':''}"><b>${esc(x)}</b></span>`).join('<span class="ar">→</span>')}${s.note?`<span class="nt">${esc(s.note)}</span>`:''}</div>`}
+function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
+  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
+  const W=x*40+12,H=(maxd+1)*50+10,pos=i=>[P[i][0]*40+26,P[i][1]*50+22];let h=`<svg class="rxe-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
+  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);{const c=s.hl['#'+n.i]||s.hl[n.v];h+=`<g class="${c?'x-'+esc(c):''}">`}h+=`<circle cx="${a}" cy="${b}" r="14"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
+  return `<div>${T(s)}${h}</svg></div>`}
+const R={trace,grid,kv,compare,flow,code,chain,tree};
+function pics(list){if(!list||!list.length)return '';const gr=list.every(p=>p.t==='grid'||p.t==='tree');
+  const body=list.map(p=>R[p.t]?R[p.t](p):'').join('');return `<div class="rxe-pics"><b>Picture it</b>${gr?`<div class="rxe-grids">${body}</div>`:body}</div>`}
+function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.querySelector('.rxe'))return;const d=RXD[card.id];if(!d)return;
+  const det=card.querySelector('details');const why=det?(det.querySelector('p')||{}).innerHTML||'':'';
+  const probs=d.probs.map(id=>{const el=document.getElementById(id);const t=el&&el.querySelector('h4');return t?`<a href="#${id}">${esc(t.textContent)}</a>`:''}).filter(Boolean);
+  const box=document.createElement('div');box.className='rxe';
+  box.innerHTML=`<p class="rxe-plain"><b>In plain words</b>${esc(d.plain)}</p>${pics(d.pic)}${why?`<p class="rxe-why"><b>Why it works</b>${why}</p>`:''}${probs.length?`<div class="rxe-pr"><b>Practise it</b>${probs.join('')}</div>`:''}`;
+  const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
 </body>
 </html>

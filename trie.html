@@ -3885,5 +3885,92 @@ function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.
 function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
+<!--rxe-start--><style>.rxe{display:grid;gap:10px;margin:2px 0 12px}
+.rxe-plain{margin:0;font-size:15.5px;line-height:1.55;color:var(--rx-ink)}
+.rxe-plain b,.rxe-why b,.rxe-pr b{display:block;font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:var(--rx-acc);margin-bottom:3px}
+.rxe-pics{display:grid;gap:10px;background:#F4F6FB;color:#161A33;border-radius:14px;padding:12px;overflow-x:auto;min-width:0}
+.rxe-pics>b{font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:#6E749B}
+.rxe-t{font:700 12px var(--body,inherit);color:#4A4F6E}
+.rxe-why{margin:0;font-size:14.5px;line-height:1.5;color:var(--rx-dim)}
+.rxe-pr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rxe-pr b{display:inline;margin:0 4px 0 0}
+.rxe-pr a{font:700 13px var(--body,inherit);color:var(--rx-ink);text-decoration:none;border:1.5px solid rgba(244,246,251,.3);border-radius:999px;padding:3px 10px}
+.rxe-pr a:hover{border-color:var(--rx-acc);color:var(--rx-acc)}
+.rxe-tr{display:grid;gap:6px}
+.rxe-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
+.rxe-row .st{display:grid;gap:1px;font-size:13px;line-height:1.35;min-width:170px}
+.rxe-row .st b{font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-row .st span{color:#4A4F6E}
+.rxe-row.ok .st span{color:#0F7A5F;font-weight:700}.rxe-row.bad .st span{color:#B4204F;font-weight:700}
+.rxe-n{font:800 11px var(--mono,monospace);color:#6E749B;margin-right:6px}
+.rxe-tl{display:flex;gap:3px;align-items:flex-start}
+.rxe-c{display:grid;justify-items:center;gap:1px;min-width:28px}
+.rxe-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid #D9DDEB;border-radius:7px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33;white-space:nowrap}
+.rxe-c small{font:600 9.5px var(--mono,monospace);color:#6E749B;min-height:11px;white-space:nowrap}
+.rxe-c.on b{background:#FFE7B3;border-color:#E09A2B}
+.rxe-c.win b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-c.dim b{opacity:.4}
+.rxe-c small.p{color:#B86E00;font-weight:800}
+.rxe-g{border-collapse:separate;border-spacing:3px}
+.rxe-g td{min-width:28px;height:28px;text-align:center;border:1.5px solid #D9DDEB;border-radius:6px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-g td.x-g{background:#D6F3E9;border-color:#2BA982}.rxe-g td.x-a{background:#FFE7B3;border-color:#E09A2B}.rxe-g td.x-r{background:#FBE1E9;border-color:#DB3D6E}.rxe-g td.x-b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-grids{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.rxe-grids>div{display:grid;gap:4px}
+.rxe-kv{display:grid;gap:5px}
+.rxe-kv>div{opacity:1;color:#161A33;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rxe-kv .k{font:700 12.5px var(--mono,monospace);border-radius:7px;padding:3px 8px;background:#161A33;color:#fff}
+.rxe-kv .v{display:flex;gap:4px;flex-wrap:wrap}
+.rxe-kv .v span{color:#161A33;opacity:1;font:700 12.5px var(--mono,monospace);border:1.5px solid #D9DDEB;background:#fff;border-radius:7px;padding:2px 8px}
+.rxe-kv>div.x-g .v span{border-color:#2BA982;background:#D6F3E9}.rxe-kv>div.x-b .v span{border-color:#5B74E8;background:#DDE6FF}.rxe-kv>div.x-a .v span{border-color:#E09A2B;background:#FFE7B3}
+.rxe-cmp{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.rxe-cmp>div{border:1.5px solid #D9DDEB;background:#fff;border-radius:10px;padding:6px 10px;display:grid;gap:1px;min-width:120px}
+.rxe-cmp small{font:700 11.5px var(--body,inherit);color:#6E749B}
+.rxe-cmp b{font:700 13.5px var(--mono,monospace);color:#161A33}
+.rxe-cmp>div.ok{border-color:#2BA982;background:#E7F7F0}.rxe-cmp>div.bad{border-color:#DB3D6E;background:#FDECF1}
+.rxe-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.rxe-flow span{border:1.5px solid #161A33;background:#fff;border-radius:9px;padding:5px 10px;font:700 13px var(--body,inherit);color:#161A33;box-shadow:2px 2px 0 #161A33}
+.rxe-flow i{font-style:normal;color:#6E749B;font-weight:800}
+.rxe-code{margin:0;background:#161A33;color:#E6E9FF;border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,monospace);overflow-x:auto;white-space:pre}
+svg.rxe-s{display:block;max-width:100%;height:auto}
+svg.rxe-s line{stroke:#9AA0B8;stroke-width:1.5}
+svg.rxe-s circle{fill:#fff;stroke:#4A4F6E;stroke-width:1.5}
+svg.rxe-s .x-g circle{fill:#D6F3E9;stroke:#2BA982;stroke-width:2.2}svg.rxe-s .x-a circle{fill:#FFE7B3;stroke:#E09A2B;stroke-width:2.2}svg.rxe-s .x-r circle{fill:#FBE1E9;stroke:#DB3D6E;stroke-width:2.2}svg.rxe-s .x-b circle{fill:#DDE6FF;stroke:#5B74E8;stroke-width:2.2}
+svg.rxe-s text{font:700 12px var(--mono,monospace);fill:#161A33;text-anchor:middle;dominant-baseline:central}
+.rxe-ch{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rxe-ch .ar{color:#6E749B;font-weight:800}
+.rxe-ch .nt{font-size:12.5px;color:#4A4F6E;margin-left:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rxe-pics{background:#E4E8F5}}
+:root[data-theme="dark"] .rxe-pics{background:#E4E8F5}
+@media (max-width:640px){.rxe-row{grid-template-columns:1fr}.rxe-row .st{min-width:0}}</style><script>(function(){const RXD={"rx-prefix": {"plain": "A trie stores words letter by letter in a tree, so words with the same beginning share the same path. “Is there any word starting with ca?” becomes: walk c → a and see whether anything is below. You don’t check every word.", "pic": [{"t": "kv", "v": [["c → a", ["r ✔ (car)", "t ✔ (cat)"], "x"], ["c → a → r", ["t ✔ (cart)"], ""], ["d → o", ["g ✔ (dog)"], ""]], "title": "words car, cat, cart, dog: “ca” is stored once"}], "probs": ["p-208", "p-1268"], "ex": null}, "rx-node": {"plain": "A trie node needs only two things: a map from letter to child node, and a flag saying “a word ends here”. In Python, nested dictionaries with a special \"$\" key work just as well.", "pic": [{"t": "code", "v": "class Node:\n    def __init__(self):\n        self.kids = {}      # letter → Node\n        self.end = False    # does a word end here?\n\n# or: node = node.setdefault(ch, {}); node['$'] = True", "title": ""}], "probs": ["p-208"], "ex": null}, "rx-endflag": {"plain": "After inserting “dog”, the path d → o exists too, but “do” was never inserted. The end flag tells them apart: search needs the flag on the last node, startsWith only needs the path.", "pic": [{"t": "compare", "v": [["insert \"dog\"", "d → o → g (end ✔ on g)", ""], ["search(\"do\")", "path exists, no flag on o → False", "bad"], ["startsWith(\"do\")", "path exists → True", "ok"]], "title": ""}], "probs": ["p-208"], "ex": null}, "rx-counts": {"plain": "If you’ll ask “how many words start with this?” or “sum of values with this prefix”, keep a running number on every node and update it as each word passes through during insert. A query is then just a walk plus reading one number.", "pic": [{"t": "kv", "v": [["a", ["5"], ""], ["a → p", ["5"], ""], ["a → p → p", ["5 (app = 2 ends here)"], "b"], ["a → p → p → l", ["3"], ""]], "title": "insert apple = 3, app = 2 → sum(\"ap\") = 5"}], "probs": ["p-677"], "ex": null}, "rx-replace": {"plain": "Put the root words in a trie. For each word in the sentence, walk its letters down the trie and stop at the first node marked as the end of a root. That shortest root replaces the word; if you fall off the trie, keep the word.", "pic": [{"t": "compare", "v": [["cattle", "c-a-t has an end flag → \"cat\"", "ok"], ["rattled", "r-a-t → \"rat\"", "ok"], ["the", "no root starts with t → keep", ""]], "title": "roots cat, bat, rat"}], "probs": ["p-648"], "ex": null}, "rx-lcp": {"plain": "Insert all the strings. The common prefix is the path from the root as long as there’s only one way to continue and no word has ended yet.", "pic": [{"t": "kv", "v": [["f", ["one child"], ""], ["f → l", ["two children: o, i → stop"], "a"]], "title": "[\"flower\", \"flow\", \"flight\"] → \"fl\""}], "probs": ["p-14"], "ex": null}, "rx-wildcard": {"plain": "A normal letter means follow that one child. A “.” could be any letter, so try every child with a small DFS. At the end of the pattern, the node must carry the end flag.", "pic": [{"t": "kv", "v": [["\".\" at position 1", ["try b", "try d", "try m"], ""], ["then \"a\", then \"d\"", ["b-a-d ✔"], "g"]], "title": "words bad, dad, mad; search \".ad\""}], "probs": ["p-211"], "ex": null}, "rx-suggest": {"plain": "For type-ahead, do the work once at insert time. Insert words in sorted order and keep the first 3 that pass through each node. Then each typed prefix is just a walk to a node and a read of its list.", "pic": [{"t": "kv", "v": [["m", ["mobile", "moneypot", "monitor"], ""], ["m → o", ["mobile", "moneypot", "monitor"], ""], ["m → o → u", ["mouse", "mousepad"], "g"]], "title": "products sorted; typing \"mou\""}], "probs": ["p-1268"], "ex": null}, "rx-manywords": {"plain": "Searching the grid once per word repeats the same walks. Put all the words in one trie and run one DFS over the grid that follows trie children. A path stops the moment no word has that prefix.", "pic": [{"t": "compare", "v": [["one search per word", "k words × a full grid DFS", "bad"], ["one trie + one DFS", "stops as soon as no word matches the prefix", "ok"]], "title": ""}], "probs": ["p-212"], "ex": null}, "rx-prune": {"plain": "Once a word is found, it shouldn’t be found again. Remove its end flag, and on the way back delete nodes that no longer have children, so later searches don’t walk dead branches.", "pic": [{"t": "compare", "v": [["found \"oath\"", "clear its flag, delete empty nodes", ""], ["afterwards", "DFS never walks that branch again", "ok"]], "title": ""}], "probs": ["p-212"], "ex": null}, "rx-xor": {"plain": "XOR is biggest when the two numbers differ in the highest bits. Store the numbers in a trie of bits, highest bit first. For each number, walk down choosing the opposite bit whenever that child exists; that greedily builds the best partner.", "pic": [{"t": "compare", "v": [["5", "00101", ""], ["best partner 25", "11001", ""], ["5 XOR 25", "11100 = 28", "ok"]], "title": "nums = [3, 10, 5, 25, 2, 8]"}], "probs": ["p-421"], "ex": null}, "rx-notneeded": {"plain": "A trie earns its keep only when prefixes matter. If you only ask “is this exact word in the list?”, a set is simpler and just as fast.", "pic": [{"t": "compare", "v": [["exact-word lookups", "set", "ok"], ["prefixes, wildcards, autocomplete", "trie", "ok"]], "title": ""}], "probs": ["p-208"], "ex": null}, "rx-cxtrlen": {"plain": "Insert, search and startsWith each walk one node per letter, so they cost the length of the word. How many words are stored doesn’t matter.", "pic": [{"t": "compare", "v": [["word of length L", "L steps", "ok"], ["number of stored words", "doesn’t matter", ""]], "title": ""}], "probs": ["p-208"], "ex": null}, "rx-cxtrspace": {"plain": "In the worst case every inserted character needs its own node: O(total characters). Shared prefixes reuse nodes, so real tries are smaller. Each node also carries a children map (a dict, or an array of 26).", "pic": [{"t": "compare", "v": [["worst case", "one node per character", ""], ["shared prefixes", "nodes are reused", "ok"]], "title": ""}], "probs": ["p-208"], "ex": null}, "rx-cxtrhash": {"plain": "For exact lookups a set does the same O(L) work (hashing the word) with less code. Choose a trie for prefix questions, autocomplete and pruning word searches.", "pic": [{"t": "compare", "v": [["exact lookups", "set", "ok"], ["prefix questions", "trie", "ok"]], "title": ""}], "probs": ["p-208", "p-212"], "ex": null}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const T=s=>s.title?`<div class="rxe-t">${esc(s.title)}</div>`:'';
+function tiles(v,p){p=p||{};const lab={};const on=new Set();let win=null;
+  for(const k in p){if(k==='w'){win=p.w;continue}const i=p[k];if(i==null)continue;(lab[i]=lab[i]||[]).push(k);on.add(i)}
+  return `<div class="rxe-tl">${v.map((x,i)=>{const w=win&&i>=win[0]&&i<=win[1];return `<span class="rxe-c${on.has(i)?' on':w?' win':''}"><b>${esc(x)}</b><small class="${lab[i]?'p':''}">${lab[i]?esc(lab[i].join(' ')):i}</small></span>`}).join('')}</div>`}
+function trace(s){let h=T(s);if(!s.rows.length)return h+tiles(s.v,{});
+  h+='<div class="rxe-tr">'+s.rows.map((r,k)=>`<div class="rxe-row ${esc(r[3])}">${tiles(r[4]||s.v,r[0]||{})}<div class="st"><b><span class="rxe-n">${k+1}</span>${esc(r[1])}</b>${r[2]?`<span>${esc(r[2])}</span>`:''}</div></div>`).join('')+'</div>';return h}
+function grid(s){return `<div>${T(s)}<table class="rxe-g">${s.v.map((r,ri)=>'<tr>'+r.map((x,c)=>`<td class="${s.hl[ri+','+c]?'x-'+esc(s.hl[ri+','+c]):''}">${esc(x)}</td>`).join('')+'</tr>').join('')}</table></div>`}
+function kv(s){return T(s)+`<div class="rxe-kv">${s.v.map(r=>`<div class="${r[2]?'x-'+esc(r[2]):''}"><span class="k">${esc(r[0])}</span><span class="v">${r[1].map(x=>`<span>${esc(x)}</span>`).join('')}</span></div>`).join('')}</div>`}
+function compare(s){return T(s)+`<div class="rxe-cmp">${s.v.map(r=>`<div class="${esc(r[2]||'')}"><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join('')}</div>`}
+function flow(s){return T(s)+`<div class="rxe-flow">${s.v.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`}
+function code(s){return T(s)+`<pre class="rxe-code">${esc(s.v)}</pre>`}
+function chain(s){return T(s)+`<div class="rxe-ch">${s.v.map((x,i)=>`<span class="rxe-c${s.hl[i]?' on':''}"><b>${esc(x)}</b></span>`).join('<span class="ar">→</span>')}${s.note?`<span class="nt">${esc(s.note)}</span>`:''}</div>`}
+function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
+  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
+  const W=x*40+12,H=(maxd+1)*50+10,pos=i=>[P[i][0]*40+26,P[i][1]*50+22];let h=`<svg class="rxe-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
+  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);{const c=s.hl['#'+n.i]||s.hl[n.v];h+=`<g class="${c?'x-'+esc(c):''}">`}h+=`<circle cx="${a}" cy="${b}" r="14"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
+  return `<div>${T(s)}${h}</svg></div>`}
+const R={trace,grid,kv,compare,flow,code,chain,tree};
+function pics(list){if(!list||!list.length)return '';const gr=list.every(p=>p.t==='grid'||p.t==='tree');
+  const body=list.map(p=>R[p.t]?R[p.t](p):'').join('');return `<div class="rxe-pics"><b>Picture it</b>${gr?`<div class="rxe-grids">${body}</div>`:body}</div>`}
+function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.querySelector('.rxe'))return;const d=RXD[card.id];if(!d)return;
+  const det=card.querySelector('details');const why=det?(det.querySelector('p')||{}).innerHTML||'':'';
+  const probs=d.probs.map(id=>{const el=document.getElementById(id);const t=el&&el.querySelector('h4');return t?`<a href="#${id}">${esc(t.textContent)}</a>`:''}).filter(Boolean);
+  const box=document.createElement('div');box.className='rxe';
+  box.innerHTML=`<p class="rxe-plain"><b>In plain words</b>${esc(d.plain)}</p>${pics(d.pic)}${why?`<p class="rxe-why"><b>Why it works</b>${why}</p>`:''}${probs.length?`<div class="rxe-pr"><b>Practise it</b>${probs.join('')}</div>`:''}`;
+  const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
 </body>
 </html>

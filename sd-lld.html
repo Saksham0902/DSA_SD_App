@@ -2704,5 +2704,92 @@ function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.
 function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
+<!--rxe-start--><style>.rxe{display:grid;gap:10px;margin:2px 0 12px}
+.rxe-plain{margin:0;font-size:15.5px;line-height:1.55;color:var(--rx-ink)}
+.rxe-plain b,.rxe-why b,.rxe-pr b{display:block;font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:var(--rx-acc);margin-bottom:3px}
+.rxe-pics{display:grid;gap:10px;background:#F4F6FB;color:#161A33;border-radius:14px;padding:12px;overflow-x:auto;min-width:0}
+.rxe-pics>b{font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:#6E749B}
+.rxe-t{font:700 12px var(--body,inherit);color:#4A4F6E}
+.rxe-why{margin:0;font-size:14.5px;line-height:1.5;color:var(--rx-dim)}
+.rxe-pr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rxe-pr b{display:inline;margin:0 4px 0 0}
+.rxe-pr a{font:700 13px var(--body,inherit);color:var(--rx-ink);text-decoration:none;border:1.5px solid rgba(244,246,251,.3);border-radius:999px;padding:3px 10px}
+.rxe-pr a:hover{border-color:var(--rx-acc);color:var(--rx-acc)}
+.rxe-tr{display:grid;gap:6px}
+.rxe-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
+.rxe-row .st{display:grid;gap:1px;font-size:13px;line-height:1.35;min-width:170px}
+.rxe-row .st b{font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-row .st span{color:#4A4F6E}
+.rxe-row.ok .st span{color:#0F7A5F;font-weight:700}.rxe-row.bad .st span{color:#B4204F;font-weight:700}
+.rxe-n{font:800 11px var(--mono,monospace);color:#6E749B;margin-right:6px}
+.rxe-tl{display:flex;gap:3px;align-items:flex-start}
+.rxe-c{display:grid;justify-items:center;gap:1px;min-width:28px}
+.rxe-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid #D9DDEB;border-radius:7px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33;white-space:nowrap}
+.rxe-c small{font:600 9.5px var(--mono,monospace);color:#6E749B;min-height:11px;white-space:nowrap}
+.rxe-c.on b{background:#FFE7B3;border-color:#E09A2B}
+.rxe-c.win b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-c.dim b{opacity:.4}
+.rxe-c small.p{color:#B86E00;font-weight:800}
+.rxe-g{border-collapse:separate;border-spacing:3px}
+.rxe-g td{min-width:28px;height:28px;text-align:center;border:1.5px solid #D9DDEB;border-radius:6px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-g td.x-g{background:#D6F3E9;border-color:#2BA982}.rxe-g td.x-a{background:#FFE7B3;border-color:#E09A2B}.rxe-g td.x-r{background:#FBE1E9;border-color:#DB3D6E}.rxe-g td.x-b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-grids{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.rxe-grids>div{display:grid;gap:4px}
+.rxe-kv{display:grid;gap:5px}
+.rxe-kv>div{opacity:1;color:#161A33;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rxe-kv .k{font:700 12.5px var(--mono,monospace);border-radius:7px;padding:3px 8px;background:#161A33;color:#fff}
+.rxe-kv .v{display:flex;gap:4px;flex-wrap:wrap}
+.rxe-kv .v span{color:#161A33;opacity:1;font:700 12.5px var(--mono,monospace);border:1.5px solid #D9DDEB;background:#fff;border-radius:7px;padding:2px 8px}
+.rxe-kv>div.x-g .v span{border-color:#2BA982;background:#D6F3E9}.rxe-kv>div.x-b .v span{border-color:#5B74E8;background:#DDE6FF}.rxe-kv>div.x-a .v span{border-color:#E09A2B;background:#FFE7B3}
+.rxe-cmp{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.rxe-cmp>div{border:1.5px solid #D9DDEB;background:#fff;border-radius:10px;padding:6px 10px;display:grid;gap:1px;min-width:120px}
+.rxe-cmp small{font:700 11.5px var(--body,inherit);color:#6E749B}
+.rxe-cmp b{font:700 13.5px var(--mono,monospace);color:#161A33}
+.rxe-cmp>div.ok{border-color:#2BA982;background:#E7F7F0}.rxe-cmp>div.bad{border-color:#DB3D6E;background:#FDECF1}
+.rxe-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.rxe-flow span{border:1.5px solid #161A33;background:#fff;border-radius:9px;padding:5px 10px;font:700 13px var(--body,inherit);color:#161A33;box-shadow:2px 2px 0 #161A33}
+.rxe-flow i{font-style:normal;color:#6E749B;font-weight:800}
+.rxe-code{margin:0;background:#161A33;color:#E6E9FF;border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,monospace);overflow-x:auto;white-space:pre}
+svg.rxe-s{display:block;max-width:100%;height:auto}
+svg.rxe-s line{stroke:#9AA0B8;stroke-width:1.5}
+svg.rxe-s circle{fill:#fff;stroke:#4A4F6E;stroke-width:1.5}
+svg.rxe-s .x-g circle{fill:#D6F3E9;stroke:#2BA982;stroke-width:2.2}svg.rxe-s .x-a circle{fill:#FFE7B3;stroke:#E09A2B;stroke-width:2.2}svg.rxe-s .x-r circle{fill:#FBE1E9;stroke:#DB3D6E;stroke-width:2.2}svg.rxe-s .x-b circle{fill:#DDE6FF;stroke:#5B74E8;stroke-width:2.2}
+svg.rxe-s text{font:700 12px var(--mono,monospace);fill:#161A33;text-anchor:middle;dominant-baseline:central}
+.rxe-ch{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rxe-ch .ar{color:#6E749B;font-weight:800}
+.rxe-ch .nt{font-size:12.5px;color:#4A4F6E;margin-left:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rxe-pics{background:#E4E8F5}}
+:root[data-theme="dark"] .rxe-pics{background:#E4E8F5}
+@media (max-width:640px){.rxe-row{grid-template-columns:1fr}.rxe-row .st{min-width:0}}</style><script>(function(){const RXD={"rx-clarify": {"plain": "Don’t start drawing classes straight away. Spend a few minutes agreeing on the scope: who uses the system, the 3–5 things it must do, and what you’re leaving out. Write that list down; it stops you from designing the wrong thing.", "pic": [{"t": "kv", "v": [["actors", ["driver", "attendant", "admin"], ""], ["use cases", ["park", "pay", "exit", "show free spots"], "g"], ["out of scope", ["reservations", "EV charging"], "a"]], "title": "parking lot, first 3 minutes"}], "probs": ["p-parkinglot"], "ex": null}, "rx-nouns": {"plain": "Read your use cases out loud. The nouns (lot, level, spot, ticket, vehicle) become classes; the verbs (park, pay, exit) become methods, placed on the class that owns the data the method needs.", "pic": [{"t": "compare", "v": [["nouns", "ParkingLot, Level, Spot, Ticket, Vehicle", ""], ["verbs", "park(), pay(), exit()", ""], ["ownership", "Spot.isFree() lives on Spot", "ok"]], "title": ""}], "probs": ["p-parkinglot", "p-bookmyshow"], "ex": null}, "rx-enums": {"plain": "Categories that come from a fixed list (vehicle type, spot size, seat class) should be enums, not strings. The compiler catches typos, and the enum can carry data like a rate.", "pic": [{"t": "code", "v": "enum SpotSize { SMALL, MEDIUM, LARGE }\nenum VehicleType {\n    BIKE(SpotSize.SMALL), CAR(SpotSize.MEDIUM), TRUCK(SpotSize.LARGE);\n    final SpotSize needs;\n    VehicleType(SpotSize s) { needs = s; }\n}", "title": ""}], "probs": ["p-parkinglot"], "ex": null}, "rx-policy": {"plain": "Anything the business will tweak (pricing, which spot to give, which elevator answers) goes behind a strategy interface passed into the main class. Changing the rule then means swapping one object, not editing the lot.", "pic": [{"t": "code", "v": "interface PricingPolicy { int fee(Ticket t, Instant out); }\nclass ParkingLot {\n    ParkingLot(SpotAllocator allocator, PricingPolicy pricing) { … }\n}", "title": ""}], "probs": ["p-parkinglot", "p-elevator"], "ex": null}, "rx-modes": {"plain": "If what’s allowed depends on what happened earlier (an ATM can’t dispense before a PIN is entered), make each situation a state class. Each one handles actions its own way and says which state comes next.", "pic": [{"t": "flow", "v": ["Idle", "insertCard → CardInserted", "enterPin → Authenticated", "withdraw → Dispensing", "done → Idle"], "title": "ATM states"}], "probs": ["p-atm"], "ex": null}, "rx-lotmanager": {"plain": "It’s fine that only one ParkingLot exists per process, but don’t make every class fetch it via getInstance(). Create it once at startup and pass it to whoever needs it; tests can then use a different one.", "pic": [{"t": "compare", "v": [["ParkingLot.getInstance() everywhere", "hidden global, hard to test", "bad"], ["created once, injected", "still one instance", "ok"]], "title": ""}], "probs": ["p-parkinglot"], "ex": null}, "rx-atmchain": {"plain": "To pay out an amount in notes, start with the largest note: take as many as fit, then pass the remainder to the next smaller note’s handler, and so on. Each handler only knows its own note.", "pic": [{"t": "kv", "v": [["₹2000", ["5700 // 2000 = 2 notes", "remainder 1700"], ""], ["₹500", ["3 notes", "remainder 200"], ""], ["₹100", ["2 notes", "remainder 0"], "g"]], "title": "withdraw ₹5700"}], "probs": ["p-atm"], "ex": null}, "rx-scan": {"plain": "An elevator works like a lift sweeping a building: keep going in the current direction, stopping at requested floors ahead in order, and turn around only when nothing is left ahead. A sorted set of requested floors makes “next stop ahead” quick.", "pic": [{"t": "kv", "v": [["at 3, going up", ["requests 5, 8, 2"], ""], ["serve", ["5", "8"], "b"], ["nothing above 8", ["turn → 2"], "g"]], "title": ""}], "probs": ["p-elevator"], "ex": null}, "rx-showseat": {"plain": "A seat exists once, but its availability differs per show. So model ShowSeat (seat × show) with a status FREE / HELD / BOOKED and a hold expiry time, so abandoned holds free themselves.", "pic": [{"t": "kv", "v": [["ShowSeat(A1, 7 pm)", ["BOOKED"], "a"], ["ShowSeat(A1, 10 pm)", ["FREE"], "g"], ["ShowSeat(A2, 7 pm)", ["HELD until 7:05"], "b"]], "title": ""}], "probs": ["p-bookmyshow", "p-seatsql"], "ex": null}, "rx-checkact": {"plain": "“If it’s free, take it” written as two steps lets two threads both see “free” before either takes it, and both succeed. Make the check and the take a single atomic step.", "pic": [{"t": "code", "v": "// race: two threads can both pass the check\nif (seat.isFree()) seat.book(user);\n\n// atomic\nif (seats.putIfAbsent(seatId, user) == null) { /* booked */ }", "title": ""}], "probs": ["p-race", "p-seatsql"], "ex": null}, "rx-multiserver": {"plain": "Java locks only protect threads inside one server. With several servers, the shared truth is the database: let it decide with a conditional UPDATE, a row lock or a unique constraint. Use a distributed lock with an expiry if there’s no database to lean on.", "pic": [{"t": "code", "v": "UPDATE show_seat SET status = 'HELD', user_id = ?\nWHERE id = ? AND status = 'FREE';   -- 1 row updated = you won", "title": ""}], "probs": ["p-seatsql"], "ex": null}, "rx-optimistic": {"plain": "When conflicts are rare, don’t lock while the user thinks. Read the row with its version number; when saving, update only if the version is still the same. If 0 rows change, someone else won: reload and retry or tell the user.", "pic": [{"t": "code", "v": "UPDATE booking SET status = ?, version = version + 1\nWHERE id = ? AND version = ?;    -- 0 rows → conflict, retry", "title": ""}], "probs": ["p-optimistic"], "ex": null}, "rx-idempotent": {"plain": "Networks time out and users double-click, so the same payment or booking request can arrive twice. The client sends a unique key with it; the server stores the result under that key and, if the key shows up again, returns the saved result instead of doing it twice.", "pic": [{"t": "flow", "v": ["POST /book (key = b-42)", "first time → do it, save result", "retry with b-42 → return saved result"], "title": "same key, same answer"}], "probs": ["p-parkinglot", "p-bookmyshow"], "ex": null}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const T=s=>s.title?`<div class="rxe-t">${esc(s.title)}</div>`:'';
+function tiles(v,p){p=p||{};const lab={};const on=new Set();let win=null;
+  for(const k in p){if(k==='w'){win=p.w;continue}const i=p[k];if(i==null)continue;(lab[i]=lab[i]||[]).push(k);on.add(i)}
+  return `<div class="rxe-tl">${v.map((x,i)=>{const w=win&&i>=win[0]&&i<=win[1];return `<span class="rxe-c${on.has(i)?' on':w?' win':''}"><b>${esc(x)}</b><small class="${lab[i]?'p':''}">${lab[i]?esc(lab[i].join(' ')):i}</small></span>`}).join('')}</div>`}
+function trace(s){let h=T(s);if(!s.rows.length)return h+tiles(s.v,{});
+  h+='<div class="rxe-tr">'+s.rows.map((r,k)=>`<div class="rxe-row ${esc(r[3])}">${tiles(r[4]||s.v,r[0]||{})}<div class="st"><b><span class="rxe-n">${k+1}</span>${esc(r[1])}</b>${r[2]?`<span>${esc(r[2])}</span>`:''}</div></div>`).join('')+'</div>';return h}
+function grid(s){return `<div>${T(s)}<table class="rxe-g">${s.v.map((r,ri)=>'<tr>'+r.map((x,c)=>`<td class="${s.hl[ri+','+c]?'x-'+esc(s.hl[ri+','+c]):''}">${esc(x)}</td>`).join('')+'</tr>').join('')}</table></div>`}
+function kv(s){return T(s)+`<div class="rxe-kv">${s.v.map(r=>`<div class="${r[2]?'x-'+esc(r[2]):''}"><span class="k">${esc(r[0])}</span><span class="v">${r[1].map(x=>`<span>${esc(x)}</span>`).join('')}</span></div>`).join('')}</div>`}
+function compare(s){return T(s)+`<div class="rxe-cmp">${s.v.map(r=>`<div class="${esc(r[2]||'')}"><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join('')}</div>`}
+function flow(s){return T(s)+`<div class="rxe-flow">${s.v.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`}
+function code(s){return T(s)+`<pre class="rxe-code">${esc(s.v)}</pre>`}
+function chain(s){return T(s)+`<div class="rxe-ch">${s.v.map((x,i)=>`<span class="rxe-c${s.hl[i]?' on':''}"><b>${esc(x)}</b></span>`).join('<span class="ar">→</span>')}${s.note?`<span class="nt">${esc(s.note)}</span>`:''}</div>`}
+function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
+  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
+  const W=x*40+12,H=(maxd+1)*50+10,pos=i=>[P[i][0]*40+26,P[i][1]*50+22];let h=`<svg class="rxe-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
+  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);{const c=s.hl['#'+n.i]||s.hl[n.v];h+=`<g class="${c?'x-'+esc(c):''}">`}h+=`<circle cx="${a}" cy="${b}" r="14"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
+  return `<div>${T(s)}${h}</svg></div>`}
+const R={trace,grid,kv,compare,flow,code,chain,tree};
+function pics(list){if(!list||!list.length)return '';const gr=list.every(p=>p.t==='grid'||p.t==='tree');
+  const body=list.map(p=>R[p.t]?R[p.t](p):'').join('');return `<div class="rxe-pics"><b>Picture it</b>${gr?`<div class="rxe-grids">${body}</div>`:body}</div>`}
+function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.querySelector('.rxe'))return;const d=RXD[card.id];if(!d)return;
+  const det=card.querySelector('details');const why=det?(det.querySelector('p')||{}).innerHTML||'':'';
+  const probs=d.probs.map(id=>{const el=document.getElementById(id);const t=el&&el.querySelector('h4');return t?`<a href="#${id}">${esc(t.textContent)}</a>`:''}).filter(Boolean);
+  const box=document.createElement('div');box.className='rxe';
+  box.innerHTML=`<p class="rxe-plain"><b>In plain words</b>${esc(d.plain)}</p>${pics(d.pic)}${why?`<p class="rxe-why"><b>Why it works</b>${why}</p>`:''}${probs.length?`<div class="rxe-pr"><b>Practise it</b>${probs.join('')}</div>`:''}`;
+  const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
 </body>
 </html>
