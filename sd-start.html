@@ -2235,5 +2235,36 @@ const go=()=>setTimeout(scan,60);if(document.readyState==='loading')document.add
 @media (max-width:700px){.uml-key{grid-template-columns:1fr;max-width:calc(100vw - 60px);align-self:flex-start;position:sticky;left:0}}
 @media (min-width:1100px){.lab.uml-lab .lab-grid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)!important}}
 </style><!--uml-end-->
+<!--snav-start--><style>.snav{position:absolute;z-index:6;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);
+display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 0 var(--ink);padding:0;transition:transform .12s,opacity .15s,top .12s ease-out;-webkit-tap-highlight-color:transparent}
+.snav svg{width:20px;height:20px;stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.snav.l{left:-22px}.snav.r{right:-22px}
+.snav:hover{transform:translateY(-1px);background:var(--paper)}
+.snav:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.snav:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.snav[disabled]{opacity:.28;cursor:default;transform:none}
+.snav-host{position:relative}
+@media (max-width:700px){.snav{width:36px;height:36px;box-shadow:0 2px 0 var(--ink);opacity:.92}.snav svg{width:17px;height:17px}.snav.l{left:-12px}.snav.r{right:-12px}.snav[disabled]{opacity:0;pointer-events:none}}
+@media print{.snav{display:none}}</style><script>(function(){
+const ICON={l:'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',r:'<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>'};
+const hosts=new Set();
+function attach(){document.querySelectorAll('.ctl').forEach(ctl=>{const nx=ctl.querySelector('[data-a=next]'),bk=ctl.querySelector('[data-a=back]');if(!nx||!bk)return;
+  const host=ctl.parentElement;if(!host||host.querySelector(':scope > .snav'))return;
+  host.classList.add('snav-host');
+  for(const [k,src,lab] of [['l',bk,'Previous step'],['r',nx,'Next step']]){const b=document.createElement('button');b.type='button';b.className='snav '+k;b.setAttribute('aria-label',lab);b.title=lab;b.innerHTML=ICON[k];
+    b.addEventListener('click',e=>{e.preventDefault();const c=host.querySelector(':scope > .ctl [data-a='+(k==='l'?'back':'next')+']');if(c)c.click();sync(host)});host.appendChild(b)}
+  hosts.add(host);sync(host)})}
+function sync(host){if(!host.isConnected){hosts.delete(host);return}
+  const cnt=host.querySelector(':scope > .ctl .cnt'),m=cnt&&/(\d+)\s*\/\s*(\d+)/.exec(cnt.textContent),L=host.querySelector(':scope > .snav.l'),R=host.querySelector(':scope > .snav.r');if(!L||!R)return;
+  const i=m?+m[1]:1,n=m?+m[2]:1;L.disabled=i<=1;R.disabled=i>=n;
+  const r=host.getBoundingClientRect(),h=r.height,vh=innerHeight;if(!h)return;
+  // keep the arrows at the middle of what is visible of this lab
+  const top=Math.max(0,r.top),bot=Math.min(vh,r.bottom);let y=(bot>top?(top+bot)/2:vh/2)-r.top;
+  y=Math.max(60,Math.min(h-60,y));L.style.top=R.style.top=(y-22)+'px'}
+let q=0;function syncAll(){if(q)return;q=requestAnimationFrame(()=>{q=0;hosts.forEach(sync)})}
+let aT;new MutationObserver(()=>{clearTimeout(aT);aT=setTimeout(()=>{attach();syncAll()},40)}).observe(document.body,{childList:true,subtree:true,characterData:true});
+addEventListener('scroll',syncAll,{passive:true});addEventListener('resize',syncAll);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{attach();syncAll()});else{attach();syncAll()}
+})();</script><!--snav-end-->
 </body>
 </html>
