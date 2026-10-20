@@ -2769,7 +2769,6 @@ document.querySelectorAll('.film-ban').forEach(b=>{const id=b.dataset.film,f=C.f
   const d=b.querySelector('.fb-d');if(d)d.textContent=C.fmt(f.T);
   b.addEventListener('click',()=>C.open(id))});
 mark();document.addEventListener('cinema:watched',mark)})();</script><!--cin-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
 .pask-fab:hover{transform:translateY(-2px)}
 .pask-fab svg{width:20px;height:20px;flex:none}
@@ -3211,5 +3210,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 </body>
 </html>

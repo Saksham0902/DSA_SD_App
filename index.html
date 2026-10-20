@@ -529,7 +529,7 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
     <div class="road" id="road2"></div>
   </section>
 
-                  <!--cinh-start--><section class="sec" id="cinema"><div class="cine" id="cineHome"><canvas class="cine-stars" aria-hidden="true"></canvas>
+                        <!--cinh-start--><section class="sec" id="cinema"><div class="cine" id="cineHome"><canvas class="cine-stars" aria-hidden="true"></canvas>
   <div class="cine-head"><span class="cine-eb">✦ New · Dojo Cinema</span><h2>Watch the <span>pattern move.</span></h2><p>Short animated films for every topic, with narration, captions and chapters. Scrub, slow down, replay, then try it yourself in the lab.</p></div>
   <div class="cine-feat" id="cfFeat"></div>
   <div class="cine-tabs" role="group" aria-label="Film track"><button data-t="dsa" aria-pressed="true">DSA · 13 films</button><button data-t="sd" aria-pressed="false">System design · 6 films</button></div>
@@ -2018,7 +2018,6 @@ const cv=root.querySelector('.cine-stars');if(cv&&C.Stars&&!(window.matchMedia&&
   const loop=now=>{if(!on)return;const dt=Math.min(.1,(now-(last||now))/1000);last=now;t+=dt;st.draw(dt,t);requestAnimationFrame(loop)};
   new IntersectionObserver(es=>{on=es[0].isIntersecting;if(on){last=0;requestAnimationFrame(loop)}}).observe(root)}
 })();</script><!--cin-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
 .pask-fab:hover{transform:translateY(-2px)}
 .pask-fab svg{width:20px;height:20px;flex:none}
@@ -2460,3 +2459,4 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
