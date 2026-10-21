@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
+<head><!--thm-head-start--><script>(function(){try{var t=localStorage.getItem('rdd-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script><!--thm-head-end--><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--auth-start--><script>(function(){var C={"firebase": {"apiKey": "", "authDomain": "", "projectId": "", "appId": ""}, "hosts": ["saksham0902.github.io"], "requireLogin": true, "allowGuest": true, "sdk": "https://cdn.jsdelivr.net/npm/firebase@10.14.1/", "admins": ["sakshammathur429@gmail.com"], "track": true};var f=C.firebase||{};var on=!!(f.apiKey&&f.projectId&&C.hosts.indexOf(location.hostname)>=0);
 window.DOJO_AUTH_CFG=C;window.DOJO_AUTH_ON=on;if(!on||!C.requireLogin)return;
@@ -2049,6 +2048,148 @@ let aT;new MutationObserver(()=>{clearTimeout(aT);aT=setTimeout(()=>{attach();sy
 addEventListener('scroll',syncAll,{passive:true});addEventListener('resize',syncAll);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{attach();syncAll()});else{attach();syncAll()}
 })();</script><!--snav-end-->
+<!--cards-start--><style>.prob dl.think.tk{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;background:none;padding:0;margin:10px 0}
+.prob dl.think.tk .tk-s{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px 10px;display:grid;gap:3px;align-content:start;min-width:0}
+.prob dl.think.tk .tk-s+.tk-s::before{content:"→";position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:var(--surface);color:var(--ink-3);font:800 11px/16px var(--body,inherit);text-align:center;z-index:1}
+.prob dl.think.tk dt{display:flex;align-items:center;gap:6px;margin:0;font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--blue)}
+.prob dl.think.tk dt i{font-style:normal;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:var(--surface);font:800 12px var(--display,inherit);letter-spacing:0}
+.prob dl.think.tk dt small{margin-left:auto;font:700 10.5px var(--mono,monospace);color:var(--ink-3)}
+.prob dl.think.tk dd{margin:0;font-size:14px;line-height:1.45;color:var(--ink)}
+.prob dl.think.tk .tk-s:nth-child(2) dt{color:var(--mint)}.prob dl.think.tk .tk-s:nth-child(2) dt i{background:var(--mint)}
+.prob dl.think.tk .tk-s:nth-child(3) dt{color:var(--amber)}.prob dl.think.tk .tk-s:nth-child(3) dt i{background:var(--amber)}
+.prob dl.think.tk .tk-s:nth-child(4) dt{color:var(--rose)}.prob dl.think.tk .tk-s:nth-child(4) dt i{background:var(--rose)}
+@media (max-width:640px){.prob dl.think.tk{grid-template-columns:1fr;gap:10px}.prob dl.think.tk .tk-s+.tk-s::before{content:"↓";left:50%;top:-13px;transform:translateX(-50%)}}
+.cxv{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:2px}
+.cxv-k{font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+.cxv-c{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--cxc);background:color-mix(in srgb,var(--cxc) 12%,var(--surface));border-radius:10px;padding:3px 9px 3px 7px}
+.cxv-c b{font:800 13.5px var(--mono,monospace);color:var(--ink)}
+.cxv-c small{font:700 10.5px var(--body,inherit);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.cxv-m{display:inline-grid;grid-template-columns:repeat(6,5px);gap:2px;align-items:end;height:14px}
+.cxv-m i{display:block;border-radius:2px;background:var(--line)}
+.cxv-m i:nth-child(1){height:4px}.cxv-m i:nth-child(2){height:6px}.cxv-m i:nth-child(3){height:8px}.cxv-m i:nth-child(4){height:10px}.cxv-m i:nth-child(5){height:12px}.cxv-m i:nth-child(6){height:14px}
+.cxv-m i.on{background:var(--cxc)}
+.cxv-c.bf{opacity:.75;border-style:dashed}
+.cxv-ar{color:var(--ink-3);font-weight:800}
+.cxv-s{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);border-radius:10px;padding:3px 9px;font:700 12.5px var(--mono,monospace);color:var(--ink-2)}
+.cxv-s small{font:700 10.5px var(--body,inherit);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.cxv-note{flex-basis:100%;font-size:12.5px;color:var(--ink-3);font-weight:600}</style><script>(function(){
+const ICON={notice:'👀',tool:'🧰',order:'🔢',trap:'⚠️',watch:'👁',why:'💡',plan:'🗺',state:'🧠',check:'✅'};
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function strip(dl){if(dl.classList.contains('tk'))return;const dts=[...dl.children].filter(x=>x.tagName==='DT');if(dts.length<2||dts.length>4)return;
+  const steps=dts.map((dt,i)=>{const dd=dt.nextElementSibling&&dt.nextElementSibling.tagName==='DD'?dt.nextElementSibling:null;const w=document.createElement('div');w.className='tk-s';
+    const k=dt.textContent.trim().toLowerCase();dt.innerHTML=`<i aria-hidden="true">${i+1}</i>${esc(dt.textContent.trim())}`;w.append(dt);if(dd)w.append(dd);return w});
+  dl.innerHTML='';steps.forEach(s=>dl.append(s));dl.style.setProperty('--n',steps.length);dl.classList.add('tk')}
+/* ---- complexity ---- */
+const COL=['#139E80','#2BA982','#3B6FE0','#7C62D9','#E08A1C','#D93D6E'],NAME=['constant','logarithmic','linear','n log n','polynomial','exponential'];
+function rank(t){const s=t.replace(/\s+/g,'');if(/^O\(log/.test(s)&&!/\)[^)]*[a-zA-Z]/.test(s.replace(/^O\(log[^)]*\)?/,'')))return 1;if(/!|ⁿ|\^n|2\^|ᴸ|C\(n,k\)|[0-9]ⁿ/.test(s))return 5;if(/[²³⁴]|\^2|\^3/.test(s))return 4;
+  const noLog=s.replace(/log\([^)]*\)|log[a-zA-Z]+|log/g,'');const vars=noLog.match(/[a-zA-Z]+/g)||[];const real=vars.filter(v=>!/^(O|total|characters|length|output|size|len|each|per|op|max|min)$/.test(v));
+  if(/log/.test(s))return real.length?3:1;if(!real.length)return /total|length|len|characters|output|size/.test(s)?2:0;
+  if(/^(R·C|R\*C|V\+E|m\+n|n\+m|\|s\|\+\|t\|)$/.test(noLog.replace(/^O\(|\)$/g,'')))return 2;
+  if(/[·*×]/.test(noLog)){const f=noLog.replace(/^O\(|\)$/g,'').split(/[·*×]/).filter(x=>/[a-zA-Z]/.test(x));return f.length>=2?4:2}return 2}
+function terms(text){const out=[];const re=/O\(((?:[^()]|\([^()]*\))*)\)/g;let m;while((m=re.exec(text))){const after=text.slice(re.lastIndex,re.lastIndex+24).toLowerCase();
+  const kind=/^\s*(time|build|query|per|each|calls|both|worst)/.test(after)?'time':/^\s*(space|extra)/.test(after)?'space':/^\s*stack/.test(after)?'stack':/^\s*queue/.test(after)?'queue':'';out.push({t:'O('+m[1]+')',kind})}return out}
+function chip(t,lab,bf){const r=rank(t);return `<span class="cxv-c${bf?' bf':''}" style="--cxc:${COL[r]}" title="${NAME[r]}"><span class="cxv-m" aria-hidden="true">${[0,1,2,3,4,5].map(i=>`<i class="${i<=r?'on':''}"></i>`).join('')}</span><b>${esc(t)}</b><small>${esc(lab)}</small></span>`}
+function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.cxv)return;const sp=[...meta.children].find(x=>/^\s*Complexity/.test(x.textContent));if(!sp)return;
+  const text=sp.textContent.replace(/^\s*Complexity\s*/,'');const T=terms(text);if(!T.length)return;meta.dataset.cxv=1;
+  const main=T[0],rest=T.slice(1);const bfx=card.querySelector('.qx-r:not(.key)');const bft=bfx?terms(bfx.textContent).filter(x=>x.kind!=='space')[0]:null;
+  let h=`<span class="cxv-k">Complexity</span>`;
+  if(bft&&rank(bft.t)>rank(main.t))h+=chip(bft.t,'brute force',true)+`<span class="cxv-ar" aria-hidden="true">→</span>`;
+  h+=chip(main.t,main.kind&&main.kind!=='time'?main.kind:'time');
+  for(const r of rest)h+=`<span class="cxv-s"><small>${esc(r.kind||'space')}</small>${esc(r.t)}</span>`;
+  const plain=text.replace(/O\(((?:[^()]|\([^()]*\))*)\)/g,'').replace(/\b(time|space|stack|extra|and|both ways)\b/g,'').replace(/[,;≈\s]+/g,'');
+  if(plain.length>2)h+=`<span class="cxv-note">${esc(text)}</span>`;
+  const box=document.createElement('div');box.className='cxv';box.innerHTML=h;sp.hidden=true;sp.after(box)}
+function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
+<!--rxe-start--><style>.rxe{display:grid;gap:10px;margin:2px 0 12px}
+.rxe-plain{margin:0;font-size:15.5px;line-height:1.55;color:var(--rx-ink)}
+.rxe-plain b,.rxe-why b,.rxe-pr b{display:block;font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:var(--rx-acc);margin-bottom:3px}
+.rxe-pics{display:grid;gap:10px;background:#F4F6FB;color:#161A33;border-radius:14px;padding:12px;overflow-x:auto;min-width:0}
+.rxe-pics>b{font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:#6E749B}
+.rxe-t{font:700 12px var(--body,inherit);color:#4A4F6E}
+.rxe-why{margin:0;font-size:14.5px;line-height:1.5;color:var(--rx-dim)}
+.rxe-pr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rxe-pr b{display:inline;margin:0 4px 0 0}
+.rxe-pr a{font:700 13px var(--body,inherit);color:var(--rx-ink);text-decoration:none;border:1.5px solid rgba(244,246,251,.3);border-radius:999px;padding:3px 10px}
+.rxe-pr a:hover{border-color:var(--rx-acc);color:var(--rx-acc)}
+.rxe-tr{display:grid;gap:6px}
+.rxe-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
+.rxe-row .st{display:grid;gap:1px;font-size:13px;line-height:1.35;min-width:170px}
+.rxe-row .st b{font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-row .st span{color:#4A4F6E}
+.rxe-row.ok .st span{color:#0F7A5F;font-weight:700}.rxe-row.bad .st span{color:#B4204F;font-weight:700}
+.rxe-n{font:800 11px var(--mono,monospace);color:#6E749B;margin-right:6px}
+.rxe-tl{display:flex;gap:3px;align-items:flex-start}
+.rxe-c{display:grid;justify-items:center;gap:1px;min-width:28px}
+.rxe-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid #D9DDEB;border-radius:7px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33;white-space:nowrap}
+.rxe-c small{font:600 9.5px var(--mono,monospace);color:#6E749B;min-height:11px;white-space:nowrap}
+.rxe-c.on b{background:#FFE7B3;border-color:#E09A2B}
+.rxe-c.win b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-c.dim b{opacity:.4}
+.rxe-c small.p{color:#B86E00;font-weight:800}
+.rxe-g{border-collapse:separate;border-spacing:3px}
+.rxe-g td{min-width:28px;height:28px;text-align:center;border:1.5px solid #D9DDEB;border-radius:6px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33}
+.rxe-g td.x-g{background:#D6F3E9;border-color:#2BA982}.rxe-g td.x-a{background:#FFE7B3;border-color:#E09A2B}.rxe-g td.x-r{background:#FBE1E9;border-color:#DB3D6E}.rxe-g td.x-b{background:#DDE6FF;border-color:#5B74E8}
+.rxe-grids{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.rxe-grids>div{display:grid;gap:4px}
+.rxe-kv{display:grid;gap:5px}
+.rxe-kv>div{opacity:1;color:#161A33;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rxe-kv .k{font:700 12.5px var(--mono,monospace);border-radius:7px;padding:3px 8px;background:#161A33;color:#fff}
+.rxe-kv .v{display:flex;gap:4px;flex-wrap:wrap}
+.rxe-kv .v span{color:#161A33;opacity:1;font:700 12.5px var(--mono,monospace);border:1.5px solid #D9DDEB;background:#fff;border-radius:7px;padding:2px 8px}
+.rxe-kv>div.x-g .v span{border-color:#2BA982;background:#D6F3E9}.rxe-kv>div.x-b .v span{border-color:#5B74E8;background:#DDE6FF}.rxe-kv>div.x-a .v span{border-color:#E09A2B;background:#FFE7B3}
+.rxe-cmp{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.rxe-cmp>div{border:1.5px solid #D9DDEB;background:#fff;border-radius:10px;padding:6px 10px;display:grid;gap:1px;min-width:120px}
+.rxe-cmp small{font:700 11.5px var(--body,inherit);color:#6E749B}
+.rxe-cmp b{font:700 13.5px var(--mono,monospace);color:#161A33}
+.rxe-cmp>div.ok{border-color:#2BA982;background:#E7F7F0}.rxe-cmp>div.bad{border-color:#DB3D6E;background:#FDECF1}
+.rxe-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.rxe-flow span{border:1.5px solid #161A33;background:#fff;border-radius:9px;padding:5px 10px;font:700 13px var(--body,inherit);color:#161A33;box-shadow:2px 2px 0 #161A33}
+.rxe-flow i{font-style:normal;color:#6E749B;font-weight:800}
+.rxe-code{margin:0;background:#161A33;color:#E6E9FF;border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,monospace);overflow-x:auto;white-space:pre}
+svg.rxe-s{display:block;max-width:100%;height:auto}
+svg.rxe-s line{stroke:#9AA0B8;stroke-width:1.5}
+svg.rxe-s circle{fill:#fff;stroke:#4A4F6E;stroke-width:1.5}
+svg.rxe-s .x-g circle{fill:#D6F3E9;stroke:#2BA982;stroke-width:2.2}svg.rxe-s .x-a circle{fill:#FFE7B3;stroke:#E09A2B;stroke-width:2.2}svg.rxe-s .x-r circle{fill:#FBE1E9;stroke:#DB3D6E;stroke-width:2.2}svg.rxe-s .x-b circle{fill:#DDE6FF;stroke:#5B74E8;stroke-width:2.2}
+svg.rxe-s text{font:700 12px var(--mono,monospace);fill:#161A33;text-anchor:middle;dominant-baseline:central}
+.rxe-ch{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rxe-ch .ar{color:#6E749B;font-weight:800}
+.rxe-ch .nt{font-size:12.5px;color:#4A4F6E;margin-left:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rxe-pics{background:#E4E8F5}}
+:root[data-theme="dark"] .rxe-pics{background:#E4E8F5}
+@media (max-width:640px){.rxe-row{grid-template-columns:1fr}.rxe-row .st{min-width:0}}</style><script>(function(){const RXD={"rx-singleton": {"plain": "Some things must exist exactly once per process (configuration, a connection pool). A singleton enforces that. Still, give it to the classes that need it through their constructors rather than calling X.getInstance() everywhere; hidden global access is hard to test.", "pic": [{"t": "compare", "v": [["ConfigLoader.getInstance() everywhere", "hidden dependency", "bad"], ["one instance, passed in", "still single, easy to fake", "ok"]], "title": ""}], "probs": ["p-singleton"], "ex": null}, "rx-singletonimpl": {"plain": "The simplest thread-safe singleton in Java is an enum with one value: the JVM guarantees one instance, even against reflection and serialization tricks. For lazy creation, the holder idiom loads the instance only when first asked.", "pic": [{"t": "code", "v": "enum Registry { INSTANCE; void register(…) { … } }\n\nclass Pool {                         // holder idiom: lazy and thread-safe\n    private Pool() {}\n    private static class Holder { static final Pool I = new Pool(); }\n    static Pool get() { return Holder.I; }\n}", "title": ""}], "probs": ["p-singleton", "p-dcl"], "ex": null}, "rx-volatile": {"plain": "Without volatile, another thread can see the instance reference before the constructor has finished writing its fields, and use a half-built object. volatile makes the reference visible only after construction completes.", "pic": [{"t": "code", "v": "private static volatile Pool instance;   // volatile is essential\nstatic Pool get() {\n    if (instance == null) {\n        synchronized (Pool.class) {\n            if (instance == null) instance = new Pool();\n        }\n    }\n    return instance;\n}", "title": ""}], "probs": ["p-dcl"], "ex": null}, "rx-simplefactory": {"plain": "When which class to create depends on input (a string, an enum, a config value), put that decision in one factory method that returns the interface. The rest of the code never writes new SpecificThing() or repeats the if-else.", "pic": [{"t": "code", "v": "static Notifier of(Channel c) {\n    return switch (c) {\n        case EMAIL -> new EmailNotifier();\n        case SMS   -> new SmsNotifier();\n    };\n}", "title": ""}], "probs": ["p-factory"], "ex": null}, "rx-newinlogic": {"plain": "If business methods are full of new ConcreteX(), creation is mixed with logic. Do the creating in one place (a factory, or the main setup code) and pass the finished objects in.", "pic": [{"t": "compare", "v": [["new calls scattered in services", "change a class → hunt everywhere", "bad"], ["created in one place, injected", "one spot to change", "ok"]], "title": ""}], "probs": ["p-factory"], "ex": null}, "rx-factorymethod": {"plain": "The parent class runs a fixed process but leaves one creation step abstract. Each subclass overrides that step to create its own kind of object, so the process is shared and only the object differs.", "pic": [{"t": "code", "v": "abstract class Logistics {\n    void deliver() { Transport t = createTransport(); t.move(); }\n    abstract Transport createTransport();     // subclasses decide\n}\nclass RoadLogistics extends Logistics { Transport createTransport() { return new Truck(); } }", "title": ""}], "probs": ["p-factorymethod"], "ex": null}, "rx-abstractfactory": {"plain": "When several objects must come from the same family (all dark-theme widgets, all AWS services), one factory interface creates each of them, and one implementation exists per family. Choosing the factory chooses a consistent set.", "pic": [{"t": "compare", "v": [["UiFactory", "button(), checkbox()", ""], ["DarkFactory", "DarkButton + DarkCheckbox", "ok"], ["LightFactory", "LightButton + LightCheckbox", "ok"]], "title": ""}], "probs": ["p-abstractfactory"], "ex": null}, "rx-builder": {"plain": "A constructor with many optional parameters is unreadable: new Pizza(true, false, true, 2, null). A builder names each option, lets you set only what you need, checks everything in build(), and returns a finished, unchangeable object.", "pic": [{"t": "code", "v": "Pizza p = new Pizza.Builder(\"large\")\n        .cheese()\n        .toppings(\"olive\", \"onion\")\n        .build();          // validates, then creates an immutable Pizza", "title": ""}], "probs": ["p-builder"], "ex": null}, "rx-prototype": {"plain": "If creating an object is expensive or fiddly (lots of configuration, loading data), set one up carefully and make copies of it. Each copy is then adjusted a little.", "pic": [{"t": "compare", "v": [["configure one template", "expensive, once", ""], ["copy() it many times", "cheap", "ok"]], "title": ""}], "probs": ["p-prototype"], "ex": null}, "rx-deepcopy": {"plain": "A shallow copy shares the inner lists and maps with the original, so changing one changes the other. For a real copy, create new lists or maps and copy their contents too. A copy constructor makes this explicit and is safer than clone().", "pic": [{"t": "code", "v": "Order(Order o) {                       // copy constructor\n    this.id = o.id;\n    this.items = new ArrayList<>(o.items);  // new list: not shared\n}", "title": ""}], "probs": ["p-prototype"], "ex": null}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const T=s=>s.title?`<div class="rxe-t">${esc(s.title)}</div>`:'';
+function tiles(v,p){p=p||{};const lab={};const on=new Set();let win=null;
+  for(const k in p){if(k==='w'){win=p.w;continue}const i=p[k];if(i==null)continue;(lab[i]=lab[i]||[]).push(k);on.add(i)}
+  return `<div class="rxe-tl">${v.map((x,i)=>{const w=win&&i>=win[0]&&i<=win[1];return `<span class="rxe-c${on.has(i)?' on':w?' win':''}"><b>${esc(x)}</b><small class="${lab[i]?'p':''}">${lab[i]?esc(lab[i].join(' ')):i}</small></span>`}).join('')}</div>`}
+function trace(s){let h=T(s);if(!s.rows.length)return h+tiles(s.v,{});
+  h+='<div class="rxe-tr">'+s.rows.map((r,k)=>`<div class="rxe-row ${esc(r[3])}">${tiles(r[4]||s.v,r[0]||{})}<div class="st"><b><span class="rxe-n">${k+1}</span>${esc(r[1])}</b>${r[2]?`<span>${esc(r[2])}</span>`:''}</div></div>`).join('')+'</div>';return h}
+function grid(s){return `<div>${T(s)}<table class="rxe-g">${s.v.map((r,ri)=>'<tr>'+r.map((x,c)=>`<td class="${s.hl[ri+','+c]?'x-'+esc(s.hl[ri+','+c]):''}">${esc(x)}</td>`).join('')+'</tr>').join('')}</table></div>`}
+function kv(s){return T(s)+`<div class="rxe-kv">${s.v.map(r=>`<div class="${r[2]?'x-'+esc(r[2]):''}"><span class="k">${esc(r[0])}</span><span class="v">${r[1].map(x=>`<span>${esc(x)}</span>`).join('')}</span></div>`).join('')}</div>`}
+function compare(s){return T(s)+`<div class="rxe-cmp">${s.v.map(r=>`<div class="${esc(r[2]||'')}"><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join('')}</div>`}
+function flow(s){return T(s)+`<div class="rxe-flow">${s.v.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`}
+function code(s){return T(s)+`<pre class="rxe-code">${esc(s.v)}</pre>`}
+function chain(s){return T(s)+`<div class="rxe-ch">${s.v.map((x,i)=>`<span class="rxe-c${s.hl[i]?' on':''}"><b>${esc(x)}</b></span>`).join('<span class="ar">→</span>')}${s.note?`<span class="nt">${esc(s.note)}</span>`:''}</div>`}
+function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
+  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
+  const W=x*40+12,H=(maxd+1)*50+10,pos=i=>[P[i][0]*40+26,P[i][1]*50+22];let h=`<svg class="rxe-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
+  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
+  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);{const c=s.hl['#'+n.i]||s.hl[n.v];h+=`<g class="${c?'x-'+esc(c):''}">`}h+=`<circle cx="${a}" cy="${b}" r="14"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
+  return `<div>${T(s)}${h}</svg></div>`}
+const R={trace,grid,kv,compare,flow,code,chain,tree};
+function pics(list){if(!list||!list.length)return '';const gr=list.every(p=>p.t==='grid'||p.t==='tree');
+  const body=list.map(p=>R[p.t]?R[p.t](p):'').join('');return `<div class="rxe-pics"><b>Picture it</b>${gr?`<div class="rxe-grids">${body}</div>`:body}</div>`}
+function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.querySelector('.rxe'))return;const d=RXD[card.id];if(!d)return;
+  const det=card.querySelector('details');const why=det?(det.querySelector('p')||{}).innerHTML||'':'';
+  const probs=d.probs.map(id=>{const el=document.getElementById(id);const t=el&&el.querySelector('h4');return t?`<a href="#${id}">${esc(t.textContent)}</a>`:''}).filter(Boolean);
+  const box=document.createElement('div');box.className='rxe';
+  box.innerHTML=`<p class="rxe-plain"><b>In plain words</b>${esc(d.plain)}</p>${pics(d.pic)}${why?`<p class="rxe-why"><b>Why it works</b>${why}</p>`:''}${probs.length?`<div class="rxe-pr"><b>Practise it</b>${probs.join('')}</div>`:''}`;
+  const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
 .pask-fab:hover{transform:translateY(-2px)}
 .pask-fab svg{width:20px;height:20px;flex:none}
@@ -2183,6 +2324,36 @@ em.easy{color:#18805E;border-color:#7FD1B4;background:#E3F7EF}em.medium{color:#9
 :root[data-theme="dark"] .s-go[aria-selected="true"],:root[data-theme="dark"] .s-go:hover{background:#2E2A17}
 :root[data-theme="dark"] em.easy,:root[data-theme="dark"] em.medium,:root[data-theme="dark"] em.hard{background:transparent}
 @media (max-width:440px){.top-in:has(.pask-hbtn){gap:8px}.top-in:has(.pask-hbtn) .brand{font-size:15.5px;letter-spacing:-.01em;min-width:0}.top-in:has(.pask-hbtn) .xp small{font-size:10.5px}.pask-hbtn{width:32px;height:32px}}
+
+/* closest-problem matcher */
+.mt-box{display:grid;gap:8px}
+.mt-box textarea{width:100%;box-sizing:border-box;border:2px solid var(--ink,#161A33);border-radius:12px;padding:10px 12px;font:15px/1.5 var(--body,system-ui);background:var(--surface,#fff);color:var(--ink,#161A33);resize:vertical;min-height:84px}
+.mt-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mt-go{border:2px solid var(--ink,#161A33);background:var(--ink,#161A33);color:var(--paper,#fff);border-radius:11px;padding:8px 14px;font:800 14px var(--body,system-ui);cursor:pointer}
+.mt-try{font:700 12.5px var(--body,system-ui);color:var(--ink-3,#6B7090);margin-left:4px}
+.mt-s{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:999px;padding:3px 10px;font:700 12.5px var(--body,system-ui);cursor:pointer}
+.mt-res{display:grid;gap:10px;margin-top:10px}
+.mt-warn{margin:0;border-radius:10px;padding:8px 12px;background:var(--amber-soft,#FDF0D9);color:var(--ink,#161A33);font-size:13.5px;font-weight:600}
+.mt-card{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);border-radius:14px;padding:12px 14px;display:grid;gap:8px;min-width:0}
+.mt-card.top{border:2px solid var(--ink,#161A33);box-shadow:3px 3px 0 var(--ink,#161A33)}
+.mt-card header{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center}
+.mt-rank{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--paper,#F4F6FB);border:1.5px solid var(--line,#D9DDEB);font:800 13px var(--display,system-ui);color:var(--ink,#161A33)}
+.mt-card.top .mt-rank{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+.mt-t{min-width:0}.mt-t b{display:block;font:800 16px var(--display,system-ui);color:var(--ink,#161A33)}.mt-t small{display:block;color:var(--ink-3,#6B7090);font-size:12.5px;font-weight:600}
+.mt-score{display:grid;justify-items:end;gap:2px}
+.mt-bar{display:block;width:90px;height:7px;border-radius:9px;background:var(--line,#D9DDEB);overflow:hidden}.mt-bar i{display:block;height:100%;background:var(--mint,#139E80);border-radius:9px}
+.mt-score em{font:800 11.5px var(--body,system-ui);font-style:normal;color:var(--ink-2,#4A4F6E)}
+.mt-why{margin:0;display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12.5px}
+.mt-why span{font-weight:800;color:var(--ink-3,#6B7090);margin-right:2px;text-transform:uppercase;letter-spacing:.05em;font-size:11px}
+.mt-why i{font-style:normal;font:700 12px var(--mono,monospace);border-radius:7px;padding:1px 7px;background:var(--blue-soft,#E3E6FD);color:var(--ink,#161A33)}
+.mt-hint{font-size:14px;line-height:1.5;color:var(--ink,#161A33);background:var(--paper,#F4F6FB);border-radius:10px;padding:8px 11px}.mt-hint p{margin:2px 0}
+.mt-card details>summary{cursor:pointer;font:800 14px var(--body,system-ui);color:var(--ink,#161A33)}
+.mt-body{font-size:14px;line-height:1.55;color:var(--ink,#161A33);padding-top:4px}.mt-body p{margin:6px 0}.mt-body ol,.mt-body ul{margin:4px 0;padding-left:20px}
+.mt-acts{display:flex;flex-wrap:wrap;gap:6px}
+.mt-btn{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink,#161A33);border-radius:10px;padding:6px 11px;font:800 13px var(--body,system-ui);cursor:pointer}
+.mt-btn.pri{background:var(--ink,#161A33);color:var(--paper,#fff);border-color:var(--ink,#161A33)}
+@media (max-width:520px){.mt-card header{grid-template-columns:auto minmax(0,1fr)}.mt-score{grid-column:2;justify-items:start}}
+.pask-body[data-view="match"]{padding-bottom:20px}
 </style><script>/* LangKit: Python / Java / C++ switcher shared by the DSA pages, notes and crunch list. */
 (function(){
 if(window.LangKit)return;
@@ -2251,7 +2422,7 @@ const $=(s,r)=>(r||document).querySelector(s),$$=(s,r)=>[...(r||document).queryS
 
 /* ───────────── text processing ───────────── */
 const STOP=new Set('a an the is are was were be been being to of in on for and or what whats how do does did i im me my you your can could should would will it its this that these those with by from as at which when why who there their them we us our please tell explain show give about into vs versus difference between between some any get use using used if than then also just like way ways need want know mean means define definition'.split(' '));
-const PHRASE=[[/big[\s-]?o\b/g,' bigo '],[/\bo\(\s*1\s*\)/g,' constant '],[/\bo\(\s*n\s*\)/g,' linear '],[/\bo\(\s*log\s*n\s*\)/g,' logarithmic '],[/\bn\s*\+\s*1\b/g,' nplus1 '],[/\bk-?th\b/g,' kth '],[/\bc\+\+/g,' cpp '],[/\bsde[\s-]?2\b/g,' sde2 '],[/\bsde[\s-]?1\b/g,' sde1 '],[/\bl4\b/g,' l4 '],[/\bl7\b/g,' l7 '],[/\b2pc\b/g,' 2pc '],[/\bwrite[\s-]through\b/g,' writethrough '],[/\bcache[\s-]aside\b/g,' cacheaside '],[/\bmerge\s+k\b/g,' merge k ']];
+const PHRASE=[[/big[\s-]?o\b/g,' bigo '],[/\bo\(\s*1\s*\)/g,' constant '],[/\bo\(\s*n\s*\)/g,' linear '],[/\bo\(\s*log\s*n\s*\)/g,' logarithmic '],[/\bn\s*\+\s*1\b/g,' nplus1 '],[/\bk-?th\b/g,' kth '],[/\bc\+\+/g,' cpp '],[/\bsde[\s-]?2\b/g,' sde2 '],[/\bsde[\s-]?1\b/g,' sde1 '],[/\bl4\b/g,' l4 '],[/\bl7\b/g,' l7 '],[/\b2pc\b/g,' 2pc '],[/\bwrite[\s-]through\b/g,' writethrough '],[/\bcache[\s-]aside\b/g,' cacheaside '],[/\bmerge\s+k\b/g,' merge k '],[/\bpower\s*set\b/g,' subsets all subsets ']];
 const SYN={dp:'dynamic programming',bfs:'bfs breadth first',dfs:'dfs depth first',ll:'linked list',lc:'leetcode',pq:'priority queue heap',bst:'binary search tree bst',db:'database',dbs:'database',lb:'load balancer',sd:'system design',hld:'hld high level design',lld:'lld low level design',oop:'oop object oriented',oops:'oop object oriented',mq:'message queue',kv:'key value',dsu:'union find disjoint',uf:'union find',mst:'minimum spanning tree',hashmap:'hash map hashmap',hashtable:'hash map',hashset:'hash set',dict:'dictionary hash map',dictionary:'dictionary hash map',tc:'time complexity',sc:'space complexity',algo:'algorithm',algos:'algorithm',ds:'data structure',dsa:'dsa data structure algorithm',twosum:'two sum',tinyurl:'url shortener tinyurl',bitly:'url shortener',whatsapp:'whatsapp chat',messenger:'chat',twitter:'twitter feed',instagram:'instagram feed',ig:'instagram feed',yt:'youtube video',netflix:'netflix video',ola:'uber ride',lyft:'uber ride',bms:'bookmyshow ticket',bookmyshow:'bookmyshow ticket booking',gc:'garbage collection',jvm:'jvm java',jwt:'jwt token',sql:'sql relational',nosql:'nosql',k8s:'kubernetes',mongo:'mongodb',postgres:'postgres sql',mysql:'mysql sql',rabbit:'rabbitmq',sqs:'sqs queue',api:'api',apis:'api',ttl:'ttl expiry',lfu:'lfu cache',lru:'lru cache',kafka:'kafka queue',redis:'redis cache',ws:'websocket',websockets:'websocket',sse:'sse server sent events',recursive:'recursion',recurse:'recursion',backtrack:'backtracking',memo:'memoization',memoize:'memoization',tabulate:'tabulation',subarray:'subarray',substring:'substring',palindromic:'palindrome',anagrams:'anagram',intervals:'interval',monotonic:'monotonic',xor:'xor bit',bitwise:'bit',bits:'bit',trie:'trie prefix tree',tries:'trie',heaps:'heap',graphs:'graph',trees:'tree',stacks:'stack',queues:'queue',pointers:'pointer',arrays:'array',strings:'string',matrices:'matrix',grids:'grid',islands:'island'};
 const HAS=Object.prototype.hasOwnProperty;let STOPST=null;
 function stem(w){if(w.length>5&&w.endsWith('ing')){let r=w.slice(0,-3);if(/([bdgmnprt])\1$/.test(r))r=r.slice(0,-1);return r}if(w.length>4&&w.endsWith('ies'))return w.slice(0,-3)+'y';if(w.length>4&&w.endsWith('es')&&/(ss|sh|ch|x|z)es$/.test(w))return w.slice(0,-2);if(w.length>3&&w.endsWith('s')&&!w.endsWith('ss')&&!w.endsWith('us')&&!w.endsWith('is'))return w.slice(0,-1);if(w.length>5&&w.endsWith('ed'))return w.slice(0,-2);return w}
@@ -2324,6 +2495,58 @@ function search(q,opt={}){
   res.sort((a,b)=>b.s-a.s);
   return res.slice(0,opt.limit||8)}
 
+/* ───────────── closest-problem matcher ─────────────
+   Paste any question; score every saved problem by the rare words they share, weighted by where the word sits
+   (title 4 · statement 3 · pattern 2 · approach/examples 1). */
+let MX=null;
+function buildMX(){const docs=KB.filter(e=>e.k==='prob'||(e.k==='cur'&&e.cat==='DSA problems')).map(e=>{const F=Object.create(null);
+    const put=(txt,w)=>{for(const t of toks(txt))if(!F[t]||F[t]<w)F[t]=w};
+    put(e.t,4);put([e.ask||''].concat((e.q||[]).filter(q=>!/^(how to solve|leetcode|lc )/i.test(q)&&!/ (approach|solution)$/i.test(q)&&q!==e.t)).join(' '),3);
+    put(e.w||'',2);put(plainText((e.h||'')+' '+(e.a||''))+' '+(e.mx||''),1);return{e,F}});
+  const df=Object.create(null);for(const d of docs)for(const t in d.F)df[t]=(df[t]||0)+1;
+  const N=docs.length,idf=Object.create(null);for(const t in df)idf[t]=Math.log((N+1)/(df[t]+.5));MX={docs,idf}}
+function match(text,n=3){if(!IDX)return[];if(!MX)buildMX();const raw=String(text||'').slice(0,4000);
+  const qt=[...new Set(qToks(raw))].filter(t=>MX.idf[t]>0);const tot=qt.reduce((a,t)=>a+MX.idf[t],0)||1;
+  const nm=raw.match(/(?:\b(?:lc|leetcode|problem)\s*#?\s*(\d{1,4})\b)|^\s*#?(\d{1,4})\.?\s/i);const num=nm?+(nm[1]||nm[2]):null;const qn=' '+norm(raw)+' ';const short=qn.trim().split(' ').length<=12;
+  const res=[];for(const d of MX.docs){let s=0;const hit=[];
+    for(const t of qt){const w=d.F[t];if(w){const v=MX.idf[t]*w;s+=v;hit.push([t,v])}}
+    if(num!=null&&d.e.n===num)s+=60;const tn=norm(d.e.t);if(short&&tn.length>3&&qn.includes(' '+tn+' '))s+=4+tn.split(' ').length;
+    if(/\b(ii|iii)\b/i.test(d.e.t)&&!/\b(ii|iii|2|3)\b/i.test(raw))s*=.9;
+    if(s>0)res.push({e:d.e,s,hit:hit.sort((a,b)=>b[1]-a[1]).slice(0,6).map(h=>h[0])})}
+  res.sort((a,b)=>b.s-a.s);const seenT=new Set(),top=[];for(const r of res){const k=norm(r.e.t);if(seenT.has(k))continue;seenT.add(k);top.push(r);if(top.length>=n)break}
+  for(const r of top){const f=r.s/(tot*2.2);r.strength=f>=.55?'Strong match':f>=.3?'Good match':'Loose match';r.pct=Math.max(5,Math.min(99,Math.round(f*100)))}
+  return top}
+/* matcher UI: used by the home-page section and Pip's “Match a question” tab */
+const MT_SAMPLES=['Given an array of intervals, merge all the overlapping intervals.','Return the minimum number of coins needed to make up an amount.','Design a service that shortens long URLs and redirects users.'];
+function filmFor(e){const C=window.Cinema;if(!C||!C.films)return null;const a=inApp(e);const id=a&&(a.split('#')[1]||'');for(const k in C.films){if(C.films[k].prob&&C.films[k].prob===id)return k}return null}
+function readable(hit,raw){const map=Object.create(null);for(const w of norm(raw).split(' ')){if(!w||STOP.has(w))continue;const st=stem(w);if(!map[st])map[st]=w}const GEN=/^(return|returns|number|numbers|each|given|time|times|value|values|integer|integers|element|elements|find|make|use|one|two|three|true|false|output|input|example|also|any|all|its|than|then|same|new|list|array|string)$/;
+  return hit.map(h=>map[h]||h).filter((v,i,a)=>a.indexOf(v)===i&&v.length>2&&!/^\d+$/.test(v)&&!GEN.test(v)).slice(0,6)}
+function matchCards(list,raw){if(!list.length)return '<p class="am-note">No saved problem shares enough with that question. Try pasting the full statement, or ask Pip in the chat.<\/p>';
+  const weak=list[0].strength==='Loose match';let h='';
+  if(weak)h+=`<p class="mt-warn">No close match is saved yet. These are the nearest problems, so compare the idea before reusing the approach.<\/p>`;
+  list.forEach((r,i)=>{const e=r.e,go=canGo(e),film=filmFor(e),w=readable(r.hit,raw);
+    const sub=e.sub||e.cat||'';
+    h+=`<article class="mt-card${i===0?' top':''}"><header><span class="mt-rank">${i+1}<\/span><div class="mt-t"><b>${esc(e.t)}<\/b><small>${esc(sub)}<\/small><\/div>
+      <div class="mt-score" title="${esc(r.strength)}"><span class="mt-bar"><i style="width:${r.pct}%"><\/i><\/span><em>${esc(r.strength)}<\/em><\/div><\/header>
+      ${w.length?`<p class="mt-why"><span>Shared ideas<\/span>${w.map(x=>`<i>${esc(x)}<\/i>`).join('')}<\/p>`:''}
+      ${e.h?`<div class="mt-hint">${e.h}<\/div>`:''}
+      <details${i===0?' open':''}><summary>How to solve it<\/summary><div class="mt-body">${e.a||''}${e.c&&Object.keys(e.c).length?`<details class="ap-cdet"><summary>💻 Code<\/summary><div class="ap-cw" data-id="${e.i}"><\/div><\/details>`:''}<\/div><\/details>
+      <div class="mt-acts">${go?`<button type="button" class="mt-btn pri" data-mt-go="${e.i}">Open the full card →<\/button>`:''}${film?`<button type="button" class="mt-btn" data-mt-film="${film}">▶ Watch it animated<\/button>`:''}<button type="button" class="mt-btn" data-mt-ask="${e.i}">💬 Ask Pip about it<\/button><\/div><\/article>`});
+  return h}
+function mountMatcher(host,o={}){if(!host||host.dataset.mt)return;host.dataset.mt=1;
+  host.innerHTML=`<div class="mt-box"><textarea rows="${o.rows||4}" placeholder="Paste any interview question, e.g. “Given an array of intervals, merge all overlapping intervals…”" aria-label="Your question"><\/textarea>
+    <div class="mt-row"><button type="button" class="mt-go">🔎 Find the closest problem<\/button><span class="mt-try">Try:<\/span>${MT_SAMPLES.map((q,i)=>`<button type="button" class="mt-s" data-i="${i}">${['Merge intervals','Fewest coins','URL shortener'][i]}<\/button>`).join('')}<\/div><\/div><div class="mt-res" aria-live="polite"><\/div>`;
+  const ta=host.querySelector('textarea'),res=host.querySelector('.mt-res');
+  const run=()=>{const v=ta.value.trim();if(!v){ta.focus();return}loadKB().then(()=>{const L=match(v,3);res.innerHTML=matchCards(L,v);$$('.ap-cw',res).forEach(drawCode);
+    try{dispatchEvent(new CustomEvent('dojo:track',{detail:{type:'match',detail:v.slice(0,150)}}))}catch(_){}
+    if(o.scroll!==false){const f=res.firstElementChild;if(f)f.scrollIntoView({behavior:'smooth',block:'nearest'})}})};
+  host.querySelector('.mt-go').onclick=run;
+  ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();run()}});
+  host.querySelectorAll('.mt-s').forEach(b=>b.onclick=()=>{ta.value=MT_SAMPLES[+b.dataset.i];run()});
+  res.addEventListener('click',e=>{const g=e.target.closest('[data-mt-go]');if(g){const en=BYID[g.dataset.mtGo];if(en&&!goTo(en)){const h=inApp(en);if(h)location.href=h}return}
+    const f=e.target.closest('[data-mt-film]');if(f&&window.Cinema){close();window.Cinema.open(f.dataset.mtFilm);return}
+    const a=e.target.closest('[data-mt-ask]');if(a){open();loadKB().then(()=>{tab('chat');askId(a.dataset.mtAsk)})}})}
+
 /* ───────────── live AI (claude.ai only) ───────────── */
 let samplePromise=null,sampleFn=null,liveOK=null;
 function getSample(){if(samplePromise)return samplePromise;
@@ -2345,9 +2568,10 @@ function mount(){
   root=document.createElement('div');root.className='pask';root.hidden=true;root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-label','Ask Pip');
   root.innerHTML=`<div class="pask-scrim"><\/div><section class="pask-panel">
    <header class="pask-head"><div class="pask-av" aria-hidden="true">🐥<\/div><div class="pask-ttl"><b>Ask Pip<\/b><small>Loading answers…<\/small><\/div><span class="pask-live" hidden title="Questions without a prepared answer can be sent to Claude">✨ Live AI<\/span><button class="pask-x" type="button" aria-label="Close">&times;<\/button><\/header>
-   <div class="pask-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-tab="chat">💬 Chat<\/button><button type="button" role="tab" aria-selected="false" data-tab="bank">🔎 Browse questions<\/button><button type="button" class="pask-clear" title="Clear the conversation">Clear chat<\/button><\/div>
+   <div class="pask-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-tab="chat">💬 Chat<\/button><button type="button" role="tab" aria-selected="false" data-tab="bank" title="Browse and search all questions">🔎 Browse<\/button><button type="button" role="tab" aria-selected="false" data-tab="match" title="Paste any question to find the closest saved problem">🧩 Match a question<\/button><button type="button" class="pask-clear" title="Clear the conversation">Clear chat<\/button><\/div>
    <div class="pask-body" data-view="chat" aria-live="polite"><\/div>
    <div class="pask-body" data-view="bank" hidden><\/div>
+   <div class="pask-body" data-view="match" hidden><\/div>
    <form class="pask-form" autocomplete="off"><div class="pask-sug" role="listbox" hidden><\/div><textarea rows="1" placeholder="Ask anything… “LC 76”, “BFS vs DFS”" aria-label="Your question"><\/textarea><button class="pask-send" type="submit" aria-label="Send" disabled>➤<\/button><\/form>
   <\/section>`;
   document.body.appendChild(root);
@@ -2376,7 +2600,7 @@ function open(q){if(!root)mount();prevFocus=document.activeElement;root.hidden=f
   getSample().then(s=>{live.hidden=!s});
   setTimeout(()=>ta.focus(),60)}
 function close(){if(!root||root.hidden)return;root.hidden=true;opened=false;document.documentElement.style.overflow='';hideSug();if(aborter)aborter.abort();if(prevFocus&&prevFocus.focus)prevFocus.focus()}
-function tab(t){$$('.pask-tabs [data-tab]',root).forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));body.hidden=t!=='chat';bank.hidden=t!=='bank';form.hidden=t!=='chat';root.querySelector('.pask-clear').hidden=t!=='chat';if(t==='bank')renderBank()}
+function tab(t){$$('.pask-tabs [data-tab]',root).forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));body.hidden=t!=='chat';bank.hidden=t!=='bank';const mv=root.querySelector('[data-view="match"]');mv.hidden=t!=='match';if(t==='match'){mountMatcher(mv,{rows:5,scroll:false});setTimeout(()=>{const x=mv.querySelector('textarea');if(x)x.focus()},60)}form.hidden=t!=='chat';root.querySelector('.pask-clear').hidden=t!=='chat';if(t==='bank')renderBank()}
 function save(){state.log=state.log.slice(-40);store.put(state)}
 
 /* suggestions while typing */
@@ -2556,150 +2780,52 @@ function boot(){mount();headerBtn();setTimeout(headerBtn,600);setTimeout(headerB
   setTimeout(getSample,1500);
   window.addEventListener('hashchange',()=>{if(/^#ask(=|$)/.test(location.hash)){const q=decodeURIComponent(location.hash.slice(5)||'');try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}open(q||undefined)}})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
-window.AskPip={open,close,browse,ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
+window.AskPip={open,close,browse,mountMatcher:(el,o)=>mountMatcher(el,o),openMatch:()=>{open();loadKB().then(()=>tab('match'))},match:(t,n)=>match(t,n),ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
-<!--cards-start--><style>.prob dl.think.tk{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;background:none;padding:0;margin:10px 0}
-.prob dl.think.tk .tk-s{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px 10px;display:grid;gap:3px;align-content:start;min-width:0}
-.prob dl.think.tk .tk-s+.tk-s::before{content:"→";position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:var(--surface);color:var(--ink-3);font:800 11px/16px var(--body,inherit);text-align:center;z-index:1}
-.prob dl.think.tk dt{display:flex;align-items:center;gap:6px;margin:0;font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--blue)}
-.prob dl.think.tk dt i{font-style:normal;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:var(--surface);font:800 12px var(--display,inherit);letter-spacing:0}
-.prob dl.think.tk dt small{margin-left:auto;font:700 10.5px var(--mono,monospace);color:var(--ink-3)}
-.prob dl.think.tk dd{margin:0;font-size:14px;line-height:1.45;color:var(--ink)}
-.prob dl.think.tk .tk-s:nth-child(2) dt{color:var(--mint)}.prob dl.think.tk .tk-s:nth-child(2) dt i{background:var(--mint)}
-.prob dl.think.tk .tk-s:nth-child(3) dt{color:var(--amber)}.prob dl.think.tk .tk-s:nth-child(3) dt i{background:var(--amber)}
-.prob dl.think.tk .tk-s:nth-child(4) dt{color:var(--rose)}.prob dl.think.tk .tk-s:nth-child(4) dt i{background:var(--rose)}
-@media (max-width:640px){.prob dl.think.tk{grid-template-columns:1fr;gap:10px}.prob dl.think.tk .tk-s+.tk-s::before{content:"↓";left:50%;top:-13px;transform:translateX(-50%)}}
-.cxv{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:2px}
-.cxv-k{font:800 12px var(--body,inherit);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
-.cxv-c{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--cxc);background:color-mix(in srgb,var(--cxc) 12%,var(--surface));border-radius:10px;padding:3px 9px 3px 7px}
-.cxv-c b{font:800 13.5px var(--mono,monospace);color:var(--ink)}
-.cxv-c small{font:700 10.5px var(--body,inherit);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
-.cxv-m{display:inline-grid;grid-template-columns:repeat(6,5px);gap:2px;align-items:end;height:14px}
-.cxv-m i{display:block;border-radius:2px;background:var(--line)}
-.cxv-m i:nth-child(1){height:4px}.cxv-m i:nth-child(2){height:6px}.cxv-m i:nth-child(3){height:8px}.cxv-m i:nth-child(4){height:10px}.cxv-m i:nth-child(5){height:12px}.cxv-m i:nth-child(6){height:14px}
-.cxv-m i.on{background:var(--cxc)}
-.cxv-c.bf{opacity:.75;border-style:dashed}
-.cxv-ar{color:var(--ink-3);font-weight:800}
-.cxv-s{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);border-radius:10px;padding:3px 9px;font:700 12.5px var(--mono,monospace);color:var(--ink-2)}
-.cxv-s small{font:700 10.5px var(--body,inherit);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
-.cxv-note{flex-basis:100%;font-size:12.5px;color:var(--ink-3);font-weight:600}</style><script>(function(){
-const ICON={notice:'👀',tool:'🧰',order:'🔢',trap:'⚠️',watch:'👁',why:'💡',plan:'🗺',state:'🧠',check:'✅'};
-const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-function strip(dl){if(dl.classList.contains('tk'))return;const dts=[...dl.children].filter(x=>x.tagName==='DT');if(dts.length<2||dts.length>4)return;
-  const steps=dts.map((dt,i)=>{const dd=dt.nextElementSibling&&dt.nextElementSibling.tagName==='DD'?dt.nextElementSibling:null;const w=document.createElement('div');w.className='tk-s';
-    const k=dt.textContent.trim().toLowerCase();dt.innerHTML=`<i aria-hidden="true">${i+1}</i>${esc(dt.textContent.trim())}`;w.append(dt);if(dd)w.append(dd);return w});
-  dl.innerHTML='';steps.forEach(s=>dl.append(s));dl.style.setProperty('--n',steps.length);dl.classList.add('tk')}
-/* ---- complexity ---- */
-const COL=['#139E80','#2BA982','#3B6FE0','#7C62D9','#E08A1C','#D93D6E'],NAME=['constant','logarithmic','linear','n log n','polynomial','exponential'];
-function rank(t){const s=t.replace(/\s+/g,'');if(/^O\(log/.test(s)&&!/\)[^)]*[a-zA-Z]/.test(s.replace(/^O\(log[^)]*\)?/,'')))return 1;if(/!|ⁿ|\^n|2\^|ᴸ|C\(n,k\)|[0-9]ⁿ/.test(s))return 5;if(/[²³⁴]|\^2|\^3/.test(s))return 4;
-  const noLog=s.replace(/log\([^)]*\)|log[a-zA-Z]+|log/g,'');const vars=noLog.match(/[a-zA-Z]+/g)||[];const real=vars.filter(v=>!/^(O|total|characters|length|output|size|len|each|per|op|max|min)$/.test(v));
-  if(/log/.test(s))return real.length?3:1;if(!real.length)return /total|length|len|characters|output|size/.test(s)?2:0;
-  if(/^(R·C|R\*C|V\+E|m\+n|n\+m|\|s\|\+\|t\|)$/.test(noLog.replace(/^O\(|\)$/g,'')))return 2;
-  if(/[·*×]/.test(noLog)){const f=noLog.replace(/^O\(|\)$/g,'').split(/[·*×]/).filter(x=>/[a-zA-Z]/.test(x));return f.length>=2?4:2}return 2}
-function terms(text){const out=[];const re=/O\(((?:[^()]|\([^()]*\))*)\)/g;let m;while((m=re.exec(text))){const after=text.slice(re.lastIndex,re.lastIndex+24).toLowerCase();
-  const kind=/^\s*(time|build|query|per|each|calls|both|worst)/.test(after)?'time':/^\s*(space|extra)/.test(after)?'space':/^\s*stack/.test(after)?'stack':/^\s*queue/.test(after)?'queue':'';out.push({t:'O('+m[1]+')',kind})}return out}
-function chip(t,lab,bf){const r=rank(t);return `<span class="cxv-c${bf?' bf':''}" style="--cxc:${COL[r]}" title="${NAME[r]}"><span class="cxv-m" aria-hidden="true">${[0,1,2,3,4,5].map(i=>`<i class="${i<=r?'on':''}"></i>`).join('')}</span><b>${esc(t)}</b><small>${esc(lab)}</small></span>`}
-function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.cxv)return;const sp=[...meta.children].find(x=>/^\s*Complexity/.test(x.textContent));if(!sp)return;
-  const text=sp.textContent.replace(/^\s*Complexity\s*/,'');const T=terms(text);if(!T.length)return;meta.dataset.cxv=1;
-  const main=T[0],rest=T.slice(1);const bfx=card.querySelector('.qx-r:not(.key)');const bft=bfx?terms(bfx.textContent).filter(x=>x.kind!=='space')[0]:null;
-  let h=`<span class="cxv-k">Complexity</span>`;
-  if(bft&&rank(bft.t)>rank(main.t))h+=chip(bft.t,'brute force',true)+`<span class="cxv-ar" aria-hidden="true">→</span>`;
-  h+=chip(main.t,main.kind&&main.kind!=='time'?main.kind:'time');
-  for(const r of rest)h+=`<span class="cxv-s"><small>${esc(r.kind||'space')}</small>${esc(r.t)}</span>`;
-  const plain=text.replace(/O\(((?:[^()]|\([^()]*\))*)\)/g,'').replace(/\b(time|space|stack|extra|and|both ways)\b/g,'').replace(/[,;≈\s]+/g,'');
-  if(plain.length>2)h+=`<span class="cxv-note">${esc(text)}</span>`;
-  const box=document.createElement('div');box.className='cxv';box.innerHTML=h;sp.hidden=true;sp.after(box)}
-function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
-let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
-<!--rxe-start--><style>.rxe{display:grid;gap:10px;margin:2px 0 12px}
-.rxe-plain{margin:0;font-size:15.5px;line-height:1.55;color:var(--rx-ink)}
-.rxe-plain b,.rxe-why b,.rxe-pr b{display:block;font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:var(--rx-acc);margin-bottom:3px}
-.rxe-pics{display:grid;gap:10px;background:#F4F6FB;color:#161A33;border-radius:14px;padding:12px;overflow-x:auto;min-width:0}
-.rxe-pics>b{font:800 11.5px var(--body,inherit);letter-spacing:.07em;text-transform:uppercase;color:#6E749B}
-.rxe-t{font:700 12px var(--body,inherit);color:#4A4F6E}
-.rxe-why{margin:0;font-size:14.5px;line-height:1.5;color:var(--rx-dim)}
-.rxe-pr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.rxe-pr b{display:inline;margin:0 4px 0 0}
-.rxe-pr a{font:700 13px var(--body,inherit);color:var(--rx-ink);text-decoration:none;border:1.5px solid rgba(244,246,251,.3);border-radius:999px;padding:3px 10px}
-.rxe-pr a:hover{border-color:var(--rx-acc);color:var(--rx-acc)}
-.rxe-tr{display:grid;gap:6px}
-.rxe-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
-.rxe-row .st{display:grid;gap:1px;font-size:13px;line-height:1.35;min-width:170px}
-.rxe-row .st b{font:700 12.5px var(--mono,monospace);color:#161A33}
-.rxe-row .st span{color:#4A4F6E}
-.rxe-row.ok .st span{color:#0F7A5F;font-weight:700}.rxe-row.bad .st span{color:#B4204F;font-weight:700}
-.rxe-n{font:800 11px var(--mono,monospace);color:#6E749B;margin-right:6px}
-.rxe-tl{display:flex;gap:3px;align-items:flex-start}
-.rxe-c{display:grid;justify-items:center;gap:1px;min-width:28px}
-.rxe-c b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1.5px solid #D9DDEB;border-radius:7px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33;white-space:nowrap}
-.rxe-c small{font:600 9.5px var(--mono,monospace);color:#6E749B;min-height:11px;white-space:nowrap}
-.rxe-c.on b{background:#FFE7B3;border-color:#E09A2B}
-.rxe-c.win b{background:#DDE6FF;border-color:#5B74E8}
-.rxe-c.dim b{opacity:.4}
-.rxe-c small.p{color:#B86E00;font-weight:800}
-.rxe-g{border-collapse:separate;border-spacing:3px}
-.rxe-g td{min-width:28px;height:28px;text-align:center;border:1.5px solid #D9DDEB;border-radius:6px;background:#fff;font:700 12.5px var(--mono,monospace);color:#161A33}
-.rxe-g td.x-g{background:#D6F3E9;border-color:#2BA982}.rxe-g td.x-a{background:#FFE7B3;border-color:#E09A2B}.rxe-g td.x-r{background:#FBE1E9;border-color:#DB3D6E}.rxe-g td.x-b{background:#DDE6FF;border-color:#5B74E8}
-.rxe-grids{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
-.rxe-grids>div{display:grid;gap:4px}
-.rxe-kv{display:grid;gap:5px}
-.rxe-kv>div{opacity:1;color:#161A33;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.rxe-kv .k{font:700 12.5px var(--mono,monospace);border-radius:7px;padding:3px 8px;background:#161A33;color:#fff}
-.rxe-kv .v{display:flex;gap:4px;flex-wrap:wrap}
-.rxe-kv .v span{color:#161A33;opacity:1;font:700 12.5px var(--mono,monospace);border:1.5px solid #D9DDEB;background:#fff;border-radius:7px;padding:2px 8px}
-.rxe-kv>div.x-g .v span{border-color:#2BA982;background:#D6F3E9}.rxe-kv>div.x-b .v span{border-color:#5B74E8;background:#DDE6FF}.rxe-kv>div.x-a .v span{border-color:#E09A2B;background:#FFE7B3}
-.rxe-cmp{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
-.rxe-cmp>div{border:1.5px solid #D9DDEB;background:#fff;border-radius:10px;padding:6px 10px;display:grid;gap:1px;min-width:120px}
-.rxe-cmp small{font:700 11.5px var(--body,inherit);color:#6E749B}
-.rxe-cmp b{font:700 13.5px var(--mono,monospace);color:#161A33}
-.rxe-cmp>div.ok{border-color:#2BA982;background:#E7F7F0}.rxe-cmp>div.bad{border-color:#DB3D6E;background:#FDECF1}
-.rxe-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
-.rxe-flow span{border:1.5px solid #161A33;background:#fff;border-radius:9px;padding:5px 10px;font:700 13px var(--body,inherit);color:#161A33;box-shadow:2px 2px 0 #161A33}
-.rxe-flow i{font-style:normal;color:#6E749B;font-weight:800}
-.rxe-code{margin:0;background:#161A33;color:#E6E9FF;border-radius:10px;padding:10px 12px;font:12.5px/1.55 var(--mono,monospace);overflow-x:auto;white-space:pre}
-svg.rxe-s{display:block;max-width:100%;height:auto}
-svg.rxe-s line{stroke:#9AA0B8;stroke-width:1.5}
-svg.rxe-s circle{fill:#fff;stroke:#4A4F6E;stroke-width:1.5}
-svg.rxe-s .x-g circle{fill:#D6F3E9;stroke:#2BA982;stroke-width:2.2}svg.rxe-s .x-a circle{fill:#FFE7B3;stroke:#E09A2B;stroke-width:2.2}svg.rxe-s .x-r circle{fill:#FBE1E9;stroke:#DB3D6E;stroke-width:2.2}svg.rxe-s .x-b circle{fill:#DDE6FF;stroke:#5B74E8;stroke-width:2.2}
-svg.rxe-s text{font:700 12px var(--mono,monospace);fill:#161A33;text-anchor:middle;dominant-baseline:central}
-.rxe-ch{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.rxe-ch .ar{color:#6E749B;font-weight:800}
-.rxe-ch .nt{font-size:12.5px;color:#4A4F6E;margin-left:6px}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rxe-pics{background:#E4E8F5}}
-:root[data-theme="dark"] .rxe-pics{background:#E4E8F5}
-@media (max-width:640px){.rxe-row{grid-template-columns:1fr}.rxe-row .st{min-width:0}}</style><script>(function(){const RXD={"rx-singleton": {"plain": "Some things must exist exactly once per process (configuration, a connection pool). A singleton enforces that. Still, give it to the classes that need it through their constructors rather than calling X.getInstance() everywhere; hidden global access is hard to test.", "pic": [{"t": "compare", "v": [["ConfigLoader.getInstance() everywhere", "hidden dependency", "bad"], ["one instance, passed in", "still single, easy to fake", "ok"]], "title": ""}], "probs": ["p-singleton"], "ex": null}, "rx-singletonimpl": {"plain": "The simplest thread-safe singleton in Java is an enum with one value: the JVM guarantees one instance, even against reflection and serialization tricks. For lazy creation, the holder idiom loads the instance only when first asked.", "pic": [{"t": "code", "v": "enum Registry { INSTANCE; void register(…) { … } }\n\nclass Pool {                         // holder idiom: lazy and thread-safe\n    private Pool() {}\n    private static class Holder { static final Pool I = new Pool(); }\n    static Pool get() { return Holder.I; }\n}", "title": ""}], "probs": ["p-singleton", "p-dcl"], "ex": null}, "rx-volatile": {"plain": "Without volatile, another thread can see the instance reference before the constructor has finished writing its fields, and use a half-built object. volatile makes the reference visible only after construction completes.", "pic": [{"t": "code", "v": "private static volatile Pool instance;   // volatile is essential\nstatic Pool get() {\n    if (instance == null) {\n        synchronized (Pool.class) {\n            if (instance == null) instance = new Pool();\n        }\n    }\n    return instance;\n}", "title": ""}], "probs": ["p-dcl"], "ex": null}, "rx-simplefactory": {"plain": "When which class to create depends on input (a string, an enum, a config value), put that decision in one factory method that returns the interface. The rest of the code never writes new SpecificThing() or repeats the if-else.", "pic": [{"t": "code", "v": "static Notifier of(Channel c) {\n    return switch (c) {\n        case EMAIL -> new EmailNotifier();\n        case SMS   -> new SmsNotifier();\n    };\n}", "title": ""}], "probs": ["p-factory"], "ex": null}, "rx-newinlogic": {"plain": "If business methods are full of new ConcreteX(), creation is mixed with logic. Do the creating in one place (a factory, or the main setup code) and pass the finished objects in.", "pic": [{"t": "compare", "v": [["new calls scattered in services", "change a class → hunt everywhere", "bad"], ["created in one place, injected", "one spot to change", "ok"]], "title": ""}], "probs": ["p-factory"], "ex": null}, "rx-factorymethod": {"plain": "The parent class runs a fixed process but leaves one creation step abstract. Each subclass overrides that step to create its own kind of object, so the process is shared and only the object differs.", "pic": [{"t": "code", "v": "abstract class Logistics {\n    void deliver() { Transport t = createTransport(); t.move(); }\n    abstract Transport createTransport();     // subclasses decide\n}\nclass RoadLogistics extends Logistics { Transport createTransport() { return new Truck(); } }", "title": ""}], "probs": ["p-factorymethod"], "ex": null}, "rx-abstractfactory": {"plain": "When several objects must come from the same family (all dark-theme widgets, all AWS services), one factory interface creates each of them, and one implementation exists per family. Choosing the factory chooses a consistent set.", "pic": [{"t": "compare", "v": [["UiFactory", "button(), checkbox()", ""], ["DarkFactory", "DarkButton + DarkCheckbox", "ok"], ["LightFactory", "LightButton + LightCheckbox", "ok"]], "title": ""}], "probs": ["p-abstractfactory"], "ex": null}, "rx-builder": {"plain": "A constructor with many optional parameters is unreadable: new Pizza(true, false, true, 2, null). A builder names each option, lets you set only what you need, checks everything in build(), and returns a finished, unchangeable object.", "pic": [{"t": "code", "v": "Pizza p = new Pizza.Builder(\"large\")\n        .cheese()\n        .toppings(\"olive\", \"onion\")\n        .build();          // validates, then creates an immutable Pizza", "title": ""}], "probs": ["p-builder"], "ex": null}, "rx-prototype": {"plain": "If creating an object is expensive or fiddly (lots of configuration, loading data), set one up carefully and make copies of it. Each copy is then adjusted a little.", "pic": [{"t": "compare", "v": [["configure one template", "expensive, once", ""], ["copy() it many times", "cheap", "ok"]], "title": ""}], "probs": ["p-prototype"], "ex": null}, "rx-deepcopy": {"plain": "A shallow copy shares the inner lists and maps with the original, so changing one changes the other. For a real copy, create new lists or maps and copy their contents too. A copy constructor makes this explicit and is safer than clone().", "pic": [{"t": "code", "v": "Order(Order o) {                       // copy constructor\n    this.id = o.id;\n    this.items = new ArrayList<>(o.items);  // new list: not shared\n}", "title": ""}], "probs": ["p-prototype"], "ex": null}};
-const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-const T=s=>s.title?`<div class="rxe-t">${esc(s.title)}</div>`:'';
-function tiles(v,p){p=p||{};const lab={};const on=new Set();let win=null;
-  for(const k in p){if(k==='w'){win=p.w;continue}const i=p[k];if(i==null)continue;(lab[i]=lab[i]||[]).push(k);on.add(i)}
-  return `<div class="rxe-tl">${v.map((x,i)=>{const w=win&&i>=win[0]&&i<=win[1];return `<span class="rxe-c${on.has(i)?' on':w?' win':''}"><b>${esc(x)}</b><small class="${lab[i]?'p':''}">${lab[i]?esc(lab[i].join(' ')):i}</small></span>`}).join('')}</div>`}
-function trace(s){let h=T(s);if(!s.rows.length)return h+tiles(s.v,{});
-  h+='<div class="rxe-tr">'+s.rows.map((r,k)=>`<div class="rxe-row ${esc(r[3])}">${tiles(r[4]||s.v,r[0]||{})}<div class="st"><b><span class="rxe-n">${k+1}</span>${esc(r[1])}</b>${r[2]?`<span>${esc(r[2])}</span>`:''}</div></div>`).join('')+'</div>';return h}
-function grid(s){return `<div>${T(s)}<table class="rxe-g">${s.v.map((r,ri)=>'<tr>'+r.map((x,c)=>`<td class="${s.hl[ri+','+c]?'x-'+esc(s.hl[ri+','+c]):''}">${esc(x)}</td>`).join('')+'</tr>').join('')}</table></div>`}
-function kv(s){return T(s)+`<div class="rxe-kv">${s.v.map(r=>`<div class="${r[2]?'x-'+esc(r[2]):''}"><span class="k">${esc(r[0])}</span><span class="v">${r[1].map(x=>`<span>${esc(x)}</span>`).join('')}</span></div>`).join('')}</div>`}
-function compare(s){return T(s)+`<div class="rxe-cmp">${s.v.map(r=>`<div class="${esc(r[2]||'')}"><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join('')}</div>`}
-function flow(s){return T(s)+`<div class="rxe-flow">${s.v.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`}
-function code(s){return T(s)+`<pre class="rxe-code">${esc(s.v)}</pre>`}
-function chain(s){return T(s)+`<div class="rxe-ch">${s.v.map((x,i)=>`<span class="rxe-c${s.hl[i]?' on':''}"><b>${esc(x)}</b></span>`).join('<span class="ar">→</span>')}${s.note?`<span class="nt">${esc(s.note)}</span>`:''}</div>`}
-function tree(s){const vals=s.v;const nodes=vals.map((v,i)=>v==null?null:{v,i,l:null,r:null});let k=1;for(const n of nodes){if(!n)continue;if(k<nodes.length)n.l=nodes[k++];if(k<nodes.length)n.r=nodes[k++]}
-  let x=0,maxd=0;const P={};(function w(n,d){if(!n)return;w(n.l,d+1);P[n.i]=[x++,d];maxd=Math.max(maxd,d);w(n.r,d+1)})(nodes[0],0);
-  const W=x*40+12,H=(maxd+1)*50+10,pos=i=>[P[i][0]*40+26,P[i][1]*50+22];let h=`<svg class="rxe-s" viewBox="0 0 ${W} ${H}" style="width:${W}px">`;
-  for(const n of nodes){if(!n)continue;for(const c of [n.l,n.r])if(c){const [a,b]=pos(n.i),[c2,d]=pos(c.i);h+=`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`}}
-  for(const n of nodes){if(!n)continue;const [a,b]=pos(n.i);{const c=s.hl['#'+n.i]||s.hl[n.v];h+=`<g class="${c?'x-'+esc(c):''}">`}h+=`<circle cx="${a}" cy="${b}" r="14"/><text x="${a}" y="${b}">${esc(n.v)}</text></g>`}
-  return `<div>${T(s)}${h}</svg></div>`}
-const R={trace,grid,kv,compare,flow,code,chain,tree};
-function pics(list){if(!list||!list.length)return '';const gr=list.every(p=>p.t==='grid'||p.t==='tree');
-  const body=list.map(p=>R[p.t]?R[p.t](p):'').join('');return `<div class="rxe-pics"><b>Picture it</b>${gr?`<div class="rxe-grids">${body}</div>`:body}</div>`}
-function add(){document.querySelectorAll('.reflex[id]').forEach(card=>{if(card.querySelector('.rxe'))return;const d=RXD[card.id];if(!d)return;
-  const det=card.querySelector('details');const why=det?(det.querySelector('p')||{}).innerHTML||'':'';
-  const probs=d.probs.map(id=>{const el=document.getElementById(id);const t=el&&el.querySelector('h4');return t?`<a href="#${id}">${esc(t.textContent)}</a>`:''}).filter(Boolean);
-  const box=document.createElement('div');box.className='rxe';
-  box.innerHTML=`<p class="rxe-plain"><b>In plain words</b>${esc(d.plain)}</p>${pics(d.pic)}${why?`<p class="rxe-why"><b>Why it works</b>${why}</p>`:''}${probs.length?`<div class="rxe-pr"><b>Practise it</b>${probs.join('')}</div>`:''}`;
-  const doEl=card.querySelector('.rx-do');(doEl||card.querySelector('.rx-see')).after(box);if(det&&why)det.remove()})}
-let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,80)}).observe(document.documentElement,{childList:true,subtree:true});
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,30));else setTimeout(add,30)})();</script><!--rxe-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
+<!--qshuf-start--><script>(function(){const PG=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
+function h(s){let x=2166136261;for(let i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,16777619)}return x>>>0}
+function rnd(seed){let s=seed||1;return()=>{s^=s<<13;s>>>=0;s^=s>>>17;s^=s<<5;s>>>=0;return s/4294967296}}
+function shuffle(q){const os=q.querySelector('.os');if(!os||os.dataset.shuf)return;const bs=[...os.children].filter(b=>b.classList.contains('o'));if(bs.length<2)return;
+  const r=rnd(h(PG+'|'+(q.id||q.dataset.quiz||os.textContent.slice(0,40))));const a=bs.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+  os.dataset.shuf=1;a.forEach(b=>os.appendChild(b))}
+function run(){document.querySelectorAll('.quiz').forEach(shuffle)}
+let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,30)}).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run()})();</script><!--qshuf-end-->
+<!--thm-start--><style>/* contrast fixes */
+:root{--ink-3:#6B7090}
+.prob .pill.e{color:#0B7A60}
+.pask-send:disabled{opacity:1;background:var(--line);border-color:var(--line);color:var(--ink-3)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) :is(.ide-run,.ide-go,.ctl button.primary){color:#11142A}
+  :root:not([data-theme="light"]) .steps li::before,:root:not([data-theme="light"]) .three li::before{color:#11142A}
+  :root:not([data-theme="light"]) .prob .pill.e{color:#3DD1A9}}
+:root[data-theme="dark"] :is(.ide-run,.ide-go,.ctl button.primary){color:#11142A}
+:root[data-theme="dark"] .steps li::before,:root[data-theme="dark"] .three li::before{color:#11142A}
+:root[data-theme="dark"] .prob .pill.e{color:#3DD1A9}
+/* theme toggle */
+.thm-btn{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0}
+.thm-btn:hover{border-color:var(--ink-3)}
+.thm-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.thm-btn.float{position:fixed;top:14px;right:14px;z-index:30}
+@media (max-width:760px){.thm-btn{width:32px;height:32px}.thm-btn svg{width:16px;height:16px}}
+@media (max-width:430px){.top-in:has(.thm-btn) .brand{font-size:0;gap:0;min-width:auto}.top-in:has(.thm-btn) .brand>*{font-size:16px}}
+html{color-scheme:light}
+@media (prefers-color-scheme:dark){html:not([data-theme="light"]){color-scheme:dark}}
+html[data-theme="dark"]{color-scheme:dark}</style><script>(function(){if(window.DojoTheme)return;const K='rdd-theme',R=document.documentElement,mq=matchMedia('(prefers-color-scheme: dark)');
+const MOON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+const SUN='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>';
+const eff=()=>R.getAttribute('data-theme')||(mq.matches?'dark':'light');
+function paint(b){const d=eff()==='dark';b.innerHTML=d?SUN:MOON;b.title=d?'Switch to light mode':'Switch to dark mode';b.setAttribute('aria-label',b.title)}
+function set(n){R.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}document.querySelectorAll('.thm-btn').forEach(paint);dispatchEvent(new CustomEvent('dojo:theme',{detail:n}))}
+function mount(){const top=document.querySelector('.top-in');let b=document.querySelector('.thm-btn');
+  if(!b){b=document.createElement('button');b.type='button';b.className='thm-btn';b.onclick=()=>set(eff()==='dark'?'light':'dark');paint(b)}
+  if(top){const after=top.querySelector('.pask-hbtn')||top.querySelector('.saved-btn,#svTop,.sv-top');if(after){if(after.nextElementSibling!==b)after.after(b)}else if(b.parentElement!==top)top.appendChild(b);b.classList.remove('float')}
+  else if(!b.isConnected){b.classList.add('float');document.body.appendChild(b)}}
+if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAll('.thm-btn').forEach(paint));
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+setTimeout(mount,700);setTimeout(mount,2100);
+window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
 </body>
 </html>

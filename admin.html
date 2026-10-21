@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<html lang="en"><head><!--thm-head-start--><script>(function(){try{var t=localStorage.getItem('rdd-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script><!--thm-head-end--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>Admin · Rubber Duck Dojo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -328,4 +328,38 @@ A.load().then(({auth})=>auth.onAuthStateChanged(u=>{
   if(!A.isAdmin(u)){banner('err',`<h2>This page is only for the admin<\/h2><p>You’re signed in as ${esc(u.email||'a guest')}. Ask the owner if you need access.<\/p><div class="acts"><a class="btn" href="index.html">← Back to the app<\/a><\/div>`);$('main').querySelectorAll('section,.hello,.foot').forEach(x=>x.hidden=true);return}
   me=u.uid;$('#hi').textContent='Hi '+(u.displayName||'there').split(' ')[0]+' 👋';refresh()})).catch(e=>banner('err',`<h2>Couldn’t reach Firebase<\/h2><p>${esc(e.message||e)}<\/p>`));
 })();</script>
+<!--thm-start--><style>/* contrast fixes */
+:root{--ink-3:#6B7090}
+.prob .pill.e{color:#0B7A60}
+.pask-send:disabled{opacity:1;background:var(--line);border-color:var(--line);color:var(--ink-3)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) :is(.ide-run,.ide-go,.ctl button.primary){color:#11142A}
+  :root:not([data-theme="light"]) .steps li::before,:root:not([data-theme="light"]) .three li::before{color:#11142A}
+  :root:not([data-theme="light"]) .prob .pill.e{color:#3DD1A9}}
+:root[data-theme="dark"] :is(.ide-run,.ide-go,.ctl button.primary){color:#11142A}
+:root[data-theme="dark"] .steps li::before,:root[data-theme="dark"] .three li::before{color:#11142A}
+:root[data-theme="dark"] .prob .pill.e{color:#3DD1A9}
+/* theme toggle */
+.thm-btn{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0}
+.thm-btn:hover{border-color:var(--ink-3)}
+.thm-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.thm-btn.float{position:fixed;top:14px;right:14px;z-index:30}
+@media (max-width:760px){.thm-btn{width:32px;height:32px}.thm-btn svg{width:16px;height:16px}}
+@media (max-width:430px){.top-in:has(.thm-btn) .brand{font-size:0;gap:0;min-width:auto}.top-in:has(.thm-btn) .brand>*{font-size:16px}}
+html{color-scheme:light}
+@media (prefers-color-scheme:dark){html:not([data-theme="light"]){color-scheme:dark}}
+html[data-theme="dark"]{color-scheme:dark}</style><script>(function(){if(window.DojoTheme)return;const K='rdd-theme',R=document.documentElement,mq=matchMedia('(prefers-color-scheme: dark)');
+const MOON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+const SUN='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>';
+const eff=()=>R.getAttribute('data-theme')||(mq.matches?'dark':'light');
+function paint(b){const d=eff()==='dark';b.innerHTML=d?SUN:MOON;b.title=d?'Switch to light mode':'Switch to dark mode';b.setAttribute('aria-label',b.title)}
+function set(n){R.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}document.querySelectorAll('.thm-btn').forEach(paint);dispatchEvent(new CustomEvent('dojo:theme',{detail:n}))}
+function mount(){const top=document.querySelector('.top-in');let b=document.querySelector('.thm-btn');
+  if(!b){b=document.createElement('button');b.type='button';b.className='thm-btn';b.onclick=()=>set(eff()==='dark'?'light':'dark');paint(b)}
+  if(top){const after=top.querySelector('.pask-hbtn')||top.querySelector('.saved-btn,#svTop,.sv-top');if(after){if(after.nextElementSibling!==b)after.after(b)}else if(b.parentElement!==top)top.appendChild(b);b.classList.remove('float')}
+  else if(!b.isConnected){b.classList.add('float');document.body.appendChild(b)}}
+if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAll('.thm-btn').forEach(paint));
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+setTimeout(mount,700);setTimeout(mount,2100);
+window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
 </body></html>
