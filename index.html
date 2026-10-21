@@ -351,9 +351,6 @@ code{font-family:var(--mono);font-size:.86em;background:var(--blue-soft);padding
 .state.new{color:var(--ink-3);border:1px solid var(--line)}
 .state.go{color:var(--amber);background:var(--amber-soft)}
 .state.done{color:var(--mint);background:var(--mint-soft)}
-.tile.mid{border:2px solid var(--a);box-shadow:0 0 0 4px color-mix(in srgb,var(--a) 14%,transparent)}
-.tile .chips span.key{background:var(--a);border-color:var(--a);color:#fff;font-weight:700}
-@media (max-width:600px){.tile .chips span.key .kx{display:none}}
 
 /* chips row */
 .filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:14px}
@@ -756,10 +753,10 @@ function renderCont(S){
 
 function renderRoad(S){
   const tile=(s,i)=>{const t=s.t;const st=s.pct>=100?['done','Done']:s.n?['go','In progress']:['new','Not started'];
-    return `<a class="tile${t.slug==='recursion'?' mid':''}" href="${t.slug}.html" style="--a:${t.acc}">
+    return `<a class="tile" href="${t.slug}.html" style="--a:${t.acc}">
       <div class="n">${i+1}</div><span class="state ${st[0]}">${st[1]}</span><h3>${esc(t.name)}</h3><p class="why">${esc(t.why)}</p>
       <div><div class="row"><div class="bar"><i style="--p:${s.pct}%"></i></div><span class="pct">${s.pct}%</span></div>
-      <div class="chips">${t.slug==='recursion'?'<span class="key" title="Trees, backtracking, graphs and DP all build on recursion">🔑 Key topic<span class="kx"> · trees, graphs &amp; DP build on it</span></span>':''}<span>${t.labs} lab${t.labs===1?'':'s'}</span><span>${t.rx.length} reflexes</span><span>${t.probs.length} ${t.track==='sd'?'cards':'problems'}</span></div></div></a>`};
+      <div class="chips"><span>${t.labs} lab${t.labs===1?'':'s'}</span><span>${t.rx.length} reflexes</span><span>${t.probs.length} ${t.track==='sd'?'cards':'problems'}</span></div></div></a>`};
   $('#road').innerHTML=S.filter(s=>s.t.track!=='sd').map(tile).join('');
   $('#road2').innerHTML=S.filter(s=>s.t.track==='sd').map(tile).join('');
 }
