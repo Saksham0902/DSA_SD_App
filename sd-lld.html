@@ -950,7 +950,7 @@ svg.uml{width:100%;display:block;margin:0 auto}
 @media (max-width:600px){.saved-btn{height:34px;padding:0 8px;font-size:13px}.bm-abs{top:10px;right:10px}.lab .lab-head{padding-right:40px}}
 /* bookmarks-end */
 </style>
-</head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -1174,7 +1174,7 @@ function makePlayer(root,{render,awardId,xp=20,speeds=SPEEDS}){
   bar.innerHTML=`<button data-a="reset" aria-label="Restart">↺</button><button data-a="back">‹ Back</button><button data-a="play" class="primary">Play</button><button data-a="next">Next ›</button><label class="spd">Speed <input type="range" min="0" max="4" value="2" aria-label="Playback speed"></label><span class="cnt"></span>`;
   const narr=$('.narr',root),hintEl=$('.hint',root),cnt=$('.cnt',bar),spd=$('input',bar),play=$('[data-a=play]',bar);
   let steps=[],i=0,t=null;
-  function show(k){if(!steps.length)return;i=Math.max(0,Math.min(steps.length-1,k));const s=steps[i];
+  function show(k){if(!steps.length)return;/*pq*/if(window.LabPredict&&LabPredict.gate(root,steps,Math.max(0,Math.min(steps.length-1,k)),()=>show(k),stop,k===i+1))return;i=Math.max(0,Math.min(steps.length-1,k));const s=steps[i];
     render(s,i,steps);narr.innerHTML=s.msg||'';if(hintEl){hintEl.innerHTML=s.hint?`<b>⚡ Reflex</b>${s.hint}`:'';hintEl.hidden=!(s.hint||hasHint);hintEl.style.visibility=s.hint?'':'hidden'}
     cnt.textContent=`step ${i+1} / ${steps.length}`;if(i===steps.length-1){stop();if(awardId)award(awardId,xp)}}
   function stop(){clearTimeout(t);t=null;play.textContent=(i>=steps.length-1&&steps.length>1)?'Replay':'Play'}
@@ -3124,7 +3124,6 @@ function add(){for(const id of C.order){const f=C.films[id];if(!f.prob)continue;
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(add,120)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(add,60));else setTimeout(add,60);
 document.addEventListener('cinema:watched',card)})();</script><!--cin-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
 .pask-fab:hover{transform:translateY(-2px)}
 .pask-fab svg{width:20px;height:20px;flex:none}
@@ -3718,6 +3717,203 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,browse,mountMatcher:(el,o)=>mountMatcher(el,o),openMatch:()=>{open();loadKB().then(()=>tab('match'))},match:(t,n)=>match(t,n),ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
+<!--pq-start--><style>.pq{border:2px solid var(--ink);border-radius:14px;background:var(--amber-soft);padding:12px 14px;margin:12px 0 0;display:grid;gap:8px;box-shadow:4px 4px 0 var(--ink)}
+.pq[hidden]{display:none}
+.pq-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.pq-t{font:800 13px var(--body);letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--amber) 55%,var(--ink))}
+.pq-sc{font:600 12.5px var(--mono);color:var(--ink-2)}
+.pq-skip{margin-left:auto;border:0;background:none;color:var(--ink-2);text-decoration:underline;font-weight:700;font-size:13.5px;padding:2px}
+.pq-q{margin:0;font:700 17px/1.4 var(--display)}
+.pq-c{margin:0;color:var(--ink-2);font-size:14px}
+.pq-o{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.pq-o button{text-align:left;border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 12px;font:600 14.5px/1.35 var(--body)}
+.pq-o button:hover:not([disabled]){transform:translateY(-1px);box-shadow:2px 2px 0 var(--ink)}
+.pq-o button.right{background:var(--mint-soft);border-color:var(--mint)}
+.pq-o button.wrong{background:var(--rose-soft);border-color:var(--rose)}
+.pq-o button[disabled]{cursor:default}
+.pq-f{margin:0;font-size:14.5px;min-height:1.2em}
+.pq-tog{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:6px 12px;font:700 13.5px var(--body)}
+.pq-tog[aria-pressed="true"]{background:var(--amber-soft);border-color:var(--amber);color:var(--ink)}
+.pq{scroll-margin-top:84px}
+@media (max-width:880px){.lab>.pq{order:4;margin-top:10px}.pq-o{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.pq-o{grid-template-columns:1fr}}</style><script>/* Predict-then-reveal for every step lab. The shared player calls LabPredict.gate() before moving forward;
+   at a few checkpoints per run we pause, ask what the next step will do (built from the step data), then reveal it. */
+(function(){
+if(window.LabPredict) return;
+const KEY='rdd-predict-v1';
+const S=(()=>{ try{ return Object.assign({on:true,right:0,total:0}, JSON.parse(localStorage.getItem(KEY)||'{}')) }catch(e){ return {on:true,right:0,total:0} } })();
+const save=()=>{ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} };
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const strip=h=>{ const d=document.createElement('div'); d.innerHTML=h==null?'':String(h); return d.textContent.replace(/\s+/g,' ').trim() };
+const num=v=>{ if(typeof v==='number') return v; const t=String(v==null?'':v).replace(/,/g,'').trim(); return /^-?\d+(\.\d+)?$/.test(t)? +t : null };
+const shuf=a=>{ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a };
+const fmt=v=>{ const t=strip(v); return t===''?'(empty)':t };
+const listStr=a=>'[ '+(a||[]).map(fmt).join(', ')+' ]';
+function opts(correct, pool){ const seen=new Set([correct]), out=[]; for(const p of pool){ if(p==null||seen.has(p)) continue; seen.add(p); out.push(p); if(out.length===3) break } return out.length>=2? shuf([correct,...out]).map(t=>({t, ok:t===correct})) : null }
+
+/* ---- question builders: each looks at step a (shown now) and step b (next) ---- */
+function qPtr(a,b){
+  const ra=a.rows||[], rb=b.rows||[];
+  for(let r=0;r<rb.length;r++){ const A=ra[r], B=rb[r]; if(!A||!B||!A.ptr||!B.ptr||!B.cells) continue;
+    for(const [p,v] of Object.entries(B.ptr)){ const u=A.ptr[p]; if(v==null||u==null||v<0||u<0||v===u||v>=B.cells.length) continue;
+      const n=B.cells.length, lab=x=>`index ${x} · ${fmt(B.cells[x])}`;
+      const o=opts(lab(v), [u,v+1,v-1,u+1,u-1,v+2,u+2].filter(x=>x>=0&&x<n).map(lab));
+      if(o) return {kind:'pointer', q:`Where does <b>${esc(p)}</b> point after this step?`, ctx:`Right now ${esc(p)} is at index ${u}.`, o};
+    } }
+  return null;
+}
+function qGrid(a,b){
+  const ga=a.grid, gb=b.grid; if(!ga||!gb||!gb.cls) return null;
+  const cur=Object.entries(gb.cls).filter(([k,c])=>c==='cur').map(([k])=>k); if(cur.length!==1) return null;
+  const [r,c]=cur[0].split(',').map(Number), v=num(gb.cells[r]&&gb.cells[r][c]), was=ga.cells[r]&&ga.cells[r][c];
+  if(v==null || num(was)===v) return null;
+  const near=[]; for(const [dr,dc] of [[-1,0],[0,-1],[-1,-1],[0,1],[1,0]]){ const x=num(gb.cells[r+dr]&&gb.cells[r+dr][c+dc]); if(x!=null) near.push(x) }
+  const o=opts(String(v), [v+1,v-1,...near,v+2,0].map(String)); if(!o) return null;
+  const rl=gb.rl?strip(gb.rl[r]):r, cl=gb.cl?strip(gb.cl[c]):c;
+  return {kind:'table', q:`What value goes in the cell at row <b>${esc(rl)}</b>, column <b>${esc(cl)}</b>?`, ctx:'Use the cells it depends on.', o, cell:[r,c]};
+}
+function qStat(a,b){
+  const ma=Object.fromEntries((a.stats||[]).map(([l,v])=>[strip(l),v]));
+  for(const [l,v] of (b.stats||[])){ const L=strip(l), u=ma[L]; if(u===undefined||String(u)===String(v)) continue;
+    const nv=num(v), nu=num(u);
+    if(nv!=null && nu!=null && Math.abs(nv)<100000){
+      const d=nv-nu, o=opts(String(v), [nu, nv+d, nv+1, nv-1, nv*2, Math.max(0,nu-d)].map(x=>Number.isInteger(nv)?String(Math.round(x)):String(x)));
+      if(o) return {kind:'value', q:`What will <b>${esc(L)}</b> be after this step?`, ctx:`It is ${esc(fmt(u))} now.`, o};
+    } }
+  return null;
+}
+function qPanel(a,b){
+  const pa=a.panels||[], pb=b.panels||[];
+  for(let k=0;k<pb.length;k++){ const A=pa.find(p=>p.t===pb[k].t), B=pb[k]; if(!A||!B) continue;
+    const t=strip(B.t);
+    if(B.items && A.items && JSON.stringify(A.items)!==JSON.stringify(B.items) && B.items.length<=7){
+      const c=listStr(B.items), extra=B.items.length? listStr(B.items.slice(0,-1)) : null, rev=listStr(B.items.slice().reverse());
+      const grown=A.items.concat(B.items.filter(x=>!A.items.includes(x)).slice(0,1));
+      const o=opts(c, [listStr(A.items), rev, extra, listStr(grown.slice().reverse()), listStr(A.items.slice(1))]);
+      if(o) return {kind:'structure', q:`What will <b>${esc(t)}</b> hold after this step?`, ctx:`Now: ${esc(listStr(A.items))}`, o};
+    }
+    if(B.kv && A.kv && B.kv.length===A.kv.length+1){
+      const nw=B.kv[B.kv.length-1], c=`${fmt(nw[0])} → ${fmt(nw[1])}`;
+      const o=opts(c, [`${fmt(nw[1])} → ${fmt(nw[0])}`, ...A.kv.slice(-2).map(p=>`${fmt(p[0])} → ${fmt(p[1])}`), `${fmt(nw[0])} → ${fmt(num(nw[1])!=null?num(nw[1])+1:'?')}`]);
+      if(o) return {kind:'structure', q:`What gets stored in <b>${esc(t)}</b> next?`, ctx:'Key → value.', o};
+    }
+  }
+  return null;
+}
+function qGraph(a,b){
+  const na=(a.g&&a.g.n)||{}, nb=(b.g&&b.g.n)||{};
+  const fresh=Object.keys(nb).filter(k=>nb[k]==='cur' && na[k]!=='cur'); if(fresh.length!==1) return null;
+  const lab=k=>(b.g.l&&b.g.l[k]!=null)? strip(b.g.l[k]) : k;
+  const id=fresh[0]; if(!(b.g.l&&b.g.l[id]!=null) && id.length>2) return null;
+  const pool=[...new Set([...Object.keys(nb),...Object.keys(na),...((b.g.vis)||[])])].filter(k=>k!==id).map(lab);
+  const o=opts(lab(id), shuf(pool)); if(!o) return null;
+  return {kind:'graph', q:'Which node does it handle next?', ctx:'Think about the order the algorithm visits nodes.', o};
+}
+function qNarr(a,b,steps,k){
+  const c=strip(b.msg); if(c.length<18) return null;
+  const cut=t=>t.length>150? t.slice(0,147)+'…' : t;
+  const pool=shuf(steps.map((s,j)=>j!==k && j!==k-1 && Math.abs(j-k)>1 ? strip(s.msg) : '').filter(t=>t.length>=18 && t!==c));
+  const o=opts(cut(c), pool.map(cut)); if(!o) return null;
+  return {kind:'story', q:'What happens next?', ctx:'Pick the step that comes right after this one.', o};
+}
+function qFrames(a,b){
+  const fa=a.frames, fb=b.frames; if(!Array.isArray(fa)||!Array.isArray(fb)) return null;
+  const name=f=>'call('+Object.entries(f).filter(([k,v])=>!/^(ret|smaller|res|result|state|kind)$/.test(k) && (typeof v==='number'||typeof v==='string') && String(v).length<12).map(([k,v])=>`${k}=${v}`).join(', ')+')';
+  for(let j=0;j<Math.min(fa.length,fb.length);j++){ const r=fb[j].ret, was=fa[j].ret, n=num(r);
+    if(r!=null && was==null && n!=null){ const o=opts(String(r), [n+1,n-1,n*2,Math.max(0,n-2),1,0].map(String)); if(o) return {kind:'value', q:`What does <b>${esc(name(fb[j]))}</b> return?`, ctx:'Combine what its smaller call gave back.', o} } }
+  if(fb.length===fa.length) return null;
+  const opt=[`It makes a new call: the stack grows to ${fa.length+1}`, `The top call returns: the stack drops to ${Math.max(0,fa.length-1)}`, `It keeps working in the same call`];
+  const c = fb.length>fa.length ? opt[0] : opt[1];
+  return {kind:'stack', q:'What happens to the call stack next?', ctx:`The stack is ${fa.length} deep right now.`, o:shuf(opt.map(t=>({t, ok:t===c})))};
+}
+const BUILD=[qPtr,qGrid,qStat,qFrames,qPanel,qGraph];
+function plan(steps){
+  const n=steps.length, sp=new Map(), story=new Map();
+  for(let k=1;k<n;k++){ const a=steps[k-1], b=steps[k]; if(!a||!b) continue;
+    let q=null; for(const f of BUILD){ try{ q=f(a,b) }catch(e){ q=null } if(q) break }
+    if(q) sp.set(k,q); else { try{ const s=qNarr(a,b,steps,k); if(s) story.set(k,s) }catch(e){} } }
+  const want=Math.max(1, Math.min(4, Math.round((n-1)/4))), out=new Map();
+  const take=m=>{ for(const [k,q] of m){ if(out.size>=want) break; if([...out.keys()].some(x=>Math.abs(x-k)<2)) continue; out.set(k,q) } };
+  const spread=m=>{ const ks=[...m.keys()]; if(ks.length<=want) return m; const step=ks.length/want, pick=new Map(); for(let i=0;i<want;i++){ const k=ks[Math.floor(i*step+step/2)]; pick.set(k,m.get(k)) } return new Map([...pick,...m]) };
+  take(spread(sp)); if(out.size<want) take(spread(story));
+  return out;
+}
+
+/* ---- UI ---- */
+const ST=new WeakMap();
+function ui(root){
+  let s=ST.get(root); if(s) return s;
+  s={steps:null, plan:new Map(), asked:new Map(), right:0, total:0};
+  const ctl=root.querySelector('.ctl');
+  const box=document.createElement('div'); box.className='pq'; box.hidden=true; box.setAttribute('aria-live','polite');
+  ctl.parentNode.insertBefore(box, ctl); s.box=box;
+  const tog=document.createElement('button'); tog.type='button'; tog.className='pq-tog'; ctl.insertBefore(tog, ctl.querySelector('.spd'));
+  const paint=()=>{ tog.setAttribute('aria-pressed', S.on); tog.innerHTML=`<span aria-hidden="true">🎯</span> Predict ${S.on?'on':'off'}`; tog.title=S.on?'The lab pauses at a few steps and asks you what happens next':'Turn on to be quizzed on the next step' };
+  tog.onclick=()=>{ S.on=!S.on; save(); document.querySelectorAll('.pq-tog').forEach(b=>b.dispatchEvent(new Event('pq-paint'))); if(!S.on) box.hidden=true };
+  tog.addEventListener('pq-paint', paint); paint();
+  ST.set(root,s); return s;
+}
+function gate(root, steps, k, cont, stop, fwd){
+  const s=ui(root);
+  if(!fwd){ if(s.box.dataset.k!=k) hide(root); return false }
+  if(!S.on || !steps || k<1 || k>=steps.length) { hide(root); return false }
+  if(s.steps!==steps){ s.steps=steps; s.plan=plan(steps); s.asked=new Map(); s.right=0; s.total=0 }
+  const q=s.plan.get(k);
+  if(!q || s.asked.has(k)){ if(!(s.box.dataset.k==k && s.box.dataset.done)) hide(root); return false }
+  stop && stop();
+  const box=s.box; box.hidden=false; box.dataset.k=k; box.dataset.kind=q.kind; delete box.dataset.done;
+  box.innerHTML=`<div class="pq-h"><span class="pq-t">🎯 Predict the next step</span><span class="pq-sc">${s.total?`${s.right}/${s.total} right in this run`:''}</span><button type="button" class="pq-skip">Just show me</button></div>
+    <p class="pq-q">${q.q}</p>${q.ctx?`<p class="pq-c">${q.ctx}</p>`:''}<div class="pq-o">${q.o.map((x,i)=>`<button type="button" data-i="${i}">${esc(x.t)}</button>`).join('')}</div><p class="pq-f"></p>`;
+  const finish=(i)=>{
+    const ok = i!=null && q.o[i].ok;
+    if(i!=null){ s.total++; S.total++; if(ok){ s.right++; S.right++ } save() }
+    s.asked.set(k, i==null?'skip':ok);
+    box.dataset.done='1';
+    box.querySelectorAll('.pq-o button').forEach((b,j)=>{ b.disabled=true; if(q.o[j].ok) b.classList.add('right'); else if(j===i) b.classList.add('wrong') });
+    const c=q.o.find(x=>x.ok).t;
+    box.querySelector('.pq-f').innerHTML = i==null ? `Answer: <b>${esc(c)}</b>` : ok ? '<b>Right.</b> Watch it happen.' : `<b>Not quite.</b> It's <b>${esc(c)}</b>. Watch why.`;
+    box.querySelector('.pq-sc').textContent = `${s.right}/${s.total} right in this run`;
+    box.querySelector('.pq-skip').remove();
+    setTimeout(cont, i==null?0:450);
+  };
+  box.querySelectorAll('.pq-o button').forEach(b=>b.onclick=()=>finish(+b.dataset.i));
+  requestAnimationFrame(()=>{ const r=box.getBoundingClientRect(); if(r.top<60 || r.bottom>innerHeight-130) box.scrollIntoView({block:'start', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
+  box.querySelector('.pq-skip').onclick=()=>finish(null);
+  return true;
+}
+function hide(root){ const s=ST.get(root); if(s && s.box){ s.box.hidden=true; s.box.innerHTML=''; delete s.box.dataset.k; delete s.box.dataset.done } }
+function decorate(){ document.querySelectorAll('.ctl').forEach(c=>{ const root=c.parentElement; if(root && c.querySelector('[data-a=next]') && !c.querySelector('.pq-tog')) ui(root) }) }
+window.LabPredict={gate, stats:()=>({...S}), plan};
+new MutationObserver(()=>{ clearTimeout(decorate.t); decorate.t=setTimeout(decorate,60) }).observe(document.documentElement,{childList:true,subtree:true});
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',decorate); else decorate();
+})();
+</script><!--pq-end-->
+<!--ldc-start--><style>.ld-go{border:1.5px solid var(--line,#D9DDEB);background:var(--surface,#fff);color:var(--ink-2,#4A4F6E);border-radius:10px;padding:6px 12px;font:700 14px var(--body,system-ui,sans-serif);text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.ld-go:hover{border-color:var(--ink-3,#8A8FAD);color:var(--ink,#161A33)}
+.ld-st{font:700 12.5px var(--mono,monospace);padding:4px 9px;border-radius:999px;border:1.5px solid var(--line,#D9DDEB);color:var(--ink-2,#4A4F6E)}
+.ld-st.g0{background:var(--rose-soft);border-color:transparent;color:color-mix(in srgb,var(--rose) 70%,var(--ink))}
+.ld-st.g1{background:var(--amber-soft);border-color:transparent;color:color-mix(in srgb,var(--amber) 55%,var(--ink))}
+.ld-st.g2,.ld-st.g3{background:var(--mint-soft);border-color:transparent;color:color-mix(in srgb,var(--mint) 65%,var(--ink))}</style><script>(function(){
+var slug=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
+var LIVE=/github\.io$/.test(location.hostname)||location.protocol==='file:'?'live/':'https://saksham0902.github.io/DSA_SD_App/live/';
+var G=['Blanked','Shaky','Solid','Instant'];
+function ld(){ try{ return JSON.parse(localStorage.getItem('ld-v1')||'null')||{} }catch(e){ return {} } }
+function run(){ if(/^sd-/.test(slug)) return; var st=ld(), cards=st.cards||{};
+  document.querySelectorAll('.prob[id^="p-"]').forEach(function(p){
+    var row=p.querySelector('.ide-row'); if(!row) return;
+    var id='p-'+slug+'-'+p.id.slice(2), a=row.querySelector('.ld-go');
+    if(!a){ a=document.createElement('a'); a.className='ld-go'; a.href=LIVE+'#d-'+id; if(/^http/.test(LIVE)){ a.target='_blank'; a.rel='noopener' }
+      a.innerHTML='<span aria-hidden="true">🎙</span> Drill out loud'; a.title='Answer this out loud on a mock call in Live Drill'; row.appendChild(a) }
+    var c=cards[id], s=row.querySelector('.ld-st');
+    if(c && c.g!=null){ if(!s){ s=document.createElement('span'); row.appendChild(s) } s.className='ld-st g'+c.g;
+      var lat=c.lat&&c.lat.length?c.lat[c.lat.length-1]:null; s.textContent='Said out loud: '+G[c.g]+(lat!=null?' · started in '+(lat/1000).toFixed(1)+'s':''); }
+    else if(s) s.remove();
+  }) }
+var t; new MutationObserver(function(){ clearTimeout(t); t=setTimeout(run,120) }).observe(document.documentElement,{childList:true,subtree:true});
+addEventListener('storage',function(e){ if(e.key==='ld-v1') run() });
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run); else run();
+})();</script><!--ldc-end-->
 <!--qshuf-start--><script>(function(){const PG=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
 function h(s){let x=2166136261;for(let i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,16777619)}return x>>>0}
 function rnd(seed){let s=seed||1;return()=>{s^=s<<13;s>>>=0;s^=s>>>17;s^=s<<5;s>>>=0;return s/4294967296}}

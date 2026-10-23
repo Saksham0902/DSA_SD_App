@@ -1,0 +1,46 @@
+{
+ "name": "Rubber Duck Dojo",
+ "short_name": "Dojo",
+ "description": "DSA and system design practice: reels, patterns, labs and out-loud drills.",
+ "start_url": "./reels.html",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#F4F6FB",
+ "theme_color": "#161A33",
+ "icons": [
+  {
+   "src": "icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icons/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "shortcuts": [
+  {
+   "name": "Reels",
+   "url": "./reels.html"
+  },
+  {
+   "name": "Which pattern?",
+   "url": "./patterns.html"
+  },
+  {
+   "name": "Live Drill",
+   "url": "./live/"
+  },
+  {
+   "name": "Home",
+   "url": "./index.html"
+  }
+ ]
+}

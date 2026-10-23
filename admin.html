@@ -128,7 +128,7 @@ var page=location.pathname.split('/').pop()||'index.html';if(page==='login.html'
 var s=null;try{s=JSON.parse(localStorage.getItem('rdd-auth-v1'))}catch(e){}
 if(s&&(s.uid||(s.guest&&C.allowGuest)))return;
 location.replace('login.html?next='+encodeURIComponent(page+location.search+location.hash));})();
-</script></head>
+</script><!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
 <body><header class="top"><div class="top-in">
   <a class="logo" href="index.html">🐥 Rubber Duck Dojo <i>Admin</i></a>
   <div class="seg" role="group" aria-label="Time range"><button type="button" data-r="1">Today</button><button type="button" data-r="7" aria-pressed="true">7 days</button><button type="button" data-r="30">30 days</button><button type="button" data-r="90">90 days</button></div>

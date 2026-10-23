@@ -387,7 +387,7 @@ code{font-family:var(--mono);font-size:.86em;background:var(--blue-soft);padding
 .rv .meta{font:13px var(--mono);color:var(--ink-2)}
 .rv .gt{color:color-mix(in srgb,var(--rose) 70%,var(--ink));font-size:14px}
 .empty{padding:30px;text-align:center;color:var(--ink-2)}
-</style></head>
+</style><!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
 <body>
 <header class="top"><div class="top-in"><a class="brand" href="index.html"><i></i><span>Rubber Duck Dojo</span></a><nav class="jump" aria-label="Pages"><a href="index.html">Home</a><a href="notes.html">Notes</a><a href="crunch.html" aria-current="page">Crunch</a><a href="plan.html">Plan</a></nav></div></header>
 <div class="bar noprint"><div class="bar-in">
@@ -578,7 +578,6 @@ function cx(card){const meta=card.querySelector('.meta');if(!meta||meta.dataset.
 function run(){document.querySelectorAll('.prob').forEach(c=>{const dl=c.querySelector('dl.think');if(dl)strip(dl);cx(c)})}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,40));else setTimeout(run,40)})();</script><!--cards-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
 .pask-fab:hover{transform:translateY(-2px)}
 .pask-fab svg{width:20px;height:20px;flex:none}
@@ -1114,6 +1113,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,browse,mountMatcher:(el,o)=>mountMatcher(el,o),openMatch:()=>{open();loadKB().then(()=>tab('match'))},match:(t,n)=>match(t,n),ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--thm-start--><style>/* contrast fixes */
 :root{--ink-3:#6B7090}
 .prob .pill.e{color:#0B7A60}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!--thm-head-start--><script>(function(){try{var t=localStorage.getItem('rdd-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script><!--thm-head-end--><!--auth-start--><script>(function(){var C={"firebase": {"apiKey": "", "authDomain": "", "projectId": "", "appId": ""}, "hosts": ["saksham0902.github.io"], "requireLogin": true, "allowGuest": true, "sdk": "https://cdn.jsdelivr.net/npm/firebase@10.14.1/", "admins": ["sakshammathur429@gmail.com"], "track": true};var f=C.firebase||{};var on=!!(f.apiKey&&f.projectId&&C.hosts.indexOf(location.hostname)>=0);
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--thm-head-start--><script>(function(){try{var t=localStorage.getItem('rdd-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script><!--thm-head-end--><!--auth-start--><script>(function(){var C={"firebase": {"apiKey": "", "authDomain": "", "projectId": "", "appId": ""}, "hosts": ["saksham0902.github.io"], "requireLogin": true, "allowGuest": true, "sdk": "https://cdn.jsdelivr.net/npm/firebase@10.14.1/", "admins": ["sakshammathur429@gmail.com"], "track": true};var f=C.firebase||{};var on=!!(f.apiKey&&f.projectId&&C.hosts.indexOf(location.hostname)>=0);
 window.DOJO_AUTH_CFG=C;window.DOJO_AUTH_ON=on;if(!on||!C.requireLogin)return;
 var page=location.pathname.split('/').pop()||'index.html';if(page==='login.html')return;
 var s=null;try{s=JSON.parse(localStorage.getItem('rdd-auth-v1'))}catch(e){}
@@ -500,7 +500,7 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
 <header class="top">
   <div class="top-in">
     <div class="brand"><i></i>Rubber Duck Dojo</div>
-    <nav class="jump" aria-label="Sections"><a href="#livedrill">Live Drill</a><a href="#match">Find</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
+    <nav class="jump" aria-label="Sections"><a href="#newways">New</a><a href="reels.html">Reels</a><a href="patterns.html">Patterns</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
     <a class="sv-top" id="svTop" href="#saved" aria-label="Open saved items" aria-controls="svDrawer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-3.9-6.5 3.9v-16a1 1 0 0 1 1-1z"/></svg><span id="svCount">0</span></a>
     <div class="xp" aria-live="polite"><strong id="xpAll">0 XP</strong><small id="lvlAll">Rookie</small></div>
   </div>
@@ -521,40 +521,58 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
     <div class="cont" id="cont"></div>
   </section>
 
-  <!--ldx-start--><section class="sec" id="livedrill" aria-labelledby="ldx-h">
+  <!--ldx-start--><section class="sec" id="newways" aria-labelledby="nw-h">
 <style>
-.ldx{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:20px}
-@media (max-width:760px){.ldx{grid-template-columns:1fr}}
-.ldx-e{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:8px}
-.ldx-e i{width:10px;height:10px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 4px var(--rose-soft)}
-.ldx h2{margin:6px 0 6px;font-size:clamp(22px,3vw,28px)}
-.ldx p{margin:0;color:var(--ink-2);max-width:60ch}
-.ldx-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.ldx-tags span{font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink-2)}
-.ldx-go{display:inline-flex;align-items:center;gap:9px;margin-top:14px;background:var(--amber);color:#1C1405;text-decoration:none;font-weight:800;padding:12px 18px;border-radius:12px}
-.ldx-go:hover{filter:brightness(1.05)}
-.ldx-mock{background:#0B0E13;border-radius:14px;padding:14px;color:#EDF0F5;display:grid;gap:10px;font-size:13px}
-.ldx-mock b{font-size:14px;line-height:1.35}
-.ldx-row{display:flex;align-items:center;gap:10px}
-.ldx-ring{width:44px;height:44px;border-radius:50%;border:5px solid #F5B04A;border-right-color:#1C222C;display:grid;place-items:center;font:600 12px ui-monospace,monospace;flex:none}
-.ldx-dots{display:flex;gap:5px}.ldx-dots i{width:10px;height:10px;border-radius:50%;border:2px solid #2A313D}.ldx-dots i.on{background:#3FD49A;border-color:#3FD49A}
-.ldx-pill{font:600 10.5px ui-monospace,monospace;letter-spacing:.08em;color:#FF5A52;background:rgba(255,90,82,.16);padding:4px 8px;border-radius:999px;width:max-content}
+.nw-head{display:grid;gap:8px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.nw-head p{color:var(--ink-2);max-width:62ch;margin:0}
+.nw{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.nw{grid-template-columns:1fr}}
+.nw-c{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;padding:16px;box-shadow:6px 6px 0 var(--ink);text-decoration:none;color:inherit;transition:transform .15s}
+.nw-c:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+.nw-e{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;gap:8px;align-items:center}
+.nw-e i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.nw-c h3{font-size:22px;margin:0}
+.nw-c p{margin:0;color:var(--ink-2);font-size:15px}
+.nw-go{margin-top:auto;font-weight:800;color:var(--ink);display:inline-flex;gap:6px;align-items:center}
+.nw-v{height:132px;border-radius:12px;background:var(--paper);border:1.5px solid var(--line);position:relative;overflow:hidden}
+.nw-r span{position:absolute;width:46%;height:82%;top:9%;border-radius:10px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:grid;align-content:start;padding:8px;gap:5px}
+.nw-r span::before,.nw-r span::after{content:"";height:6px;border-radius:3px;background:currentColor;opacity:.85}
+.nw-r span::after{width:60%;opacity:.55}
+.nw-r span:nth-child(1){left:8%;transform:rotate(-7deg);background:var(--rose);color:#fff}
+.nw-r span:nth-child(2){left:27%;transform:rotate(2deg);background:var(--amber);color:#1C1405}
+.nw-r span:nth-child(3){left:46%;transform:rotate(8deg);background:var(--blue);color:#fff}
+.nw-p svg{width:100%;height:100%}
+.nw-p rect{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+.nw-p rect.hl{fill:var(--amber-soft)}
+.nw-p path{stroke:var(--ink);stroke-width:2;fill:none}
+.nw-p text{font:700 11px var(--body,sans-serif);fill:var(--ink)}
+.nw-l{background:#0B0E13;border-color:#0B0E13;color:#EDF0F5;padding:10px;display:grid;gap:8px;font-size:12px}
+.nw-l b{font-size:12.5px;line-height:1.35}
+.nw-row{display:flex;align-items:center;gap:10px}
+.nw-ring{width:38px;height:38px;border-radius:50%;border:4px solid #F5B04A;border-right-color:#1C222C;display:grid;place-items:center;font:700 10.5px ui-monospace,monospace;flex:none}
+.nw-dots{display:flex;gap:4px}.nw-dots i{width:9px;height:9px;border-radius:50%;border:2px solid #2A313D}.nw-dots i.on{background:#3FD49A;border-color:#3FD49A}
+.nw-pill{font:700 10px ui-monospace,monospace;letter-spacing:.08em;color:#FF5A52;background:rgba(255,90,82,.16);padding:3px 7px;border-radius:999px;width:max-content}
 </style>
-<div class="ldx">
-  <div>
-    <div class="ldx-e"><i aria-hidden="true"></i>New · out-loud practice</div>
-    <h2 id="ldx-h">Live Drill: get asked, answer out loud</h2>
-    <p>A mock call where an interviewer reads you DSA, concept and system design questions. It times how fast you start, lights up the key ideas you mention, and brings the weak ones back on schedule.</p>
-    <div class="ldx-tags"><span>Rapid-fire patterns</span><span>Explain the approach</span><span>Concept quick-fire</span><span>Design sprints</span></div>
-    <a class="ldx-go" id="ldxGo" href="https://saksham0902.github.io/DSA_SD_App/live/" target="_blank" rel="noopener">Open Live Drill ↗</a>
-  </div>
-  <div class="ldx-mock" aria-hidden="true">
-    <span class="ldx-pill">● LIVE</span>
-    <b>"Given an array and a target, return the indices of the two numbers that add up to it."</b>
-    <div class="ldx-row"><span class="ldx-ring">62s</span><div><div class="ldx-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><div style="color:#A4ADBC;margin-top:4px">3/5 key ideas · started in 1.8s</div></div></div>
-  </div>
+<div class="nw-head"><h2 id="nw-h">New ways to learn</h2><p>Swap scrolling for 30-second cards, learn to spot the pattern in any problem, and practise answering out loud like a real interview.</p></div>
+<div class="nw">
+  <a class="nw-c" href="reels.html" style="--c:var(--rose)"><span class="nw-e"><i></i>Dojo Reels</span>
+    <div class="nw-v nw-r" aria-hidden="true"><span></span><span></span><span></span></div>
+    <h3>Swipe through 1,000+ cards</h3><p>Name-the-pattern flashes, quick quizzes, reflexes, traps and interview curveballs. Rate each one and the weak ones come back. Install it to your home screen.</p>
+    <span class="nw-go">Open Reels →</span></a>
+  <a class="nw-c" href="patterns.html" style="--c:var(--amber)"><span class="nw-e"><i></i>Which pattern?</span>
+    <div class="nw-v nw-p" aria-hidden="true"><svg viewBox="0 0 300 132"><rect x="95" y="10" width="110" height="26" rx="8"/><text x="150" y="27" text-anchor="middle">Array or string?</text>
+      <path d="M150 36 V52 M70 52 H230 M70 52 V64 M150 52 V64 M230 52 V64"/><rect x="20" y="64" width="100" height="24" rx="8"/><text x="70" y="80" text-anchor="middle">Pair → target?</text>
+      <rect x="125" y="64" width="50" height="24" rx="8"/><text x="150" y="80" text-anchor="middle">…</text><rect x="180" y="64" width="100" height="24" rx="8"/><text x="230" y="80" text-anchor="middle">Contiguous?</text>
+      <path d="M230 88 V104"/><rect class="hl" x="170" y="104" width="120" height="24" rx="8"/><text x="230" y="120" text-anchor="middle">Sliding window</text></svg></div>
+    <h3>From problem to pattern</h3><p>Answer a few questions about the input and the ask, and land on the pattern with its template and every problem that uses it. Then test yourself.</p>
+    <span class="nw-go">Find the pattern →</span></a>
+  <a class="nw-c" id="ldxGo" href="https://saksham0902.github.io/DSA_SD_App/live/" target="_blank" rel="noopener" style="--c:#FF5A52"><span class="nw-e"><i></i>Live Drill</span>
+    <div class="nw-v nw-l" aria-hidden="true"><span class="nw-pill">● LIVE</span><b>"Return the indices of the two numbers that add up to the target."</b>
+      <div class="nw-row"><span class="nw-ring">62s</span><div><div class="nw-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><div style="color:#A4ADBC;margin-top:4px">3/5 key ideas · started in 1.8s</div></div></div></div>
+    <h3>Answer out loud on a mock call</h3><p>An interviewer asks DSA, concept and design questions. It times how fast you start and lights up the key ideas you mention.</p>
+    <span class="nw-go" id="ldxTx">Open Live Drill ↗</span></a>
 </div>
-<script>(function(){var a=document.getElementById('ldxGo');if(a&&/github\.io$/.test(location.hostname)){a.href='live/';a.removeAttribute('target');a.textContent='Open Live Drill →'}})();</script>
+<script>(function(){var a=document.getElementById('ldxGo');if(a&&/github\.io$/.test(location.hostname)){a.href='live/';a.removeAttribute('target');document.getElementById('ldxTx').textContent='Open Live Drill →'}})();</script>
 </section>
 
   <!--ldx-end--><!--mt-start--><section class="sec" id="match">
@@ -2471,7 +2489,6 @@ const cv=root.querySelector('.cine-stars');if(cv&&C.Stars&&!(window.matchMedia&&
   const loop=now=>{if(!on)return;const dt=Math.min(.1,(now-(last||now))/1000);last=now;t+=dt;st.draw(dt,t);requestAnimationFrame(loop)};
   new IntersectionObserver(es=>{on=es[0].isIntersecting;if(on){last=0;requestAnimationFrame(loop)}}).observe(root)}
 })();</script><!--cin-end-->
-<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--ask-start--><style>.pask-fab{position:fixed;right:calc(max(14px,env(safe-area-inset-right,0px)) + 7px);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:61;height:46px;min-width:46px;padding:0 14px 0 12px;border-radius:999px;border:2px solid #161A33;background:#FFD24A;color:#161A33;font:800 14.5px var(--body,system-ui,sans-serif);box-shadow:3px 3px 0 #161A33;display:flex;align-items:center;gap:7px;cursor:pointer;transition:transform .15s}
 .pask-fab:hover{transform:translateY(-2px)}
 .pask-fab svg{width:20px;height:20px;flex:none}
@@ -3065,6 +3082,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.AskPip={open,close,browse,mountMatcher:(el,o)=>mountMatcher(el,o),openMatch:()=>{open();loadKB().then(()=>tab('match'))},match:(t,n)=>match(t,n),ask:q=>{open();loadKB().then(()=>ask(q))},search:(q,o)=>search(q,o),ready:()=>loadKB(),byId:id=>BYID[id]};
 })();
 </script><!--ask-end-->
+<!--authjs-start--><script src="auth.js"></script><!--authjs-end-->
 <!--mtj-start--><script>(function(){function go(){if(window.AskPip&&AskPip.mountMatcher){AskPip.mountMatcher(document.getElementById('mtHome'),{rows:4});return true}return false}
 if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>40)clearInterval(t)},150)}})();</script><!--mtj-end-->
 <!--thm-start--><style>/* contrast fixes */

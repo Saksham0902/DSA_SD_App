@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Out-loud mock interview practice for DSA, concepts and system design.">
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes">
+<script>if("serviceWorker" in navigator&&/github\.io$/.test(location.hostname))addEventListener("load",function(){navigator.serviceWorker.register("../sw.js").catch(function(){})});</script>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Live Drill</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -118,6 +120,13 @@ main{padding-block:26px 60px}
 .how b{font:650 15px/1.3 var(--f-display)}
 .how p{margin:4px 0 0;color:var(--ink-2);font-size:13.5px}
 
+/* deep link from the Dojo */
+.deep{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;background:var(--cue-soft);border:1.5px solid var(--cue-fill);border-radius:var(--r);padding:14px 16px;margin-bottom:20px}
+.deep[hidden]{display:none}
+.deep .eyebrow{color:var(--cue);width:100%}
+.deep b{font:650 19px/1.25 var(--f-display);flex:1 1 280px;min-width:0}
+.deep .acts{margin-left:auto}
+.deep .x{border:0;background:none;font-size:22px;line-height:1;color:var(--ink-3);padding:2px 6px}
 /* library */
 .lib-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .search{flex:1 1 260px;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:11px;padding:10px 13px}
@@ -357,6 +366,7 @@ mark.cr{background:transparent;color:var(--s-live);text-decoration:line-through;
 <main class="wrap">
   <!-- PRACTICE -->
   <section class="view" id="v-practice" aria-labelledby="h-practice">
+    <div class="deep" id="deep" hidden role="region" aria-label="Question from the Dojo"><span class="eyebrow">From Rubber Duck Dojo</span><b id="deepT"></b><div class="acts"><button class="btn pri" type="button" id="deepGo">Start a one-question call</button><button class="btn" type="button" id="deepSee">See the answer first</button></div><button class="x" type="button" id="deepX" aria-label="Dismiss">×</button></div>
     <div class="lobby">
       <div>
         <div class="hello">
@@ -1391,7 +1401,19 @@ function toastLobby(m){ const t=$('#toast'); t.textContent=m; t.hidden=false; t.
    ROUTING + INIT
    ================================================================= */
 let curView='practice';
+let deepId=null;
+function deep(h){
+  if(!h || !h.startsWith('d-')) return false;
+  const id=h.slice(2), b=BYID[id];
+  if(!b || b.k==='rfq'){ $('#deep').hidden=true; deepId=null; setTimeout(()=>toastLobby('That question isn\'t in Live Drill yet. Pick a format below.'), 300); return true }
+  deepId=id; const x=b.x; $('#deepT').textContent = b.k==='dsa'? x.t : b.k==='con'? x.q : x.name; $('#deep').hidden=false;
+  return true;
+}
+$('#deepGo').onclick=()=>{ if(!deepId) return; const S=buildSession(null, deepId); if(S.fmt==='sd') S.sdMin=UI.sdLen; $('#deep').hidden=true; startCall(S) };
+$('#deepSee').onclick=()=>{ if(!deepId) return; const b=BYID[deepId]; LIB.kind=b.k==='dsa'?'dsa':b.k==='con'?'con':'sd'; LIB.topic=''; LIB.q=b.k==='dsa'?b.x.t:b.k==='con'?b.x.q:b.x.name; LIB.open.add(deepId); $('#q').value=LIB.q; $('#libKind').value=LIB.kind; $('#deep').hidden=true; location.hash='library' };
+$('#deepX').onclick=()=>{ $('#deep').hidden=true; deepId=null };
 function show(v){
+  if(deep(v)) v='practice';
   if(!['practice','library','progress','prefs'].includes(v)) v='practice';
   curView=v; $$('.view').forEach(s=>s.hidden = s.id!=='v-'+v);
   $$('.tabs a').forEach(a=>a.toggleAttribute('aria-current', a.dataset.v===v)); $$('.tabs a').forEach(a=>{ if(a.dataset.v===v) a.setAttribute('aria-current','page') });
