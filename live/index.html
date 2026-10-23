@@ -1,0 +1,1410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Out-loud mock interview practice for DSA, concepts and system design.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Live Drill</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Martian+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+<script>(function(){try{var t=localStorage.getItem('rdd-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+<style>
+/* Layout: a broadcast-booth lobby (cards on a cool studio grey) that opens into a dark "on air" call stage. */
+:root{
+  --bg:#EDEFF3; --surface:#FFFFFF; --surface-2:#F5F6F9; --ink:#14171D; --ink-2:#465061; --ink-3:#5F6878; --line:#D6DBE3; --line-2:#C3CAD5;
+  --cue:#9A5A00; --cue-fill:#F2A93B; --cue-ink:#1C1405; --cue-soft:#FCEBCB;
+  --live:#C9302C; --live-soft:#FBE1DF; --ok:#13744F; --ok-soft:#D9F1E6; --warn:#9A5A00;
+  --chart:#2F5BD3; --chart-soft:#DCE5FB;
+  --stage:#0B0E13; --tile:#151A22; --tile-2:#1C222C; --tile-line:#2A313D; --s-ink:#EDF0F5; --s-ink-2:#A4ADBC; --s-ink-3:#7E8899;
+  --s-cue:#F5B04A; --s-live:#FF5A52; --s-ok:#3FD49A;
+  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body:"Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"Martian Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:14px; --r-s:9px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1116; --surface:#161A21; --surface-2:#1C212A; --ink:#E9ECF1; --ink-2:#B2BAC7; --ink-3:#8E97A6; --line:#2A303B; --line-2:#3A4250;
+  --cue:#F4B356; --cue-fill:#F2A93B; --cue-ink:#1C1405; --cue-soft:#3A2B12;
+  --live:#FF6B63; --live-soft:#3D1A19; --ok:#46D6A0; --ok-soft:#14352A; --warn:#F4B356;
+  --chart:#7FA2FF; --chart-soft:#1E2A45; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1116; --surface:#161A21; --surface-2:#1C212A; --ink:#E9ECF1; --ink-2:#B2BAC7; --ink-3:#8E97A6; --line:#2A303B; --line-2:#3A4250;
+  --cue:#F4B356; --cue-fill:#F2A93B; --cue-ink:#1C1405; --cue-soft:#3A2B12;
+  --live:#FF6B63; --live-soft:#3D1A19; --ok:#46D6A0; --ok-soft:#14352A; --warn:#F4B356;
+  --chart:#7FA2FF; --chart-soft:#1E2A45; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2.5px solid var(--chart);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);font-weight:650;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:500 11px/1.3 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;min-height:60px;flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;font:750 20px/1 var(--f-display);letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.tally{width:12px;height:12px;border-radius:50%;background:var(--live);box-shadow:0 0 0 4px var(--live-soft)}
+.tabs{display:flex;gap:4px;margin-left:8px;flex-wrap:wrap}
+.tabs a{padding:7px 12px;border-radius:9px;color:var(--ink-2);text-decoration:none;font-weight:600;font-size:14px}
+.tabs a[aria-current="page"]{background:var(--ink);color:var(--surface)}
+.tabs a:hover:not([aria-current]){background:var(--surface-2);color:var(--ink)}
+.top-r{margin-left:auto;display:flex;gap:8px;align-items:center}
+.ibtn{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
+.ibtn:hover{border-color:var(--ink-3)}
+.ibtn svg{width:18px;height:18px}
+.dojo{font-size:13px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:7px 10px;border-radius:9px;border:1.5px solid var(--line)}
+.dojo:hover{color:var(--ink);border-color:var(--ink-3)}
+@media (max-width:640px){.tabs{order:3;width:100%;margin-left:0}.tabs a{flex:1;text-align:center;padding:7px 6px}.dojo{display:none}}
+
+main{padding-block:26px 60px}
+.view[hidden]{display:none}
+
+/* lobby */
+.lobby{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:920px){.lobby{grid-template-columns:1fr}.lobby>div{display:contents}.hello{order:1}.formats{order:2}.cfg{order:3}.strip{order:4}.how{order:5}}
+.hello h1{font-size:clamp(28px,4.4vw,44px);line-height:1.05;font-weight:750}
+.hello p{color:var(--ink-2);max-width:62ch;margin:10px 0 0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.formats{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:10px;margin-top:18px}
+.fmt{position:relative;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:14px 14px 12px;display:flex;flex-direction:column;gap:4px;min-height:118px}
+.fmt:hover{border-color:var(--line-2)}
+.fmt[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.fmt b{font:650 16px/1.2 var(--f-display)}
+.fmt span{color:var(--ink-2);font-size:13.5px;line-height:1.4}
+.fmt .len{font:500 11px/1 var(--f-mono);color:var(--ink-3);letter-spacing:.04em;margin-top:auto;padding-top:8px}
+.fmt .due{position:absolute;top:12px;right:12px;font:600 11px/1 var(--f-mono);background:var(--cue-soft);color:var(--cue);padding:5px 7px;border-radius:6px}
+.cfg{display:flex;flex-direction:column;gap:16px}
+.cfg h2{font-size:20px}
+.row{display:flex;flex-direction:column;gap:7px}
+.row>label,.row>.lbl{font-weight:600;font-size:13px;color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:500;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.chip:hover:not([aria-pressed="true"]){border-color:var(--ink-3);color:var(--ink)}
+.stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;width:max-content}
+.stepper button{border:0;background:var(--surface-2);width:36px;height:36px;font-size:18px}
+.stepper output{min-width:46px;text-align:center;font:600 14px var(--f-mono)}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.person{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.person svg{width:52px;height:52px}
+.person b{font:650 14px/1.1 var(--f-display)}
+.person span{font-size:11.5px;color:var(--ink-3);line-height:1.3}
+.person[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.status{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.status i{flex:none;width:9px;height:9px;border-radius:50%;margin-top:6px;background:var(--ink-3)}
+.status.on i{background:var(--ok)} .status.mid i{background:var(--cue-fill)}
+.status a{color:var(--ink);font-weight:600}
+.go{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;border-radius:12px;background:var(--cue-fill);color:var(--cue-ink);font:700 17px/1 var(--f-display);padding:16px}
+.go:hover{filter:brightness(1.05)}
+.go .tally{background:var(--live);box-shadow:0 0 0 3px rgba(0,0,0,.12)}
+.go[disabled]{opacity:.55;cursor:not-allowed}
+.note{font-size:12.5px;color:var(--ink-3)}
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:22px}
+@media (max-width:640px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font:600 24px/1.1 var(--f-mono);letter-spacing:-.02em;margin-top:6px}
+.stat small{color:var(--ink-3);font-size:12px}
+.how{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.how{grid-template-columns:1fr}}
+.how div{border-top:2px solid var(--ink);padding-top:10px}
+.how b{font:650 15px/1.3 var(--f-display)}
+.how p{margin:4px 0 0;color:var(--ink-2);font-size:13.5px}
+
+/* library */
+.lib-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.search{flex:1 1 260px;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:11px;padding:10px 13px}
+.sel{border:1.5px solid var(--line);background:var(--surface);border-radius:11px;padding:9px 10px;max-width:100%}
+.lib-count{color:var(--ink-3);font-size:13px;margin-bottom:8px}
+.cards{display:flex;flex-direction:column;gap:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.card>button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;width:100%;padding:12px 14px}
+.card>button:focus-visible{outline:2.5px solid var(--chart);outline-offset:-2px;border-radius:12px}
+.card .t{font-weight:600;min-width:0}
+.card .m{grid-column:1;display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--ink-3)}
+.tag{font:500 11px/1 var(--f-mono);padding:4px 6px;border-radius:6px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.tag.e{color:var(--ok)} .tag.h{color:var(--live)}
+.pips{grid-row:1/3;grid-column:2;align-self:center;display:flex;gap:3px}
+.pips i{width:7px;height:16px;border-radius:2px;background:var(--line)}
+.pips i.on{background:var(--ok)}
+.card .body{padding:0 14px 14px;display:grid;gap:12px;font-size:14px}
+.card .body[hidden]{display:none}
+.say{background:var(--cue-soft);border-radius:10px;padding:10px 12px}
+.say .eyebrow{color:var(--cue)}
+.say p{margin:4px 0 0;font-size:15px}
+.kv{display:grid;gap:4px}
+.kv ol,.kv ul{margin:2px 0 0;padding-left:20px}
+.qa{display:grid;gap:6px}
+.qa div{border-left:2px solid var(--line-2);padding-left:10px}
+.qa b{font-weight:600}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 13px;font-weight:600;font-size:13.5px;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+.btn:hover{border-color:var(--ink-3)}
+.btn.pri{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.more{display:block;margin:12px auto 0}
+
+/* progress */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px;margin-top:14px}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .ax{font:500 10.5px var(--f-mono);fill:var(--ink-3)}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;padding:6px 8px;border-radius:7px;white-space:nowrap;transform:translate(-50%,-115%)}
+.tip[hidden]{display:none}
+.bars{display:grid;gap:7px}
+.bar{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr) 3.4em;gap:10px;align-items:center;font-size:13px}
+.bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink-2)}
+.bar .tr{height:12px;border-radius:4px;background:var(--surface-2);overflow:hidden;position:relative}
+.bar .fl{position:absolute;inset:0 auto 0 0;background:var(--chart);border-radius:0 4px 4px 0}
+.bar output{font:500 12px var(--f-mono);text-align:right;color:var(--ink-2)}
+.hist{display:flex;flex-direction:column}
+.hist div{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px;align-items:center}
+.hist div:last-child{border-bottom:0}
+.empty{color:var(--ink-3);font-size:14px;padding:18px;text-align:center;border:1.5px dashed var(--line-2);border-radius:12px}
+
+/* settings */
+.set{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.set .panel{display:grid;gap:14px;align-content:start}
+.field{display:grid;gap:6px}
+.field label{font-weight:600;font-size:13.5px}
+.field small{color:var(--ink-3);font-size:12.5px}
+.field input[type="text"],.field select{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 11px;width:100%}
+.tog{display:flex;align-items:flex-start;gap:10px;font-size:14px}
+.tog input{width:18px;height:18px;margin-top:2px;accent-color:var(--ink)}
+.tog small{display:block;color:var(--ink-3);font-size:12.5px}
+input[type="range"]{width:100%;accent-color:var(--ink)}
+.danger{color:var(--live);border-color:var(--live-soft)}
+
+/* ===== call stage (dark in both themes) ===== */
+.stage{position:fixed;inset:0;z-index:50;background:var(--stage);color:var(--s-ink);display:flex;flex-direction:column;
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);color-scheme:dark}
+.stage[hidden]{display:none}
+.s-top{position:relative;z-index:6;background:var(--stage);display:flex;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-left,0px)) 10px;flex-wrap:wrap}
+.s-top .tally{background:var(--s-live);box-shadow:0 0 0 4px rgba(255,90,82,.18);animation:blink 1.6s ease-in-out infinite}
+.s-title{font:650 15px/1.2 var(--f-display);min-width:0}
+.s-title small{display:block;font:500 11px/1.3 var(--f-mono);color:var(--s-ink-3);letter-spacing:.05em;text-transform:uppercase}
+.s-clock{margin-left:auto;font:500 13px var(--f-mono);color:var(--s-ink-2)}
+.endc{border:0;border-radius:10px;background:var(--s-live);color:#1A0503;font-weight:700;padding:9px 14px;font-size:14px}
+.s-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:14px;padding:0 max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+@media (max-width:900px){.s-body{grid-template-columns:1fr;overflow:auto}}
+.tiles{display:grid;grid-template-rows:minmax(0,1.35fr) minmax(0,1fr);gap:12px;min-height:0}
+@media (max-width:900px){.tiles{grid-template-rows:none;grid-template-columns:1.4fr 1fr;height:auto}}
+.tilex{position:relative;background:var(--tile);border-radius:16px;overflow:hidden;display:grid;place-items:center;min-height:150px;border:2px solid transparent;transition:border-color .2s}
+.tilex.speaking{border-color:var(--s-ok)}
+.tilex .who{position:absolute;left:10px;bottom:10px;font:600 12.5px var(--f-body);background:rgba(0,0,0,.55);padding:4px 9px;border-radius:7px;display:flex;gap:7px;align-items:center}
+.tilex .who em{font-style:normal;color:var(--s-ink-3);font-weight:500}
+.avatar{width:min(46%,190px);aspect-ratio:1}
+.avatar svg{width:100%;height:100%}
+.avatar .mouth{transform-box:fill-box;transform-origin:center}
+.talk .mouth{animation:talk .22s ease-in-out infinite alternate}
+.avatar .lids{transform-box:fill-box;transform-origin:center;animation:lid 5s infinite}
+@keyframes talk{from{transform:scaleY(.6)}to{transform:scaleY(2.6)}}
+@keyframes lid{0%,95%,100%{transform:scaleY(0)}97%{transform:scaleY(1)}}
+@keyframes blink{50%{opacity:.35}}
+.me{width:min(34%,120px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--tile-2);font:700 34px var(--f-display);color:var(--s-ink-2);position:relative}
+.me::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid var(--s-ok);opacity:var(--lvl,0);transition:opacity .08s}
+.tilex video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.tilex .mic-off{position:absolute;right:10px;top:10px;font:500 11px var(--f-mono);background:rgba(0,0,0,.55);padding:4px 7px;border-radius:6px;color:var(--s-ink-2)}
+.sub{position:absolute;left:12px;right:12px;bottom:44px;text-align:center;font-size:15px;line-height:1.4;color:#fff;text-shadow:0 1px 3px #000}
+.sub span{background:rgba(0,0,0,.6);padding:2px 6px;border-radius:5px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.desk{display:flex;flex-direction:column;gap:12px;min-height:0;overflow:auto;padding-right:2px}
+.qcard{background:var(--tile);border-radius:16px;padding:16px 18px;border:1px solid var(--tile-line)}
+.qcard .eyebrow{color:var(--s-cue)}
+.qtext{font:500 clamp(17px,2vw,21px)/1.45 var(--f-display);margin-top:6px}
+.qtext.blur{filter:blur(7px);user-select:none}
+.clar{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.clar[hidden]{display:none}
+.clar .eyebrow{width:100%;color:var(--s-ink-3)}
+.clar button{border:1px solid var(--tile-line);background:var(--tile-2);color:var(--s-ink);border-radius:999px;padding:6px 11px;font-size:13px}
+.clar button:hover{border-color:var(--s-ink-3)}
+.clar button[disabled]{opacity:.5;cursor:default}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+@media (max-width:520px){.opts{grid-template-columns:1fr}}
+.opts[hidden]{display:none}
+.opts button{text-align:left;border:1.5px solid var(--tile-line);background:var(--tile-2);color:var(--s-ink);border-radius:12px;padding:11px 12px;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+.opts button kbd{font:600 11px var(--f-mono);color:var(--s-ink-3);border:1px solid var(--tile-line);border-radius:5px;padding:2px 5px;flex:none}
+.opts button.right{border-color:var(--s-ok);background:rgba(63,212,154,.14)}
+.opts button.wrong{border-color:var(--s-live);background:rgba(255,90,82,.14)}
+.meter{background:var(--tile);border-radius:16px;padding:14px 16px;border:1px solid var(--tile-line);display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.ring{position:relative;width:74px;height:74px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:7}
+.ring .bgc{stroke:var(--tile-2)}
+.ring .fgc{stroke:var(--s-cue);stroke-linecap:round;transition:stroke-dashoffset .1s linear}
+.ring.low .fgc{stroke:var(--s-live)}
+.ring output{position:absolute;inset:0;display:grid;place-items:center;font:600 15px var(--f-mono)}
+.pstate{display:flex;flex-direction:column;gap:8px;min-width:0}
+.pill{display:inline-flex;align-items:center;gap:7px;font:600 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:999px;width:max-content;background:var(--tile-2);color:var(--s-ink-2)}
+.pill i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.pill.live{background:rgba(255,90,82,.16);color:var(--s-live)} .pill.live i{animation:blink 1s infinite}
+.pill.think{background:rgba(245,176,74,.16);color:var(--s-cue)}
+.pill.int{background:rgba(63,212,154,.13);color:var(--s-ok)}
+.plabel{font-size:13.5px;color:var(--s-ink-2)}
+.dots{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.dots i{width:13px;height:13px;border-radius:50%;border:2px solid var(--tile-line)}
+.dots i.on{background:var(--s-ok);border-color:var(--s-ok);animation:pop .35s ease-out}
+.dots small{font:500 11px var(--f-mono);color:var(--s-ink-3);margin-left:4px}
+@keyframes pop{50%{transform:scale(1.35)}}
+.steps5{display:flex;gap:4px;flex-wrap:wrap}
+.steps5 span{font:500 10.5px/1 var(--f-mono);padding:5px 7px;border-radius:6px;background:var(--tile-2);color:var(--s-ink-3)}
+.steps5 span.cur{background:var(--s-cue);color:#1C1405}
+.steps5 span.done{color:var(--s-ok)}
+.caps{background:var(--tile);border-radius:16px;padding:12px 16px;border:1px solid var(--tile-line);min-height:74px}
+.caps .eyebrow{color:var(--s-ink-3)}
+.capt{margin-top:5px;font-size:15px;line-height:1.5;color:var(--s-ink)}
+.capt .interim{color:var(--s-ink-3)}
+mark.cr{background:transparent;color:var(--s-live);text-decoration:line-through;text-decoration-thickness:1.5px}
+.capt.hint{color:var(--s-ink-2);font-size:14px}
+.pad{background:var(--tile);border-radius:16px;border:1px solid var(--tile-line);padding:10px 12px}
+.pad[hidden]{display:none}
+.pad textarea{width:100%;min-height:120px;background:transparent;border:0;color:var(--s-ink);font:13.5px/1.5 var(--f-mono);resize:vertical}
+.pad textarea:focus{outline:none}
+.ctrl{display:flex;justify-content:center;align-items:center;gap:8px;padding:10px max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));flex-wrap:wrap;border-top:1px solid var(--tile-line)}
+.cb{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:0;background:var(--tile-2);color:var(--s-ink)}
+.cb:hover{background:#262D39}
+.cb svg{width:20px;height:20px}
+.cb.off{background:#3A2422;color:var(--s-live)}
+.cb[disabled]{opacity:.4;cursor:default}
+.big{border:0;border-radius:999px;padding:13px 22px;font:700 15px/1 var(--f-display);display:inline-flex;gap:9px;align-items:center;background:var(--s-cue);color:#1C1405}
+.big kbd{font:600 10.5px var(--f-mono);border:1px solid rgba(0,0,0,.35);border-radius:5px;padding:2px 5px}
+.big.ghost{background:var(--tile-2);color:var(--s-ink)}
+.big.ghost kbd{border-color:var(--tile-line);color:var(--s-ink-3)}
+.big[hidden]{display:none}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--s-ink);color:var(--stage);padding:9px 14px;border-radius:10px;font-size:13.5px;z-index:70;max-width:min(92vw,520px);text-align:center}
+.toast[hidden]{display:none}
+
+/* debrief + report sheets on the stage */
+.sheet{position:absolute;inset:0;z-index:5;padding-top:70px!important;background:rgba(5,7,10,.72);display:flex;justify-content:center;overflow:auto;padding:max(14px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 24px max(12px,env(safe-area-inset-left,0px))}
+.sheet[hidden]{display:none}
+.paper{background:var(--surface);color:var(--ink);border-radius:18px;width:min(860px,100%);height:max-content;padding:20px;display:grid;gap:16px;color-scheme:light}
+:root[data-theme="dark"] .paper{color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .paper{color-scheme:dark}}
+.paper h2{font-size:clamp(20px,2.6vw,26px)}
+.dhead{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.score{display:flex;align-items:baseline;gap:6px}
+.score b{font:600 40px/1 var(--f-mono);letter-spacing:-.03em}
+.score small{color:var(--ink-3);font-size:13px}
+.mets{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.met{border:1px solid var(--line);border-radius:11px;padding:10px 12px}
+.met b{display:block;font:600 19px/1.15 var(--f-mono);margin-top:4px}
+.met small{display:block;color:var(--ink-3);font-size:12px;margin-top:2px}
+.met.good b{color:var(--ok)} .met.bad b{color:var(--live)} .met.mid b{color:var(--warn)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:720px){.cols{grid-template-columns:1fr}}
+.ticks{display:grid;gap:6px}
+.ticks label{display:flex;gap:9px;align-items:flex-start;font-size:14px;padding:7px 9px;border:1px solid var(--line);border-radius:9px;cursor:pointer}
+.ticks label.hit{border-color:var(--ok);background:var(--ok-soft)}
+.ticks input{accent-color:var(--ok);width:16px;height:16px;margin-top:3px}
+.ticks em{font-style:normal;color:var(--ink-3);font-size:12px;display:block}
+.trans{font-size:14px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:10px 12px;max-height:160px;overflow:auto}
+.trans mark.cr{color:var(--live)}
+.model{display:grid;gap:10px;font-size:14.5px}
+.model ol{margin:0;padding-left:20px}
+.model p{margin:0}
+.grades{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.grades{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.grades button{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:11px 8px;text-align:center;display:grid;gap:3px}
+.grades button b{font:650 15px var(--f-display)}
+.grades button small{font-size:11.5px;color:var(--ink-3)}
+.grades button kbd{font:500 10.5px var(--f-mono);color:var(--ink-3)}
+.grades button.sug{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.grades button:hover{border-color:var(--ink-3)}
+.sec-h{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap}.sec-h h3{white-space:nowrap}
+.sec-h h3{font-size:16px}
+.rtable{width:100%;border-collapse:collapse;font-size:13.5px}
+.rtable th{font:500 11px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.rtable td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.rtable td.n{font-family:var(--f-mono);white-space:nowrap}
+.scroll-x{overflow-x:auto}
+.gchip{font:600 11px/1 var(--f-mono);padding:4px 7px;border-radius:6px;white-space:nowrap}
+.g0{background:var(--live-soft);color:var(--live)} .g1{background:var(--cue-soft);color:var(--cue)} .g2,.g3{background:var(--ok-soft);color:var(--ok)}
+.tips{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.tips li{border-left:3px solid var(--cue-fill);padding:4px 0 4px 12px;font-size:14.5px}
+.confirm{position:relative;z-index:6;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--tile);border:1px solid var(--tile-line);border-radius:12px;padding:10px 12px;font-size:14px}
+.confirm[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#practice" aria-label="Live Drill home"><span class="tally" aria-hidden="true"></span>Live Drill</a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#practice" data-v="practice">Practice</a>
+      <a href="#library" data-v="library">Library</a>
+      <a href="#progress" data-v="progress">Progress</a>
+      <a href="#prefs" data-v="prefs">Settings</a>
+    </nav>
+    <div class="top-r">
+      <a class="dojo" id="dojoLink" href="../" target="_blank" rel="noopener">Rubber Duck Dojo ↗</a>
+      <button class="ibtn" id="themeBtn" type="button" aria-label="Switch theme"></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- PRACTICE -->
+  <section class="view" id="v-practice" aria-labelledby="h-practice">
+    <div class="lobby">
+      <div>
+        <div class="hello">
+          <p class="eyebrow">Out-loud practice for SDE interviews</p>
+          <h1 id="h-practice">Get asked. Answer out loud. Get faster.</h1>
+          <p>A mock call where an interviewer asks you DSA, concept and system design questions. You answer out loud, and the app times how fast you start, checks which key ideas you hit, and schedules the weak ones again.</p>
+        </div>
+        <div class="formats" id="formats" role="group" aria-label="Call format"></div>
+        <div class="strip" id="strip"></div>
+        <div class="how">
+          <div><b>1 · Hear it</b><p>The interviewer reads the question aloud, like on a real call. Ask a clarifying question if you need one.</p></div>
+          <div><b>2 · Say it</b><p>Start talking. The clock measures how long you take to begin, and lights a dot for each key idea you mention.</p></div>
+          <div><b>3 · Fix it</b><p>The debrief shows what you missed and the model answer. Rate yourself and the app brings it back at the right time.</p></div>
+        </div>
+      </div>
+      <aside class="panel cfg" aria-labelledby="h-cfg">
+        <h2 id="h-cfg">Set up the call</h2>
+        <div class="row" id="topicRow"><span class="lbl" id="topicLbl">Topics</span><div class="chips" id="topics" role="group" aria-labelledby="topicLbl"></div></div>
+        <div class="row" id="countRow"><span class="lbl" id="countLbl">Questions</span>
+          <div class="stepper" role="group" aria-labelledby="countLbl"><button type="button" id="cMinus" aria-label="Fewer">−</button><output id="cOut">3</output><button type="button" id="cPlus" aria-label="More">+</button></div></div>
+        <div class="row" id="sdLenRow" hidden><span class="lbl" id="sdLbl">Length</span><div class="chips" id="sdLen" role="group" aria-labelledby="sdLbl"></div></div>
+        <div class="row"><span class="lbl" id="ivLbl">Interviewer</span><div class="people" id="people" role="group" aria-labelledby="ivLbl"></div></div>
+        <div class="status" id="micStatus"><i></i><span>Checking your browser…</span></div>
+        <button class="go" id="startBtn" type="button"><span class="tally" aria-hidden="true"></span><span id="startTx">Start the call</span></button>
+        <p class="note">Wear headphones so the interviewer's voice doesn't count as you talking. Keys during a call: <span class="mono">Space</span> start answering, <span class="mono">Enter</span> done, <span class="mono">R</span> repeat, <span class="mono">H</span> hint.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section class="view" id="v-library" hidden aria-labelledby="h-lib">
+    <div class="hello" style="margin-bottom:16px"><p class="eyebrow">Every question, with the answer to say out loud</p><h1 id="h-lib" style="font-size:clamp(26px,3.6vw,36px)">Library</h1></div>
+    <div class="lib-bar">
+      <input class="search" id="q" type="search" placeholder="Search a problem, pattern or concept…" aria-label="Search">
+      <select class="sel" id="libKind" aria-label="Kind"><option value="dsa">DSA problems</option><option value="con">Concepts</option><option value="sd">System design</option></select>
+      <select class="sel" id="libTopic" aria-label="Topic"></select>
+      <select class="sel" id="libSort" aria-label="Sort"><option value="def">Default order</option><option value="weak">Weakest first</option><option value="due">Due first</option></select>
+    </div>
+    <div class="lib-count" id="libCount"></div>
+    <div class="cards" id="cards"></div>
+    <button class="btn more" id="libMore" type="button" hidden>Show more</button>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="view" id="v-progress" hidden aria-labelledby="h-prog">
+    <div class="hello" style="margin-bottom:16px"><p class="eyebrow">How quickly and fully you answer</p><h1 id="h-prog" style="font-size:clamp(26px,3.6vw,36px)">Progress</h1></div>
+    <div id="progBody"></div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="view" id="v-prefs" hidden aria-labelledby="h-set">
+    <div class="hello" style="margin-bottom:16px"><p class="eyebrow">Voice, timing and behaviour</p><h1 id="h-set" style="font-size:clamp(26px,3.6vw,36px)">Settings</h1></div>
+    <div class="set" id="setBody"></div>
+  </section>
+</main>
+
+<!-- CALL STAGE -->
+<div class="stage" id="stage" hidden role="dialog" aria-modal="true" aria-label="Mock interview call">
+  <div class="s-top">
+    <span class="tally" aria-hidden="true"></span>
+    <div class="s-title"><small id="sMode">Explain the approach</small><span id="sProg">Question 1 of 3</span></div>
+    <span class="s-clock" id="sClock">00:00</span>
+    <button class="endc" id="endBtn" type="button">End call</button>
+  </div>
+  <div class="confirm" id="endConfirm" hidden style="margin:0 16px 10px"><span>End the call? Answers so far will be saved.</span><button class="big ghost" id="endNo" type="button">Keep going</button><button class="big" id="endYes" type="button" style="background:var(--s-live)">End call</button></div>
+  <div class="s-body">
+    <div class="tiles">
+      <div class="tilex" id="ivTile"><div class="avatar" id="ivAv"></div><div class="sub" id="ivSub"></div><div class="who"><span id="ivName">Ira</span><em>Interviewer</em></div></div>
+      <div class="tilex" id="meTile"><video id="cam" playsinline muted hidden></video><div class="me" id="meAv">Y</div><span class="mic-off" id="meMicTag" hidden>mic off</span><div class="who"><span id="meName">You</span></div></div>
+    </div>
+    <div class="desk">
+      <div class="qcard">
+        <div class="eyebrow" id="qKind">Question</div>
+        <div class="qtext" id="qText"></div>
+        <div class="clar" id="clar" hidden></div>
+        <div class="opts" id="opts" hidden></div>
+      </div>
+      <div class="meter">
+        <div class="ring" id="ring"><svg viewBox="0 0 80 80" aria-hidden="true"><circle class="bgc" cx="40" cy="40" r="34"/><circle class="fgc" id="ringFg" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="0"/></svg><output id="ringTx">--</output></div>
+        <div class="pstate"><span class="pill" id="pill"><i></i><span>Listening</span></span><span class="plabel" id="plabel">The interviewer is speaking</span><div class="dots" id="dots"></div><div class="steps5" id="steps5" hidden></div></div>
+      </div>
+      <div class="caps"><div class="eyebrow" id="capsLbl">Your words</div><div class="capt" id="capt"></div></div>
+      <div class="pad" id="pad" hidden><div class="eyebrow" style="color:var(--s-ink-3)">Scratchpad · notes stay in this call</div><textarea id="padTx" aria-label="Scratchpad"></textarea></div>
+    </div>
+  </div>
+  <div class="ctrl">
+    <button class="cb" id="bMic" type="button" aria-label="Mute microphone" title="Microphone"></button>
+    <button class="cb" id="bCam" type="button" aria-label="Turn camera on" title="Camera"></button>
+    <button class="cb" id="bEye" type="button" aria-label="Hide question text" title="Hide question text (audio only)"></button>
+    <button class="cb" id="bRep" type="button" aria-label="Repeat the question" title="Repeat (R)"></button>
+    <button class="cb" id="bHint" type="button" aria-label="Ask for a hint" title="Hint (H)"></button>
+    <button class="cb" id="bPad" type="button" aria-label="Show scratchpad" title="Scratchpad"></button>
+    <button class="big ghost" id="bStart" type="button"><span>I'm answering</span><kbd>Space</kbd></button>
+    <button class="big" id="bDone" type="button"><span>Done</span><kbd>Enter</kbd></button>
+    <button class="cb" id="bSkip" type="button" aria-label="Skip this question" title="Skip"></button>
+  </div>
+  <div class="sheet" id="sheet" hidden><div class="paper" id="paper"></div></div>
+  <div class="toast" id="toast" hidden role="status"></div>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+'use strict';
+const D = window.LD;
+const TS = (()=>{ try{ return +(localStorage.getItem('ld-ts')||1) || 1 }catch(e){ return 1 } })(); // time scale (tests)
+const $ = (s, r=document)=>r.querySelector(s), $$ = (s, r=document)=>[...r.querySelectorAll(s)];
+const esc = s=>String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
+const now = ()=>performance.now();
+const sleep = ms=>new Promise(r=>setTimeout(r, ms*TS));
+const shuffle = a=>{ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a };
+const pick = a=>a[Math.floor(Math.random()*a.length)];
+const median = a=>{ if(!a.length) return null; const s=a.slice().sort((x,y)=>x-y), m=s.length>>1; return s.length%2?s[m]:(s[m-1]+s[m])/2 };
+const secs = ms=>ms==null?'–':(ms/1000).toFixed(ms<10000?1:0)+'s';
+const mmss = ms=>{ const s=Math.max(0,Math.round(ms/1000)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0') };
+const DAY = 864e5;
+const ON_SITE = /github\.io$/.test(location.hostname) || location.protocol==='file:' || /^(localhost|127\.)/.test(location.hostname);
+const SITE = 'https://saksham0902.github.io/DSA_SD_App/';
+const DOJO = ON_SITE ? '../' : SITE;
+
+/* ---------- storage ---------- */
+const DEF = {name:'', persona:'ira', voice:'auto', rate:1, lang:'en-IN', mic:true, tts:true, showQ:true, dots:true, sfx:true, fu:'some', ans:90, fuT:45, con:45, rf:8, sdMin:12};
+const ST = (()=>{ let s=null; try{ s=JSON.parse(localStorage.getItem('ld-v1')||'null') }catch(e){}
+  s = s||{}; s.set = Object.assign({}, DEF, s.set||{}); s.cards = s.cards||{}; s.hist = s.hist||[]; return s })();
+function save(){ try{ localStorage.setItem('ld-v1', JSON.stringify(ST)) }catch(e){} }
+
+/* ---------- content indexes ---------- */
+const PATS = D.pats, TOPICS = D.topics;
+const DSA = D.dsa, CON = D.con, SDS = D.sd, RFQ = D.rf;
+const BYID = {}; DSA.forEach(x=>BYID[x.id]={k:'dsa',x}); CON.forEach(x=>BYID[x.id]={k:'con',x}); SDS.forEach(x=>BYID[x.id]={k:'sd',x});
+RFQ.forEach(x=>BYID[x.id]={k:'rfq',x});
+const DSA_TOPICS = [...new Set(DSA.map(x=>x.s))];
+const CON_CATS = [...new Set(CON.map(x=>x.cat))];
+const titleKey = t=>t.toLowerCase().replace(/\(.*?\)/g,'').replace(/[^a-z0-9]/g,'');
+
+/* ---------- spaced repetition ---------- */
+const BOX_DAYS = [0, 1, 3, 7, 16, 35];
+const GRADES = [{k:0,n:'Blanked',s:'Bring it back soon'},{k:1,n:'Shaky',s:'Tomorrow'},{k:2,n:'Solid',s:'In a few days'},{k:3,n:'Instant',s:'Much later'}];
+function card(id){ return ST.cards[id] || null }
+function grade(id, g, extra){
+  const c = ST.cards[id] || {b:0, n:0};
+  c.n = (c.n||0)+1; c.g = g; c.t = Date.now();
+  if(g===0){ c.b=0; c.due=Date.now()+10*60e3 }
+  else if(g===1){ c.b=1; c.due=Date.now()+DAY }
+  else { c.b=Math.min(5,(c.b||0)+(g===3?2:1)); c.due=Date.now()+BOX_DAYS[c.b]*DAY }
+  if(extra && extra.first!=null){ c.lat=(c.lat||[]).concat(Math.round(extra.first)).slice(-6) }
+  ST.cards[id]=c; save();
+}
+const isDue = id=>{ const c=card(id); return c && c.due<=Date.now() };
+function dueIds(){ return Object.keys(ST.cards).filter(id=>BYID[id] && !id.startsWith('rf:') && BYID[id].k!=='rfq' && isDue(id)) }
+
+/* ---------- text matching ---------- */
+const NUMW = {'twenty six':26,'thirty two':32,zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,sixteen:16,twenty:20,thirty:30,hundred:100};
+const NUMRE = new RegExp('\\b('+Object.keys(NUMW).join('|')+')\\b','g');
+function nz(s){ return (' '+String(s).replace(/²/g,' squared').replace(/³/g,' cubed').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9+^ ]+/g,' ').replace(NUMRE,m=>NUMW[m])+' ').replace(/\s+/g,' ') }
+function cxOf(t){ // complexity classes heard in normalised text
+  let s = t.replace(/\b(and|in|an|end|en)\b(?= log)/g,'n').replace(/\blog of\b/g,'log').replace(/\bbig\b/g,'').replace(/\boh\b/g,'o');
+  const C = new Set(), has = re=>re.test(s);
+  if(has(/\bn ?log ?n\b/)) C.add('nlogn');
+  if(has(/\bn ?log ?k\b/)) C.add('nlogk');
+  if(has(/\bn ?log\b/)) C.add('nlog');
+  if(/\blog ?n\b/.test(s.replace(/\bn ?log ?n\b/g,' '))) C.add('logn');
+  if(has(/\blog ?k\b/)) C.add('logk');
+  if(has(/\be ?log ?v\b/)) C.add('elogv');
+  if(has(/\b(n ?squared|n ?square|n ?\^ ?2|n to the (power )?(of )?2|quadratic)\b/)) C.add('n2');
+  if(has(/\b(n ?cubed|n ?\^ ?3|n to the (power )?(of )?3|cubic)\b/)) C.add('n3');
+  if(has(/\b(2 ?to the ?n|2 ?\^ ?n|exponential)\b/)) C.add('2n');
+  if(has(/\b(4 ?to the ?n|4 ?\^ ?n)\b/)) C.add('4n');
+  if(has(/\bn ?factorial\b/)) C.add('nf');
+  if(has(/\b(constant|o ?(of )?1|order (of )?1)\b/)) C.add('1');
+  if(has(/\b(linear|o (of )?n\b(?! ?(log|squared|square|cubed|times|plus|\^))|order (of )?n\b(?! ?log))/)) C.add('n');
+  if(has(/\b(m ?times ?n|n ?times ?m|r ?times ?c|rows? times col\w*|m by n|number of cells|size of the grid)\b/)) C.add('mn');
+  if(has(/\b(v ?plus ?e|v ?\+ ?e|vertices plus edges|nodes plus edges)\b/)) C.add('ve');
+  if(has(/\b(m ?plus ?n|n ?plus ?m|m ?\+ ?n)\b/)) C.add('mpn');
+  if(has(/\b(o (of )?h|height)\b/)) C.add('h');
+  if(has(/\b(o (of )?l|length of the word|word length|key length)\b/)) C.add('l');
+  return C;
+}
+const CXMAP = {'n':'n','1':'1','logn':'logn','log':'logn','nlogn':'nlogn','nlog':'nlog','nlogk':'nlogk','n^2':'n2','n2':'n2','n^3':'n3','2^n':'2n','4^n':'4n',
+  'rtimesc':'mn','mtimesn':'mn','r·c':'mn','m·n':'mn','m+n':'mpn','n+m':'mpn','v+e':'ve','elogv':'elogv','h':'h','h+k':'h','32':'1','l':'l','max':'n','total':'n','totallength':'n','n·2^n':'2n','ntimes2^n':'2n','nlogmax':'nlog','nlogsum':'nlog','n·sum':'nsum','ntimessum':'nsum'};
+function keyHit(syn, nt, cx){
+  const om = /^o\(([^)]*)\)/i.exec(syn);
+  if(om){
+    const inner = om[1].toLowerCase().replace(/\s+/g,'');
+    const cls = CXMAP[inner] || CXMAP[inner.replace(/[·*×]/g,'times')];
+    if(cls==='nlog') return cx.has('nlog')||cx.has('nlogn')||cx.has('nlogk');
+    if(cls==='nsum') return /\bn ?times ?(the )?sum\b/.test(nt) || /\bsum\b/.test(nt) && cx.has('n');
+    if(cls) return cx.has(cls);
+    const toks = inner.replace(/[^a-z0-9]+/g,' ').trim().split(' ').filter(Boolean);
+    return toks.length>0 && toks.every(t=>nt.includes(' '+t+' '));
+  }
+  const p = nz(syn).trim(); if(!p) return false;
+  const ws = p.split(' ').map(w=>w.replace(/[+^]/g,'\\$&')); const lw=ws[ws.length-1]; if(lw.length>3 && /[^s]s$/.test(lw)) ws[ws.length-1]=lw.slice(0,-1);
+  const re = new RegExp('(^| )'+ws.join(' ')+'(s|es)?( |$)');
+  return re.test(nt);
+}
+function hitsOf(keys, text){
+  const nt = nz(text), cx = cxOf(nt), out = new Set();
+  keys.forEach((syns,i)=>{ if(syns.some(s=>keyHit(s, nt, cx))) out.add(i) });
+  return out;
+}
+const CRUTCH = /\b(um+|uh+|hmm+|erm?|basically|actually|literally|you know|i mean|kind of|sort of|so yeah)\b/g;
+const crutchCount = t=>(nz(t).match(CRUTCH)||[]).length;
+function markCrutch(t){ return esc(t).replace(/\b(um+|uh+|hmm+|erm?|basically|actually|literally|you know|I mean|kind of|sort of|so yeah)\b/gi, m=>'<mark class="cr">'+m+'</mark>') }
+function spoken(t){ return String(t).replace(/O\(([^)]*)\)/g,(m,x)=>'O of '+x.replace(/\^2/,' squared').replace(/·/g,' times ')).replace(/→/g,' gives ').replace(/[−–]/g,' minus ').replace(/[×·]/g,' times ')
+  .replace(/≤/g,' at most ').replace(/≥/g,' at least ').replace(/…/g,' through ').replace(/ⁿ/g,' to the n').replace(/²/g,' squared').replace(/[\[\]"“”_]/g,' ').replace(/e\.g\./g,'for example').replace(/\s+/g,' ').trim() }
+
+/* ---------- personas ---------- */
+const PERS = {
+  ira:{name:'Ira', role:'Warm. Nudges you when you stall.', pitch:1.06, vi:0, nudgeAfter:10, silence:8, maxN:2, warn:false, fuP:0.5,
+    skin:'#B97A55', hair:'#2A1A14', shirt:'#2F8F83', bg:'#1E3B39', style:'long',
+    hello:n=>`Hi${n?' '+n:''}, I'm Ira. Thanks for joining. Think out loud as you go, and feel free to ask me questions.`,
+    next:['Okay, next one.','Nice. Let\'s keep going.','Alright, here\'s another one.'],
+    nStart:['Take your time. What would the brute force look like?','No rush. What\'s the simplest thing that would work?','Maybe start by restating the problem in your own words.'],
+    nMid:['What are you thinking right now?','And what would the time complexity be?','Talk me through the next step.'],
+    fu:['Nice. One follow-up.','Good. Quick follow-up for you.','Okay, let me push on that a little.'],
+    stop:'Okay, let\'s pause there.', bye:'That was good practice. Let\'s look at how it went.'},
+  arjun:{name:'Arjun', role:'By the book. Standard pace.', pitch:0.94, vi:1, nudgeAfter:16, silence:12, maxN:1, warn:false, fuP:0.6,
+    skin:'#8A5A3C', hair:'#15100C', shirt:'#C7902F', bg:'#3A301B', style:'short',
+    hello:n=>`Hello${n?' '+n:''}, I'm Arjun. We'll go through a few questions. Explain your approach as you would on a real call.`,
+    next:['Next question.','Moving on.','Okay. Next.'],
+    nStart:['Whenever you\'re ready.','Do you want to think out loud?'],
+    nMid:['Can you continue?','What\'s the complexity?'],
+    fu:['Follow-up.','One more question on that.'],
+    stop:'Okay, time.', bye:'That\'s all from me. Let\'s review.'},
+  meher:{name:'Meher', role:'Bar raiser. Interrupts at time. Always follows up.', pitch:1.0, vi:2, nudgeAfter:0, silence:0, maxN:0, warn:true, fuP:1,
+    skin:'#D6A27A', hair:'#3B1F2E', shirt:'#7A3E6E', bg:'#2F1D2C', style:'bun',
+    hello:n=>`${n?n+', ':''}I'm Meher. I'll keep this tight. Be precise and state your complexity.`,
+    next:['Next.','Okay, next one.','Let\'s move on.'],
+    nStart:[], nMid:[],
+    fu:['Follow-up.','Let me challenge that.','Here\'s a twist.'],
+    stop:'Let\'s stop there.', bye:'Done. Let\'s look at the numbers.'}
+};
+function avatarSVG(p){
+  const P = PERS[p];
+  const hair = P.style==='long' ? `<path d="M30 58c0-22 13-36 30-36s30 14 30 36v26c-6-4-9-14-9-26 0-14-9-23-21-23s-21 9-21 23c0 12-3 22-9 26z" fill="${P.hair}"/>`
+    : P.style==='bun' ? `<circle cx="60" cy="19" r="10" fill="${P.hair}"/><path d="M36 52c0-17 10-28 24-28s24 11 24 28c-6-9-14-14-24-14s-18 5-24 14z" fill="${P.hair}"/>`
+    : `<path d="M37 50c0-16 10-26 23-26s23 10 23 26c-4-7-12-11-23-11s-19 4-23 11z" fill="${P.hair}"/><path d="M44 66c4 10 28 10 32 0v6c-4 9-28 9-32 0z" fill="${P.hair}" opacity=".85"/>`;
+  return `<svg viewBox="0 0 120 120" role="img" aria-label="${P.name}"><circle cx="60" cy="60" r="60" fill="${P.bg}"/>
+    <path d="M20 120c4-24 20-34 40-34s36 10 40 34z" fill="${P.shirt}"/><rect x="53" y="72" width="14" height="16" rx="6" fill="${P.skin}"/>
+    <ellipse cx="60" cy="54" rx="22" ry="25" fill="${P.skin}"/>${hair}
+    <circle cx="51" cy="53" r="2.7" fill="#14100E"/><circle cx="69" cy="53" r="2.7" fill="#14100E"/>
+    <g class="lids"><rect x="47" y="49.5" width="8" height="7" fill="${P.skin}"/><rect x="65" y="49.5" width="8" height="7" fill="${P.skin}"/></g>
+    <rect class="mouth" x="53.5" y="65" width="13" height="3" rx="1.5" fill="#5A2A24"/></svg>`;
+}
+
+/* ---------- icons ---------- */
+const I = (p)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const IC = {
+  mic:I('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>'),
+  micOff:I('<path d="M3 3l18 18M9 9v2a3 3 0 0 0 5.1 2.1M15 10V6a3 3 0 0 0-5.7-1.3M5 11a7 7 0 0 0 11.4 5.4M19 11a7 7 0 0 1-.6 2.9M12 18v3"/>'),
+  cam:I('<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>'),
+  camOff:I('<path d="M3 3l18 18M16 16v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2M10 6h5a1 1 0 0 1 1 1v3l5-3v10"/>'),
+  eye:I('<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
+  eyeOff:I('<path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6 0 10 7 10 7a17 17 0 0 1-3.2 3.9M6.6 6.6C3.8 8.4 2 12 2 12s4 7 10 7a9.6 9.6 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/>'),
+  rep:I('<path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/>'),
+  hint:I('<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>'),
+  pad:I('<path d="M4 4h12l4 4v12H4z"/><path d="M8 10h8M8 14h8M8 18h5"/>'),
+  skip:I('<path d="M5 5l9 7-9 7zM18 5v14"/>'),
+  sun:I('<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>'),
+  moon:I('<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>')
+};
+
+/* ---------- sound ---------- */
+let AC = null;
+function beep(kind){
+  if(!ST.set.sfx) return;
+  try{ AC = AC || new (window.AudioContext||window.webkitAudioContext)(); const t=AC.currentTime;
+    const seq = kind==='ok'?[[880,0,.09],[1320,.08,.14]]:kind==='bad'?[[220,0,.18]]:kind==='go'?[[660,0,.08]]:[[520,0,.12],[390,.11,.16]];
+    seq.forEach(([f,st,du])=>{ const o=AC.createOscillator(), g=AC.createGain(); o.type='sine'; o.frequency.value=f; g.gain.setValueAtTime(0.0001,t+st); g.gain.exponentialRampToValueAtTime(0.12,t+st+0.015); g.gain.exponentialRampToValueAtTime(0.0001,t+st+du); o.connect(g).connect(AC.destination); o.start(t+st); o.stop(t+st+du+0.02) });
+  }catch(e){}
+}
+
+/* ---------- voice (text to speech) ---------- */
+const Voice = {
+  list:[], speaking:false, cur:null,
+  init(){ if(!('speechSynthesis' in window)) return; const load=()=>{ this.list = speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang)||/^en$/i.test(v.lang)); renderVoiceSelect() }; load(); try{ speechSynthesis.addEventListener('voiceschanged', load) }catch(e){ speechSynthesis.onvoiceschanged=load } },
+  rank(v){ const L=v.lang.replace('_','-').toLowerCase(); const pref=ST.set.lang.toLowerCase(); return (L===pref?0:L==='en-gb'?1:L==='en-us'?2:L==='en-in'?1:3) - (/google|natural|neural|premium|enhanced/i.test(v.name)?0.5:0) },
+  pick(p){
+    if(!this.list.length) return null;
+    if(ST.set.voice!=='auto'){ const v=this.list.find(v=>v.voiceURI===ST.set.voice); if(v) return v }
+    const sorted = this.list.slice().sort((a,b)=>this.rank(a)-this.rank(b)), r0 = this.rank(sorted[0]);
+    const best = sorted.filter(v=>this.rank(v)<=r0+0.5);
+    return best[PERS[p].vi % best.length];
+  },
+  stop(){ try{ speechSynthesis.cancel() }catch(e){} if(this.cur){ const c=this.cur; this.cur=null; c() } }
+};
+function estMs(t){ return clamp(t.split(/\s+/).length*360/(ST.set.rate||1), 900, 16000) }
+function say(text, opt={}){
+  const persona = opt.persona || Call.persona;
+  const t = spoken(text);
+  return new Promise(res=>{
+    let done=false; const fin=()=>{ if(done) return; done=true; clearTimeout(safety); Voice.speaking=false; Rec.echo={w:new Set(nz(text).trim().split(' ')), until:now()+2500*TS}; Voice.cur=null; talkUI(false); Mic.arm(true); res() };
+    Voice.speaking=true; Mic.arm(false); talkUI(true, opt.sub===false?'':text);
+    const useTTS = ST.set.tts && 'speechSynthesis' in window && Voice.list.length;
+    let safety = setTimeout(fin, (useTTS ? estMs(t)*1.8+2500 : estMs(t))*TS);
+    Voice.cur = fin;
+    if(!useTTS) return;
+    try{
+      speechSynthesis.cancel();
+      const parts = t.match(/[^.!?]+[.!?]*/g) || [t];
+      const v = Voice.pick(persona);
+      parts.forEach((p,i)=>{ const u=new SpeechSynthesisUtterance(p.trim()); if(v){ u.voice=v; u.lang=v.lang } u.rate=ST.set.rate||1; u.pitch=PERS[persona].pitch;
+        if(i===parts.length-1){ u.onend=fin; u.onerror=fin } speechSynthesis.speak(u) });
+    }catch(e){ fin() }
+  });
+}
+
+/* ---------- microphone level + voice activity ---------- */
+const Mic = {
+  live:false, why:'', stream:null, ctx:null, an:null, buf:null, iv:null, level:0, floor:0.008, speaking:false, armed:true, a:0, b:0, lastStart:0, lastEnd:0, muted:false,
+  async init(){
+    if(this.live) return true;
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ this.why='This browser has no microphone access.'; return false }
+    try{
+      this.stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true, noiseSuppression:true, autoGainControl:true}});
+      this.ctx = new (window.AudioContext||window.webkitAudioContext)(); const src=this.ctx.createMediaStreamSource(this.stream);
+      this.an = this.ctx.createAnalyser(); this.an.fftSize=1024; src.connect(this.an); this.buf=new Float32Array(this.an.fftSize);
+      this.live=true; this.iv=setInterval(()=>this.tick(), 50); return true;
+    }catch(e){ this.why = /NotAllowed|Permission|Security/i.test(e.name+e.message) ? 'Microphone permission was blocked.' : 'No microphone found.'; this.live=false; return false }
+  },
+  tick(){
+    if(!this.an) return; this.an.getFloatTimeDomainData(this.buf);
+    let s=0; for(let i=0;i<this.buf.length;i++) s+=this.buf[i]*this.buf[i]; const rms=Math.sqrt(s/this.buf.length);
+    this.level = this.level*0.6 + rms*0.4;
+    const thr = Math.max(0.012, this.floor*2.8);
+    if(!this.speaking && rms<thr) this.floor = this.floor*0.97 + rms*0.03;
+    const on = !this.muted && this.armed && rms>thr;
+    if(on){ this.a++; this.b=0 } else { this.b++; this.a=0 }
+    const t=now();
+    if(!this.speaking && this.a>=3){ this.speaking=true; this.lastStart=t-150 }
+    if(this.speaking && this.b>=7){ this.speaking=false; this.lastEnd=t-350 }
+    const meAv=$('#meAv'); if(meAv) meAv.style.setProperty('--lvl', this.muted||!this.armed?0:clamp((rms-this.floor)/(thr*2.2),0,1).toFixed(2));
+  },
+  arm(on){ if(!on){ this.armed=false; if(this.speaking){ this.speaking=false; this.lastEnd=now() } } else setTimeout(()=>{ this.armed=true }, 300*TS) },
+  stop(){ clearInterval(this.iv); try{ this.stream && this.stream.getTracks().forEach(t=>t.stop()) }catch(e){} try{ this.ctx && this.ctx.close() }catch(e){} Object.assign(this,{live:false,stream:null,ctx:null,an:null,speaking:false}) }
+};
+
+/* ---------- speech recognition ---------- */
+const SRC = window.SpeechRecognition || window.webkitSpeechRecognition;
+const Rec = {
+  ok: !!SRC, r:null, on:false, fin:'', int:'', err:'',
+  start(){
+    if(!this.ok || this.on) return this.on;
+    try{
+      const r = this.r = new SRC(); r.continuous=true; r.interimResults=true; r.lang=ST.set.lang; r.maxAlternatives=1;
+      r.onresult = e=>{ if(Voice.speaking || Mic.muted) return; let int='';
+        for(let i=e.resultIndex;i<e.results.length;i++){ const x=e.results[i], t=x[0].transcript; if(this.isEcho(t)) continue; if(x.isFinal) this.fin+=' '+t; else int+=t }
+        this.int=int; };
+      r.onend = ()=>{ if(this.on){ setTimeout(()=>{ if(this.on) try{ r.start() }catch(e){} }, 120) } };
+      r.onerror = e=>{ if(/not-allowed|service-not-allowed|audio-capture/.test(e.error)){ this.on=false; this.ok=false; this.err='blocked'; toast('Live transcript is blocked in this browser. Key ideas will be ticked by you in the debrief.') }
+        else if(e.error==='network'){ this.on=false; this.ok=false; this.err='network'; toast('Live transcript needs a network connection. Switching to self-check.') } };
+      r.start(); this.on=true;
+    }catch(e){ this.on=false }
+    return this.on;
+  },
+  stop(){ this.on=false; try{ this.r && this.r.stop() }catch(e){} },
+  mark(){ this.fin=''; this.int='' },
+  isEcho(t){ const E=this.echo; if(!E || now()>E.until) return false; const w=nz(t).trim().split(' ').filter(Boolean); if(w.length<3) return false; return w.filter(x=>E.w.has(x)).length/w.length>=0.7 },
+  text(){ return (this.fin+' '+this.int).replace(/\s+/g,' ').trim() }
+};
+
+/* ---------- toast ---------- */
+let toastT=null;
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true, 4200) }
+
+/* ---------- theme ---------- */
+function effTheme(){ return document.documentElement.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light') }
+function paintTheme(){ const d=effTheme()==='dark'; const b=$('#themeBtn'); b.innerHTML=d?IC.sun:IC.moon; b.setAttribute('aria-label', d?'Switch to light mode':'Switch to dark mode'); b.title=b.getAttribute('aria-label') }
+$('#themeBtn').onclick=()=>{ const n=effTheme()==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme',n); try{ localStorage.setItem('rdd-theme',n) }catch(e){} paintTheme(); if(curView==='progress') renderProgress() };
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', paintTheme);
+
+/* =================================================================
+   LOBBY
+   ================================================================= */
+const FORMATS = [
+  {k:'rf', n:'Rapid fire', d:'Hear a one-line problem, name the pattern within seconds.', len:'12 prompts · 4 min', count:12, min:6, max:30},
+  {k:'dsa', n:'Explain the approach', d:'Full DSA questions with clarifying questions and a follow-up.', len:'3 problems · 12 min', count:3, min:1, max:8},
+  {k:'con', n:'Concept quick-fire', d:'Java, Spring, databases, caching, distributed systems. Short crisp answers.', len:'6 questions · 6 min', count:6, min:2, max:15},
+  {k:'sd', n:'Design sprint', d:'One HLD or LLD question in five timed stages, with a curveball.', len:'1 design · 12–35 min', count:1, min:1, max:2},
+  {k:'mix', n:'Phone screen', d:'A realistic screen: concepts first, then coding approaches.', len:'4 questions · 14 min', count:4, min:2, max:8},
+  {k:'due', n:'Due reviews', d:'Questions you rated shaky or blanked, brought back on schedule.', len:'up to 6 · varies', count:6, min:1, max:12}
+];
+const UI = { fmt:'rf', topics:{rf:new Set(), dsa:new Set(), con:new Set(), sd:new Set(), mix:new Set(), due:new Set()}, count:{}, rfTrack:'dsa', sdLen:12 };
+FORMATS.forEach(f=>UI.count[f.k]=f.count);
+try{ const u=JSON.parse(localStorage.getItem('ld-ui')||'null'); if(u){ UI.fmt=u.fmt||UI.fmt; Object.assign(UI.count,u.count||{}); UI.rfTrack=u.rfTrack||'dsa'; UI.sdLen=u.sdLen||12; for(const k in (u.topics||{})) UI.topics[k]=new Set(u.topics[k]) } }catch(e){}
+function saveUI(){ try{ localStorage.setItem('ld-ui', JSON.stringify({fmt:UI.fmt,count:UI.count,rfTrack:UI.rfTrack,sdLen:UI.sdLen,topics:Object.fromEntries(Object.entries(UI.topics).map(([k,v])=>[k,[...v]]))})) }catch(e){} }
+
+function renderFormats(){
+  const due = dueIds().length;
+  $('#formats').innerHTML = FORMATS.map(f=>`<button class="fmt" type="button" data-f="${f.k}" aria-pressed="${UI.fmt===f.k}"><b>${f.n}</b><span>${f.d}</span><span class="len">${f.len}</span>${f.k==='due'&&due?`<span class="due">${due} due</span>`:''}</button>`).join('');
+  $$('#formats .fmt').forEach(b=>b.onclick=()=>{ UI.fmt=b.dataset.f; saveUI(); renderFormats(); renderCfg() });
+}
+function topicChoices(){
+  const f = UI.fmt;
+  if(f==='rf') return {label:'Track', single:true, items:[['dsa','DSA patterns'],['sd','Design & tools']]};
+  if(f==='dsa') return {label:'Topics', items:DSA_TOPICS.map(s=>[s, TOPICS[s]])};
+  if(f==='con') return {label:'Topics', items:CON_CATS.map(c=>[c,c])};
+  if(f==='sd') return {label:'Type', items:[['HLD','High-level (HLD)'],['LLD','Low-level (LLD)']]};
+  return null;
+}
+function renderCfg(){
+  const tc = topicChoices(), F = FORMATS.find(x=>x.k===UI.fmt);
+  $('#topicRow').hidden = !tc;
+  if(tc){
+    $('#topicLbl').textContent = tc.label;
+    if(tc.single){ $('#topics').innerHTML = tc.items.map(([k,n])=>`<button type="button" class="chip" data-k="${esc(k)}" aria-pressed="${UI.rfTrack===k}">${esc(n)}</button>`).join('');
+      $$('#topics .chip').forEach(b=>b.onclick=()=>{ UI.rfTrack=b.dataset.k; saveUI(); renderCfg() }) }
+    else { const sel = UI.topics[UI.fmt];
+      $('#topics').innerHTML = `<button type="button" class="chip" data-k="" aria-pressed="${sel.size===0}">All</button>` + tc.items.map(([k,n])=>`<button type="button" class="chip" data-k="${esc(k)}" aria-pressed="${sel.has(k)}">${esc(n)}</button>`).join('');
+      $$('#topics .chip').forEach(b=>b.onclick=()=>{ const k=b.dataset.k; if(!k) sel.clear(); else sel.has(k)?sel.delete(k):sel.add(k); saveUI(); renderCfg() }) }
+  }
+  $('#cOut').textContent = UI.count[UI.fmt];
+  $('#countRow').hidden = UI.fmt==='sd';
+  $('#sdLenRow').hidden = UI.fmt!=='sd';
+  $('#sdLen').innerHTML = [12,20,35].map(m=>`<button type="button" class="chip" data-m="${m}" aria-pressed="${UI.sdLen===m}">${m} min</button>`).join('');
+  $$('#sdLen .chip').forEach(b=>b.onclick=()=>{ UI.sdLen=+b.dataset.m; saveUI(); renderCfg() });
+  $('#people').innerHTML = Object.keys(PERS).map(k=>`<button type="button" class="person" data-p="${k}" aria-pressed="${ST.set.persona===k}">${avatarSVG(k)}<b>${PERS[k].name}</b><span>${PERS[k].role}</span></button>`).join('');
+  $$('#people .person').forEach(b=>b.onclick=()=>{ ST.set.persona=b.dataset.p; save(); renderCfg() });
+  const n = UI.fmt==='due' ? Math.min(dueIds().length, UI.count.due) : null;
+  $('#startBtn').disabled = UI.fmt==='due' && !n;
+  $('#startTx').textContent = UI.fmt==='due' && !n ? 'Nothing due right now' : `Start the call with ${PERS[ST.set.persona].name}`;
+}
+$('#cMinus').onclick=()=>{ const F=FORMATS.find(x=>x.k===UI.fmt); UI.count[UI.fmt]=Math.max(F.min, UI.count[UI.fmt]-1); saveUI(); renderCfg() };
+$('#cPlus').onclick=()=>{ const F=FORMATS.find(x=>x.k===UI.fmt); UI.count[UI.fmt]=Math.min(F.max, UI.count[UI.fmt]+1); saveUI(); renderCfg() };
+
+function micStatus(){
+  const el=$('#micStatus'); let cls='', msg='';
+  const canMic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  if(!ST.set.mic){ cls='mid'; msg='Microphone is off in Settings. You\'ll time yourself with Space and Enter, and tick key ideas in the debrief.' }
+  else if(!ON_SITE){ cls='mid'; msg=`This preview can't use your microphone, so it runs in self-timed mode. For live transcripts and automatic key-idea checks, <a href="${SITE}live/" target="_blank" rel="noopener">open Live Drill on your site</a> in Chrome.` }
+  else if(canMic && Rec.ok){ cls='on'; msg='Voice answers on. Your words are transcribed live and key ideas tick themselves. Chrome sends audio to Google for transcription.' }
+  else if(canMic){ cls='mid'; msg='Mic timing works here, but this browser can\'t transcribe. Use Chrome or Edge for automatic key-idea checks.' }
+  else { cls=''; msg='No microphone access in this browser. Self-timed mode: Space when you start, Enter when you\'re done.' }
+  el.className='status '+cls; el.innerHTML='<i></i><span>'+msg+'</span>';
+}
+
+function renderStrip(){
+  const lat=[], cov=[]; let answers=0;
+  ST.hist.slice(-30).forEach(h=>{ h.items.forEach(it=>{ if(it.first!=null && it.k!=='rf') lat.push(it.first); if(it.cov!=null) cov.push(it.cov); answers++ }) });
+  const mast = Object.entries(ST.cards).filter(([id,c])=>c.b>=3 && !id.startsWith('rf:')).length;
+  const total = DSA.length+CON.length+SDS.length;
+  const m = median(lat), streak = streakDays();
+  $('#strip').innerHTML = [
+    ['Time to start', m==null?'–':secs(m), 'median, last 30 calls'],
+    ['Key ideas said', cov.length?Math.round(100*cov.reduce((a,b)=>a+b,0)/cov.length)+'%':'–', 'average coverage'],
+    ['Mastered', mast+'<small style="font-size:14px;color:var(--ink-3)"> / '+total+'</small>', 'rated solid twice or better'],
+    ['Streak', streak+(streak===1?' day':' days'), answers+' answers so far']
+  ].map(([a,b,c])=>`<div class="stat"><span class="eyebrow">${a}</span><b>${b}</b><small>${c}</small></div>`).join('');
+}
+function streakDays(){ const days=new Set(ST.hist.map(h=>new Date(h.t).toDateString())); let n=0; const d=new Date(); if(!days.has(d.toDateString())) d.setDate(d.getDate()-1); while(days.has(d.toDateString())){ n++; d.setDate(d.getDate()-1) } return n }
+
+/* =================================================================
+   SESSION BUILDING
+   ================================================================= */
+function freshOrder(list, idf){ // unseen first, then weakest/oldest, random inside groups
+  return shuffle(list).sort((a,b)=>{ const ca=card(idf(a)), cb=card(idf(b)); const sa=ca?(1+ca.b*10+(ca.due>Date.now()?50:0)):0, sb=cb?(1+cb.b*10+(cb.due>Date.now()?50:0)):0; return sa-sb });
+}
+function dedupe(list){ const seen=new Set(); return list.filter(x=>{ const k=titleKey(x.t); if(seen.has(k)) return false; seen.add(k); return true }) }
+function buildSession(fmt, single){
+  const n = UI.count[fmt]||3, sel = UI.topics[fmt]||new Set();
+  const S = {fmt, items:[], title:FORMATS.find(f=>f.k===fmt)?.n||'Call'};
+  if(single){ const b=BYID[single]; S.fmt=b.k; S.title='Single question'; S.items=[{k:b.k, x:b.x}]; return S }
+  if(fmt==='rf'){
+    if(UI.rfTrack==='sd'){ const pool = RFQ.filter(q=>q.s.startsWith('sd-')); S.items = freshOrder(pool, q=>'rf:'+q.id).slice(0,n).map(x=>({k:'rfq',x})) }
+    else { const pool = dedupe(DSA); S.items = freshOrder(pool, x=>'rf:'+x.id).slice(0,n).map(x=>({k:'rf',x})) }
+  } else if(fmt==='dsa'){ let pool=dedupe(DSA.filter(x=>!sel.size||sel.has(x.s))); S.items=freshOrder(pool, x=>x.id).slice(0,n).map(x=>({k:'dsa',x})) }
+  else if(fmt==='con'){ let pool=CON.filter(x=>!sel.size||sel.has(x.cat)); S.items=freshOrder(pool, x=>x.id).slice(0,n).map(x=>({k:'con',x})) }
+  else if(fmt==='sd'){ let pool=SDS.filter(x=>!sel.size||sel.has(x.kind)); S.items=freshOrder(pool, x=>x.id).slice(0,1).map(x=>({k:'sd',x})); S.sdMin=UI.sdLen }
+  else if(fmt==='mix'){ const nc=Math.ceil(n/2), nd=n-nc;
+    const cs=freshOrder(CON, x=>x.id).slice(0,nc), ds=freshOrder(dedupe(DSA.filter(x=>x.d!=='Hard')), x=>x.id).slice(0,nd);
+    S.items=[...cs.map(x=>({k:'con',x})), ...ds.map(x=>({k:'dsa',x}))] }
+  else if(fmt==='due'){ S.items = shuffle(dueIds()).slice(0,n).map(id=>({k:BYID[id].k, x:BYID[id].x})) }
+  return S;
+}
+
+/* =================================================================
+   CALL STAGE
+   ================================================================= */
+const END = {end:true};
+const Call = { alive:false, persona:'ira', S:null, t0:0, clockIv:null, acts:[], kill:null, endP:null, results:[], hideQ:false, cam:null, busy:false };
+function race(p){ return Promise.race([p, Call.endP]) }
+function act(a){ if(Call.alive) Call.acts.push(a) }
+function takeAct(){ return Call.acts.shift() }
+async function wait(ms){ await race(sleep(ms)) }
+function talkUI(on, text){
+  $('#ivTile').classList.toggle('speaking', on); $('#ivAv').classList.toggle('talk', on);
+  const sub=$('#ivSub'); if(on && text){ sub.innerHTML='<span>'+esc(text)+'</span>' } else if(!on) sub.innerHTML='';
+  if(on) setPill('int','Interviewer','The interviewer is speaking');
+}
+function setPill(cls, label, sub){ const p=$('#pill'); p.className='pill '+(cls||''); p.querySelector('span').textContent=label; if(sub!=null) $('#plabel').textContent=sub }
+function setRing(left, total){ const fr = total? clamp(left/total,0,1):0; $('#ringFg').style.strokeDashoffset = (213.6*(1-fr)).toFixed(1); $('#ringTx').textContent = total? Math.ceil(left/1000/TS)+'s':'--'; $('#ring').classList.toggle('low', total && left<15000*TS && left/total<0.25) }
+function setDots(n, hits){ const el=$('#dots'); if(!n || !ST.set.dots){ el.innerHTML=''; return } el.innerHTML = Array.from({length:n},(_,i)=>`<i class="${hits&&hits.has(i)?'on':''}"></i>`).join('') + `<small>${hits?hits.size:0}/${n} key ideas</small>` }
+function setPrompt(kind, text, extra){
+  $('#qKind').textContent = kind; const q=$('#qText'); q.textContent = text; q.classList.toggle('blur', Call.hideQ);
+  $('#clar').hidden=true; $('#opts').hidden=true; $('#steps5').hidden=true;
+}
+function setCaps(html, label){ $('#capt').innerHTML = html; if(label) $('#capsLbl').textContent=label }
+function showButtons(o){ $('#bStart').hidden=!o.start; $('#bDone').hidden=!o.done; if(o.doneTx) $('#bDone span').textContent=o.doneTx; $('#bHint').disabled=!o.hint; $('#bRep').disabled=!o.rep; $('#bSkip').disabled=!o.skip }
+
+function paintCtrls(){
+  $('#bMic').innerHTML = Mic.muted||!Mic.live ? IC.micOff : IC.mic; $('#bMic').classList.toggle('off', Mic.muted||!Mic.live);
+  $('#bMic').setAttribute('aria-label', !Mic.live?'Microphone unavailable':Mic.muted?'Unmute microphone':'Mute microphone'); $('#bMic').disabled=!Mic.live;
+  $('#meMicTag').hidden = Mic.live && !Mic.muted; $('#meMicTag').textContent = Mic.live?'muted':'self-timed';
+  $('#bCam').innerHTML = Call.cam ? IC.cam : IC.camOff; $('#bCam').classList.toggle('off', !Call.cam); $('#bCam').setAttribute('aria-label', Call.cam?'Turn camera off':'Turn camera on');
+  $('#bEye').innerHTML = Call.hideQ ? IC.eyeOff : IC.eye; $('#bEye').classList.toggle('off', Call.hideQ); $('#bEye').setAttribute('aria-label', Call.hideQ?'Show question text':'Hide question text');
+  $('#bRep').innerHTML = IC.rep; $('#bHint').innerHTML = IC.hint; $('#bPad').innerHTML = IC.pad; $('#bSkip').innerHTML = IC.skip;
+}
+$('#bMic').onclick=()=>{ Mic.muted=!Mic.muted; paintCtrls() };
+$('#bCam').onclick=async()=>{
+  if(Call.cam){ Call.cam.getTracks().forEach(t=>t.stop()); Call.cam=null; $('#cam').hidden=true; $('#meAv').hidden=false; paintCtrls(); return }
+  try{ Call.cam = await navigator.mediaDevices.getUserMedia({video:{width:640,height:480}}); const v=$('#cam'); v.srcObject=Call.cam; v.hidden=false; await v.play().catch(()=>{}); $('#meAv').hidden=true }
+  catch(e){ toast(ON_SITE?'Camera permission was blocked.':'The camera isn\'t available in this preview. Open Live Drill on your site to use it.') } paintCtrls() };
+$('#bEye').onclick=()=>{ Call.hideQ=!Call.hideQ; $('#qText').classList.toggle('blur', Call.hideQ); paintCtrls() };
+$('#bRep').onclick=()=>act('repeat'); $('#bHint').onclick=()=>act('hint'); $('#bSkip').onclick=()=>act('skip');
+$('#bStart').onclick=()=>act('start'); $('#bDone').onclick=()=>act('done');
+$('#bPad').onclick=()=>{ const p=$('#pad'); p.hidden=!p.hidden; if(!p.hidden) $('#padTx').focus() };
+$('#endBtn').onclick=()=>{ $('#endConfirm').hidden=false; $('#endNo').focus() };
+$('#endNo').onclick=()=>{ $('#endConfirm').hidden=true };
+$('#endYes').onclick=()=>{ $('#endConfirm').hidden=true; endCall(true) };
+
+document.addEventListener('keydown', e=>{
+  if($('#stage').hidden) return;
+  const tag=(e.target.tagName||'').toLowerCase(); if(tag==='textarea'||tag==='input'||tag==='select') return;
+  if(!$('#sheet').hidden){ if(/^[1-4]$/.test(e.key)){ const b=$(`#paper [data-g="${+e.key-1}"]`); if(b){ e.preventDefault(); b.click() } } else if(e.key==='Enter'){ const b=$('#paper [data-enter]'); if(b){ e.preventDefault(); b.click() } } return }
+  if(e.key===' '){ e.preventDefault(); act('start') }
+  else if(e.key==='Enter'){ e.preventDefault(); act('done') }
+  else if(e.key==='r'||e.key==='R') act('repeat');
+  else if(e.key==='h'||e.key==='H') act('hint');
+  else if(/^[1-4]$/.test(e.key)) act('opt:'+(+e.key-1));
+  else if(e.key==='Escape') $('#endBtn').click();
+});
+
+async function startCall(S){
+  if(!S.items.length){ toast('No questions match these filters.'); return }
+  Call.S=S; Call.persona=ST.set.persona; Call.alive=true; Call.acts=[]; Call.results=[]; Call.hideQ=!ST.set.showQ; Call.t0=now();
+  Call.endP = new Promise((_,rej)=>{ Call.kill=()=>rej(END) }); Call.endP.catch(()=>{});
+  const st=$('#stage'); st.hidden=false; document.body.style.overflow='hidden';
+  $('#sheet').hidden=true; $('#pad').hidden=true; $('#padTx').value=''; $('#endConfirm').hidden=true;
+  $('#ivAv').innerHTML = avatarSVG(Call.persona); $('#ivName').textContent=PERS[Call.persona].name;
+  $('#meName').textContent = ST.set.name||'You'; $('#meAv').textContent = (ST.set.name||'You').trim()[0].toUpperCase();
+  $('#sMode').textContent = S.title; setPrompt('Connecting…',''); setCaps('', 'Your words'); setDots(0); setRing(0,0);
+  clearInterval(Call.clockIv); Call.clockIv=setInterval(()=>{ $('#sClock').textContent=mmss(now()-Call.t0) }, 500);
+  if(ST.set.mic && !Mic.live) await Mic.init();
+  if(Mic.live && ST.set.mic) Rec.start();
+  paintCtrls();
+  if(ST.set.mic && !Mic.live && ON_SITE) toast(Mic.why+' Running in self-timed mode.');
+  try{
+    await wait(400);
+    const P=PERS[Call.persona];
+    setPrompt('Call started', S.fmt==='rf'?'Rapid fire: I\'ll describe a problem in one line. Name the pattern as fast as you can. Say it, or tap an option.':'Answer out loud as if this were a real interview.');
+    showButtons({});
+    await race(say(P.hello(ST.set.name) + (S.fmt==='rf'?' Rapid fire. I\'ll describe a problem in one line. You name the pattern.':'')));
+    for(let i=0;i<S.items.length;i++){
+      $('#sProg').textContent = `Question ${i+1} of ${S.items.length}`;
+      const it=S.items[i];
+      if(i>0 && it.k!=='rf' && it.k!=='rfq') await race(say(pick(P.next)));
+      let r;
+      if(it.k==='rf'||it.k==='rfq') r = await runRapid(it, i);
+      else if(it.k==='dsa') r = await runQA(it, 'dsa');
+      else if(it.k==='con') r = await runQA(it, 'con');
+      else if(it.k==='sd') r = await runSD(it);
+      Call.results.push(r);
+    }
+    if(S.fmt!=='rf') await race(say(P.bye));
+    finishCall();
+  }catch(e){ if(e!==END){ console.error(e); toast('Something went wrong: '+(e&&e.message||e)) } finishCall(true) }
+}
+function endCall(user){ if(!Call.alive) return; Call.alive=false; Voice.stop(); if(Call.kill) Call.kill() }
+function teardown(){
+  Call.alive=false; Voice.stop(); Rec.stop(); clearInterval(Call.clockIv);
+  if(Call.cam){ Call.cam.getTracks().forEach(t=>t.stop()); Call.cam=null; $('#cam').hidden=true; $('#meAv').hidden=false }
+}
+function closeStage(){ teardown(); Mic.stop(); $('#stage').hidden=true; document.body.style.overflow=''; refreshLobby() }
+
+/* ---------- the answer phase (shared by every question type) ---------- */
+async function answerPhase(o){
+  // o: {ms, keys, clar, hint, repeat, label, startLabel, doneTx, sd}
+  const P = PERS[Call.persona], total = o.ms*TS;
+  const r = {first:null, idea:null, hits:new Set(), hints:0, nudges:0, clar:[], done:null, text:'', maxSilent:0, talk:0, active:0, warned:false};
+  Rec.mark(); Call.acts=[]; let left = total, last = now(), silent = 0, lastTxt = '', hintI = 0;
+  setDots(o.keys? o.keys.length:0, r.hits);
+  showButtons({start:true, done:true, doneTx:o.doneTx||'Done', hint:!!o.hint, rep:!!o.repeat, skip:true});
+  if(o.clar && o.clar.length){ const c=$('#clar'); c.hidden=false; c.innerHTML='<span class="eyebrow">Ask a clarifying question</span>'+o.clar.map((q,i)=>`<button type="button" data-i="${i}">${esc(q[0])}</button>`).join('');
+    $$('button', c).forEach(b=>b.onclick=()=>{ b.disabled=true; act('clar:'+b.dataset.i) }) }
+  const idle = Mic.live && !Mic.muted ? 'Start talking whenever you\'re ready.' : 'Answer out loud. Press Space when you start and Enter when you\'re done.';
+  setPill('think','Thinking', o.label); setCaps('<span class="hint">'+esc(idle)+'</span>', 'Your words');
+  const busy = async (fn)=>{ Call.busy=true; try{ await race(fn()) } finally{ Call.busy=false; last=now() } };
+  while(true){
+    await race(sleep(100));
+    const t=now(), dt=t-last; last=t;
+    left -= dt; r.active += dt;
+    // first response from the microphone
+    if(r.first==null && Mic.live && !Mic.muted && Mic.speaking && Mic.lastStart>t-dt-400){ r.first=Math.max(0, r.active-(t-Mic.lastStart)); beep('go') }
+    if(r.first!=null){
+      if(Mic.live && !Mic.muted){ if(Mic.speaking){ silent=0; r.talk+=dt } else { silent+=dt; r.maxSilent=Math.max(r.maxSilent, silent) } }
+      setPill('live','Live', o.label);
+    }
+    // live transcript + key ideas
+    const txt = Rec.text();
+    if(txt!==lastTxt){ lastTxt=txt;
+      const fin = Rec.fin.trim(), int = Rec.int.trim();
+      setCaps(markCrutch(fin.slice(-260)) + (int?' <span class="interim">'+esc(int)+'</span>':''), 'Your words');
+      if(o.keys){ const h=hitsOf(o.keys, txt); let fresh=false; h.forEach(i=>{ if(!r.hits.has(i)){ r.hits.add(i); fresh=true } }); if(fresh){ if(r.idea==null) r.idea=r.active; setDots(o.keys.length, r.hits) } }
+      if(r.first==null && txt.split(' ').length>=2){ r.first=r.active; }
+    }
+    // actions
+    let a; while((a=takeAct())){
+      if(a==='start'){ if(r.first==null){ r.first=r.active; beep('go') } }
+      else if(a==='done'||a==='skip'){ r.done=a }
+      else if(a==='repeat' && o.repeat){ await busy(()=>say(o.repeat)) }
+      else if(a==='hint' && o.hint){ const h = typeof o.hint==='function'? o.hint(r, hintI++) : o.hint; if(h){ r.hints++; await busy(()=>say(h)) } }
+      else if(a.startsWith('clar:') && o.clar){ const q=o.clar[+a.slice(5)]; if(q){ if(r.first==null) r.first=r.active; r.clar.push(q[0]); await busy(()=>say(q[1])) } }
+      if(r.done) break;
+    }
+    if(r.done) break;
+    // persona nudges
+    if(P.maxN && r.nudges<P.maxN){
+      if(r.first==null && P.nudgeAfter && r.active>P.nudgeAfter*1000*TS && P.nStart.length){ r.nudges++; await busy(()=>say(pick(P.nStart))) }
+      else if(r.first!=null && Mic.live && !Mic.muted && P.silence && silent>P.silence*1000*TS && P.nMid.length){ r.nudges++; silent=0; await busy(()=>say(pick(P.nMid))) }
+    }
+    if(P.warn && !r.warned && left<15000*TS && total>30000*TS){ r.warned=true; await busy(()=>say('About fifteen seconds.')) }
+    if(left<=0){ r.done='time'; break }
+    setRing(left, total);
+  }
+  setRing(0,total);
+  r.text = Rec.text(); $('#clar').hidden=true;
+  if(o.keys){ const h=hitsOf(o.keys, r.text); h.forEach(i=>r.hits.add(i)) }
+  r.words = r.text? r.text.split(/\s+/).length : 0;
+  r.crutch = crutchCount(r.text);
+  r.mic = !!(Mic.live && !Mic.muted && Rec.ok && Rec.on);
+  r.vad = !!(Mic.live && !Mic.muted);
+  // scale times back to real seconds for tests
+  ['first','idea','maxSilent','talk','active'].forEach(k=>{ if(r[k]!=null) r[k]=r[k]/TS });
+  if(r.done==='time' && !o.sd){ await race(say(P.stop)) }
+  return r;
+}
+
+/* ---------- DSA & concept questions ---------- */
+async function runQA(it, kind){
+  const x = it.x, P = PERS[Call.persona];
+  const ask = kind==='dsa' ? x.say : x.q;
+  setPrompt(kind==='dsa'?'Coding question · explain your approach':'Concept · '+x.cat, ask);
+  await race(say(ask));
+  const a = await answerPhase({ms:(kind==='dsa'?ST.set.ans:ST.set.con)*1000, keys:x.keys, clar:kind==='dsa'?x.cl:null, repeat:ask,
+    hint:(r,i)=> kind==='dsa' ? (i===0?'Here\'s a nudge. '+x.idea:'Think about this: '+x.cue) : (()=>{ const miss=x.keys.findIndex((k,j)=>!r.hits.has(j)); return miss<0?'You\'ve covered the main points.':'Make sure you mention '+x.keys[miss][0]+'.' })(),
+    label: kind==='dsa'?'Approach, then time and space complexity':'Answer in two or three sentences'});
+  let f=null;
+  const wantFu = a.done!=='skip' && x.fu && x.fu.length && (P.fuP>=1 || ST.set.fu==='always' || (ST.set.fu==='some' && Math.random()<P.fuP));
+  if(wantFu){
+    const fq = pick(x.fu);
+    setPrompt('Follow-up', fq[0]); setDots(0);
+    await race(say(pick(P.fu)+' '+fq[0]));
+    f = await answerPhase({ms:ST.set.fuT*1000, keys:null, repeat:fq[0], label:'Answer the follow-up'});
+    f.q=fq;
+  }
+  return await debrief(it, kind, a, f);
+}
+
+/* ---------- system design sprint ---------- */
+const STAGES = ['Requirements','Scale','API & data','High level','Deep dive'];
+const LSTAGES = ['Requirements','Classes','Patterns','Key flow','Extensions'];
+const FRACS = [0.12,0.10,0.18,0.30,0.30];
+async function runSD(it){
+  const x=it.x, names = x.kind==='LLD'?LSTAGES:STAGES, totalMs=(Call.S.sdMin||ST.set.sdMin)*60000;
+  const prompts = x.kind==='LLD'
+    ? ['Start with the requirements. What should it support?','What are the core classes?','How do they relate? Any patterns you\'d use?','Walk me through the main flow, including concurrency.','How would this extend?']
+    : ['Let\'s start with requirements. What should this support?','Roughly what scale are we designing for?','What would the APIs and data model look like?','Walk me through the high-level design.','Let\'s go deeper.'];
+  const curve = pick(x.x);
+  setPrompt((x.kind==='LLD'?'Low-level design · ':'System design · ')+x.name, x.q);
+  await race(say(x.q));
+  const stages=[];
+  for(let s=0;s<5;s++){
+    const st=$('#steps5'); st.hidden=false; st.innerHTML=names.map((n,i)=>`<span class="${i<s?'done':i===s?'cur':''}">${i+1} ${n}</span>`).join('');
+    let line = prompts[s]; if(s===4) line += ' '+curve[0];
+    if(s>0 || true){ $('#qText').textContent = s===4 ? curve[0] : x.q; await race(say(line)) }
+    const a = await answerPhase({ms:totalMs*FRACS[s], keys:x.st[s].keys, sd:true, repeat:line, label:names[s]+' · stage '+(s+1)+' of 5', doneTx:s<4?'Next stage':'Finish',
+      hint:(r)=>{ const miss=x.st[s].keys.findIndex((k,j)=>!r.hits.has(j)); return miss<0?'You\'ve covered this stage. Move on when ready.':'Think about '+x.st[s].keys[miss][0]+'.' }});
+    stages.push(a);
+    if(a.done==='skip') break;
+    if(a.done==='time' && s<4) await race(say(PERS[Call.persona].warn?'Time. Next stage.':'Let\'s move on.'));
+  }
+  $('#steps5').hidden=true;
+  return await debriefSD(it, stages, curve);
+}
+
+/* ---------- rapid fire ---------- */
+function rfOptions(x){
+  const fam = D.fam.filter(f=>f.includes(x.p)), near = shuffle([...new Set(fam.flat())].filter(k=>k!==x.p));
+  const far = shuffle(Object.keys(PATS).filter(k=>k!==x.p && !near.includes(k)));
+  const opts = shuffle([x.p, ...near.slice(0,2), ...(near.slice(2,3).length?near.slice(2,3):far.slice(0,1))].slice(0,4));
+  return opts;
+}
+function optMatch(text, opts, labels){ // returns index heard, or -1
+  const nt=nz(text); if(!nt.trim()) return -1;
+  let best=-1, bestLen=0;
+  opts.forEach((o,i)=>{ (labels[i]||[]).forEach((s,j)=>{ const p=nz(s).trim().replace(/[+^]/g,'\\$&'); const sc=p.length+(j===0?100:0); if(p && new RegExp('(^| )'+p+'(s|es)?( |$)').test(nt) && sc>bestLen){ best=i; bestLen=sc } }) });
+  return best;
+}
+const STOP = new Set('a an the of to and or with in on for by is it its as at be use using only one per each your you'.split(' '));
+function phraseSyn(o){ const w=nz(o).trim().split(' ').filter(t=>!STOP.has(t) && t.length>1); return w.length>1? [w.slice(0,3).join(' '), w.slice(0,2).join(' ')] : w.length? [w[0]] : [] }
+async function runRapid(it, idx){
+  const isQ = it.k==='rfq', x=it.x;
+  const text = isQ ? x.q : x.plain;
+  const opts = isQ ? x.o.map((o,i)=>i) : rfOptions(x);
+  const labels = isQ ? x.o : opts.map(k=>PATS[k].l);
+  const syn = isQ ? x.o.map(phraseSyn) : opts.map(k=>[PATS[k].l, ...PATS[k].syn]);
+  const correct = isQ ? x.a : opts.indexOf(x.p);
+  setPrompt('Rapid fire · '+(idx+1)+' of '+Call.S.items.length+(isQ?'':' · '+TOPICS[x.s]), text);
+  const box=$('#opts'); box.hidden=false; box.innerHTML = labels.map((l,i)=>`<button type="button" data-i="${i}"><kbd>${i+1}</kbd><span>${esc(l)}</span></button>`).join('');
+  $$('button', box).forEach(b=>b.onclick=()=>act('opt:'+b.dataset.i));
+  showButtons({rep:true, skip:true}); setDots(0);
+  Call.acts=[];
+  await race(say(text, {sub:false}));
+  Rec.mark(); const total=ST.set.rf*1000*TS; let left=total, last=now(), active=0, chosen=-1, by='';
+  setPill('think','Name it', 'Say the pattern or press 1 to 4');
+  setCaps('<span class="hint">'+(Mic.live&&Rec.on?'Say the pattern out loud, or tap an option.':'Tap an option or press 1 to 4.')+'</span>','Your words');
+  while(true){
+    await race(sleep(80)); const t=now(); left-=t-last; active+=t-last; last=t; setRing(left,total);
+    const txt=Rec.text(); if(txt){ setCaps(esc(txt.slice(-160)),'Your words'); const m=optMatch(txt, opts, syn); if(m>=0){ chosen=m; by='voice'; break } }
+    let a; while((a=takeAct())){ if(a.startsWith('opt:')){ chosen=+a.slice(4); by='tap' } else if(a==='skip'){ chosen=-2 } else if(a==='repeat'){ await race(say(text,{sub:false})); last=now() } }
+    if(chosen!==-1 || left<=0) break;
+  }
+  const ok = chosen===correct, ms=active/TS;
+  $$('button', box).forEach((b,i)=>{ if(i===correct) b.classList.add('right'); else if(i===chosen) b.classList.add('wrong'); b.disabled=true });
+  beep(ok?'ok':'bad');
+  const why = isQ ? x.why : (x.cue+' '+x.idea);
+  setPill(ok?'int':'live', ok?'Correct':'Missed', ok?(by==='voice'?'Heard you':'Tapped')+' in '+secs(ms):'Answer: '+labels[correct]);
+  setCaps('<b>'+esc(isQ?labels[correct]:x.t+' · '+labels[correct])+'</b><br>'+esc(why),'Why');
+  grade('rf:'+x.id, ok?(ms<3500?3:2):0, {first:ok?ms:null});
+  await wait(ok?1500:3200);
+  return {k:'rf', id:x.id, t:isQ?text:x.t, ok, first:ok?ms:null, by, ans:labels[correct], why};
+}
+
+/* ---------- scoring ---------- */
+function scoreOf(a, nKeys){
+  if(!a) return 0;
+  const parts=[];
+  parts.push([25, a.first==null?0:clamp(1-(a.first/1000-2)/13,0,1)]);
+  if(nKeys) parts.push([45, a.hits.size/nKeys]);
+  parts.push([15, a.vad && a.first!=null ? clamp(1-(a.maxSilent/1000-3)/9,0,1) : (a.done==='done'?1:a.done==='time'?0.7:0)]);
+  if(a.mic && a.talk>8000) parts.push([15, clamp(1-(a.crutch/(a.talk/60000))/8,0,1)]);
+  const w=parts.reduce((s,p)=>s+p[0],0), v=parts.reduce((s,p)=>s+p[0]*p[1],0)/w;
+  return Math.round(clamp(v - Math.min(0.24, a.hints*0.08) - (a.done==='skip'?1:0), 0, 1)*100);
+}
+const sugGrade = s=>s>=85?3:s>=65?2:s>=40?1:0;
+function metHTML(label, val, note, cls){ return `<div class="met ${cls||''}"><span class="eyebrow">${label}</span><b>${val}</b>${note?`<small>${note}</small>`:''}</div>` }
+function metrics(a, nKeys){
+  const out=[];
+  out.push(metHTML('Time to start', a.first==null?'never':secs(a.first), a.clar.length?'asked '+a.clar.length+' clarifying question'+(a.clar.length>1?'s':''):'target under 3s', a.first==null?'bad':a.first<=3000?'good':a.first<=7000?'mid':'bad'));
+  if(nKeys) out.push(metHTML('Key ideas', `<span data-cov>${a.hits.size}</span>/${nKeys}`, a.mic?(a.idea!=null?'first one at '+secs(a.idea):'none heard'):'tick what you said', ''));
+  if(a.vad) out.push(metHTML('Longest pause', a.first==null?'–':secs(a.maxSilent), 'after you started', a.maxSilent<=4000?'good':a.maxSilent<=8000?'mid':'bad'));
+  if(a.mic && a.talk>5000) out.push(metHTML('Pace', Math.round(a.words/(a.talk/60000))+' wpm', 'about 120–170 is easy to follow', ''));
+  if(a.mic) out.push(metHTML('Crutch words', a.crutch, 'basically, actually, you know…', a.crutch<=2?'good':a.crutch<=5?'mid':'bad'));
+  out.push(metHTML('Finished', a.done==='done'?'on time':a.done==='time'?'ran out':'skipped', a.hints?a.hints+' hint'+(a.hints>1?'s':'')+' used':'no hints', a.done==='done'?'good':a.done==='time'?'mid':'bad'));
+  return out.join('');
+}
+function ticksHTML(keys, hits, name){
+  return '<div class="ticks">'+keys.map((k,i)=>`<label class="${hits.has(i)?'hit':''}"><input type="checkbox" data-${name}="${i}" ${hits.has(i)?'checked':''}><span>${esc(k[0])}${k.length>1?`<em>also counts: ${esc(k.slice(1,4).join(', '))}</em>`:''}</span></label>`).join('')+'</div>';
+}
+function gradesHTML(sug, last){
+  return `<div class="grades">${GRADES.map(g=>`<button type="button" data-g="${g.k}" class="${g.k===sug?'sug':''}"><b>${g.n}</b><small>${g.s}</small><kbd>${g.k+1}</kbd></button>`).join('')}</div>
+  <p class="note" style="margin:0">How did that feel? ${last?'This finishes the call.':'Rating it moves you to the next question.'} The highlighted rating is the app's suggestion from your numbers.</p>`;
+}
+function openSheet(html){ const s=$('#sheet'); $('#paper').innerHTML=html; s.hidden=false; s.scrollTop=0; setPill('', 'Debrief', 'Review and rate your answer') }
+function waitGrade(){ return race(new Promise(res=>{ $$('#paper [data-g]').forEach(b=>b.onclick=()=>res(+b.dataset.g)) })) }
+
+/* ---------- debriefs ---------- */
+async function debrief(it, kind, a, f){
+  const x=it.x, nK=x.keys.length, last = Call.results.length===Call.S.items.length-1;
+  let score = scoreOf(a, nK);
+  const title = kind==='dsa' ? `${esc(x.t)} <span class="tag ${x.d==='Easy'?'e':x.d==='Hard'?'h':''}">${x.d}</span>` : esc(x.q);
+  const model = kind==='dsa' ? `
+      <div class="say"><span class="eyebrow">Say this first</span><p>${esc(x.open)}</p></div>
+      <div class="kv"><span class="eyebrow">Steps</span><ol>${x.steps.map(s=>'<li>'+esc(s)+'</li>').join('')}</ol></div>
+      <p><b>Complexity:</b> ${esc(x.cx)}. ${x.brute?'<b>Brute force:</b> '+esc(x.brute):''}</p>
+      ${x.gotcha?'<p><b>Watch out:</b> '+esc(x.gotcha)+'</p>':''}`
+    : `<div class="say"><span class="eyebrow">A crisp answer</span><p>${esc(x.a)}</p></div>`;
+  const fuHTML = f ? `<div class="sec-h"><h3>Follow-up</h3></div><p style="margin:0"><b>${esc(f.q[0])}</b></p>
+      ${f.text?`<div class="trans">${markCrutch(f.text)}</div>`:''}<div class="say" style="background:var(--surface-2)"><span class="eyebrow" style="color:var(--ink-3)">Model answer</span><p>${esc(f.q[1])}</p></div>` : '';
+  const unasked = (x.fu||[]).filter(q=>!f||q[0]!==f.q[0]);
+  const html = `
+    <div class="dhead"><div><p class="eyebrow">${kind==='dsa'?'Coding question · '+esc(TOPICS[x.s]):'Concept · '+esc(x.cat)}</p><h2>${title}</h2></div>
+      <div class="score"><b data-score>${score}</b><small>/ 100 call score</small></div></div>
+    <div class="mets">${metrics(a, nK)}</div>
+    <div class="cols">
+      <div style="display:grid;gap:10px;align-content:start">
+        <div class="sec-h"><h3>Key ideas</h3><span class="note">${a.mic?'Ticked from your words. Fix any we missed.':'Tick the ones you said out loud.'}</span></div>
+        ${ticksHTML(x.keys, a.hits, 'k')}
+        ${a.text?`<div><span class="eyebrow">What you said</span><div class="trans">${markCrutch(a.text)}</div></div>`:''}
+      </div>
+      <div class="model">${model}${kind==='dsa'&&x.link?`<p><a class="btn" href="${DOJO+x.link}" target="_blank" rel="noopener">Open in Rubber Duck Dojo ↗</a></p>`:''}</div>
+    </div>
+    ${fuHTML}
+    ${unasked.length?`<details><summary style="cursor:pointer;font-weight:600">Other follow-ups they might ask</summary><div class="qa" style="margin-top:8px">${unasked.map(q=>`<div><b>${esc(q[0])}</b><br>${esc(q[1])}</div>`).join('')}</div></details>`:''}
+    ${gradesHTML(sugGrade(score), last)}`;
+  openSheet(html);
+  $$('#paper [data-k]').forEach(cb=>cb.onchange=()=>{ const i=+cb.dataset.k; cb.checked?a.hits.add(i):a.hits.delete(i); cb.closest('label').classList.toggle('hit',cb.checked);
+    score=scoreOf(a,nK); $('#paper [data-score]').textContent=score; const c=$('#paper [data-cov]'); if(c) c.textContent=a.hits.size; $$('#paper [data-g]').forEach(b=>b.classList.toggle('sug', +b.dataset.g===sugGrade(score))) });
+  const g = await waitGrade();
+  grade(x.id, g, {first:a.first});
+  $('#sheet').hidden=true;
+  return {k:kind, id:x.id, t:kind==='dsa'?x.t:x.q, first:a.first, cov:a.hits.size/nK, score:scoreOf(a,nK), grade:g, cx:hasCx(x.keys,a.hits), crutch:a.crutch, pause:a.vad?a.maxSilent:null, mic:a.mic, talk:a.talk, fu:!!f};
+}
+function hasCx(keys, hits){ const i=keys.findIndex(k=>k.some(s=>/^o\(/i.test(s))); return i<0?null:hits.has(i) }
+async function debriefSD(it, stages, curve){
+  const x=it.x, names=x.kind==='LLD'?LSTAGES:STAGES, last=Call.results.length===Call.S.items.length-1;
+  const nK = x.st.reduce((s,st)=>s+st.keys.length,0);
+  const calc=()=>{ let h=0; stages.forEach(a=>h+=a.hits.size); return h };
+  const first = stages[0]?stages[0].first:null;
+  const score=()=>{ const cov=calc()/nK; const sp=first==null?0:clamp(1-(first/1000-3)/15,0,1); const fin=stages.length===5?1:stages.length/5; return Math.round(clamp(0.6*cov+0.15*sp+0.25*fin - Math.min(.2, stages.reduce((s,a)=>s+a.hints,0)*0.05),0,1)*100) };
+  const mic = stages.some(a=>a.mic);
+  const html = `
+    <div class="dhead"><div><p class="eyebrow">${x.kind==='LLD'?'Low-level design':'System design'} · ${Call.S.sdMin||ST.set.sdMin} minute sprint</p><h2>${esc(x.name)}</h2></div>
+      <div class="score"><b data-score>${score()}</b><small>/ 100 call score</small></div></div>
+    <div class="mets">${metHTML('Time to start', first==null?'never':secs(first), 'target under 5s', first==null?'bad':first<=5000?'good':'mid')}
+      ${metHTML('Key points', `<span data-cov>${calc()}</span>/${nK}`, mic?'heard across 5 stages':'tick what you covered','')}
+      ${metHTML('Stages reached', stages.length+'/5', stages.filter(a=>a.done==='time').length+' ran out of time', stages.length===5?'good':'mid')}</div>
+    ${x.st.map((st,s)=>{ const a=stages[s]; return `<div style="display:grid;gap:8px">
+      <div class="sec-h"><h3>${s+1} · ${names[s]}</h3><span class="note">${a?(a.done==='time'?'ran out of time':a.done==='skip'?'skipped':'done in '+secs(a.active)):'not reached'}</span></div>
+      <div class="cols"><div>${ticksHTML(st.keys, a?a.hits:new Set(), 's'+s)}</div><div class="model"><p>${esc(st.model)}</p>${a&&a.text?`<div class="trans">${markCrutch(a.text)}</div>`:''}</div></div></div>` }).join('')}
+    <div class="say"><span class="eyebrow">The curveball: ${esc(curve[0])}</span><p>${esc(curve[1])}</p></div>
+    ${x.x.filter(c=>c!==curve).map(c=>`<div class="qa"><div><b>${esc(c[0])}</b><br>${esc(c[1])}</div></div>`).join('')}
+    ${gradesHTML(sugGrade(score()), last)}`;
+  openSheet(html);
+  x.st.forEach((st,s)=>{ $$(`#paper [data-s${s}]`).forEach(cb=>cb.onchange=()=>{ if(!stages[s]) stages[s]={hits:new Set(),hints:0,done:'skip',active:0}; const i=+cb.getAttribute('data-s'+s); cb.checked?stages[s].hits.add(i):stages[s].hits.delete(i); cb.closest('label').classList.toggle('hit',cb.checked); $('#paper [data-score]').textContent=score(); $('#paper [data-cov]').textContent=calc(); $$('#paper [data-g]').forEach(b=>b.classList.toggle('sug', +b.dataset.g===sugGrade(score()))) }) });
+  const g=await waitGrade(); grade(x.id, g, {first});
+  $('#sheet').hidden=true;
+  return {k:'sd', id:x.id, t:x.name, first, cov:calc()/nK, score:score(), grade:g, stages:stages.length, mic};
+}
+
+/* ---------- end of call: report ---------- */
+function finishCall(aborted){
+  teardown();
+  const R = Call.results, S=Call.S;
+  if(!R.length){ closeStage(); if(aborted) toastLobby('Call ended. Nothing was rated, so nothing was saved.'); return }
+  const items = R.map(r=>({k:r.k, id:r.id, first:r.first, cov:r.cov, grade:r.grade, ok:r.ok, score:r.score}));
+  const lat = R.filter(r=>r.first!=null).map(r=>r.first);
+  const rec = {t:Date.now(), fmt:S.fmt, n:R.length, dur:Math.round(now()-Call.t0), med:median(lat), items};
+  ST.hist.push(rec); ST.hist=ST.hist.slice(-80); save();
+  const isRF = R[0].k==='rf';
+  let head, rows, tips=[];
+  if(isRF){
+    const ok=R.filter(r=>r.ok).length, voice=R.filter(r=>r.by==='voice').length;
+    head = `${metHTML('Correct', ok+'/'+R.length, voice?voice+' by voice':'', ok/R.length>=.8?'good':ok/R.length>=.5?'mid':'bad')}${metHTML('Median time', lat.length?secs(median(lat)):'–', 'correct answers only', '')}${metHTML('Fastest', lat.length?secs(Math.min(...lat)):'–','', '')}`;
+    rows = `<table class="rtable"><thead><tr><th>Prompt</th><th>Pattern</th><th>Time</th></tr></thead><tbody>${R.map(r=>`<tr><td>${esc(r.t)}</td><td>${r.ok?'':'<span class="gchip g0">missed</span> '}${esc(r.ans)}</td><td class="n">${r.ok?secs(r.first):'–'}</td></tr>`).join('')}</tbody></table>`;
+    const miss=R.filter(r=>!r.ok); if(miss.length) tips.push(`You missed ${miss.length}. They're in your due list as rapid-fire cards, and the full problems are in the Library.`);
+    if(lat.length && median(lat)>4000) tips.push('Aim to name the pattern within 3 seconds. Say the trigger word first ("sorted pair, so two pointers") and refine after.');
+  } else {
+    const cov = R.filter(r=>r.cov!=null).map(r=>r.cov), cxMiss=R.filter(r=>r.cx===false).length, slow=R.filter(r=>r.first!=null && r.first>6000).length;
+    const crutch=R.filter(r=>r.mic && r.talk>8000).map(r=>r.crutch/(r.talk/60000)), pauses=R.filter(r=>r.pause!=null).map(r=>r.pause);
+    head = `${metHTML('Time to start', lat.length?secs(median(lat)):'–', 'median across questions', median(lat)<=3000?'good':median(lat)<=7000?'mid':'bad')}
+      ${metHTML('Key ideas', cov.length?Math.round(100*cov.reduce((a,b)=>a+b,0)/cov.length)+'%':'–', 'average coverage', '')}
+      ${metHTML('Call length', mmss(rec.dur), R.length+' question'+(R.length>1?'s':''), '')}
+      ${pauses.length?metHTML('Longest pause', secs(Math.max(...pauses)), 'worst single silence', Math.max(...pauses)<=6000?'good':'mid'):''}`;
+    rows = `<div class="scroll-x"><table class="rtable"><thead><tr><th>Question</th><th>Start</th><th>Ideas</th><th>Score</th><th>You said</th></tr></thead><tbody>${R.map(r=>`<tr><td>${esc(r.t)}</td><td class="n">${secs(r.first)}</td><td class="n">${r.cov==null?'–':Math.round(r.cov*100)+'%'}</td><td class="n">${r.score}</td><td><span class="gchip g${r.grade}">${GRADES[r.grade].n}</span></td></tr>`).join('')}</tbody></table></div>`;
+    if(slow) tips.push(`You took more than 6 seconds to start on ${slow} question${slow>1?'s':''}. Buy time the honest way: restate the problem, then say the brute force out loud while you think.`);
+    if(cov.length && cov.reduce((a,b)=>a+b,0)/cov.length<0.6) tips.push('You covered less than 60% of the key ideas. Read the "Say this first" lines in the Library out loud. They pack the pattern, the reason and the complexity into one sentence.');
+    if(cxMiss) tips.push(`You didn't state the complexity in ${cxMiss} answer${cxMiss>1?'s':''}. Close every answer with time and space: "So it's O of n time and O of n space."`);
+    if(crutch.length && median(crutch)>4) tips.push('You used a lot of crutch words. A one-second pause sounds more confident than "basically".');
+    if(pauses.length && Math.max(...pauses)>8000) tips.push('You went silent for more than 8 seconds at least once. Narrate even when stuck: say what you\'re checking.');
+    if(!tips.length) tips.push('Strong call. Raise the bar: switch to Meher, turn on "Hide question text" for audio-only, or shorten the answer time in Settings.');
+  }
+  const weak = R.filter(r=>isRF? !r.ok : r.grade<=1);
+  openSheet(`<div class="dhead"><div><p class="eyebrow">${aborted?'Call ended early':'Call complete'} · ${esc(S.title)}</p><h2>${isRF?'Rapid fire results':'How the call went'}</h2></div></div>
+    <div class="mets">${head}</div>
+    ${tips.length?`<div style="display:grid;gap:8px"><div class="sec-h"><h3>What to work on</h3></div><ul class="tips">${tips.map(t=>'<li>'+esc(t)+'</li>').join('')}</ul></div>`:''}
+    ${rows}
+    <div class="acts">${weak.length&&!isRF?`<button class="btn" type="button" id="redo">Redo the ${weak.length} weak one${weak.length>1?'s':''}</button>`:''}<button class="btn pri" type="button" id="toLobby" data-enter>Back to the lobby</button></div>`);
+  setPill('', 'Call ended', aborted?'You ended the call':'All questions done'); $('#bStart').hidden=true; $('#bDone').hidden=true;
+  $('#toLobby').onclick=closeStage;
+  const rd=$('#redo'); if(rd) rd.onclick=()=>{ const S2={fmt:S.fmt, title:'Redo weak answers', items:weak.map(r=>({k:BYID[r.id].k, x:BYID[r.id].x})), sdMin:S.sdMin}; $('#sheet').hidden=true; startCall(S2) };
+}
+
+/* =================================================================
+   LIBRARY
+   ================================================================= */
+const LIB = {kind:'dsa', topic:'', q:'', sort:'def', shown:40, open:new Set()};
+function libPool(){
+  let pool = LIB.kind==='dsa' ? dedupe(DSA) : LIB.kind==='con' ? CON : SDS;
+  if(LIB.topic) pool = pool.filter(x=> LIB.kind==='dsa'?x.s===LIB.topic : LIB.kind==='con'?x.cat===LIB.topic : x.kind===LIB.topic);
+  const q = nz(LIB.q).trim();
+  if(q){ const ws=q.split(' '); pool = pool.filter(x=>{ const hay=nz(LIB.kind==='dsa'?[x.t,x.n,x.say,PATS[x.p].l,x.cue,x.plain].join(' '):LIB.kind==='con'?[x.q,x.a,x.cat].join(' '):[x.name,x.q,x.kind].join(' ')); return ws.every(w=>hay.includes(w)) }) }
+  if(LIB.sort==='weak') pool = pool.slice().sort((a,b)=>((card(a.id)||{b:-1}).b)-((card(b.id)||{b:-1}).b));
+  if(LIB.sort==='due') pool = pool.slice().sort((a,b)=>((card(a.id)||{due:9e15}).due)-((card(b.id)||{due:9e15}).due));
+  return pool;
+}
+function pips(id){ const c=card(id), b=c?c.b:0; return `<span class="pips" title="${c?'Box '+b+' of 5':'Not practised yet'}" aria-label="${c?'Mastery '+b+' of 5':'Not practised'}">${[1,2,3,4,5].map(i=>`<i class="${i<=b?'on':''}"></i>`).join('')}</span>` }
+function libItem(x){
+  const open = LIB.open.has(x.id);
+  let head, body;
+  if(LIB.kind==='dsa'){
+    head = `<span class="t">${esc(x.t)}</span>${pips(x.id)}<span class="m">${x.n?`<span class="tag">#${x.n}</span>`:''}<span class="tag ${x.d==='Easy'?'e':x.d==='Hard'?'h':''}">${x.d}</span><span>${esc(PATS[x.p].l)}</span><span>· ${esc(TOPICS[x.s])}</span></span>`;
+    body = `<p style="margin:0;color:var(--ink-2)"><b style="color:var(--ink)">How they'll ask it:</b> ${esc(x.say)}</p>
+      <div class="say"><span class="eyebrow">Say this first</span><p>${esc(x.open)}</p></div>
+      <div class="kv"><span class="eyebrow">Steps</span><ol>${x.steps.map(s=>'<li>'+esc(s)+'</li>').join('')}</ol></div>
+      <p style="margin:0"><b>Complexity:</b> ${esc(x.cx)}${x.brute?' · <b>Brute force:</b> '+esc(x.brute):''}</p>
+      <div class="kv"><span class="eyebrow">Key ideas the app listens for</span><p style="margin:0">${x.keys.map(k=>esc(k[0])).join(' · ')}</p></div>
+      ${x.cl.length?`<div class="qa"><span class="eyebrow">Clarifying questions</span>${x.cl.map(q=>`<div><b>${esc(q[0])}</b> ${esc(q[1])}</div>`).join('')}</div>`:''}
+      ${x.fu.length?`<div class="qa"><span class="eyebrow">Follow-ups</span>${x.fu.map(q=>`<div><b>${esc(q[0])}</b><br>${esc(q[1])}</div>`).join('')}</div>`:''}
+      <div class="acts"><button class="btn pri" type="button" data-drill="${x.id}">Drill this on a call</button>${x.link?`<a class="btn" href="${DOJO+x.link}" target="_blank" rel="noopener">Open in Dojo ↗</a>`:''}${x.lc?`<a class="btn" href="${x.lc}" target="_blank" rel="noopener">LeetCode ↗</a>`:''}</div>`;
+  } else if(LIB.kind==='con'){
+    head = `<span class="t">${esc(x.q)}</span>${pips(x.id)}<span class="m"><span class="tag">${esc(x.cat)}</span></span>`;
+    body = `<div class="say"><span class="eyebrow">A crisp answer</span><p>${esc(x.a)}</p></div>
+      <div class="kv"><span class="eyebrow">Key ideas the app listens for</span><p style="margin:0">${x.keys.map(k=>esc(k[0])).join(' · ')}</p></div>
+      ${x.fu.length?`<div class="qa"><span class="eyebrow">If they push</span>${x.fu.map(q=>`<div><b>${esc(q[0])}</b><br>${esc(q[1])}</div>`).join('')}</div>`:''}
+      <div class="acts"><button class="btn pri" type="button" data-drill="${x.id}">Drill this on a call</button></div>`;
+  } else {
+    const names = x.kind==='LLD'?LSTAGES:STAGES;
+    head = `<span class="t">${esc(x.name)}</span>${pips(x.id)}<span class="m"><span class="tag">${x.kind}</span><span>${esc(x.q.slice(0,90))}${x.q.length>90?'…':''}</span></span>`;
+    body = `<p style="margin:0;color:var(--ink-2)">${esc(x.q)}</p>${x.st.map((st,i)=>`<div class="kv"><span class="eyebrow">${i+1} · ${names[i]}</span><p style="margin:0">${esc(st.model)}</p></div>`).join('')}
+      <div class="qa"><span class="eyebrow">Curveballs</span>${x.x.map(q=>`<div><b>${esc(q[0])}</b><br>${esc(q[1])}</div>`).join('')}</div>
+      <div class="acts"><button class="btn pri" type="button" data-drill="${x.id}">Run this sprint (${UI.sdLen} min)</button></div>`;
+  }
+  return `<article class="card" data-id="${x.id}"><button type="button" aria-expanded="${open}">${head}</button><div class="body" ${open?'':'hidden'}>${body}</div></article>`;
+}
+function renderLibrary(){
+  const tSel=$('#libTopic');
+  const opts = LIB.kind==='dsa'? DSA_TOPICS.map(s=>[s,TOPICS[s]]) : LIB.kind==='con'? CON_CATS.map(c=>[c,c]) : [['HLD','High-level (HLD)'],['LLD','Low-level (LLD)']];
+  tSel.innerHTML = '<option value="">All topics</option>'+opts.map(([k,n])=>`<option value="${esc(k)}" ${LIB.topic===k?'selected':''}>${esc(n)}</option>`).join('');
+  const pool = libPool();
+  $('#libCount').textContent = pool.length+(pool.length===1?' question':' questions')+(LIB.q?` matching "${LIB.q}"`:'');
+  $('#cards').innerHTML = pool.length? pool.slice(0,LIB.shown).map(libItem).join('') : '<div class="empty">Nothing matches. Try fewer words or another topic.</div>';
+  $('#libMore').hidden = pool.length<=LIB.shown;
+  $$('#cards .card>button').forEach(b=>b.onclick=()=>{ const c=b.parentElement, id=c.dataset.id, body=$('.body',c); const o=body.hidden; body.hidden=!o; b.setAttribute('aria-expanded',o); o?LIB.open.add(id):LIB.open.delete(id) });
+  $$('#cards [data-drill]').forEach(b=>b.onclick=()=>{ const S=buildSession(null, b.dataset.drill); if(S.fmt==='sd') S.sdMin=UI.sdLen; startCall(S) });
+}
+$('#q').oninput=e=>{ LIB.q=e.target.value; LIB.shown=40; renderLibrary() };
+$('#libKind').onchange=e=>{ LIB.kind=e.target.value; LIB.topic=''; LIB.shown=40; renderLibrary() };
+$('#libTopic').onchange=e=>{ LIB.topic=e.target.value; LIB.shown=40; renderLibrary() };
+$('#libSort').onchange=e=>{ LIB.sort=e.target.value; renderLibrary() };
+$('#libMore').onclick=()=>{ LIB.shown+=40; renderLibrary() };
+
+/* =================================================================
+   PROGRESS
+   ================================================================= */
+function renderProgress(){
+  const H = ST.hist, el=$('#progBody');
+  if(!H.length){ el.innerHTML = '<div class="empty">No calls yet. Your speed, coverage and mastery appear here after your first call.<br><br><a class="btn pri" href="#practice">Start a call</a></div>'; return }
+  const all=[]; H.forEach(h=>h.items.forEach(i=>all.push(i)));
+  const lat=all.filter(i=>i.k!=='rf'&&i.first!=null).map(i=>i.first), cov=all.filter(i=>i.cov!=null).map(i=>i.cov);
+  const rf=all.filter(i=>i.k==='rf'), rfOk=rf.filter(i=>i.ok).length;
+  const recent = H.filter(h=>h.med!=null && h.fmt!=='rf').slice(-20);
+  el.innerHTML = `<div class="kpis">
+      ${statT('Calls', H.length, mmss(H.reduce((s,h)=>s+(h.dur||0),0))+' on calls')}
+      ${statT('Time to start', lat.length?secs(median(lat)):'–', 'median, all answers')}
+      ${statT('Key ideas said', cov.length?Math.round(100*cov.reduce((a,b)=>a+b,0)/cov.length)+'%':'–', 'average coverage')}
+      ${statT('Rapid fire', rf.length?Math.round(100*rfOk/rf.length)+'%':'–', rf.length+' prompts answered')}
+    </div>
+    <div class="grid2">
+      <div class="panel"><div class="sec-h" style="justify-content:space-between"><h3 style="font-size:16px">Time to start, per call</h3><span class="note">median seconds · lower is better</span></div><div class="chart" id="latChart"></div></div>
+      <div class="panel"><div class="sec-h" style="justify-content:space-between"><h3 style="font-size:16px">Mastery by DSA topic</h3><span class="note">% rated solid twice+</span></div><div class="bars" id="mBars" style="margin-top:12px"></div></div>
+    </div>
+    <div class="panel" style="margin-top:14px"><h3 style="font-size:16px;margin-bottom:6px">Recent calls</h3><div class="hist">${H.slice(-12).reverse().map(h=>`<div><span>${esc((FORMATS.find(f=>f.k===h.fmt)||{n:h.fmt==='dsa'?'Explain the approach':h.fmt}).n)} · ${h.n} question${h.n>1?'s':''}</span><span class="mono" style="color:var(--ink-3);font-size:12.5px">${h.med==null?'–':secs(h.med)}</span><span style="color:var(--ink-3);font-size:12.5px">${new Date(h.t).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</span></div>`).join('')}</div></div>`;
+  // line chart
+  const box=$('#latChart');
+  if(recent.length<2){ box.innerHTML='<p class="note" style="margin:14px 0">Do two or more calls to see a trend.</p>' }
+  else {
+    const W=560, Hh=200, pl=34, pr=12, pt=12, pb=26, vals=recent.map(h=>h.med/1000);
+    const ymax=Math.max(6, Math.ceil(Math.max(...vals)/2)*2), xs=i=>pl+(W-pl-pr)*(recent.length===1?0.5:i/(recent.length-1)), ys=v=>pt+(Hh-pt-pb)*(1-v/ymax);
+    const ticks=[0,ymax/2,ymax];
+    const path=vals.map((v,i)=>(i?'L':'M')+xs(i).toFixed(1)+' '+ys(v).toFixed(1)).join(' ');
+    const area=path+` L${xs(vals.length-1).toFixed(1)} ${ys(0)} L${xs(0).toFixed(1)} ${ys(0)} Z`;
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Median time to start per call, last ${recent.length} calls">
+      ${ticks.map(t=>`<line class="gl" x1="${pl}" x2="${W-pr}" y1="${ys(t)}" y2="${ys(t)}"/><text class="ax" x="${pl-6}" y="${ys(t)+3.5}" text-anchor="end">${t}s</text>`).join('')}
+      <line x1="${pl}" x2="${W-pr}" y1="${ys(3)}" y2="${ys(3)}" stroke="var(--ok)" stroke-width="1.5" stroke-dasharray="4 4"/><text class="ax" x="${W-pr}" y="${ys(3)-5}" text-anchor="end" style="fill:var(--ok)">3s target</text>
+      <path d="${area}" fill="var(--chart-soft)" opacity=".7"/><path d="${path}" fill="none" stroke="var(--chart)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      ${vals.map((v,i)=>`<circle cx="${xs(i)}" cy="${ys(v)}" r="${i===vals.length-1?5:3.2}" fill="var(--chart)" stroke="var(--surface)" stroke-width="2"/>`).join('')}
+      <text class="ax" x="${xs(0)}" y="${Hh-6}" text-anchor="start">${new Date(recent[0].t).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</text><text class="ax" x="${xs(vals.length-1)}" y="${Hh-6}" text-anchor="end">latest</text>
+      ${vals.map((v,i)=>`<rect data-i="${i}" x="${xs(i)-14}" y="${pt}" width="28" height="${Hh-pt-pb}" fill="transparent"/>`).join('')}
+    </svg><div class="tip" hidden></div>`;
+    const tip=$('.tip',box), svg=$('svg',box);
+    $$('rect[data-i]',box).forEach(r=>{ const show=()=>{ const i=+r.dataset.i, h=recent[i], bb=svg.getBoundingClientRect(), sc=bb.width/W; tip.hidden=false; tip.style.left=(xs(i)*sc)+'px'; tip.style.top=(ys(vals[i])*sc)+'px'; tip.textContent=`${new Date(h.t).toLocaleDateString(undefined,{day:'numeric',month:'short'})} · ${secs(h.med)} · ${h.n} q`; };
+      r.addEventListener('mouseenter',show); r.addEventListener('mouseleave',()=>tip.hidden=true); r.addEventListener('touchstart',show,{passive:true}) });
+  }
+  // mastery bars
+  $('#mBars').innerHTML = DSA_TOPICS.map(s=>{ const items=dedupe(DSA.filter(x=>x.s===s)); const m=items.filter(x=>(card(x.id)||{b:0}).b>=3).length; const p=Math.round(100*m/items.length);
+    return `<div class="bar" title="${m} of ${items.length} mastered"><span>${esc(TOPICS[s])}</span><div class="tr"><div class="fl" style="width:${p}%"></div></div><output>${m}/${items.length}</output></div>` }).join('');
+}
+const statT=(a,b,c)=>`<div class="stat"><span class="eyebrow">${a}</span><b>${b}</b><small>${c}</small></div>`;
+
+/* =================================================================
+   SETTINGS
+   ================================================================= */
+function renderVoiceSelect(){ const s=$('#setVoice'); if(!s) return; s.innerHTML='<option value="auto">Automatic (different voice per interviewer)</option>'+Voice.list.map(v=>`<option value="${esc(v.voiceURI)}" ${ST.set.voice===v.voiceURI?'selected':''}>${esc(v.name)} · ${esc(v.lang)}</option>`).join('') }
+function renderSettings(){
+  const s=ST.set, tg=(k,label,note)=>`<label class="tog"><input type="checkbox" data-set="${k}" ${s[k]?'checked':''}><span>${label}${note?`<small>${note}</small>`:''}</span></label>`;
+  const rg=(k,label,min,max,step,unit)=>`<div class="field"><label for="r-${k}">${label}: <span class="mono" id="o-${k}">${s[k]}${unit}</span></label><input type="range" id="r-${k}" data-rng="${k}" data-unit="${unit}" min="${min}" max="${max}" step="${step}" value="${s[k]}"></div>`;
+  $('#setBody').innerHTML = `
+    <div class="panel"><h3 style="font-size:17px">You and the interviewer</h3>
+      <div class="field"><label for="setName">Your first name</label><input type="text" id="setName" value="${esc(s.name)}" placeholder="So the interviewer can greet you" autocomplete="given-name"></div>
+      <div class="field"><label for="setVoice">Interviewer voice</label><select id="setVoice"></select><small>Voices come from your device. Chrome's "Google" voices sound most natural.</small></div>
+      ${rg('rate','Speaking speed',0.8,1.3,0.05,'×')}
+      <div class="acts"><button class="btn" type="button" id="testVoice">Test the voice</button></div>
+      ${tg('tts','Interviewer speaks out loud','Turn off to read the questions silently.')}
+    </div>
+    <div class="panel"><h3 style="font-size:17px">Listening</h3>
+      ${tg('mic','Use my microphone','Times when you start talking, spots long pauses and transcribes your answer.')}
+      <div class="field"><label for="setLang">Transcription accent</label><select id="setLang">${[['en-IN','English (India)'],['en-US','English (US)'],['en-GB','English (UK)']].map(([k,n])=>`<option value="${k}" ${s.lang===k?'selected':''}>${n}</option>`).join('')}</select></div>
+      ${tg('dots','Show key-idea lights during answers','Dots light up as you mention the key ideas, without saying which ones.')}
+      ${tg('showQ','Show question text on calls','Turn off for audio-only practice, like a real phone screen.')}
+      ${tg('sfx','Sound cues','A soft chime when the clock starts and for rapid-fire results.')}
+    </div>
+    <div class="panel"><h3 style="font-size:17px">Timing</h3>
+      ${rg('ans','Coding answer time',45,180,15,'s')}
+      ${rg('con','Concept answer time',20,90,5,'s')}
+      ${rg('fuT','Follow-up time',20,90,5,'s')}
+      ${rg('rf','Rapid-fire time',4,15,1,'s')}
+      <div class="field"><label for="setFu">Follow-up questions</label><select id="setFu">${[['always','Always'],['some','Sometimes (depends on the interviewer)'],['never','Never']].map(([k,n])=>`<option value="${k}" ${s.fu===k?'selected':''}>${n}</option>`).join('')}</select><small>Meher always asks one.</small></div>
+    </div>
+    <div class="panel"><h3 style="font-size:17px">Your data</h3>
+      <p class="note" style="margin:0">Progress is saved in this browser only. ${Object.keys(ST.cards).length} questions practised, ${ST.hist.length} calls.</p>
+      <div class="acts"><button class="btn danger" type="button" id="resetBtn">Reset progress</button></div>
+      <div class="confirm" id="resetConfirm" hidden style="background:var(--surface-2);border-color:var(--line)"><span>Delete all calls and ratings? This can't be undone.</span><button class="btn" type="button" id="resetNo">Cancel</button><button class="btn danger" type="button" id="resetYes">Delete everything</button></div>
+    </div>`;
+  renderVoiceSelect();
+  $('#setName').oninput=e=>{ s.name=e.target.value.trim().slice(0,30); save() };
+  $('#setVoice').onchange=e=>{ s.voice=e.target.value; save() };
+  $('#setLang').onchange=e=>{ s.lang=e.target.value; save() };
+  $('#setFu').onchange=e=>{ s.fu=e.target.value; save() };
+  $$('[data-set]').forEach(c=>c.onchange=()=>{ s[c.dataset.set]=c.checked; save(); micStatus() });
+  $$('[data-rng]').forEach(r=>r.oninput=()=>{ s[r.dataset.rng]=+r.value; $('#o-'+r.dataset.rng).textContent=r.value+r.dataset.unit; save() });
+  $('#testVoice').onclick=()=>{ Call.persona=s.persona; say(PERS[s.persona].hello(s.name)) };
+  $('#resetBtn').onclick=()=>{ $('#resetConfirm').hidden=false };
+  $('#resetNo').onclick=()=>{ $('#resetConfirm').hidden=true };
+  $('#resetYes').onclick=()=>{ ST.cards={}; ST.hist=[]; save(); renderSettings(); toastLobby('Progress deleted.') };
+}
+function toastLobby(m){ const t=$('#toast'); t.textContent=m; t.hidden=false; t.style.position='fixed'; document.body.appendChild(t); clearTimeout(toastT); toastT=setTimeout(()=>{ t.hidden=true; $('#stage').appendChild(t) }, 2500) }
+
+/* =================================================================
+   ROUTING + INIT
+   ================================================================= */
+let curView='practice';
+function show(v){
+  if(!['practice','library','progress','prefs'].includes(v)) v='practice';
+  curView=v; $$('.view').forEach(s=>s.hidden = s.id!=='v-'+v);
+  $$('.tabs a').forEach(a=>a.toggleAttribute('aria-current', a.dataset.v===v)); $$('.tabs a').forEach(a=>{ if(a.dataset.v===v) a.setAttribute('aria-current','page') });
+  if(v==='library') renderLibrary(); if(v==='progress') renderProgress(); if(v==='prefs') renderSettings(); if(v==='practice') refreshLobby();
+}
+function refreshLobby(){ renderFormats(); renderCfg(); renderStrip(); micStatus() }
+window.addEventListener('hashchange', ()=>show(location.hash.slice(1)));
+$('#startBtn').onclick=()=>{ const S=buildSession(UI.fmt); if(S.fmt==='sd') S.sdMin=UI.sdLen; startCall(S) };
+$('#dojoLink').href = DOJO;
+paintTheme(); Voice.init(); show(location.hash.slice(1)||'practice');
+window.LiveDrill = {ST, Call, Mic, Rec, hitsOf, cxOf, nz, buildSession, startCall, scoreOf};
+})();
+</script>
+
+</body>
+</html>

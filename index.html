@@ -500,7 +500,7 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
 <header class="top">
   <div class="top-in">
     <div class="brand"><i></i>Rubber Duck Dojo</div>
-    <nav class="jump" aria-label="Sections"><a href="#match">Find</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
+    <nav class="jump" aria-label="Sections"><a href="#livedrill">Live Drill</a><a href="#match">Find</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
     <a class="sv-top" id="svTop" href="#saved" aria-label="Open saved items" aria-controls="svDrawer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-3.9-6.5 3.9v-16a1 1 0 0 1 1-1z"/></svg><span id="svCount">0</span></a>
     <div class="xp" aria-live="polite"><strong id="xpAll">0 XP</strong><small id="lvlAll">Rookie</small></div>
   </div>
@@ -521,7 +521,43 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
     <div class="cont" id="cont"></div>
   </section>
 
-  <!--mt-start--><section class="sec" id="match">
+  <!--ldx-start--><section class="sec" id="livedrill" aria-labelledby="ldx-h">
+<style>
+.ldx{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:20px}
+@media (max-width:760px){.ldx{grid-template-columns:1fr}}
+.ldx-e{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:8px}
+.ldx-e i{width:10px;height:10px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 4px var(--rose-soft)}
+.ldx h2{margin:6px 0 6px;font-size:clamp(22px,3vw,28px)}
+.ldx p{margin:0;color:var(--ink-2);max-width:60ch}
+.ldx-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ldx-tags span{font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink-2)}
+.ldx-go{display:inline-flex;align-items:center;gap:9px;margin-top:14px;background:var(--amber);color:#1C1405;text-decoration:none;font-weight:800;padding:12px 18px;border-radius:12px}
+.ldx-go:hover{filter:brightness(1.05)}
+.ldx-mock{background:#0B0E13;border-radius:14px;padding:14px;color:#EDF0F5;display:grid;gap:10px;font-size:13px}
+.ldx-mock b{font-size:14px;line-height:1.35}
+.ldx-row{display:flex;align-items:center;gap:10px}
+.ldx-ring{width:44px;height:44px;border-radius:50%;border:5px solid #F5B04A;border-right-color:#1C222C;display:grid;place-items:center;font:600 12px ui-monospace,monospace;flex:none}
+.ldx-dots{display:flex;gap:5px}.ldx-dots i{width:10px;height:10px;border-radius:50%;border:2px solid #2A313D}.ldx-dots i.on{background:#3FD49A;border-color:#3FD49A}
+.ldx-pill{font:600 10.5px ui-monospace,monospace;letter-spacing:.08em;color:#FF5A52;background:rgba(255,90,82,.16);padding:4px 8px;border-radius:999px;width:max-content}
+</style>
+<div class="ldx">
+  <div>
+    <div class="ldx-e"><i aria-hidden="true"></i>New · out-loud practice</div>
+    <h2 id="ldx-h">Live Drill: get asked, answer out loud</h2>
+    <p>A mock call where an interviewer reads you DSA, concept and system design questions. It times how fast you start, lights up the key ideas you mention, and brings the weak ones back on schedule.</p>
+    <div class="ldx-tags"><span>Rapid-fire patterns</span><span>Explain the approach</span><span>Concept quick-fire</span><span>Design sprints</span></div>
+    <a class="ldx-go" id="ldxGo" href="https://saksham0902.github.io/DSA_SD_App/live/" target="_blank" rel="noopener">Open Live Drill ↗</a>
+  </div>
+  <div class="ldx-mock" aria-hidden="true">
+    <span class="ldx-pill">● LIVE</span>
+    <b>"Given an array and a target, return the indices of the two numbers that add up to it."</b>
+    <div class="ldx-row"><span class="ldx-ring">62s</span><div><div class="ldx-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><div style="color:#A4ADBC;margin-top:4px">3/5 key ideas · started in 1.8s</div></div></div>
+  </div>
+</div>
+<script>(function(){var a=document.getElementById('ldxGo');if(a&&/github\.io$/.test(location.hostname)){a.href='live/';a.removeAttribute('target');a.textContent='Open Live Drill →'}})();</script>
+</section>
+
+  <!--ldx-end--><!--mt-start--><section class="sec" id="match">
     <div class="sec-head"><h2>Find the closest problem</h2><p>Got a question that isn’t in the app? Paste it here. You’ll get the three closest problems saved here, how strongly each one matches, and the approach to solve it.</p></div>
     <div id="mtHome"></div>
   </section>
