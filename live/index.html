@@ -1412,8 +1412,17 @@ function deep(h){
 $('#deepGo').onclick=()=>{ if(!deepId) return; const S=buildSession(null, deepId); if(S.fmt==='sd') S.sdMin=UI.sdLen; $('#deep').hidden=true; startCall(S) };
 $('#deepSee').onclick=()=>{ if(!deepId) return; const b=BYID[deepId]; LIB.kind=b.k==='dsa'?'dsa':b.k==='con'?'con':'sd'; LIB.topic=''; LIB.q=b.k==='dsa'?b.x.t:b.k==='con'?b.x.q:b.x.name; LIB.open.add(deepId); $('#q').value=LIB.q; $('#libKind').value=LIB.kind; $('#deep').hidden=true; location.hash='library' };
 $('#deepX').onclick=()=>{ $('#deep').hidden=true; deepId=null };
+function conPreset(v){
+  const m={'con-ai':['AI-assisted round','AI product integration'],'con-ai-round':['AI-assisted round'],'con-ai-int':['AI product integration']}[v];
+  if(!m) return false;
+  const cats=m.filter(c=>CON_CATS.includes(c)); if(!cats.length) return false;
+  UI.fmt='con'; UI.topics.con=new Set(cats); saveUI();
+  setTimeout(()=>toastLobby('Concept questions on '+cats.join(' and ')+' are selected. Press Start when you\'re ready.'), 300);
+  return true;
+}
 function show(v){
   if(deep(v)) v='practice';
+  else if(conPreset(v)) v='practice';
   if(!['practice','library','progress','prefs'].includes(v)) v='practice';
   curView=v; $$('.view').forEach(s=>s.hidden = s.id!=='v-'+v);
   $$('.tabs a').forEach(a=>a.toggleAttribute('aria-current', a.dataset.v===v)); $$('.tabs a').forEach(a=>{ if(a.dataset.v===v) a.setAttribute('aria-current','page') });

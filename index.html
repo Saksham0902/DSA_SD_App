@@ -500,7 +500,7 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
 <header class="top">
   <div class="top-in">
     <div class="brand"><i></i>Rubber Duck Dojo</div>
-    <nav class="jump" aria-label="Sections"><a href="#newways">New</a><a href="reels.html">Reels</a><a href="patterns.html">Patterns</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
+    <nav class="jump" aria-label="Sections"><a href="ai-round.html">AI round</a><a href="#newways">New</a><a href="reels.html">Reels</a><a href="patterns.html">Patterns</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
     <a class="sv-top" id="svTop" href="#saved" aria-label="Open saved items" aria-controls="svDrawer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-3.9-6.5 3.9v-16a1 1 0 0 1 1-1z"/></svg><span id="svCount">0</span></a>
     <div class="xp" aria-live="polite"><strong id="xpAll">0 XP</strong><small id="lvlAll">Rookie</small></div>
   </div>
@@ -521,7 +521,63 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
     <div class="cont" id="cont"></div>
   </section>
 
-  <!--ldx-start--><section class="sec" id="newways" aria-labelledby="nw-h">
+  <!--air-start--><section class="sec" id="airound" aria-labelledby="air-h">
+<style>
+.air{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:center;background:var(--rx-bg);color:var(--rx-ink);border:2px solid var(--ink);border-radius:22px;padding:24px;box-shadow:8px 8px 0 var(--ink)}
+@media (max-width:860px){.air{grid-template-columns:minmax(0,1fr);padding:18px}}
+.air-e{display:flex;align-items:center;gap:8px;margin:0;font:800 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--rx-acc)}
+.air-e i{width:9px;height:9px;border-radius:50%;background:#FF6F98;box-shadow:0 0 0 4px rgba(255,111,152,.25)}
+.air h2{font-size:clamp(30px,4.4vw,46px);font-weight:800;letter-spacing:-.025em;margin:8px 0 10px;color:var(--rx-ink)}
+.air-l>p{margin:0;max-width:60ch;font-size:16px;line-height:1.55;color:color-mix(in srgb,var(--rx-ink) 86%,transparent)}
+.air-k{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.air-k{grid-template-columns:minmax(0,1fr)}}
+.air-k li{border:1.5px solid color-mix(in srgb,var(--rx-ink) 28%,transparent);border-radius:12px;padding:9px 11px;display:grid;gap:2px}
+.air-k b{font:800 16px var(--display);color:var(--rx-acc)}
+.air-k span{font-size:13.5px;color:color-mix(in srgb,var(--rx-ink) 80%,transparent)}
+.air-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.air-btn{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--rx-ink);border-radius:11px;padding:9px 15px;font:700 14.5px var(--body);text-decoration:none;color:var(--rx-ink);background:transparent}
+.air-btn.pri{background:var(--rx-acc);color:#1C1405;border-color:var(--rx-acc)}
+.air-btn:hover{transform:translateY(-1px)}
+.air-chk{margin:12px 0 0;font-size:12.5px;color:color-mix(in srgb,var(--rx-ink) 65%,transparent)}
+.air-r{background:#0B0E22;border:1.5px solid color-mix(in srgb,var(--rx-ink) 25%,transparent);border-radius:14px;overflow:hidden;font:11.5px/1.65 var(--mono,ui-monospace,monospace);color:#E6E8F5;min-width:0}
+.air-bar{display:flex;gap:5px;align-items:center;padding:7px 10px;background:#1B2040;color:#A9B0D6;font-weight:700}
+.air-bar i{width:9px;height:9px;border-radius:50%;background:#FF5F57}.air-bar i:nth-child(2){background:#FEBC2E}.air-bar i:nth-child(3){background:#28C840}
+.air-bar span{margin-left:auto}
+.air-cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.air-code{padding:10px;white-space:pre;overflow:hidden}
+.air-code .bug{display:block;background:rgba(255,111,152,.18);box-shadow:inset 3px 0 #FF6F98;margin:0 -10px;padding:0 10px}
+.air-code .k{color:#A9B2FF}.air-code .c{color:#7F86B3}
+.air-chat{border-left:1px solid #2A3060;background:#11152E;padding:10px;display:grid;gap:6px;align-content:start;font-family:var(--body,system-ui,sans-serif);font-size:12px;line-height:1.4}
+.air-chat p{margin:0;padding:6px 8px;border-radius:9px}
+.air-chat .me{background:#2B3170;justify-self:end}
+.air-chat .ai{background:#173B36}
+.air-chat .v{background:transparent;padding:0;color:#3DD1A9;font-weight:700}
+</style>
+<div class="air">
+  <div class="air-l">
+    <p class="air-e"><i aria-hidden="true"></i>New · Google interview format · pilot</p>
+    <h2 id="air-h">Google's AI-assisted round</h2>
+    <p>Google is piloting a coding round where you use Gemini to read, debug and optimise code someone else wrote. Its internal document says it scores prompt engineering, output validation and debugging. The other coding rounds are still DSA.</p>
+    <ul class="air-k">
+      <li><b>60 minutes</b><span>A multi-file repo with tests, and a chat with Gemini</span></li>
+      <li><b>4 mock rounds</b><span>Real bugs, AI drafts to check, speed tests, in-browser Python</span></li>
+      <li><b>US teams first</b><span>No reports from India yet. Ask your recruiter</span></li>
+    </ul>
+    <div class="air-cta"><a class="air-btn pri" href="ai-round.html">Open the AI round guide →</a><a class="air-btn" href="ai-round.html#lab">Try a mock round</a></div>
+    <p class="air-chk">Last checked 25 Oct 2026. Sources: Business Insider's reporting on Google's internal documents, and candidate reports.</p>
+  </div>
+  <div class="air-r" aria-hidden="true">
+    <div class="air-bar"><i></i><i></i><i></i><span>pricing.py · 42:17 left</span></div>
+    <div class="air-cols"><div class="air-code"><span class="k">def</span> unit_price(self, sku, cur):
+<span class="bug">    hit = self.cache.get(sku)</span>    <span class="k">if</span> hit <span class="k">is not</span> None:
+        <span class="k">return</span> hit
+    <span class="c"># price depends on cur…</span></div>
+    <div class="air-chat"><p class="me">Is the cache key missing the currency?</p><p class="ai">Yes. Key it by (sku, cur).</p><p class="v">✓ 5 of 5 tests pass</p></div></div>
+  </div>
+</div>
+</section>
+<!--air-end-->
+<!--ldx-start--><section class="sec" id="newways" aria-labelledby="nw-h">
 <style>
 .nw-head{display:grid;gap:8px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
 .nw-head p{color:var(--ink-2);max-width:62ch;margin:0}
