@@ -500,7 +500,7 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
 <header class="top">
   <div class="top-in">
     <div class="brand"><i></i>Rubber Duck Dojo</div>
-    <nav class="jump" aria-label="Sections"><a href="ai-round.html">AI round</a><a href="#newways">New</a><a href="reels.html">Reels</a><a href="patterns.html">Patterns</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
+    <nav class="jump" aria-label="Sections"><a href="ai-round.html">AI round</a><a href="companies.html">Companies</a><a href="#newways">New</a><a href="reels.html">Reels</a><a href="patterns.html">Patterns</a><a href="#roadmap">DSA</a><a href="#sdroad">System design</a><a href="#cinema">Cinema</a><a href="#ask">Ask</a><a href="#today">Today</a><a href="#revise">Revise</a><a href="#practice">Practice</a></nav>
     <a class="sv-top" id="svTop" href="#saved" aria-label="Open saved items" aria-controls="svDrawer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-3.9-6.5 3.9v-16a1 1 0 0 1 1-1z"/></svg><span id="svCount">0</span></a>
     <div class="xp" aria-live="polite"><strong id="xpAll">0 XP</strong><small id="lvlAll">Rookie</small></div>
   </div>
@@ -577,6 +577,50 @@ footer button.armed{border-color:var(--rose);color:var(--rose)}
 </div>
 </section>
 <!--air-end-->
+<!--coh-start--><section class="sec" id="coupdates" aria-labelledby="coh-h">
+<style>
+.coh{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:20px;align-items:start;background:var(--surface);border:2px solid var(--ink);border-radius:22px;padding:22px;box-shadow:8px 8px 0 var(--ink)}
+@media (max-width:860px){.coh{grid-template-columns:minmax(0,1fr);padding:16px}}
+.coh-e{margin:0;font:800 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.coh h2{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.025em;margin:6px 0 8px}
+.coh-l>p{margin:0;color:var(--ink-2);font-size:15.5px;max-width:46ch}
+.coh-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.coh-chips a{font:700 13px var(--body);color:var(--ink);text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--paper)}
+.coh-chips a:hover{border-color:var(--ink)}
+.coh-btn{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:var(--ink);color:var(--paper);border-radius:11px;padding:9px 15px;font:700 14.5px var(--body);text-decoration:none}
+.coh-btn:hover{transform:translateY(-1px)}
+.coh-chk{margin:10px 0 0;font-size:12.5px;color:var(--ink-3)}
+.coh-feed{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.coh-feed li a{display:grid;grid-template-columns:86px minmax(0,1fr);gap:2px 12px;text-decoration:none;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:9px 12px}
+.coh-feed li a:hover{border-color:var(--ink)}
+.coh-feed time{grid-row:span 2;font:800 12.5px var(--mono,ui-monospace,monospace);color:var(--ink-2);padding-top:2px}
+.coh-feed b{font-size:15px;line-height:1.35}
+.coh-feed span{font-size:13px;color:var(--ink-3)}
+@media (max-width:560px){.coh-feed li a{grid-template-columns:minmax(0,1fr)}.coh-feed time{grid-row:auto}}
+</style>
+<div class="coh">
+  <div class="coh-l">
+    <p class="coh-e">Interview updates · weekly</p>
+    <h2 id="coh-h">What's changed at top companies</h2>
+    <p>The latest on how Google, Microsoft, Amazon, Amex, Adobe, Walmart and others interview, including who allows AI, who bans it, and where it now appears in online tests. Every item is dated and sourced.</p>
+    <div class="coh-chips" id="cohChips"></div>
+    <a class="coh-btn" href="companies.html">See every company →</a>
+    <p class="coh-chk" id="cohChk"></p>
+  </div>
+  <ol class="coh-feed" id="cohFeed" aria-label="Latest interview updates"><li><a href="companies.html"><time>–</time><b>Open the company tracker</b><span>Latest interview updates by company</span></a></li></ol>
+</div>
+<script src="companies-data.js"></script>
+<script>(function(){var D=window.CO_DATA;if(!D||!D.companies)return;var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function f(d){var p=String(d).split('-');return p.length===3?(+p[2])+' '+M[+p[1]-1]+' '+p[0]:p.length===2?M[+p[1]-1]+' '+p[0]:p[0]}
+function k(u){return u.sort||(String(u.d).length===4?u.d+'-01-01':String(u.d).length===7?u.d+'-01':u.d)}
+function e(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var all=[];D.companies.forEach(function(c){c.updates.forEach(function(u){all.push({u:u,c:c})})});
+all.sort(function(a,b){return k(b.u).localeCompare(k(a.u))});
+document.getElementById('cohFeed').innerHTML=all.slice(0,4).map(function(x){return '<li><a href="companies.html#co-'+e(x.c.id)+'"><time>'+e(f(x.u.d))+'</time><b>'+e(x.c.name)+': '+e(x.u.t)+'</b><span>'+e(x.c.stanceLabel)+'</span></a></li>'}).join('');
+document.getElementById('cohChips').innerHTML=D.companies.map(function(c){return '<a href="companies.html#co-'+e(c.id)+'">'+e(c.name)+'</a>'}).join('');
+document.getElementById('cohChk').textContent='Last checked '+f(D.checked)+'.';})();</script>
+</section>
+<!--coh-end-->
 <!--ldx-start--><section class="sec" id="newways" aria-labelledby="nw-h">
 <style>
 .nw-head{display:grid;gap:8px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
