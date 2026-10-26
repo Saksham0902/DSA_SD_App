@@ -11,8 +11,26 @@
    - Bump "checked" (YYYY-MM-DD) on every review, even if nothing changed. */
 window.CO_DATA = {
  "version": 1,
- "checked": "2026-10-25",
+ "checked": "2026-10-26",
  "sources": {
+  "bdn-chakra": [
+   "bdnews24: HackerRank's AI interviewer Chakra (reports TechCrunch)",
+   "https://bdnews24.com/technology/lf8ktitztv",
+   "6 Oct 2026",
+   "news"
+  ],
+  "aiw-chakra": [
+   "AI Weekly: HackerRank takes its Chakra AI interviewer to general availability",
+   "https://aiweekly.co/alerts/hackerrank-takes-chakra-ai-interviewer-ga-after-500000-beta-interviews-with",
+   "6 Oct 2026",
+   "news"
+  ],
+  "gd-amz-drive": [
+   "Glassdoor: Amazon SDE-2 in-person hiring drive, Bengaluru (March 2026)",
+   "https://www.glassdoor.sg/Interview/Amazon-Interview-E6036-RVW104471354.htm",
+   "21 Jun 2026",
+   "candidates"
+  ],
   "amz-jan26": [
    "About Amazon: How 3 AI innovations are creating a better experience for candidates in Amazon's hiring process",
    "https://www.aboutamazon.com/news/workplace/artificial-intelligence-resume-jobs-hiring-amazon",
@@ -237,6 +255,19 @@ window.CO_DATA = {
   ]
  },
  "trends": [
+  {
+   "id": "t-ai-interviewer",
+   "d": "2026-10-05",
+   "added": "2026-10-26",
+   "tag": "ai",
+   "st": "news",
+   "t": "HackerRank's AI interviewer is now generally available",
+   "x": "Chakra watches candidates work in a real code repository and asks follow-up questions about their choices. It can merge the screen, take-home and engineer rounds into one sitting, and humans still make the hiring decision. HackerRank says it ran more than 500,000 interviews in a six-month beta, with Snowflake, Snorkel and Capgemini among the early users.",
+   "src": [
+    "bdn-chakra",
+    "aiw-chakra"
+   ]
+  },
   {
    "id": "t-ai-rounds",
    "d": "2026-10-20",
@@ -591,6 +622,17 @@ window.CO_DATA = {
      "x": "Two DSA rounds, one LLD, one HLD and a Bar Raiser after the online assessment. A January 2026 Hyderabad candidate reported three LeetCode-hard problems, with optimal solutions expected.",
      "src": [
       "gd-amz"
+     ]
+    },
+    {
+     "d": "2026-06-21",
+     "added": "2026-10-26",
+     "tag": "process",
+     "st": "candidates",
+     "t": "Bengaluru SDE-2 hiring drive held in person",
+     "x": "After the online assessment, a candidate interviewed in March 2026 sat four onsite rounds at Amazon's Bengaluru office: DSA, LLD, HLD, and DSA with the hiring manager. Leadership Principles came up in every round. No AI was mentioned.",
+     "src": [
+      "gd-amz-drive"
      ]
     },
     {
