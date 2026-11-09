@@ -11,8 +11,26 @@
    - Bump "checked" (YYYY-MM-DD) on every review, even if nothing changed. */
 window.CO_DATA = {
  "version": 1,
- "checked": "2026-10-26",
+ "checked": "2026-11-09",
  "sources": {
+  "hr-oct26": [
+   "HackerRank Support: October 2026 release notes",
+   "https://support.hackerrank.com/articles/9093711123-october-2026-release-notes",
+   "28 Oct 2026",
+   "official"
+  ],
+  "tnw-anth": [
+   "The Next Web: Anthropic manager drops coding interviews because Claude is better at them",
+   "https://thenextweb.com/news/anthropic-felix-rieseberg-coding-interview-claude",
+   "28 Oct 2026",
+   "news"
+  ],
+  "li-ai": [
+   "LinkedIn Careers: Responsible AI usage guide for candidates",
+   "https://careers.linkedin.com/Howwehire/ai-usage",
+   "2026",
+   "official"
+  ],
   "bdn-chakra": [
    "bdnews24: HackerRank's AI interviewer Chakra (reports TechCrunch)",
    "https://bdnews24.com/technology/lf8ktitztv",
@@ -255,6 +273,30 @@ window.CO_DATA = {
   ]
  },
  "trends": [
+  {
+   "id": "t-hr-oct26",
+   "d": "2026-10-28",
+   "added": "2026-11-09",
+   "tag": "ai",
+   "st": "official",
+   "t": "HackerRank adds Claude Code and Codex to live interviews, and an AI fluency score",
+   "x": "In its October 2026 release, candidates in a HackerRank live interview can run Claude Code or Codex in a terminal inside a shared code repository, and interviewers can view the candidate's whole desktop on demand. The Chakra AI interviewer now handles code-repository questions and scores AI fluency on framing, judging and steering. HackerRank also added a flag for answers that may be written by an LLM, and lets companies choose which models candidates can use.",
+   "src": [
+    "hr-oct26"
+   ]
+  },
+  {
+   "id": "t-no-coding",
+   "d": "2026-10-27",
+   "added": "2026-11-09",
+   "tag": "process",
+   "st": "news",
+   "t": "An Anthropic hiring manager has dropped the coding interview for his team",
+   "x": "Felix Rieseberg said Claude is now better at small coding challenges than the candidates, so the test no longer tells him much. He looks at resumes and small prototypes instead, and says he has not yet settled on a replacement. This is one team's practice, not an Anthropic-wide policy.",
+   "src": [
+    "tnw-anth"
+   ]
+  },
   {
    "id": "t-ai-interviewer",
    "d": "2026-10-05",
@@ -1041,7 +1083,7 @@ window.CO_DATA = {
    "mono": "Li",
    "stance": "reported",
    "stanceLabel": "AI round reported",
-   "summary": "Candidates report an AI-enabled coding round in CoderPad that replaces one of two coding rounds, with follow-up questions on concurrency and production readiness.",
+   "summary": "Candidates report an AI-enabled coding round in CoderPad that replaces one of two coding rounds, with follow-up questions on concurrency and production readiness. LinkedIn's own guidance says no AI in live interviews unless the recruiting team tells you in advance.",
    "loop": [
     [
      "Recruiter and phone screen",
@@ -1067,6 +1109,18 @@ window.CO_DATA = {
    "levels": "Senior and Staff reports so far",
    "where": "Bengaluru, US",
    "updates": [
+    {
+     "d": "2026",
+     "sort": "2026-11-01",
+     "added": "2026-11-09",
+     "tag": "policy",
+     "st": "official",
+     "t": "Official AI guidance for candidates",
+     "x": "AI is fine for resumes, research and mock interviews. Do not use it in live interviews unless the recruiting team has said in advance that it is part of the format, and use it in coding assessments only when the interviewer or the test allows it. Be ready to discuss anything you submit. If unsure, ask your recruiter.",
+     "src": [
+      "li-ai"
+     ]
+    },
     {
      "d": "2026",
      "sort": "2026-01-02",
