@@ -950,7 +950,71 @@ svg.uml{width:100%;display:block;margin:0 auto}
 @media (max-width:600px){.saved-btn{height:34px;padding:0 8px;font-size:13px}.bm-abs{top:10px;right:10px}.lab .lab-head{padding-right:40px}}
 /* bookmarks-end */
 </style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -3044,5 +3108,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-wrap":{"deco":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the object running now"],["<i class=\"lp-sw s-on o f\"><\/i>","objects waiting for the call inside them to return"],["<i class=\"lp-sw s-ok o\"><\/i>","objects that have returned"],["<span class=\"lp-c\">badges<\/span>","return values"],["<span class=\"lp-c\">call stack<\/span>","the calls in progress"]],"m":"sd","p":"Follow one cost() call through <code class=\"w\">new Whip(new Milk(new Espresso()))<\/code>: three objects, each wrapping the next.","mini":"Follow one cost() call through new Whip(new Milk(new Espresso())): three objects, each wrapping the next.","i":"Each wrapper calls the object inside it, then adds its own price to the result. Want double milk? Wrap twice; no new class needed."},"proxy":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the object running now"],["<i class=\"lp-sw s-on o f\"><\/i>","objects waiting on a call"],["<i class=\"lp-sw s-ok o\"><\/i>","objects that have returned"],["<i class=\"lp-sw s-dim o\"><\/i>","a call that was skipped"],["<span class=\"lp-c\">calls to S3<\/span><span class=\"lp-c\">latency<\/span>","how often the real service was hit, and the time taken"],["<span class=\"lp-c\">proxy cache<\/span>","what the proxy has stored"]],"m":"sd","p":"A caching proxy sits in front of an image service. The client calls the same interface and doesn't know it's talking to a proxy.","mini":"A caching proxy sits in front of an image service.","i":"The first request goes through to S3 and is cached; a repeat request is answered from the cache, and S3 is never called."},"comp":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the node running now"],["<i class=\"lp-sw s-on o f\"><\/i>","folders waiting for their children"],["<i class=\"lp-sw s-ok o\"><\/i>","nodes that have returned their size"],["<span class=\"lp-c\">running total<\/span>","the sizes added so far"]],"m":"sd","p":"Composite: call size() on a folder that holds files and other folders.","mini":"Composite: call size() on a folder that holds files and other folders.","i":"A folder just asks each child for its size and adds them up, without checking whether a child is a file or a folder. One interface covers a tree of any depth."}},"lab-decorator":{"-":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok\"><\/i>","parts already designed"],["<i class=\"lp-sw s-bad\"><\/i>","the problem"]],"m":"sd","p":"A café sells espresso with optional milk, whip and syrup, in any combination. One class per combination would explode.","mini":"A café sells espresso with optional milk, whip and syrup, in any combination.","i":"Decorator: each extra is a wrapper with the same interface as the drink. Stack wrappers to build any combination at runtime."}},"lab-proxy":{"-":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok\"><\/i>","parts already designed"],["<i class=\"lp-sw s-bad\"><\/i>","the problem"]],"m":"sd","p":"A gallery loads images from S3. Product wants caching and permission checks without changing the code that calls it.","mini":"A gallery loads images from S3.","i":"Proxy: a class with the same interface as the real service that adds caching or checks before passing calls on. Decorator has the same diagram; Decorator adds behaviour, Proxy controls access."}},"lab-adapter":{"a":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok\"><\/i>","parts already designed"],["<i class=\"lp-sw s-bad\"><\/i>","the problem"]],"m":"sd","p":"Checkout calls the Stripe SDK directly, using Stripe's own types. What happens when you add a second provider?","mini":"Checkout calls the Stripe SDK directly, using Stripe's own types.","i":"Adapter: your code depends on your own PaymentGateway interface, and one adapter per provider translates calls into that vendor's API."},"f":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok\"><\/i>","parts already designed"],["<i class=\"lp-sw s-bad\"><\/i>","the problem"]],"m":"sd","p":"Placing an order means reserving stock, charging, scheduling shipping and sending an email, in the right order. The controller calls all four itself.","mini":"Placing an order means reserving stock, charging, scheduling shipping and sending an email, in the right order.","i":"Facade: one simple front door (placeOrder) that calls the subsystems in order. The subsystems are still reachable; the facade just makes the common case easy."}},"lab-composite":{"-":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok\"><\/i>","parts already designed"]],"m":"sd","p":"Compute the size of a folder that contains files and more folders.","mini":"Compute the size of a folder that contains files and more folders.","i":"Composite: files and folders share one interface. A file returns its own size; a folder adds up its children. It's recursion on objects, like a tree DFS."}},"lab-bridge":{"b":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok\"><\/i>","parts already designed"],["<i class=\"lp-sw s-bad\"><\/i>","the problem"]],"m":"sd","p":"Shapes (circle, square) can be drawn by two renderers (vector, raster). One class per combination multiplies fast.","mini":"Shapes (circle, square) can be drawn by two renderers (vector, raster).","i":"Bridge: a shape holds a renderer instead of inheriting from it. Shapes and renderers then grow separately: adding one is one new class, not one per combination."},"f":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok\"><\/i>","parts already designed"],["<i class=\"lp-sw s-bad\"><\/i>","the problem"]],"m":"sd","p":"An editor holds a million characters, each with a font, size and colour. Storing the style in every character wastes memory.","mini":"An editor holds a million characters, each with a font, size and colour.","i":"Flyweight: share one immutable style object among all characters that look the same. Each character keeps only a reference to it."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

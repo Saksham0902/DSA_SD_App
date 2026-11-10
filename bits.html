@@ -897,7 +897,71 @@ svg text{font-family:var(--mono)}
 @media (max-width:600px){.cx-r{grid-template-columns:70px 1fr 78px;font-size:12px}.cx-l{grid-template-columns:54px 1fr;}.cx-li{font-size:11px}.cx-lw{grid-column:2}.cx-ans b{font-size:18px}}
 
 /*cost-css-end*/</style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -4177,5 +4241,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-bits":{"pop":{"s":[["","Each row is a number in binary; the small labels above are bit positions."],["<i class=\"lp-sw s-win\"><\/i>","a 1 bit"],["<i class=\"lp-sw s-dim\"><\/i>","a 0 bit"],["<i class=\"lp-sw s-cur\"><\/i>","the lowest 1 bit, about to be erased"],["<i class=\"lp-sw s-bad\"><\/i>","the bit that <code>n &amp; (n − 1)<\/code> just erased"],["<span class=\"lp-c\">count<\/span>","1 bits erased so far"]],"tag":"LeetCode 191","p":"Count how many 1 bits a number has in binary.","mini":"Count how many 1 bits a number has in binary.","e":"<code>n = 44<\/code> (binary <code>00101100<\/code>) → <code>3<\/code>","i":"<code>n &amp; (n − 1)<\/code> erases exactly the lowest 1 bit: subtracting 1 flips that bit to 0 and every bit below it to 1, and the AND wipes them all. Repeat until n is 0 and count the rounds: one round per 1 bit."},"xor":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the number being XOR-ed in"],["<span class=\"lp-c\">x<\/span><span class=\"lp-c\">acc<\/span>","rows: that number in binary, and the running value after XOR-ing it"],["<i class=\"lp-sw s-win\"><\/i>","a 1 bit"],["<i class=\"lp-sw s-dim\"><\/i>","a 0 bit"],["<i class=\"lp-sw s-ok\"><\/i>","the answer"]],"tag":"LeetCode 136","p":"Every number in the list appears twice, except one. Find that one, using O(1) extra space.","mini":"Every number in the list appears twice, except one.","e":"<code>nums = [4, 1, 2, 1, 2]<\/code> → <code>4<\/code>","i":"XOR everything into one running value. <code>x ^ x = 0<\/code>, <code>x ^ 0 = x<\/code>, and the order doesn't matter, so each pair cancels out and only the single number is left."},"mis":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the number being XOR-ed in, together with its index"],["<span class=\"lp-c\">acc<\/span>","the running value in binary after each step"],["<i class=\"lp-sw s-win\"><\/i>","a 1 bit"],["<i class=\"lp-sw s-dim\"><\/i>","a 0 bit"]],"tag":"LeetCode 268","p":"The list holds n different numbers taken from 0 to n, so exactly one is missing. Find it.","mini":"The list holds n different numbers taken from 0 to n, so exactly one is missing.","e":"<code>nums = [3, 0, 1]<\/code> → <code>2<\/code>","i":"Start with <code>acc = n<\/code>, then XOR in every index and every value. Each number that's present meets its matching index and cancels. The missing number has no partner, so it's what's left."}},"lab-mask":{"sub":{"s":[["<span class=\"lp-c\">mask<\/span>","the mask in binary; the rightmost bit stands for item a"],["<i class=\"lp-sw s-ok\"><\/i>","a 1 bit, and the item it takes"],["<i class=\"lp-sw s-dim\"><\/i>","a 0 bit: that item is left out"],["<span class=\"lp-c\">subsets<\/span>","the subsets so far"]],"tag":"LeetCode 78","p":"List every subset of the items a, b, c, including the empty one.","mini":"List every subset of the items a, b, c, including the empty one.","e":"<code>items = [a, b, c]<\/code> → <code>8<\/code> subsets: {}, {a}, {b}, {a, b}, {c}, {a, c}, {b, c}, {a, b, c}","i":"With 3 items, count the masks from 0 to 7 and read each one in binary: bit i set means \"take item i\". Each number is a different subset, so you get all 2ⁿ of them without any recursion."},"cb":{"s":[["<span class=\"lp-c\">dp<\/span>","the counts found so far"],["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the number being worked out"],["<i class=\"lp-sw s-on\"><\/i><span class=\"lp-p\">▲i&gt;&gt;1<\/span>","the smaller number it reuses"],["<i class=\"lp-sw s-ok\"><\/i>","counts already done"],["<span class=\"lp-c\">i<\/span><span class=\"lp-c\">i &gt;&gt; 1<\/span>","rows: i and i &gt;&gt; 1 in binary"],["<i class=\"lp-sw s-win\"><\/i>","a 1 bit"]],"tag":"LeetCode 338","p":"For every number from 0 to n, count its 1 bits, and return the list of counts.","mini":"For every number from 0 to n, count its 1 bits, and return the list of counts.","e":"<code>n = 8<\/code> → <code class=\"w\">[0, 1, 1, 2, 1, 2, 2, 3, 1]<\/code>","i":"Dropping the last bit (<code>i &gt;&gt; 1<\/code>) gives a smaller number whose count you already have. So <code class=\"w\">dp[i] = dp[i &gt;&gt; 1] + (i &amp; 1)<\/code>: O(1) work per number."}},"lab-cost":{"dbl":{"s":[["","Each block is one run. Every <b>Next<\/b> doubles the input size and runs each version again."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×4.0<\/span>","how much the steps grew since the block above: ×2 is O(n), a bit over ×2 is O(n log n), ×4 is O(n²), ×8 is O(n³)."]],"m":"cost","p":"Counting the bits of n by shifting right: does the loop run n times, or once per bit?","mini":"Counting the bits of n by shifting right: does the loop run n times, or once per bit?","i":"Doubling n adds exactly one bit, so one more round: O(log n). For 32-bit or 64-bit integers that's capped at 32 or 64 rounds, which counts as O(1)."},"kern":{"s":[["<i class=\"lp-sw s-win\"><\/i>","a 1 bit"],["<i class=\"lp-sw s-bad\"><\/i>","the bit just cleared"],["<span class=\"lp-c\">rounds<\/span><span class=\"lp-c\">bits<\/span>","rounds used, against the number of bits"]],"m":"cost","p":"Count the 1 bits of <code>n = 44<\/code> (101100 in binary): check every bit, or use <code>n &amp; (n − 1)<\/code> to jump from one 1 bit to the next.","mini":"Count the 1 bits of n = 44 (101100 in binary): check every bit, or use n &amp; (n − 1) to jump from one 1 bit to the next.","i":"Checking every bit takes 6 rounds; Kernighan's trick takes 3, one per 1 bit. Both are O(log n), but the trick skips the zeros."},"range":{"s":[["","Each block is one run. Every <b>Next<\/b> doubles the input size and runs each version again."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×4.0<\/span>","how much the steps grew since the block above: ×2 is O(n), a bit over ×2 is O(n log n), ×4 is O(n²), ×8 is O(n³)."]],"m":"cost","p":"Count the bits of every number from 0 to n: count each one from scratch, or reuse the answer for <code>i &gt;&gt; 1<\/code> (a tiny DP).","mini":"Count the bits of every number from 0 to n: count each one from scratch, or reuse the answer for i &gt;&gt; 1 (a tiny DP).","i":"Counting from scratch is n × log n. Reusing <code>bits[i &gt;&gt; 1]<\/code> makes each entry O(1): O(n) in total."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

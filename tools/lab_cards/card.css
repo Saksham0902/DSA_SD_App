@@ -1,0 +1,64 @@
+/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}

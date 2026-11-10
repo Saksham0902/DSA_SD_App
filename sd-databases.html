@@ -950,7 +950,71 @@ svg.uml{width:100%;display:block;margin:0 auto}
 @media (max-width:600px){.saved-btn{height:34px;padding:0 8px;font-size:13px}.bm-abs{top:10px;right:10px}.lab .lab-head{padding-right:40px}}
 /* bookmarks-end */
 </style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -3601,5 +3665,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-idx":{"scan":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the row being read"],["<i class=\"lp-sw s-ok\"><\/i>","a match"],["<i class=\"lp-sw s-bad\"><\/i>","a row read for nothing"],["<span class=\"lp-c\">rows read<\/span><span class=\"lp-c\">matches<\/span>","the cost against the useful result"]],"m":"sd","p":"Find every user in Pune when there's no index on the city column.","mini":"Find every user in Pune when there's no index on the city column.","e":"12 rows stored in insert order; 3 of them are in Pune.","i":"Without an index the database must read every row (a Seq Scan), even after it finds a match. 12 reads here; 1,000,000 reads on a million-row table, on every request."},"btree":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the page being read"],["<i class=\"lp-sw s-on o f\"><\/i>","the path taken so far"],["<i class=\"lp-sw s-ok o\"><\/i>","the matching entry"],["<i class=\"lp-sw s-bad o\"><\/i>","a query the index can't help"],["<span class=\"lp-c\">page reads<\/span><span class=\"lp-c\">rows scanned<\/span>","the cost of the lookup"]],"m":"sd","p":"How does an index find a row without scanning the table? Look up id = 70 in a B-tree, then see how a two-column index is ordered.","mini":"How does an index find a row without scanning the table?","i":"Each box is a disk page of sorted keys, so a lookup is a binary search spread over pages: 3 page reads instead of a table scan. A composite index (user_id, created_at) only helps queries that start with user_id."},"lost":{"s":[["","Two lanes, one per transaction; each column is a moment in time."],["<i class=\"lp-sw s-cur\"><\/i>","the step happening now"],["<i class=\"lp-sw s-on f\"><\/i>","a read, or a lock being held"],["<i class=\"lp-sw s-ok\"><\/i>","the correct result"],["<i class=\"lp-sw s-bad\"><\/i>","the wrong result"],["<span class=\"lp-c\">balance in DB<\/span><span class=\"lp-c\">expected<\/span>","what the database holds, against what it should hold"]],"m":"sd","p":"Two payments of ₹30 and ₹50 hit the same wallet holding ₹100 at the same moment. What balance ends up in the database?","mini":"Two payments of ₹30 and ₹50 hit the same wallet holding ₹100 at the same moment.","i":"Both transactions read 100 before either writes, so one debit overwrites the other: the user pays ₹80 but loses only ₹50. Fix it with an atomic <code class=\"w\">UPDATE … SET balance = balance − x<\/code>, or lock the row with <code>SELECT … FOR UPDATE<\/code>."}},"lab-ring":{"mod":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the shard count that changed"],["<i class=\"lp-sw s-ok\"><\/i>","keys that stay where they are"],["<i class=\"lp-sw s-bad\"><\/i>","keys that must move"],["<span class=\"lp-c\">shards<\/span><span class=\"lp-c\">moved<\/span>","the number of shards, and keys moved"]],"m":"sd","p":"Keys are spread over shards with <code>hash(key) % N<\/code>. What happens when a 4th shard is added?","mini":"Keys are spread over shards with hash(key) % N.","i":"Changing N changes almost every key's shard: 7 of 8 keys must move, and every cache keyed this way goes cold at once."},"ring":{"s":[["","The circle is the hash ring (0–360°); coloured labels are servers, small dots are keys."],["<span class=\"lp-c\">servers<\/span><span class=\"lp-c\">keys moved<\/span>","servers on the ring, and keys moved by the last change"]],"m":"sd","p":"Consistent hashing: servers and keys are hashed onto a ring, and each key belongs to the next server along. What moves when a server is added?","mini":"Consistent hashing: servers and keys are hashed onto a ring, and each key belongs to the next server along.","i":"Only the keys on the new server's arc move. With a few points the arcs are uneven, so real systems give each server 100–200 virtual nodes around the ring."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

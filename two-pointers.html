@@ -897,7 +897,71 @@ svg text{font-family:var(--mono)}
 @media (max-width:600px){.cx-r{grid-template-columns:70px 1fr 78px;font-size:12px}.cx-l{grid-template-columns:54px 1fr;}.cx-li{font-size:11px}.cx-lw{grid-column:2}.cx-ans b{font-size:18px}}
 
 /*cost-css-end*/</style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -4764,5 +4828,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-conv":{"two":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲l<\/span><span class=\"lp-p\">▲r<\/span>","the two numbers being added"],["<i class=\"lp-sw s-dim\"><\/i>","numbers ruled out: they can't be part of the answer"],["<i class=\"lp-sw s-ok\"><\/i>","the pair that hits the target"],["<span class=\"lp-c\">l + r<\/span><span class=\"lp-c\">target<\/span>","the current sum, and the target"]],"tag":"LeetCode 167","p":"The list is sorted. Find the two numbers that add up to the target, and return their positions counting from 1.","mini":"The list is sorted.","e":"<code class=\"w\">nums = [1, 3, 4, 6, 8, 11]<\/code>, <code>target = 10<\/code> → <code>[3, 4]<\/code>, because 4 + 6 = 10.","i":"Start with the smallest and the largest. If the sum is too big, the largest number can't be in any answer, so move r left. If it's too small, move l right. Every step rules out one number."},"box":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲l<\/span><span class=\"lp-p\">▲r<\/span>","the two lines being measured"],["<i class=\"lp-sw s-win\"><\/i>","the width between them"],["<span class=\"lp-c\">area<\/span><span class=\"lp-c\">best<\/span>","this container's area, and the best so far"]],"tag":"LeetCode 11","p":"Each number is the height of a vertical line. Pick two lines that hold the most water between them. The water's area is the shorter line's height × the distance between the lines.","mini":"Each number is the height of a vertical line.","e":"<code class=\"w\">height = [1, 8, 6, 2, 5, 4, 8, 3, 7]<\/code> → <code>49<\/code>: the lines at index 1 (height 8) and index 8 (height 7) are 7 apart, and 7 × 7 = 49.","i":"Start with the widest pair. The shorter line limits the area, and moving the taller line inward can only make things worse. So always move the shorter line."},"3s":{"s":[["<i class=\"lp-sw s-hot\"><\/i><span class=\"lp-p\">▲i<\/span>","the fixed first number"],["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲l<\/span><span class=\"lp-p\">▲r<\/span>","the two pointers searching the rest"],["<i class=\"lp-sw s-ok\"><\/i>","a triple that adds up to 0"],["<span class=\"lp-c\">res<\/span>","the triples found so far"]],"tag":"LeetCode 15","p":"Find every different group of three numbers that adds up to 0.","mini":"Find every different group of three numbers that adds up to 0.","e":"<code class=\"w\">nums = [−1, 0, 1, 2, −1, −4]<\/code> → <code class=\"w\">[[−1, −1, 2], [−1, 0, 1]]<\/code>","i":"Sort the list. Fix one number at i, then use two pointers on the rest to find two numbers that cancel it out. Skip repeated values so the same triple is never listed twice."},"tr":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲l<\/span><span class=\"lp-p\">▲r<\/span>","the two pointers"],["<i class=\"lp-sw s-ok\"><\/i>","bars already settled; the number under a bar is the water above it"],["<span class=\"lp-c\">lmax<\/span><span class=\"lp-c\">rmax<\/span>","the tallest bar seen so far from the left, and from the right"],["<span class=\"lp-c\">water<\/span>","total water so far"]],"tag":"LeetCode 42","p":"Each number is the height of a bar 1 unit wide. After it rains, how many units of water are trapped between the bars?","mini":"Each number is the height of a bar 1 unit wide.","e":"<code class=\"w\">height = [0,1,0,2,1,0,1,3,2,1,2,1]<\/code> → <code>6<\/code> units.","i":"The water above a bar is <code class=\"w\">min(tallest bar to its left, tallest bar to its right) − its height<\/code>. Two pointers walk inward from the lower side, because the lower side's tallest bar is the one that limits the water."}},"lab-rw":{"rd":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲r<\/span>","the reader"],["<span class=\"lp-p\">▲w<\/span>","the writer: where the next new value goes"],["<i class=\"lp-sw s-ok\"><\/i>","the finished part, with no repeats"],["<i class=\"lp-sw s-bad\"><\/i>","a repeat the reader skips"],["<span class=\"lp-c\">kept so far<\/span>","values written so far"]],"tag":"LeetCode 26","p":"The list is sorted. Remove the repeats in place, so each value appears once at the front, and return how many values are left.","mini":"The list is sorted.","e":"<code class=\"w\">nums = [0,0,1,1,1,2,2,3,3,4]<\/code> → <code>5<\/code>; the first 5 slots become 0, 1, 2, 3, 4.","i":"The reader r scans every number. The writer w marks where the finished part ends. When r finds a new value, copy it to w and move w forward. Nothing ever has to be deleted."},"mz":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲r<\/span>","the reader"],["<span class=\"lp-p\">▲w<\/span>","the writer: where the next non-zero goes"],["<i class=\"lp-sw s-ok\"><\/i>","the finished front: non-zeros in their original order"]],"tag":"LeetCode 283","p":"Move every 0 to the end of the list, in place, keeping the other numbers in their original order.","mini":"Move every 0 to the end of the list, in place, keeping the other numbers in their original order.","e":"<code>nums = [0, 1, 0, 3, 12]<\/code> → <code>[1, 3, 12, 0, 0]<\/code>","i":"The writer w marks where the next non-zero goes. When the reader r finds a non-zero, swap it to w and move w forward. The zeros get pushed toward the back."},"sc":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the number being placed"],["<span class=\"lp-p\">▲lo<\/span><span class=\"lp-p\">▲hi<\/span>","where the next 0 and the next 2 will go"],["<i class=\"lp-sw s-ok\"><\/i>","the 0s region"],["<i class=\"lp-sw s-on\"><\/i>","the 2s region"]],"tag":"LeetCode 75","p":"The list holds only 0s, 1s and 2s (three colours). Sort it in place, in one pass.","mini":"The list holds only 0s, 1s and 2s (three colours).","e":"<code class=\"w\">nums = [2, 0, 2, 1, 1, 0]<\/code> → <code>[0, 0, 1, 1, 2, 2]<\/code>","i":"Keep three regions: 0s before lo, 2s after hi, 1s in between. Look at <code>nums[i]<\/code>: swap a 0 down to lo, swap a 2 up to hi, leave a 1 where it is."}},"lab-cost":{"moves":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲L<\/span><span class=\"lp-p\">▲R<\/span>","the two pointers on the sorted list; the target is 24"],["<span class=\"lp-c\">L moves<\/span><span class=\"lp-c\">R moves<\/span><span class=\"lp-c\">total<\/span>","every move, counted"]],"m":"cost","p":"How many pointer moves does a two-pointer pair search make on a sorted list of n numbers?","mini":"How many pointer moves does a two-pointer pair search make on a sorted list of n numbers?","i":"Each move brings L and R one step closer, and neither ever moves back. So there are at most n − 1 moves: O(n) time and O(1) space, whatever the input."},"dbl":{"s":[["","Each block is one run. Every <b>Next<\/b> doubles the input size and runs each version again."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×4.0<\/span>","how much the steps grew since the block above: ×2 is O(n), a bit over ×2 is O(n log n), ×4 is O(n²), ×8 is O(n³)."]],"m":"cost","p":"Pair sum three ways: check every pair, sort and then use two pointers, or use two pointers on a list that's already sorted.","mini":"Pair sum three ways: check every pair, sort and then use two pointers, or use two pointers on a list that's already sorted.","i":"All pairs grows ×4 per doubling (O(n²)). Two pointers on sorted input grows ×2 (O(n)). On unsorted input the sort dominates: a bit over ×2 (O(n log n))."},"3sum":{"s":[["","Each block is one run. Every <b>Next<\/b> doubles the input size and runs each version again."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×4.0<\/span>","how much the steps grew since the block above: ×2 is O(n), a bit over ×2 is O(n log n), ×4 is O(n²), ×8 is O(n³)."]],"m":"cost","p":"3Sum two ways: try every triple, or sort, fix one number and use two pointers on the rest.","mini":"3Sum two ways: try every triple, or sort, fix one number and use two pointers on the rest.","i":"The triple loop grows ×8 per doubling (O(n³)). Fix-one plus two pointers grows ×4 (O(n²)): n fixed numbers, each followed by an O(n) scan. The sort is only O(n log n), so it doesn't change the total."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

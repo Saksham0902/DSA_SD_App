@@ -1,0 +1,1213 @@
+# Problem cards for the DSA labs. Format: see build.py. Each example answer must match the lab's last step.
+
+== hashing.html lab-hash
+-- two | LeetCode 1
+P: You get a list of numbers and a target. Return the indexes of the two numbers that add up to the target.
+E: `nums = [3, 8, 5, 1, 7]`, `target = 12` → `[2, 4]`, because 5 + 7 = 12.
+I: For each number x, the partner it needs is `target − x`. Instead of a second loop to look for it, ask a dict of the numbers already passed. That lookup is O(1), so one pass is enough.
+S: (cur){▲i} the number being checked
+S: (on) numbers already passed, now stored in the dict
+S: (ok) the two numbers that add up to the target
+S: {seen} the dict: value → index
+
+-- dup | LeetCode 217
+P: Return true if any number appears more than once in the list, and false if every number is different.
+E: `nums = [4, 1, 7, 3, 1]` → `true`, because 1 appears twice.
+I: Keep a set of the numbers seen so far. Before adding a number, check whether it is already in the set.
+S: (cur){▲x} the number being checked
+S: (on) numbers already added to the set
+S: (bad) the repeat: it was already in the set
+S: (ok) where that number first appeared
+S: {seen} the set
+
+-- run | LeetCode 128
+P: Find the length of the longest run of consecutive numbers (like 1, 2, 3, 4) that you can make from the list. The numbers can be in any order.
+E: `nums = [100, 4, 200, 1, 3, 2]` → `4`, from the run 1, 2, 3, 4.
+I: Put every number in a set. Only start counting at x when `x − 1` is not in the set, because then x is the smallest number of its run. Count upward with set lookups. Each number is counted once, so the whole thing is O(n).
+S: (cur) the number being tried as the start of a run
+S: (ok) numbers found while counting upward from that start
+S: (dim) skipped: `x − 1` exists, so x is in the middle of a run
+S: {best so far}{current run} the longest run found, and the length of the one being counted
+
+== hashing.html lab-prefix
+-- sk | LeetCode 560
+P: Count how many subarrays (unbroken stretches of the list) add up to exactly k. The numbers can be negative.
+E: `nums = [1, 2, −1, 2, 1, −2, 3]`, `k = 3` → `6` subarrays, for example [1, 2], [2, 1] and [3].
+I: Keep a running sum. A subarray ending here adds up to k exactly when some earlier running sum equals `running − k`. A dict counts how often each running sum has appeared, so each step is one lookup.
+S: (cur) the number just added to the running sum
+S: (win) a subarray that adds up to k, found at this step
+S: {Σ} under each number: the running sum up to that index
+S: {running}{need}{count} the running sum, the earlier sum we look for (`running − k`), and subarrays found so far
+S: {seen} each running sum seen so far → how many times
+
+-- pr | LeetCode 238
+P: Return a list where each position holds the product of all the other numbers. You can't use division.
+E: `nums = [1, 2, 3, 4]` → `[24, 12, 8, 6]`. For example, 24 = 2 × 3 × 4.
+I: Each answer is (product of everything to its left) × (product of everything to its right). A left-to-right pass writes the left products; a right-to-left pass multiplies in the right products.
+S: (cur) the position being worked on
+S: (win) the numbers being multiplied in: everything to its left on the first pass, everything to its right on the second
+S: (on) the answer cell being written
+S: (ok) the finished answer
+S: {left}{right} the running product of everything to the left, and to the right
+
+== two-pointers.html lab-conv
+-- two | LeetCode 167
+P: The list is sorted. Find the two numbers that add up to the target, and return their positions counting from 1.
+E: `nums = [1, 3, 4, 6, 8, 11]`, `target = 10` → `[3, 4]`, because 4 + 6 = 10.
+I: Start with the smallest and the largest. If the sum is too big, the largest number can't be in any answer, so move r left. If it's too small, move l right. Every step rules out one number.
+S: (cur){▲l}{▲r} the two numbers being added
+S: (dim) numbers ruled out: they can't be part of the answer
+S: (ok) the pair that hits the target
+S: {l + r}{target} the current sum, and the target
+
+-- box | LeetCode 11
+P: Each number is the height of a vertical line. Pick two lines that hold the most water between them. The water's area is the shorter line's height × the distance between the lines.
+E: `height = [1, 8, 6, 2, 5, 4, 8, 3, 7]` → `49`: the lines at index 1 (height 8) and index 8 (height 7) are 7 apart, and 7 × 7 = 49.
+I: Start with the widest pair. The shorter line limits the area, and moving the taller line inward can only make things worse. So always move the shorter line.
+S: (cur){▲l}{▲r} the two lines being measured
+S: (win) the width between them
+S: {area}{best} this container's area, and the best so far
+
+-- 3s | LeetCode 15
+P: Find every different group of three numbers that adds up to 0.
+E: `nums = [−1, 0, 1, 2, −1, −4]` → `[[−1, −1, 2], [−1, 0, 1]]`
+I: Sort the list. Fix one number at i, then use two pointers on the rest to find two numbers that cancel it out. Skip repeated values so the same triple is never listed twice.
+S: (hot){▲i} the fixed first number
+S: (cur){▲l}{▲r} the two pointers searching the rest
+S: (ok) a triple that adds up to 0
+S: {res} the triples found so far
+
+-- tr | LeetCode 42
+P: Each number is the height of a bar 1 unit wide. After it rains, how many units of water are trapped between the bars?
+E: `height = [0,1,0,2,1,0,1,3,2,1,2,1]` → `6` units.
+I: The water above a bar is `min(tallest bar to its left, tallest bar to its right) − its height`. Two pointers walk inward from the lower side, because the lower side's tallest bar is the one that limits the water.
+S: (cur){▲l}{▲r} the two pointers
+S: (ok) bars already settled; the number under a bar is the water above it
+S: {lmax}{rmax} the tallest bar seen so far from the left, and from the right
+S: {water} total water so far
+
+== two-pointers.html lab-rw
+-- rd | LeetCode 26
+P: The list is sorted. Remove the repeats in place, so each value appears once at the front, and return how many values are left.
+E: `nums = [0,0,1,1,1,2,2,3,3,4]` → `5`; the first 5 slots become 0, 1, 2, 3, 4.
+I: The reader r scans every number. The writer w marks where the finished part ends. When r finds a new value, copy it to w and move w forward. Nothing ever has to be deleted.
+S: (cur){▲r} the reader
+S: {▲w} the writer: where the next new value goes
+S: (ok) the finished part, with no repeats
+S: (bad) a repeat the reader skips
+S: {kept so far} values written so far
+
+-- mz | LeetCode 283
+P: Move every 0 to the end of the list, in place, keeping the other numbers in their original order.
+E: `nums = [0, 1, 0, 3, 12]` → `[1, 3, 12, 0, 0]`
+I: The writer w marks where the next non-zero goes. When the reader r finds a non-zero, swap it to w and move w forward. The zeros get pushed toward the back.
+S: (cur){▲r} the reader
+S: {▲w} the writer: where the next non-zero goes
+S: (ok) the finished front: non-zeros in their original order
+
+-- sc | LeetCode 75
+P: The list holds only 0s, 1s and 2s (three colours). Sort it in place, in one pass.
+E: `nums = [2, 0, 2, 1, 1, 0]` → `[0, 0, 1, 1, 2, 2]`
+I: Keep three regions: 0s before lo, 2s after hi, 1s in between. Look at `nums[i]`: swap a 0 down to lo, swap a 2 up to hi, leave a 1 where it is.
+S: (cur){▲i} the number being placed
+S: {▲lo}{▲hi} where the next 0 and the next 2 will go
+S: (ok) the 0s region
+S: (on) the 2s region
+
+== greedy-intervals.html lab-greedy
+-- j1 | LeetCode 55
+P: Each number is the longest jump you can make from that index. You start at index 0. Can you reach the last index?
+E: `nums = [2, 3, 1, 1, 4]` → `true`: jump from index 0 to 1, then from 1 to the end.
+I: Don't try jump combinations. Keep one number, `reach`: the farthest index you can get to so far. At each index i, update it to `max(reach, i + nums[i])`. If i is ever past reach, you're stuck.
+S: (cur){▲i} the index being checked
+S: (win) indexes you can already reach
+S: {▲reach}{reach} the farthest index you can reach so far
+
+-- j2 | LeetCode 45
+P: Same jumps as Jump Game, and the last index can always be reached. What is the fewest number of jumps to get there?
+E: `nums = [2, 3, 1, 1, 4]` → `2` jumps: index 0 → 1 → 4.
+I: Think in levels, like BFS. While you scan the indexes one jump can reach, track the farthest index the next jump could reach. When i reaches the end of the level, take a jump: the next level runs up to that farthest index.
+S: (win) the current level: indexes reachable with this many jumps
+S: (cur){▲i} the index being scanned
+S: {▲end} the last index of the current level
+S: {▲far}{far} the farthest index the next jump can reach
+S: {jumps} jumps taken so far
+
+-- gs | LeetCode 134
+P: Gas stations sit on a circle. At station i you can fill up `gas[i]`, and driving to the next station uses `cost[i]`. You start with an empty tank. Which station can you start from to drive all the way around?
+E: `gas = [1,2,3,4,5]`, `cost = [3,4,5,1,2]` → start at station `3`.
+I: If the total gas is at least the total cost, some start works. Drive from a candidate start and add each station's gain. If the tank drops below 0 at station i, no station from the start up to i can work, so try i + 1 next.
+S: {gain} row: `gas[i] − cost[i]`, how the tank changes at each station
+S: (cur){▲i} the station being driven through
+S: {▲start} the current candidate start
+S: (bad) where the tank went below 0
+S: (dim) stations ruled out as a start
+S: {tank}{total gain} fuel in the tank now, and the sum of all gains (0 or more means some start works)
+
+-- kd | LeetCode 53
+P: Find the subarray (an unbroken stretch of the list) with the largest sum, and return that sum.
+E: `nums = [−2, 1, −3, 4, −1, 2, 1, −5, 4]` → `6`, from `[4, −1, 2, 1]`.
+I: Walk once, keeping `cur`: the best sum of a run that ends at i. If the run so far is negative, it can only hurt, so drop it and start fresh at `nums[i]`. Remember the best `cur` ever seen.
+S: (win){▲i} the current run, which ends at i
+S: (ok) the best subarray
+S: {cur}{best} the current run's sum, and the best sum so far
+
+== greedy-intervals.html lab-int
+-- mg | LeetCode 56
+P: You get a list of intervals. Merge every group of overlapping intervals and return the result.
+E: `[[1,3],[2,6],[8,10],[15,18]]` → `[[1,6],[8,10],[15,18]]`, because [1,3] and [2,6] overlap.
+I: Sort by start, so overlapping intervals end up next to each other. If the next interval starts at or before the last merged end, stretch that end; otherwise start a new merged interval.
+S: Each bar is one interval on a number line. The bottom row is the merged result.
+S: (cur) the interval being looked at
+S: (on f) a merged interval that just grew
+S: (ok) the merged intervals so far
+S: (dim) intervals already handled
+S: {dashed line} the sweep: the current interval's start
+
+-- er | LeetCode 435
+P: Remove the fewest intervals so that none of the rest overlap. How many must go? Touching ends, like [1,2] and [2,3], don't count as overlapping.
+E: `[[1,2],[2,3],[3,4],[1,3]]` → `1`: remove [1,3].
+I: Sort by end. Keep the interval that ends first, because it leaves the most room for the rest. Remove anything that starts before the last kept end.
+S: (ok) intervals kept
+S: (bad) intervals removed
+S: {dashed line}{last kept end} where the last kept interval ends
+S: {removed} how many were removed
+
+-- rm | LeetCode 253
+P: You get meeting times as [start, end]. What is the fewest rooms you need so that meetings that overlap never share a room?
+E: `[[0,30],[5,10],[10,20],[15,25]]` → `3` rooms: at time 15, three meetings are running.
+I: Only the order of starts and ends matters. Sweep through time: a start takes a room, an end frees one. The most rooms in use at once is the answer. A meeting that ends at 10 frees its room for one that starts at 10.
+S: (on f) meetings running at the sweep time
+S: (dim) meetings already over
+S: {dashed line} the sweep: the current time
+S: {rooms in use}{max rooms} rooms busy now, and the most busy at once so far
+
+== sliding-window.html lab-var
+-- lu | LeetCode 3
+P: Find the length of the longest stretch of the string in which no character repeats.
+E: `s = "abcabcbb"` → `3`, from "abc".
+I: Grow the window by moving r one character to the right. If the new character is already inside the window, shrink it from the left until it isn't. Each character enters and leaves the window at most once, so the whole scan is O(n).
+S: (win){▲l}{▲r} the window: the stretch being checked
+S: (cur) the character just added on the right
+S: (bad) a character that's already in the window, so the window has to shrink
+S: (dim) characters that have left the window
+S: {window}{best} the window's length, and the longest valid one so far
+S: {window (set)} the characters inside the window
+
+-- ml | LeetCode 209
+P: Find the length of the shortest subarray whose sum is at least the target. Return 0 if there is none.
+E: `nums = [2, 3, 1, 2, 4, 3]`, `target = 7` → `2`, from [4, 3].
+I: Move r right until the sum reaches the target. Then record the length and move l right, shrinking while the sum still reaches the target. All the numbers are positive, so shrinking always lowers the sum.
+S: (win){▲l}{▲r} the window
+S: (cur) the number just added on the right
+S: (dim) numbers that have left the window
+S: {window sum}{target}{best} the window's sum, the target, and the shortest valid length so far
+
+-- cr | LeetCode 424
+P: You may change up to k letters of the string into any other letter. How long is the longest stretch you can make where every letter is the same?
+E: `s = "AABABBA"`, `k = 1` → `4`, for example "AABA" with its B changed to A.
+I: A window works when `window length − (count of its most common letter) ≤ k`: the other letters are the ones you'd change. Grow from the right; when the window breaks that rule, slide the left edge in by one.
+S: (win){▲l}{▲r} the window
+S: (cur) the letter just added on the right
+S: (dim) letters that have left the window
+S: {window − maxf}{k} letters this window would need changed, and how many changes you're allowed
+S: {best} the longest window that worked so far
+S: {count in window} how often each letter appears in the window
+
+== sliding-window.html lab-fixed
+-- avg | LeetCode 643
+P: Find the run of exactly k numbers with the largest average, and return that average.
+E: `nums = [1, 12, −5, −6, 50, 3]`, `k = 4` → `12.75`, from [12, −5, −6, 50] (sum 51).
+I: Add up the first k numbers once. Then slide: add the number entering on the right and subtract the one leaving on the left. Each new window costs O(1) instead of re-adding k numbers.
+S: (win){▲l}{▲r} the window of k numbers
+S: (cur) the number entering on the right
+S: (bad) the number leaving on the left
+S: {window sum}{best sum} the window's sum, and the largest so far
+
+-- pm | LeetCode 567
+P: Does s2 contain the letters of s1, in any order, as one unbroken stretch? Put another way: is some window of s2, as long as s1, made of exactly the same letters?
+E: `s1 = "ab"`, `s2 = "eidbaooo"` → `true`, because s2 contains "ba".
+I: Slide a window as long as s1 along s2 and keep its letter counts. One letter enters and one leaves at each step. When the window's counts equal s1's counts, you've found it.
+S: (win) the window, as long as s1
+S: (cur) the letter entering on the right
+S: (ok) the window that matches
+S: {need} letter counts of s1
+S: {window counts} letter counts inside the window
+
+-- dq | LeetCode 239
+P: Slide a window of k numbers from left to right. For each position of the window, report its largest number.
+E: `nums = [1, 3, −1, −3, 5, 3, 6, 7]`, `k = 3` → `[3, 3, 5, 5, 6, 7]`
+I: Keep a deque of indexes whose values decrease from front to back. A new number first pops every smaller number off the back: they're older and smaller, so they can never be a window's max again. The front is always the max; drop it once it slides out of the window.
+S: (win) the window
+S: (cur){▲r} the number entering the window
+S: (on) numbers waiting in the deque
+S: (ok) the window's max: the front of the deque
+S: (bad) a number being popped from the deque
+S: {deque} the deque, front to back, as index:value
+S: {res} the max of each full window
+
+== binary-search.html lab-bs
+-- ex | LeetCode 704
+P: The list is sorted. Return the index of the target, or −1 if it isn't there.
+E: `nums = [1, 3, 5, 7, 9, 11, 13]`, `target = 9` → `4`
+I: Look at the middle. If it's smaller than the target, the target can only be to its right; if it's bigger, only to its left. Each check throws away half of what's left, so it takes O(log n) checks.
+S: (cur){▲mid} the middle element being checked
+S: {▲lo}{▲hi} the edges of the range still in play
+S: (dim) ruled out
+S: (ok) the target
+S: {range size}{target} how many elements are still in play, and the target
+
+-- lb | LeetCode 35 · bisect_left
+P: The list is sorted and may have repeats. Find the first index whose value is at least the target. That's also where the target would be inserted.
+E: `nums = [1, 2, 2, 2, 4, 5]`, `target = 2` → `1`
+I: Ask one yes/no question at every index: is `nums[i] ≥ target`? The answers run F F … T T, and you want the first T. If mid is T it could be the first one, so keep it (`hi = mid`). If it's F, the first T is to its right (`lo = mid + 1`).
+S: {T}{F} under each number: the answer to `nums[i] ≥ 2`
+S: (cur){▲mid} the middle element being checked
+S: {▲lo}{▲hi} the range still in play
+S: (dim) ruled out
+S: (ok) the first T: the answer
+
+-- rot | LeetCode 33
+P: A sorted list was rotated: cut in two and the halves swapped, like [4, 5, 6, 7, 0, 1, 2]. Find the target's index in O(log n), or return −1.
+E: `nums = [4, 5, 6, 7, 0, 1, 2]`, `target = 0` → `4`
+I: Split the range at mid. At least one half is still sorted. If the target falls inside that sorted half's range, search there; otherwise search the other half.
+S: (cur){▲mid} the middle element
+S: (win) the half that is sorted
+S: {▲lo}{▲hi} the range still in play
+S: (dim) ruled out
+S: (ok) the target
+
+-- min | LeetCode 153
+P: A sorted list was rotated. Find its smallest number in O(log n).
+E: `nums = [4, 5, 6, 7, 0, 1, 2]` → `0`
+I: Compare the middle with the last element of the range. If `nums[mid] > nums[hi]`, the drop (and the minimum) is to the right of mid. Otherwise mid … hi is sorted, so the minimum is mid or to its left.
+S: (cur){▲mid} the middle element
+S: {▲lo}{▲hi} the range still in play
+S: (dim) ruled out
+S: (ok) the minimum
+
+== binary-search.html lab-ans
+-- koko | LeetCode 875
+P: Koko has piles of bananas and h hours. Each hour she picks one pile and eats up to k bananas from it. What is the slowest speed k that lets her finish every pile within h hours?
+E: `piles = [3, 6, 7, 11]`, `h = 8` → `4`
+I: Binary search the answer instead of the input. The speed is somewhere from 1 to the biggest pile, and if a speed works, every faster speed works too. So test the middle speed and halve the range of speeds each time.
+S: {speed} the top row is every possible answer (speeds 1 to 11), not the input
+S: (cur){▲mid} the speed being tested
+S: {▲lo}{▲hi} the range of speeds still in play
+S: (dim) speeds ruled out
+S: (ok) the answer: the slowest speed that works
+S: {1h} under each pile: hours it takes at the tested speed
+S: {hours at mid}{allowed h} total hours at that speed, and the limit
+
+-- peak | LeetCode 162
+P: Find a peak: an element bigger than the neighbours on both sides. The list isn't sorted, and you still have to do it in O(log n).
+E: `nums = [1, 2, 1, 3, 5, 6, 4]` → index `5` (value 6). Index 1 (value 2) is also a peak; any peak is accepted.
+I: Compare mid with its right neighbour. If the neighbour is bigger, you're walking uphill, so a peak must exist to the right. Otherwise mid or something on its left is a peak.
+S: (cur){▲mid} the middle element
+S: (win) the neighbour it's compared with
+S: {▲lo}{▲hi} the range still in play
+S: (dim) ruled out
+S: (ok) the peak found
+
+== stack.html lab-stack
+-- ok | LeetCode 20
+P: Is the string of brackets valid? Every opening bracket has to be closed by the same type of bracket, in the right order.
+E: `s = "([{}])"` → `true`
+I: Push every opener onto a stack. A closer must match the opener on top; if it does, pop that opener. At the end the stack must be empty.
+S: (cur) the character being read
+S: (ok) a closer that matched the top of the stack
+S: (dim) characters already handled
+S: {stack} openers still waiting for their closer, top first
+
+-- bad | LeetCode 20
+P: Same question: is this string of brackets valid?
+E: `s = "([)]"` → `false`: `)` arrives while `[` is still open.
+I: Push every opener. A closer must match the opener on top of the stack. Here the top is `[` when `)` arrives, so the brackets close in the wrong order.
+S: (cur) the character being read
+S: (bad) the closer that doesn't match the top of the stack
+S: (dim) characters already handled
+S: {stack} openers still waiting, top first
+
+-- rpn | LeetCode 150
+P: Work out an expression written in Reverse Polish Notation, where each operator comes after its two numbers: `2 1 +` means 2 + 1.
+E: `["2","1","+","3","*","4","-"]` → `5`, which is (2 + 1) × 3 − 4.
+I: Push numbers. When an operator arrives, pop two numbers (the first one popped goes on the right), apply the operator, and push the result. The one number left at the end is the answer.
+S: (cur) the token being read
+S: (dim) tokens already used
+S: {stack} numbers waiting to be used, top first
+
+-- dec | LeetCode 394
+P: Decode a string in which `k[text]` means "text, repeated k times". Brackets can be nested.
+E: `s = "3[a2[c]]"` → `"accaccacc"`: 2[c] is cc, so a2[c] is acc, and that is repeated 3 times.
+I: When `[` opens, save the text built so far and the repeat count on a stack, then start fresh. When `]` closes, repeat the inner text k times and attach it to the saved text.
+S: (cur) the character being read
+S: (dim) characters already handled
+S: {cur}{k} the text being built inside the current brackets, and the number being read
+S: {stack} saved (outer text, count) pairs, one per open bracket
+
+== stack.html lab-mono
+-- dt | LeetCode 739
+P: For each day's temperature, how many days do you have to wait for a warmer day? Use 0 if no warmer day comes.
+E: `temps = [73, 74, 75, 71, 69, 72, 76, 73]` → `[1, 1, 4, 2, 1, 1, 0, 0]`
+I: Keep a stack of the days still waiting for a warmer day; their temperatures decrease from bottom to top. A warmer day pops every cooler day off the top and writes down how long each one waited.
+S: (cur){▲i} today
+S: (on) days still waiting on the stack
+S: (ok) a day that just got its answer
+S: {res} the answers: days to wait
+S: {stack} waiting days, top first
+
+-- lr | LeetCode 84
+P: Each number is the height of a bar 1 unit wide. Find the area of the largest rectangle that fits inside the bars.
+E: `heights = [2, 1, 5, 6, 2, 3]` → `10`: height 5 across the bars at index 2 and 3.
+I: Keep a stack of bars with increasing heights. When a shorter bar arrives, each taller bar on the stack has found its right edge, and the bar below it on the stack is its left edge. Pop it and measure its rectangle.
+S: (cur){▲i} the bar being read
+S: (on) bars waiting on the stack
+S: (bad) the bar just popped: its rectangle is being measured
+S: (win) that rectangle's width
+S: (dim) a height-0 bar added at the end, so every bar gets popped
+S: {best area}{last rect} the largest area so far, and the rectangle just measured
+
+== linked-list.html lab-ll
+-- rev | LeetCode 206
+P: Reverse a linked list, so the last node becomes the head and every arrow points the other way.
+E: `1 → 2 → 3 → 4 → 5` becomes `5 → 4 → 3 → 2 → 1`
+I: Walk the list with two pointers, prev and curr. At each node: save `nxt = curr.next`, point `curr.next` back at prev, then move both one step forward.
+S: Each circle is a node and each arrow is its next pointer.
+S: {prev}{curr}{nxt} labels under the nodes: where each variable points
+S: (cur o) the node being rewired
+S: (ok o) nodes already reversed
+
+-- mrg | LeetCode 21
+P: Merge two sorted linked lists into one sorted list.
+E: `1 → 3 → 5` and `2 → 4 → 6` merge into `1 → 2 → 3 → 4 → 5 → 6`
+I: Start from a dummy node with a tail pointer. Compare the fronts of the two lists, attach the smaller one after tail, and move forward. When one list runs out, attach the rest of the other.
+S: {a}{b} labels under the nodes: the front of each list
+S: {tail} the last node of the merged list
+S: (ok o) nodes already in the merged list
+S: (dim o) the dummy node (d) the merged list hangs from
+
+-- nth | LeetCode 19
+P: Remove the nth node from the end of a linked list, in one pass.
+E: `1 → 2 → 3 → 4 → 5` with `n = 2` becomes `1 → 2 → 3 → 5`: the 4 is removed.
+I: Start both pointers at a dummy node and send fast n + 1 steps ahead. Then move both until fast falls off the end. The gap never changes, so slow stops right before the node to remove.
+S: (cur o) fast
+S: (on o f) slow
+S: {slow}{fast} labels under the nodes
+S: (bad o) the removed node
+S: (ok o) the node whose next pointer now skips it
+
+== linked-list.html lab-fs
+-- mid | LeetCode 876
+P: Return the middle node of a linked list. If there are two middle nodes, return the second.
+E: in `1 → 2 → 3 → 4 → 5 → 6` the middle is `4`
+I: slow moves one step while fast moves two. When fast reaches the end, slow has gone half as far, so it's on the middle.
+S: (cur o) fast
+S: (on o f) slow
+S: (ok o) the middle
+S: {slow}{fast} labels under the nodes; None is past the end
+
+-- cyc | LeetCode 142
+P: The list may loop back on itself. If it has a cycle, find the node where the cycle starts.
+E: in `1 → 2 → 3 → 4 → 5 → 6`, with 6 pointing back to 3, the cycle starts at `3`
+I: Phase 1: slow moves 1 step and fast moves 2. If they ever meet, there's a cycle. Phase 2: put slow back at the head and move both 1 step at a time. They meet again exactly at the cycle's entrance.
+S: (cur o) fast
+S: (on o f) slow
+S: (bad o) where they first meet
+S: (ok o) the entrance of the cycle
+
+== heap.html lab-heap
+-- push
+P: A min-heap always keeps its smallest value at the top. Push 5, 3, 8, 1, 9 and 2 into an empty one and watch where each value ends up.
+E: after the six pushes the array is `[1, 3, 2, 5, 9, 8]`, with the minimum, 1, at index 0.
+I: The heap is a tree stored in an array: the children of index i sit at `2i + 1` and `2i + 2`. A new value goes into the next free slot at the bottom, then sifts up, swapping with its parent while it's smaller. That's at most one swap per level: O(log n).
+S: The tree and the array hold the same data: read the tree level by level, left to right, to get the array.
+S: (cur) the value moving up
+S: (bad) the parent it's compared with and swaps past
+S: (ok) a value that has settled
+S: {still to push} values waiting their turn
+
+-- pop
+P: Pop the minimum three times from the heap `[1, 3, 2, 5, 9, 8]`, keeping it a valid heap after each pop.
+E: the pops return `1`, then `2`, then `3`: always the smallest value left.
+I: The answer is always the root. To fill the hole, move the last leaf up to the root (so the tree stays complete), then sift it down: swap it with its smaller child until both children are bigger. O(log n) per pop.
+S: (ok) the root being popped, or a value that has settled
+S: (cur) the value sifting down
+S: (bad) the smaller child it swaps with
+S: {popped} values popped so far, in order
+
+== heap.html lab-topk
+-- kth | LeetCode 215
+P: Find the kth largest number in the list: the one that would be at position k if you sorted from biggest to smallest.
+E: `nums = [3, 2, 1, 5, 6, 4]`, `k = 2` → `5`
+I: Keep a min-heap of at most k numbers: the k largest seen so far. Whenever it grows past k, pop its smallest. At the end the root is the weakest of the top k, which is exactly the kth largest. O(n log k) time, O(k) memory.
+S: (cur) the number arriving
+S: {heap} the row and the tree: the min-heap of the top k so far
+S: (on) the heap's root: the smallest of the top k
+S: (ok) the answer
+S: {heap size}{k} how many numbers the heap holds, and its limit
+
+-- med | LeetCode 295
+P: Numbers arrive one at a time. After each one, report the median of everything so far: the middle value, or the average of the two middle values.
+E: stream `5, 15, 1, 3, 8, 7` → medians `5, 10, 5, 4, 5, 6`
+I: Split the numbers into two halves: lo, a max-heap holding the smaller half, and hi, a min-heap holding the larger half. Keep them balanced, with lo allowed one extra. The median is lo's top, or the average of the two tops.
+S: (cur) the number arriving
+S: (dim) numbers already placed
+S: {lo} the smaller half; its top is its largest number
+S: {hi} the larger half; its front is its smallest number
+S: {size lo}{size hi} how many numbers each half holds
+S: {medians so far} the answer after each number
+
+== trie.html lab-build
+-- ins | LeetCode 208
+P: A trie stores words letter by letter, so words that start the same share a path. Insert cat, car, cart, dog and do.
+E: `cat`, `car` and `cart` share the path c → a; `dog` and `do` share d → o.
+I: Walk down from the root one letter at a time, creating a child only when it's missing. At the last letter, mark the node as a word end (✓). Without that mark, "do" would be invisible once "dog" exists.
+S: Each circle is one letter; a word is the path from the root down to a ✓.
+S: (cur o) the node for the letter being inserted
+S: (on o f) the path walked so far
+S: (ok o) the word's last letter, marked as a word end
+S: {✓} a word ends at this node (thick ring)
+S: {words inserted} the five words
+
+-- srch | LeetCode 208
+P: Two questions about the trie. `search(word)`: was this exact word inserted? `startsWith(prefix)`: does any word begin with this?
+E: `search("car")` → `true`, `search("ca")` → `false` (only a prefix), `startsWith("ca")` → `true`, `search("cow")` → `false`
+I: Both walk down from the root, one letter at a time. If a letter is missing, the answer is false. At the end, search also needs the word-end mark (✓); startsWith doesn't.
+S: (cur o) the node being checked
+S: (on o f) the path walked so far
+S: (ok o) success
+S: (bad o) where it fails: a missing letter, or no ✓ for search
+S: {✓} a word ends at this node
+
+== trie.html lab-dfs
+-- w1 | LeetCode 211
+P: Search for a word where `.` can stand for any single letter.
+E: `search("c.r")` → `true` (it matches car)
+I: Walk the trie letter by letter. A normal letter has one child to follow. A `.` has to try every child, so the search branches into a DFS and backtracks out of branches that die.
+S: {pattern} the top row: the letter being matched is highlighted
+S: (cur o) the node being visited
+S: (on o f) nodes on the current path
+S: (ok o) a real word that matches the whole pattern
+
+-- w2 | LeetCode 211
+P: Search for a word where `.` can stand for any single letter.
+E: `search("..g")` → `true` (it matches dog)
+I: Both `.`s branch, so the search tries the c branch first. There's no g under "ca", so that branch dies and the search backtracks into the d branch.
+S: {pattern} the top row: the letter being matched is highlighted
+S: (cur o) the node being visited
+S: (on o f) nodes on the current path
+S: (bad o) a dead end: no child matches
+S: (dim o) a branch already given up on
+S: (ok o) a real word that matches the whole pattern
+
+-- ac
+P: Autocomplete: list every stored word that starts with the prefix.
+E: prefix `"ca"` → `car, cart, cat`
+I: Walk down to the node for the prefix. Every word below it starts with the prefix, so a DFS of that subtree collects them, adding a word at each ✓.
+S: (cur o) the node being visited
+S: (on o f) nodes already explored
+S: (ok o) a word end that was just added
+S: {suggestions} the words found so far
+
+== bits.html lab-bits
+-- pop | LeetCode 191
+P: Count how many 1 bits a number has in binary.
+E: `n = 44` (binary `00101100`) → `3`
+I: `n & (n − 1)` erases exactly the lowest 1 bit: subtracting 1 flips that bit to 0 and every bit below it to 1, and the AND wipes them all. Repeat until n is 0 and count the rounds: one round per 1 bit.
+S: Each row is a number in binary; the small labels above are bit positions.
+S: (win) a 1 bit
+S: (dim) a 0 bit
+S: (cur) the lowest 1 bit, about to be erased
+S: (bad) the bit that `n & (n − 1)` just erased
+S: {count} 1 bits erased so far
+
+-- xor | LeetCode 136
+P: Every number in the list appears twice, except one. Find that one, using O(1) extra space.
+E: `nums = [4, 1, 2, 1, 2]` → `4`
+I: XOR everything into one running value. `x ^ x = 0`, `x ^ 0 = x`, and the order doesn't matter, so each pair cancels out and only the single number is left.
+S: (cur) the number being XOR-ed in
+S: {x}{acc} rows: that number in binary, and the running value after XOR-ing it
+S: (win) a 1 bit
+S: (dim) a 0 bit
+S: (ok) the answer
+
+-- mis | LeetCode 268
+P: The list holds n different numbers taken from 0 to n, so exactly one is missing. Find it.
+E: `nums = [3, 0, 1]` → `2`
+I: Start with `acc = n`, then XOR in every index and every value. Each number that's present meets its matching index and cancels. The missing number has no partner, so it's what's left.
+S: (cur) the number being XOR-ed in, together with its index
+S: {acc} the running value in binary after each step
+S: (win) a 1 bit
+S: (dim) a 0 bit
+
+== bits.html lab-mask
+-- sub | LeetCode 78
+P: List every subset of the items a, b, c, including the empty one.
+E: `items = [a, b, c]` → `8` subsets: {}, {a}, {b}, {a, b}, {c}, {a, c}, {b, c}, {a, b, c}
+I: With 3 items, count the masks from 0 to 7 and read each one in binary: bit i set means "take item i". Each number is a different subset, so you get all 2ⁿ of them without any recursion.
+S: {mask} the mask in binary; the rightmost bit stands for item a
+S: (ok) a 1 bit, and the item it takes
+S: (dim) a 0 bit: that item is left out
+S: {subsets} the subsets so far
+
+-- cb | LeetCode 338
+P: For every number from 0 to n, count its 1 bits, and return the list of counts.
+E: `n = 8` → `[0, 1, 1, 2, 1, 2, 2, 3, 1]`
+I: Dropping the last bit (`i >> 1`) gives a smaller number whose count you already have. So `dp[i] = dp[i >> 1] + (i & 1)`: O(1) work per number.
+S: {dp} the counts found so far
+S: (cur){▲i} the number being worked out
+S: (on){▲i>>1} the smaller number it reuses
+S: (ok) counts already done
+S: {i}{i >> 1} rows: i and i >> 1 in binary
+S: (win) a 1 bit
+
+== dp.html lab-1d
+-- cl | LeetCode 70
+P: You climb a staircase of n steps, taking 1 or 2 steps at a time. How many different ways can you reach the top?
+E: `n = 6` → `13`
+I: To stand on step i, your last move came from step i − 1 or step i − 2. So `dp[i] = dp[i − 1] + dp[i − 2]`. Fill the table from the bottom up.
+S: {dp} `dp[i]`: the number of ways to reach step i
+S: (cur){▲i} the cell being worked out
+S: (on) the two cells it reads
+S: (ok) cells already solved
+
+-- rb | LeetCode 198
+P: Houses in a row each hold some money. You can't rob two houses that are next to each other. What's the most money you can take?
+E: `nums = [2, 7, 9, 3, 1]` → `12`: houses 1, 3 and 5 (2 + 9 + 1).
+I: `dp[i]` is the most money from the first i houses. For house i, either skip it (`dp[i − 1]`) or rob it and skip its neighbour (`dp[i − 2]` + its money). Keep the bigger one.
+S: {house $} the money in each house
+S: {dp} the best total from the first i houses
+S: (cur){▲i} the cell being worked out
+S: (on) the two cells it compares
+S: (ok) in the house row: robbing this house wins
+S: (bad) in the house row: skipping this house wins
+
+-- cc | LeetCode 322
+P: You have coins of the given values, as many of each as you like. Make the amount with the fewest coins, or return −1 if it can't be done.
+E: `coins = [1, 2, 5]`, `amount = 11` → `3` coins (5 + 5 + 1).
+I: `dp[a]` is the fewest coins that make amount a. Try each coin as the last one: `dp[a] = min(dp[a − coin] + 1)`. ∞ means that amount can't be made yet.
+S: {dp} the fewest coins for each amount from 0 to 11
+S: (cur){▲a} the amount being worked out
+S: (on) the smaller amount it builds on: `a − coin`
+S: (ok) amounts already solved
+S: {coins} the coins you can use
+
+-- lis | LeetCode 300
+P: Find the length of the longest strictly increasing subsequence. A subsequence keeps the original order but may skip numbers.
+E: `nums = [10, 9, 2, 5, 3, 7, 101, 18]` → `4`, for example 2, 3, 7, 18.
+I: `dp[i]` is the length of the longest increasing run that ends at i. Every earlier, smaller number j can be extended by `nums[i]`, so `dp[i] = max(dp[j] + 1)`. The answer is the biggest value in dp. O(n²).
+S: (cur){▲i} the element whose run is being worked out
+S: (on){▲j} an earlier, smaller element it could extend
+S: (ok) elements already settled
+S: {dp} the longest increasing run ending at each index
+
+== dp.html lab-2d
+-- up | LeetCode 62
+P: A robot starts in the top-left corner of an m × n grid and can only move right or down. How many different paths reach the bottom-right corner?
+E: `m = 3`, `n = 4` → `10`
+I: You can only enter a cell from above or from the left, so `dp[r][c] = dp[r − 1][c] + dp[r][c − 1]`. The top row and the left column have exactly one path each.
+S: Each cell holds the number of paths that reach it.
+S: (cur) the cell being worked out
+S: (dep) the cells it reads: above and left
+S: (ok) cells already solved
+
+-- lcs | LeetCode 1143
+P: Find the length of the longest common subsequence: the longest run of letters that appears, in the same order, in both strings (letters in between can be skipped).
+E: `a = "abcde"`, `b = "ace"` → `3`, from "ace".
+I: `dp[i][j]` is the answer for the first i letters of a and the first j letters of b. If the two letters match, take the diagonal + 1. If not, drop one of them: the bigger of the cell above and the cell to the left.
+S: Rows are the letters of a, columns the letters of b. Row 0 and column 0 stand for the empty string.
+S: (cur) the cell being worked out
+S: (dep) the cells it reads
+S: (ok) cells already solved
+
+-- ed | LeetCode 72
+P: What is the fewest single-letter edits (insert, delete or replace) that turn one word into another?
+E: `a = "horse"`, `b = "ros"` → `3`: horse → rorse (replace h) → rose (delete r) → ros (delete e).
+I: `dp[i][j]` is the cost of turning the first i letters of a into the first j letters of b. If the letters match, copy the diagonal. If not, it's 1 + the cheapest of delete (above), insert (left) and replace (diagonal).
+S: Rows are the letters of a, columns the letters of b. Row 0 and column 0 stand for the empty string.
+S: (cur) the cell being worked out
+S: (dep) the cells it compares: above, left and diagonal
+S: (ok) cells already solved
+
+-- kn
+P: Each item has a weight and a value, and you can take each item at most once. What's the most value that fits in a bag with the given capacity?
+E: `weights = [1, 3, 4]`, `values = [15, 20, 30]`, `cap = 4` → `35`: items 1 and 2 (weight 1 + 3, value 15 + 20).
+I: `dp[i][c]` is the best value using the first i items with capacity c. For each item, either skip it (the cell straight above) or take it (the row above, `weight` columns to the left, plus its value). Keep the bigger one.
+S: Rows are items (row 0 means no items yet); columns are capacities from 0 to 4.
+S: (cur) the cell being worked out
+S: (dep) the cells it compares: skip (straight above) or take (above and to the left)
+S: (ok) cells already solved
+
+== graphs.html lab-grid
+-- isl | LeetCode 200
+P: The grid is a map where "1" is land and "0" is water. An island is land connected up, down, left or right. How many islands are there?
+E: this 4 × 5 grid → `4` islands
+I: Scan every cell. Land you haven't visited yet starts a new island: count it, then flood-fill it with DFS (visit every land cell connected to it) so it's never counted again. Every cell is visited once: O(rows × columns).
+S: Each cell is a node; its up, down, left and right neighbours are its edges.
+S: (land) land not visited yet
+S: (water) water
+S: (cur) the cell being visited now
+S: (ok) land already counted as part of an island
+S: {islands} islands counted so far
+
+-- rot | LeetCode 994
+P: Every minute, each rotten orange (✕) makes the fresh oranges (●) next to it rotten. How many minutes until no fresh orange is left? Return −1 if some orange can never rot.
+E: this 3 × 3 grid → `4` minutes
+I: All the rotten oranges spread at the same time, so start BFS from all of them at once (multi-source BFS). Each BFS level is one minute.
+S: (bad) rotten; the number is the minute it went rotten
+S: (land) fresh oranges
+S: (cur) oranges that went rotten this minute
+S: (water) empty cells
+S: {minute}{fresh left} minutes passed, and fresh oranges still left
+S: {queue} the oranges that spread next
+
+== graphs.html lab-trav
+-- bfs
+P: Visit every node you can reach from A, closest first: A, then everything 1 edge away, then everything 2 edges away, and so on.
+E: start at A → visit order `A B C D E F G`
+I: Use a queue. Pop the front node and enqueue each neighbour you haven't seen, marking it seen as you enqueue it. Nodes come out in order of distance from A, which is why BFS finds shortest paths when edges have no weights.
+S: (cur o) the node being processed
+S: (on o f) nodes waiting in the queue
+S: (ok o) nodes already visited
+S: (cur e) the edge being looked at
+S: (ok e) edges that found a new node; together they form the shortest-path tree
+S: {d1} badges: distance from A, in edges
+S: {queue}{visit order} the queue (front first), and the order nodes were visited
+
+-- dfs
+P: Visit every node you can reach from A, going as deep as possible along each path before backing up.
+E: start at A → visit order `A B D F E C G`
+I: Visit a node, then dive straight into its first unvisited neighbour. Only when a node has no unvisited neighbours left do you return to the node before it. The call stack (or your own stack) remembers the way back.
+S: (cur o) the node being visited
+S: (on o f) nodes on the call stack, waiting to try their other neighbours
+S: (ok o) finished nodes
+S: (cur e) the edge being followed
+S: (ok e) edges used to reach a new node
+S: {call stack}{visit order} the active calls (top first), and the order nodes were visited
+
+== graphs.html lab-order
+-- kahn | LeetCode 210
+P: Courses have prerequisites: an arrow a → b means "take a before b". Find an order in which you can take every course, or report that it's impossible because of a cycle.
+E: 6 courses → the order `0, 5, 1, 2, 3, 4`
+I: Kahn's algorithm. Count each course's unmet prerequisites (its in-degree). Courses at 0 are ready. Take a ready course and cross off its outgoing arrows; any course whose count drops to 0 becomes ready. If some courses never become ready, there's a cycle.
+S: {in 1} badges: unmet prerequisites (the in-degree)
+S: (on o f) ready courses, waiting in the queue
+S: (cur o) the course being taken
+S: (ok o) courses already in the order
+S: (cur e) the arrow being crossed off
+S: (dim e) arrows already crossed off
+S: {ready queue}{order} courses ready to take, and the order so far
+
+-- uf | LeetCode 323
+P: Edges arrive one at a time. Keep track of which nodes are connected, and count the separate groups (connected components).
+E: 7 nodes and the edges 0–1, 1–2, 3–4, 5–6, 4–5, 2–0 → `2` components: {0, 1, 2} and {3, 4, 5, 6}
+I: Every node points to a parent; following parents leads to the group's root. For each edge, find both roots. If they differ, join the groups by pointing one root at the other. If they're the same, the edge is redundant: it closes a cycle.
+S: Node colours show groups: same colour, same component.
+S: {parent} `parent[i]` for each node; a node that is its own parent is a root
+S: (cur) the parent entry that just changed
+S: (bad) a redundant edge: both ends were already connected
+S: {components} groups left
+
+== graphs.html lab-path
+-- - | LeetCode 743
+P: The numbers on the edges are lengths. Find the shortest distance from S to every other node.
+E: from S → `A 3, B 1, C 4, D 7, T 8`
+I: Dijkstra: always settle the closest unsettled node next, using a min-heap of (distance, node). Once a node is settled its distance is final, because edges are never negative. Then try to improve its neighbours through it.
+S: (on o f) discovered, waiting in the heap
+S: (cur o) the node being settled
+S: (ok o) settled: its distance is final
+S: (cur e) the edge being tried
+S: (ok e) edges in the shortest-path tree
+S: {d4} badges: the best distance known so far
+S: {heap} (distance, node) pairs, smallest first; outdated entries are skipped when popped
+
+== recursion.html lab-fact
+-- -
+P: Work out n! (n factorial, n × (n − 1) × … × 1) with a function that calls itself: `fact(n) = n × fact(n − 1)`, and `fact(1) = 1`.
+E: `fact(4)` → `24` (4 × 3 × 2 × 1). Change n above to try other sizes.
+I: Every call gets its own frame on the call stack, with its own n. Frames pile up on the way down until the base case; then the answers flow back up and each paused call finishes its multiplication.
+S: Each box is one call's frame. New calls go on top; the bottom frame is the first call.
+S: (amb) the call running now
+S: (win) calls paused, waiting for the call above them to return
+S: (ok) a call returning its answer
+S: {smaller = ?} the value each paused call is waiting for
+
+== recursion.html lab-fib
+-- - | LeetCode 509
+P: Work out the nth Fibonacci number with plain recursion: `fib(n) = fib(n − 1) + fib(n − 2)`, with `fib(0) = 0` and `fib(1) = 1`.
+E: `fib(5)` → `5`, using 15 calls. Tick **Memo** above and replay to see the call count drop.
+I: Each call makes two more calls, so the tree of calls grows exponentially (about 1.6ⁿ) and the same values get worked out again and again. A memo (cache) works out each value once.
+S: Each box is one call; the number underneath is what it returned.
+S: (cur) the call running now
+S: (win) calls waiting on the stack for their children to return
+S: (ok) calls that have returned
+S: {calls so far}{cache hits} how many calls ran, and how many the memo answered instantly
+
+== recursion.html lab-tree
+-- pre | LeetCode 144
+P: Visit every node of the tree in preorder: the node itself first, then its whole left subtree, then its whole right subtree.
+E: this tree → `8, 4, 2, 6, 7, 12, 14`
+I: `visit(node)`, then recurse left, then recurse right. The call stack remembers which nodes still have a right side to do. A call on a missing child (None) returns straight away.
+S: (cur o) the call running now
+S: (win o) calls waiting on the stack
+S: (ok o) finished nodes
+S: (nil o) a call on a missing child (None), which returns at once
+S: {#1} the position of each node in the output
+S: {Call stack}{Output} the active calls (top first), and the output so far
+
+-- in | LeetCode 94
+P: Visit every node in inorder: the whole left subtree first, then the node, then the whole right subtree.
+E: this tree → `2, 4, 6, 7, 8, 12, 14`. In a binary search tree, inorder gives the values in sorted order.
+I: Recurse left, then `visit(node)`, then recurse right. A node goes into the output only after its whole left subtree is done.
+S: (cur o) the call running now
+S: (win o) calls waiting on the stack
+S: (ok o) finished nodes
+S: (nil o) a call on a missing child (None), which returns at once
+S: {#1} the position of each node in the output
+S: {Call stack}{Output} the active calls (top first), and the output so far
+
+-- post | LeetCode 145
+P: Visit every node in postorder: the whole left subtree, then the whole right subtree, then the node.
+E: this tree → `2, 7, 6, 4, 14, 12, 8`
+I: Recurse left, recurse right, then `visit(node)`. Children always finish before their parent, so postorder fits any problem where a node needs its subtrees' answers first.
+S: (cur o) the call running now
+S: (win o) calls waiting on the stack
+S: (ok o) finished nodes
+S: (nil o) a call on a missing child (None), which returns at once
+S: {#1} the position of each node in the output
+S: {Call stack}{Output} the active calls (top first), and the output so far
+
+-- level | LeetCode 102
+P: Visit the nodes level by level: top to bottom, and left to right within each level.
+E: this tree → `8, 4, 12, 2, 6, 14, 7`
+I: This one isn't recursive. Use a queue: take the node at the front, output it, and add its children to the back. The queue makes the walk go wide instead of deep.
+S: (cur o) the node being processed
+S: (win o) nodes waiting in the queue
+S: (ok o) nodes already output
+S: {Queue}{Output} the queue (front first), and the output so far
+
+-- height | LeetCode 104
+P: Find the height of the tree: the number of nodes on the longest path from the root down to a leaf.
+E: this tree → `4`, along the path 8, 4, 6, 7.
+I: Bottom-up: a node can't answer until both children have reported. `height(node) = 1 + max(height(left), height(right))`, and a missing child (None) has height 0.
+S: (cur o) the call running now
+S: (win o) calls waiting for their children's answers
+S: (ok o) calls that have returned their height
+S: (nil o) a call on None, which returns 0
+S: {Call stack}{Returned} the active calls, and the answers returned so far
+
+-- path | LeetCode 112
+P: Is there a path from the root down to a leaf whose values add up to 25?
+E: this tree, target 25 → `true` (8 + 4 + 6 + 7)
+I: Top-down: carry the amount still needed as a parameter. Each call subtracts its own value and passes the rest down to its children. At a leaf, check whether exactly 0 is left.
+S: (cur o) the call running now
+S: (win o) calls waiting on the stack
+S: (ok o) calls that have returned
+S: (nil o) a call on a missing child (None)
+S: {Call stack}{Returned} the active calls, and the answers returned so far
+
+== recursion.html lab-flat
+-- - | LeetCode 114
+P: Flatten the binary tree into a list, in place: every node's right pointer leads to the next node in preorder, and every left pointer becomes None.
+E: this tree becomes `8 → 4 → 2 → 6 → 7 → 12 → 14`
+I: Build the list from its tail. Visit the nodes in reverse preorder (right subtree, left subtree, then the node) and hook each finished node in front of `prev`, the list built so far. Every rewire touches only nodes that are already finished.
+S: (cur o) the call running now
+S: (win o) calls waiting on the stack
+S: (ok o) nodes already rewired into the list
+S: {prev →} the strip at the bottom: the list built so far, from prev to None
+
+== recursion.html lab-bt
+-- subsets | LeetCode 78
+P: List every subset of the numbers, including the empty one.
+E: `nums = [1, 2, 3]` → `8` subsets: [], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]
+I: Each call is a box in a decision tree. Record the current path as an answer straight away, then try adding each number from `start` onward. Only moving forward means no subset is built twice.
+S: Each box is one call, labelled with the path at that moment.
+S: (cur) the current call
+S: (win) calls on the current path
+S: (ok) a recorded answer
+S: {path}{res} the path being built, and the answers so far
+
+-- dup | LeetCode 90
+P: List every different subset of numbers that contain repeats.
+E: `nums = [1, 2, 2]` → `6` subsets: [], [1], [1, 2], [1, 2, 2], [2], [2, 2]
+I: Sort first so equal numbers sit together. At the same level of the tree, skip a number equal to the one just tried: it would rebuild a subset you already have. Without the skip you'd get 8 subsets, with repeats.
+S: (cur) the current call
+S: (win) calls on the current path
+S: (ok) a recorded answer
+S: (bad) a pruned branch: a same-level twin
+S: {path}{res} the path being built, and the answers so far
+
+-- perm | LeetCode 46
+P: List every ordering (permutation) of the numbers.
+E: `nums = [1, 2, 3]` → `6` permutations: [1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]
+I: Order matters, so every level loops over all the numbers from the start, skipping ones already used on this path. A path that uses every number is a complete permutation.
+S: (cur) the current call
+S: (win) calls on the current path
+S: (ok) a recorded permutation
+S: {path}{res} the path being built, and the answers so far
+
+-- comb | LeetCode 39
+P: Find every combination of the candidates that adds up to the target. Each candidate can be used any number of times.
+E: `candidates = [2, 3, 6, 7]`, `target = 7` → `[2, 2, 3]` and `[7]`
+I: Track how much is still needed (rem). Try candidates from `start` onward, passing the same index down so a number can be reused. The list is sorted, so once a candidate is bigger than rem, every later one is too: stop the loop there.
+S: (cur) the current call
+S: (win) calls on the current path
+S: (ok) a combination that hits the target exactly (rem 0)
+S: (bad) a pruned branch: the candidate overshoots
+S: {rem} under each box: how much is still needed
+S: {path}{res} the path being built, and the answers so far
+
+-- par | LeetCode 22
+P: List every valid string made of n pairs of parentheses.
+E: `n = 3` → `5` strings: ((())), (()()), (())(), ()(()), ()()()
+I: Build the string one character at a time. Add `(` while fewer than n are open; add `)` only while it closes something (close < open). An invalid string is never built, so nothing has to be filtered out.
+S: (cur) the current call
+S: (win) calls on the current path
+S: (ok) a finished string of length 2n
+S: (bad) a choice the rules forbid
+S: {path}{res} the string being built, and the answers so far
+
+== recursion.html lab-nq
+-- - | LeetCode 51
+P: Place n queens on an n × n chessboard so that no two attack each other: no two share a row, a column or a diagonal. Find every arrangement.
+E: `n = 4` → `2` solutions. Change n above (up to 8) to watch the search grow.
+I: Put one queen per row. In each row, try every column and skip squares an earlier queen attacks; sets of used columns and diagonals make that check O(1). If a row has no safe square left, back up and move the previous queen.
+S: (amb) the square being tried
+S: (bad) attacked squares, and the queen attacking them
+S: (out) a queen that was just removed while backing up
+S: (ok) a complete solution
+S: {placements}{backtracks}{solutions} how much work the search has done
+
+== recursion.html lab-ws
+-- ABCCED | LeetCode 79
+P: Can the word be spelled by stepping between neighbouring cells (up, down, left, right), using each cell at most once?
+E: word `"ABCCED"` → `true`
+I: Try every cell as a start. From a matching cell, mark it as used (#) and search its 4 neighbours for the next letter. When a path fails, unmark the cell on the way back (backtracking) so other paths can use it.
+S: The strip on top is the word: matched letters are green, the dashed one is the letter being looked for.
+S: (cur) the current cell
+S: (win) cells on the path, numbered in order and marked # while in use
+S: (bad) a neighbour that didn't match
+S: (ok) the finished word
+
+-- SEE | LeetCode 79
+P: Can the word be spelled by stepping between neighbouring cells (up, down, left, right), using each cell at most once?
+E: word `"SEE"` → `true`
+I: Try every cell as a start; most fail on the first letter at once. From a matching cell, mark it as used (#) and search its 4 neighbours for the next letter, unmarking it on the way back if the path fails.
+S: The strip on top is the word: matched letters are green, the dashed one is the letter being looked for.
+S: (cur) the current cell
+S: (win) cells on the path, numbered in order and marked # while in use
+S: (bad) a neighbour that didn't match
+S: (ok) the finished word
+
+-- ABCB | LeetCode 79
+P: Can the word be spelled by stepping between neighbouring cells (up, down, left, right), using each cell at most once?
+E: word `"ABCB"` → `false`: the only way to spell it would reuse the B.
+I: The search reaches A → B → C, but the only B next to that C is the one already on the path, marked #. Every start fails, so the answer is false.
+S: The strip on top is the word: matched letters are green, the dashed one is the letter being looked for.
+S: (cur) the current cell
+S: (win) cells on the path, numbered in order and marked # while in use
+S: (bad) a neighbour that didn't match, or is already used
+
+# ---------- cost labs: what is being measured ----------
+
+== hashing.html lab-cost
+-- pairs
+M: cost
+P: Two ways to find a pair that adds up to a target: nested loops that try every pair, or one pass that looks up each partner in a dict. Both run on bigger and bigger inputs, and every step is counted.
+I: The × numbers. Nested loops grow ×4 each time n doubles, which is O(n²); the dict pass grows ×2, which is O(n). At n = 8,000 that's 32 million steps against 8,000.
+S: @dbl
+
+-- keys
+M: cost
+P: Grouping 1,000 words by anagram needs a key for each word: its letters sorted, or a count of each letter. Here the word length k doubles on each run.
+I: The sorted key grows a bit faster than ×2 (O(k log k) per word); the count key grows ×2 at most (O(k)). With short words the two are close, so mention both in an interview.
+S: @dbl
+
+== two-pointers.html lab-cost
+-- moves
+M: cost
+P: How many pointer moves does a two-pointer pair search make on a sorted list of n numbers?
+I: Each move brings L and R one step closer, and neither ever moves back. So there are at most n − 1 moves: O(n) time and O(1) space, whatever the input.
+S: (cur){▲L}{▲R} the two pointers on the sorted list; the target is 24
+S: {L moves}{R moves}{total} every move, counted
+
+-- dbl
+M: cost
+P: Pair sum three ways: check every pair, sort and then use two pointers, or use two pointers on a list that's already sorted.
+I: All pairs grows ×4 per doubling (O(n²)). Two pointers on sorted input grows ×2 (O(n)). On unsorted input the sort dominates: a bit over ×2 (O(n log n)).
+S: @dbl
+
+-- 3sum
+M: cost
+P: 3Sum two ways: try every triple, or sort, fix one number and use two pointers on the rest.
+I: The triple loop grows ×8 per doubling (O(n³)). Fix-one plus two pointers grows ×4 (O(n²)): n fixed numbers, each followed by an O(n) scan. The sort is only O(n log n), so it doesn't change the total.
+S: @dbl
+
+== sliding-window.html lab-cost
+-- amort
+M: cost
+P: Longest substring without repeats has a loop inside a loop. Is it O(n²)? Count every time a character enters or leaves the window.
+I: Each character enters once and leaves at most once. However the inner loop's runs are spread out, they add up to at most n, so entries + exits ≤ 2n: O(n).
+S: {▲L}{▲R} the window's edges
+S: (cur) the character entering
+S: (win) characters inside the window
+S: (bad) the character leaving
+S: {entered}{left}{total moves} every move of either edge, counted
+
+-- dbl
+M: cost
+P: Longest substring without repeats, two ways: check every substring, or slide a window.
+I: Checking every substring grows at least ×4 per doubling (O(n²), or O(n³) if each check rescans the substring). The window grows ×2: at most 2n pointer moves.
+S: @dbl
+
+-- fix
+M: cost
+P: Largest sum of any k = 100 numbers in a row, two ways: add up every window from scratch, or update the sum by adding the number that enters and subtracting the one that leaves.
+I: Both grow ×2 with n, but re-summing carries a factor of k = 100: O(n·k) against O(n). That O(1) update is the whole point of a sliding window.
+S: @dbl
+
+== binary-search.html lab-cost
+-- halve
+M: cost
+P: How many steps does binary search take on a sorted list of 1,000,000 numbers?
+I: Each step looks at the middle and throws half away, so about 20 steps leave a single candidate: log₂(1,000,000) ≈ 20. A billion numbers would take about 30.
+S: (amb) the step happening now
+S: Each row is one step: how many candidates are left, and the one comparison that step makes.
+
+-- dbl
+M: cost
+P: Look for a value that isn't in the list: a linear scan checks everything, binary search halves the range.
+I: Doubling n doubles the scan, but adds just one step to binary search (the ×1.1 column). That's what O(log n) feels like.
+S: @dbl
+
+-- ans
+M: cost
+P: Koko Eating Bananas with piles of up to M = 10,000 bananas. Each candidate speed needs an O(n) check over the piles. Try every speed, or binary search the speed?
+I: Trying every speed costs n × M; binary searching it costs n × log₂M ≈ n × 14. Both grow ×2 with n, but the factor shrinks from 10,000 to 14: O(n log M).
+S: @dbl
+
+== stack.html lab-cost
+-- amort
+M: cost
+P: Next greater element with a monotonic stack has a while loop inside a for loop. Is it O(n²)? Count every push and pop.
+I: Each element is pushed once and popped at most once, so the while loop's pops add up to at most n over the whole run. Pushes + pops ≤ 2n: O(n) time, O(n) space for the stack.
+S: {▲i} the element being read
+S: (cur) the value being pushed
+S: (win) values on the stack
+S: (bad) a value being popped: its next greater element is now known
+S: The second row holds each value's next greater element, written in when it's popped.
+S: {pushes}{pops}{total ops} every stack operation, counted
+
+-- dbl
+M: cost
+P: Next greater element on a decreasing list (the worst case for brute force): scan to the right for every element, or use a monotonic stack.
+I: The brute force grows ×4 per doubling (O(n²)); the stack grows ×2 (O(n)): n pushes plus at most n pops.
+S: @dbl
+
+== linked-list.html lab-cost
+-- mid
+M: cost
+P: How much work does fast-and-slow take to find the middle of a list, and how much memory?
+I: fast reaches the end after about n/2 rounds. Total hops ≈ 1.5n, so O(n) time, and only two pointers, so O(1) space.
+S: (cur){▲slow} slow: one hop per round
+S: (win){▲fast} fast: two hops per round
+S: {rounds}{slow hops}{fast hops} the work, counted
+
+-- space
+M: cost
+P: Reversing a list recursively vs with a loop: both are O(n) time, but how much stack memory does each use?
+I: The recursive version keeps one frame per node, so its depth climbs to n: O(n) space. Python's default limit is about 1,000 frames, so it crashes on long lists. The loop uses one frame: O(1) space.
+S: (on e) the call-stack depth over time: the recursive version first, then the loop
+S: (bad e) the deepest it got (max depth)
+
+== greedy-intervals.html lab-cost
+-- parts
+M: cost
+P: An interval problem in two parts: sort the intervals, then scan them once. With n = 1,000,000 intervals, which part decides the total cost?
+I: Sorting takes about n log₂ n ≈ 20 million steps; the scan takes 1 million, about 5% of that. Only the biggest term survives: O(n log n). A heap (Meeting Rooms) adds another O(n log n), so the total stays O(n log n).
+S: Each bar is one part's step count.
+
+-- dbl
+M: cost
+P: Merge overlapping intervals two ways: compare every pair, or sort once and sweep.
+I: All pairs grows ×4 per doubling (O(n²)). Sort + sweep grows a bit over ×2 (O(n log n)). Sorting is what makes one pass enough: overlapping intervals end up next to each other.
+S: @dbl
+
+== heap.html lab-cost
+-- height
+M: cost
+P: Why are heap push and pop O(log n)?
+I: A heap fills its tree level by level, and each level holds twice as many nodes as the one above. So n nodes need only about log₂ n levels, and a push or pop swaps at most once per level.
+S: Each row is one level of the tree, with how many nodes it holds.
+S: (amb) the level being added
+S: {nodes}{height} the total so far, and the number of levels
+
+-- topk
+M: cost
+P: The 10 largest of n numbers, two ways: sort everything, or stream through a heap that never holds more than 10.
+I: Both grow about ×2, but the heap's factor is log₂ 10 ≈ 3.3 while sorting's is log₂ n ≈ 13–16. The heap also needs only O(k) memory, and it works on a stream you can't store.
+S: @dbl
+
+== trie.html lab-cost
+-- dbl
+M: cost
+P: "Does any word start with this 8-letter prefix?" Scan a list of N words, or walk down a trie.
+I: The scan doubles with N. The trie lookup stays at 8 steps (×1.0): it depends only on the prefix length, not on how many words are stored.
+S: @dbl
+
+-- nodes
+M: cost
+P: How many nodes does a trie need for car, cart, care, cat and dog?
+I: 17 characters, but only 9 nodes: shared beginnings are stored once. Space is at most the total number of characters, and `startsWith("ca")` takes 2 steps whether the trie holds 5 words or 5 million.
+S: (cur) the path of the word just inserted: shared nodes are reused, missing ones are created
+S: {characters inserted}{nodes created} the work against the space
+
+== bits.html lab-cost
+-- dbl
+M: cost
+P: Counting the bits of n by shifting right: does the loop run n times, or once per bit?
+I: Doubling n adds exactly one bit, so one more round: O(log n). For 32-bit or 64-bit integers that's capped at 32 or 64 rounds, which counts as O(1).
+S: @dbl
+
+-- kern
+M: cost
+P: Count the 1 bits of `n = 44` (101100 in binary): check every bit, or use `n & (n − 1)` to jump from one 1 bit to the next.
+I: Checking every bit takes 6 rounds; Kernighan's trick takes 3, one per 1 bit. Both are O(log n), but the trick skips the zeros.
+S: (win) a 1 bit
+S: (bad) the bit just cleared
+S: {rounds}{bits} rounds used, against the number of bits
+
+-- range
+M: cost
+P: Count the bits of every number from 0 to n: count each one from scratch, or reuse the answer for `i >> 1` (a tiny DP).
+I: Counting from scratch is n × log n. Reusing `bits[i >> 1]` makes each entry O(1): O(n) in total.
+S: @dbl
+
+== dp.html lab-cost
+-- table
+M: cost
+P: How much does a 2-D DP cost? Fill the LCS table for "ABCB" and "BDCAB" and count the cells.
+I: 4 × 5 = 20 cells, each O(1) work: O(m·n) time and O(m·n) space. Each row reads only the row above, so keeping two rows is enough: O(n) space.
+S: (cur) the row being filled
+S: (ok) cells already filled
+S: {cells filled}{m × n}{work per cell} the work, counted
+
+-- dbl
+M: cost
+P: Climbing Stairs two ways: plain recursion with no memory, or DP that fills each state once. Here n grows by 10 on each run.
+I: Plain recursion multiplies by about 120 each time n grows by 10: exponential. DP just doubles. Both have the same n + 1 states, but recursion recomputes them over and over.
+S: Each block is one run, and every **Next** adds 10 to n.
+S: {2.0M} how many steps that version took. A longer bar means more work.
+S: {×120} how much the steps grew since the block above.
+
+-- lis
+M: cost
+P: Longest Increasing Subsequence has n states. Does it matter how much work each state does?
+I: Scanning every earlier state is O(n) per state, so O(n²) in total (×4 per doubling). The binary-search version keeps n states but does O(log n) work each: O(n log n).
+S: @dbl
+
+== graphs.html lab-cost
+-- bfs
+M: cost
+P: Why is BFS O(V + E)? Count the vertices popped and the neighbour-list entries scanned.
+I: Every vertex is popped once (6) and every neighbour-list entry is scanned once (14 = 2E, since each undirected edge is listed at both ends). Total ≈ V + 2E: O(V + E). The seen set and the queue take O(V) space.
+S: (cur) the vertex being popped
+S: (win) vertices waiting in the queue
+S: (ok) vertices already done
+S: {vertices popped}{edges scanned}{total} the work, counted
+
+-- grid
+M: cost
+P: Flood fill on an s × s grid: each cell is a vertex with up to 4 neighbours. What happens to the work when the side doubles?
+I: Doubling the side quadruples the cells, so the work grows ×4. Per cell it's constant: O(R·C) time, and O(R·C) space for visited (or O(1) extra if you mark the grid in place).
+S: Each block is one run, and every **Next** doubles the side length.
+S: {cells (V)}{cells + edge checks} what each bar counts
+
+== recursion.html lab-cost
+-- fact
+M: cost
+P: How much does recursive factorial cost? Draw its call tree level by level and add up the work.
+I: Each call makes 1 call, on n − 1, and does O(1) work. The tree is a straight line of n levels: O(n) time, and O(n) stack space, because every frame is still alive at the bottom.
+S: (amb) the level being added
+S: (win) one call, with its input
+S: (ok) the total
+
+-- fib
+M: cost
+P: How much does plain recursive Fibonacci cost? Draw its call tree level by level.
+I: Each call makes 2 calls, so the tree branches: fib(10) makes 177 calls and fib(30) about 2.7 million. Each +1 to n multiplies the work by about 1.6: exponential. The repeated labels are the wasted work a memo removes.
+S: (amb) the level being added
+S: (win) one call, with its input
+S: (ok) the total
+
+-- memo
+M: cost
+P: The same Fibonacci with a cache (`@lru_cache`). The question is no longer "how many boxes are in the tree" but "how many different inputs are there?"
+I: Each value is worked out once; a repeated call is a cache hit (✓) that returns in O(1). Time = number of distinct states × work per state: O(n). The exponential tree collapses into a chain.
+S: (amb) the level being added
+S: (win) one call; a ✓ marks a cache hit, which has no subtree below it
+S: (ok) the total
+
+-- bs
+M: cost
+P: Recursive binary search on 16 items. The code has two recursive lines; how many levels does it make?
+I: Only one of the two lines runs per call, on half the range. Halving with a single call gives log n levels: O(log n).
+S: (amb) the level being added
+S: (win) one call, with its input
+S: (ok) the total
+
+-- ms
+M: cost
+P: Merge sort on 8 items: 2 calls on halves, plus merging, which costs the size of the call.
+I: Each level has twice as many boxes, each with half the work, so every level costs n. There are log n levels: O(n log n). That's why efficient comparison sorts land on n log n.
+S: (amb) the level being added
+S: (win) one call, with its input
+S: (ok) the total
+
+-- pow
+M: cost
+P: Three ways to compute xⁿ recursively, with n = 8. Same maths; what does each cost?
+I: The shape of the call tree decides: a line of n calls (O(n)), a full binary tree that halves n but calls itself twice (still O(n)), or one call on n/2 whose result is squared (a line of log n: O(log n)).
+S: (amb) the level being added
+S: (win) one call, with its input
+S: {calls (n=8)} the calls each version makes
+
+== recursion.html lab-cost2
+-- stack
+M: cost
+P: How deep does the call stack get while computing fib(5)?
+I: 15 calls in total, but the depth never goes above 5: frames are reused after each return. Stack space depends on the depth of the tree, not its size.
+S: (on e) the stack depth over time: up on each call, down on each return
+S: (bad e) the peak so far
+S: (cur o) now
+S: {frames pushed}{alive now} total calls, and the frames on the stack right now
+
+-- tree
+M: cost
+P: A tree function visits each node once with O(1) work: O(n) time. How much stack space does it need?
+I: It depends on the shape. A balanced tree of 15 nodes goes 4 deep; the same 15 nodes leaning in a line go 15 deep. Say it precisely: O(h) space, where h is O(log n) for a balanced tree and O(n) in the worst case.
+S: (on e) the stack depth over time: the balanced tree first, then the skewed one
+S: (bad e) the peak so far
+S: {max depth} the deepest the stack gets
+
+-- sub
+M: cost
+P: How much does generating every subset of [1, 2, 3] cost?
+I: There are 2ⁿ subsets and copying each one costs up to n, so it's O(n · 2ⁿ). A problem whose output is that big can't be solved any faster than writing the output.
+S: Each row is one depth of the decision tree; each chip is a subset recorded there.
+S: (amb) the level being added
+
+-- perm
+M: cost
+P: How much does generating every permutation of [1, 2, 3] cost?
+I: Each level multiplies by the number of choices left: n × (n − 1) × … × 1 = n! leaves, and each copies a permutation of length n: O(n · n!).
+S: Each row is one level of the tree; each chip is the path chosen so far.
+S: (amb) the level being added
+
+-- hanoi
+M: cost
+P: Towers of Hanoi with 4 disks: each call makes 2 calls on n − 1 disks, plus one move.
+I: Calls double at every level, so 2ⁿ − 1 moves in total: O(2ⁿ). It's the same shape as plain Fibonacci, but nothing repeats, so a memo can't help: every move is needed.
+S: (amb) the level being added
+S: (win) one call, with its input
+S: (ok) the total

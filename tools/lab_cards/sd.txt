@@ -1,0 +1,745 @@
+# Scenario cards for the system design labs. Format: see build.py. Mode sd = "The scenario / Setup / Watch for / On screen".
+
+== sd-start.html lab-change
+-- -
+M: sd
+P: A notification service gets three requests in a row: send email, then also SMS, then also WhatsApp. How do you shape the code so each new channel doesn't mean editing and re-testing the old code?
+I: Find what changes (the channel), hide it behind an interface, and hand the implementations in from outside. After that, a new channel is one new class and nothing old is touched.
+S: Boxes are classes; the arrows are UML relationships, explained as they appear.
+S: (cur) the class being looked at
+S: (ok) a new class added without touching anything else
+S: (bad) a class that had to be edited again
+
+== sd-start.html lab-uml
+-- -
+M: sd
+P: Class diagrams use six kinds of lines between classes. What does each one mean, and what Java code creates it?
+I: From strongest to weakest coupling: extends, composition (◆), aggregation (◇), association, dependency (⇢). Interviews mostly need four: extends, implements, has (◆) and uses (⇢).
+S: (cur) the relationship being added, with its Java
+S: (ok) the relationships already covered
+
+== sd-start.html lab-map
+-- -
+M: sd
+P: How do the pieces of this track connect? Follow one idea from a design principle, to a pattern, to a low-level design problem, to a high-level system.
+I: There are about 10 core moves, seen at three zoom levels: a class, a group of classes, a group of servers.
+S: Four columns: principle → pattern → LLD problem → HLD system.
+S: (cur o) the chain being followed
+S: (ok o) the core moves
+
+== sd-basics.html lab-scale
+-- grow
+M: sd
+P: An app grows from 100 users to 100 million. What breaks first at each stage, and what fixes it?
+I: Each step fixes only the current bottleneck: separate database, stateless app servers behind a load balancer, cache and read replicas, CDN, queues, then sharding. That's how to narrate an HLD answer.
+S: (cur o) the part just added
+S: (on e) connections in use
+S: (ok o) parts scaled out to several copies
+S: (bad o) the bottleneck
+S: {users}{bottleneck} the current scale, and what limits it
+
+-- rr
+M: sd
+P: A load balancer sends requests to three servers. Round robin takes turns: request n goes to server n mod 3. What happens when some requests are much heavier than others?
+E: most requests cost 1 unit of work; every third one is a heavy report costing 5.
+I: Round robin is fair by count, not by work: all the heavy requests land on server A (15 units against 3 and 3).
+S: Each bar is one server's work so far.
+S: (cur) the server that just got a request
+S: (bad) the busiest server
+S: {request}{busiest} the request being placed, and the most loaded server
+
+-- lc
+M: sd
+P: Same servers, same mix of requests, but now each request goes to the server with the least work in flight (least connections).
+E: most requests cost 1 unit of work; every third one is a heavy report costing 5.
+I: The load ends up far more even (7, 6 and 8) because the algorithm reacts to actual load instead of taking turns.
+S: Each bar is one server's work so far.
+S: (cur) the server that just got a request
+S: {request}{busiest} the request being placed, and the most loaded server
+
+== sd-basics.html lab-rt
+-- poll
+M: sd
+P: A chat message has to reach Ben's browser. With short polling, the browser asks the server "anything new?" every 3 seconds.
+I: Messages wait up to a full poll interval, and almost every request comes back empty. With 1M clients that's about 330k requests per second.
+S: Two lanes, client and server; each column is a moment in time.
+S: (on f) a request
+S: (cur) the message arriving at the server
+S: (ok) delivered
+S: (bad) a wasted, empty response
+S: {requests}{useful} requests sent, and how many carried a message
+
+-- long
+M: sd
+P: The same chat message, delivered with long polling: the browser asks, and the server holds the request open until it has something to send.
+I: Delivery is near-instant and nothing is wasted, but every message still costs a new HTTP request, because the client re-opens the poll after each answer.
+S: Two lanes, client and server; each column is a moment in time.
+S: (on f) a request
+S: (cur) the message arriving at the server
+S: (ok) delivered
+S: {open requests}{wasted} requests the server is holding, and empty responses
+
+-- ws
+M: sd
+P: The same chat message over a WebSocket: one HTTP request upgrades to a connection that stays open, and either side can send at any time.
+I: Messages flow both ways with a few bytes of overhead. The catch is state: 1M users means 1M open sockets, and you need to know which server holds Ben's.
+S: Two lanes, client and server; each column is a moment in time.
+S: (on f) the upgrade request, then frames
+S: (cur) the message arriving at the server
+S: (ok) delivered
+S: {connections}{requests after} open sockets, and HTTP requests needed after the upgrade
+
+== sd-databases.html lab-idx
+-- scan
+M: sd
+P: Find every user in Pune when there's no index on the city column.
+E: 12 rows stored in insert order; 3 of them are in Pune.
+I: Without an index the database must read every row (a Seq Scan), even after it finds a match. 12 reads here; 1,000,000 reads on a million-row table, on every request.
+S: (cur) the row being read
+S: (ok) a match
+S: (bad) a row read for nothing
+S: {rows read}{matches} the cost against the useful result
+
+-- btree
+M: sd
+P: How does an index find a row without scanning the table? Look up id = 70 in a B-tree, then see how a two-column index is ordered.
+I: Each box is a disk page of sorted keys, so a lookup is a binary search spread over pages: 3 page reads instead of a table scan. A composite index (user_id, created_at) only helps queries that start with user_id.
+S: (cur o) the page being read
+S: (on o f) the path taken so far
+S: (ok o) the matching entry
+S: (bad o) a query the index can't help
+S: {page reads}{rows scanned} the cost of the lookup
+
+-- lost
+M: sd
+P: Two payments of ₹30 and ₹50 hit the same wallet holding ₹100 at the same moment. What balance ends up in the database?
+I: Both transactions read 100 before either writes, so one debit overwrites the other: the user pays ₹80 but loses only ₹50. Fix it with an atomic `UPDATE … SET balance = balance − x`, or lock the row with `SELECT … FOR UPDATE`.
+S: Two lanes, one per transaction; each column is a moment in time.
+S: (cur) the step happening now
+S: (on f) a read, or a lock being held
+S: (ok) the correct result
+S: (bad) the wrong result
+S: {balance in DB}{expected} what the database holds, against what it should hold
+
+== sd-databases.html lab-ring
+-- mod
+M: sd
+P: Keys are spread over shards with `hash(key) % N`. What happens when a 4th shard is added?
+I: Changing N changes almost every key's shard: 7 of 8 keys must move, and every cache keyed this way goes cold at once.
+S: (cur) the shard count that changed
+S: (ok) keys that stay where they are
+S: (bad) keys that must move
+S: {shards}{moved} the number of shards, and keys moved
+
+-- ring
+M: sd
+P: Consistent hashing: servers and keys are hashed onto a ring, and each key belongs to the next server along. What moves when a server is added?
+I: Only the keys on the new server's arc move. With a few points the arcs are uneven, so real systems give each server 100–200 virtual nodes around the ring.
+S: The circle is the hash ring (0–360°); coloured labels are servers, small dots are keys.
+S: {servers}{keys moved} servers on the ring, and keys moved by the last change
+
+== sd-distributed.html lab-cache
+-- aside
+M: sd
+P: Cache-aside: the app checks the cache before the database. What happens on a hit, on a miss, and when the price changes?
+I: A miss loads from the database and fills the cache. On a write, update the database and then delete the cache key rather than overwrite it, so the next read reloads fresh data.
+S: (cur o) the step happening now
+S: (on o f) the services involved
+S: (ok o) a cache hit, or the data that was kept
+S: {result}{latency} where the answer came from, and how long it took
+S: {cache contents} what the cache holds now
+
+-- lru
+M: sd
+P: An LRU cache holds at most 3 items. When it's full, which item gets evicted?
+E: put A, put B, put C, get A, put D
+I: Every use moves an item to the most-recent end, so the least recently used item is evicted: B goes, and A survives because it was just used.
+S: Left is least recently used, right is most recently used.
+S: (cur) the item just touched
+S: (ok) a hit
+S: (bad) the evicted item
+S: {capacity}{last op} the size limit, and the last operation
+
+== sd-distributed.html lab-async
+-- kafka
+M: sd
+P: Order events go into a Kafka topic with 3 partitions, read by a consumer group. Which consumer reads what, and what happens when one crashes?
+I: Events with the same key always land in the same partition, so they stay in order. Each partition has one consumer in the group. A crash before committing the offset means the event is read again, so handlers must be idempotent.
+S: (cur o) the event or consumer active now
+S: (on o f) partitions and their assigned consumers
+S: (bad o) the consumer that failed
+
+-- saga
+M: sd
+P: Placing an order spans several services (order, payment, inventory), each with its own database, and there's no global transaction. What happens when a later step fails?
+I: A saga runs one local transaction per service. When a step fails, compensating actions undo the earlier steps in reverse (refund, then cancel), so the system ends up consistent eventually.
+S: (cur o) the step running now
+S: (ok o) a committed step
+S: (bad o) the step that failed
+S: (on e) messages between services
+
+-- outbox
+M: sd
+P: An order must be saved and an OrderPlaced event published to Kafka. Two writes to two systems: what if one of them fails?
+I: Write the event into an outbox table in the same database transaction as the order. A relay publishes it afterwards and marks it sent. A crash can cause a duplicate publish but never a lost one, so consumers dedupe by event ID.
+S: (cur o) the step happening now
+S: (ok o) committed
+S: (bad e) the write that can fail
+S: (on e) the path the event takes
+
+== sd-distributed.html lab-resil
+-- cb
+M: sd
+P: The payment provider goes down. A circuit breaker stops the app from hammering it and failing slowly on every request.
+I: After enough failures the breaker opens and fails fast. After a cooldown it lets one trial call through (half-open); success closes it, failure opens it again.
+S: (cur o) the call happening now
+S: (ok o) healthy
+S: (bad o) failing
+S: {failures}{state} failures counted, and CLOSED, OPEN or HALF-OPEN
+S: {calls} the calls so far and how each ended
+
+-- bloom
+M: sd
+P: A Bloom filter answers "have I seen this before?" using a small array of bits. It can say "definitely not" or "probably yes".
+E: 12 bits and 3 hash functions; add "cat" and "dog", then ask about "emu" and "cow".
+I: Any 0 bit proves an item was never added (emu). All 1 bits only mean "probably": cow was never added, but its bits were set by cat and dog. That's a false positive.
+S: (cur) bits being set or checked now
+S: (ok) a checked bit that is 1
+S: (bad) a checked bit that is 0, which proves "never added"
+S: {query}{answer} the question being asked, and the filter's answer
+
+== sd-hld.html lab-url
+-- -
+M: sd
+P: Design a URL shortener: turn a long URL into a short code, and redirect anyone who opens the code.
+I: It's read-heavy (far more redirects than new links), so the design centres on a fast lookup: unique short codes, a key-value store and a cache in front of it. Analytics go onto a queue, off the redirect's path.
+S: (cur o) the part added in this step
+S: (on e) the path a request takes
+S: (ok o) where the request is served from
+S: {writes/s}{reads/s} the traffic estimate
+
+== sd-hld.html lab-feed
+-- arch
+M: sd
+P: Design a news feed: people post, follow others, and see a home timeline of the people they follow, newest first, in under 200 ms.
+I: Precompute each user's timeline when someone posts (fan-out on write), so reading a feed is one fast lookup. The catch is celebrities with millions of followers.
+S: (cur o) the part added in this step
+S: (ok o) where the feed is served from
+S: (bad o) the problem being solved
+
+-- fan
+M: sd
+P: Fan-out up close: when someone posts, who gets the post ID pushed into their timeline? Compare a user with 300 followers and a celebrity with millions.
+I: Push for most users, pull for the few huge accounts, then merge the two when the feed is read. That hybrid is the standard answer.
+S: (cur o) the step happening now
+S: (ok o) timelines updated
+S: (bad o) the celebrity problem
+
+== sd-hld.html lab-ac
+-- -
+M: sd
+P: Design search autocomplete: show the top suggestions for each keystroke in about 50 ms, ranked by popularity.
+I: Do the heavy work offline: count queries in batches and precompute the top suggestions for every prefix. Serving is then a memory lookup.
+S: (cur o) the part added in this step
+S: (ok o) where suggestions are served from
+
+== sd-hld.html lab-chat
+-- -
+M: sd
+P: Design WhatsApp-style chat: follow one message from Asha to Ben, including when Ben is offline.
+I: Keep a persistent connection to each online user, store every message before acknowledging it, and deliver from storage when the receiver comes back online. Ticks show sent, delivered and read.
+S: (cur o) the part added in this step
+S: (ok o) the message delivered
+
+== sd-hld.html lab-uber
+-- -
+M: sd
+P: Design Uber: riders see nearby cars, the closest suitable driver gets the request, and both see live tracking.
+I: Drivers stream their location every few seconds into an in-memory geo index (grid cells), so "nearby drivers" is a lookup of a few cells, not a database scan.
+S: (cur o) the part added in this step
+S: (ok o) the step that's done
+
+== sd-hld.html lab-zomato
+-- -
+M: sd
+P: Design food delivery: find open restaurants nearby, place and pay for an order, then follow it through acceptance, pickup and delivery.
+I: The order is a state machine, and each change is an event other services react to. Plan for failures such as a payment or restaurant timeout.
+S: (cur o) the part added in this step
+S: (ok o) the step that's done
+S: (bad o) a failure being handled
+
+== sd-hld.html lab-rate
+-- arch
+M: sd
+P: Design a rate limiter: allow each API key at most N requests per minute across all servers, with short bursts allowed and a clear error when limited.
+I: Run it at the gateway, keep the counters in Redis so every server shares them, and update them atomically. If Redis is down, fail open so the API stays up.
+S: (cur o) the part added in this step
+S: (ok o) the step that's done
+S: (bad o) the problem being solved
+
+-- bucket
+M: sd
+P: The token bucket up close: each user has a bucket of 5 tokens that refills at 1 token per second, and every request costs one token.
+I: Bursts are allowed up to the bucket size; after that requests get 429 Too Many Requests. Refills are computed from the elapsed time when the next request arrives, so no timer is needed.
+S: {time}{capacity} the clock, and the bucket's size
+S: {requests} each request and whether it was allowed
+
+== sd-hld.html lab-notif
+-- -
+M: sd
+P: Design a notification system: any service can send email, SMS or push, respecting user preferences, never double-sending, and surviving provider outages and spikes.
+I: Accept requests fast onto a queue, then deliver reliably with workers: retries, idempotency keys against double-sends, and a fallback provider when one fails.
+S: (cur o) the part added in this step
+S: (ok o) the step that's done
+S: (bad o) the part that's failing
+
+== sd-hld.html lab-airbnb
+-- -
+M: sd
+P: Design Airbnb booking: search stays by place, dates, guests and price, and book dates without ever double-booking.
+I: Search can be fuzzy and slightly stale (a search index); booking must be exact (a transaction with a uniqueness rule on listing and date).
+S: (cur o) the part added in this step
+S: (ok o) the step that's done
+
+== sd-hld.html lab-yt
+-- -
+M: sd
+P: Design YouTube: upload videos, process them, and stream them to any device at the best quality its network allows.
+I: Upload the raw file to object storage, transcode it into many resolutions in the background, and serve small chunks through a CDN so the player can switch quality as the network changes.
+S: (cur o) the part added in this step
+S: (ok o) the step that's done
+
+== sd-hld.html lab-dbx
+-- -
+M: sd
+P: Design Dropbox: store files, sync every change to all of a user's devices, keep versions, and handle offline edits.
+I: Split files into chunks addressed by their hash, so only changed chunks are uploaded and identical ones are stored once. Keep small metadata (which chunks make up which version) apart from the huge chunk store.
+S: (cur o) the part added in this step
+S: (ok o) the step that's done
+
+== sd-lld.html lab-lld
+-- -
+M: sd
+P: Run the parking-lot design: vehicles arrive and get the nearest spot that fits, two cars race for the same spot, and one leaves and pays.
+E: two levels of S, M and L spots; a bike fits anywhere, a car needs M or L, a truck needs L.
+I: Fitting is a simple enum comparison, claiming a spot is atomic so two gates can't take the same one, and the fee comes from a swappable FeePolicy.
+S: (cur) the spot being looked at
+S: (ok) occupied spots
+S: {free spots}{policy} spots left, and how spots are chosen
+S: {active tickets} the vehicles parked now
+
+
+== sd-lld.html lab-race
+-- bug
+M: sd
+P: Asha and Ben click the same free seat, A7, in the same millisecond. The code checks that the seat is free, then books it. What goes wrong?
+I: Both threads pass the check before either writes, so both get a confirmation and the last write wins. Check-then-act is a race whenever the check and the write aren't one atomic step.
+S: Two lanes, one per user's thread; each column is a moment in time.
+S: (cur) the step running now
+S: (ok) a booking that succeeded
+S: (bad) the double booking
+S: {seat A7}{owner} the seat's status, and who the database says owns it
+
+-- cas
+M: sd
+P: The same race, fixed inside one server: both threads call `putIfAbsent` (an atomic compare-and-set) on the seat map.
+I: Exactly one thread wins and the other is rejected. But this only works inside one JVM; with 10 app servers, each has its own map.
+S: Two lanes, one per user's thread; each column is a moment in time.
+S: (cur) the step running now
+S: (ok) the booking that won
+S: (bad) the request that was rejected
+S: {seat A7}{owner} the seat's status, and its owner
+
+-- db
+M: sd
+P: The same race across many app servers: both send a conditional `UPDATE … WHERE status = 'FREE'` to the database.
+I: The database applies the updates one at a time, so only the first changes a row; the second updates 0 rows and is rejected. The database is the referee.
+S: Two lanes, one per app server; each column is a moment in time.
+S: (cur) the step running now
+S: (ok) the booking that won
+S: (bad) the request that was rejected
+S: {seat A7}{owner} the seat's status, and its owner
+
+== sd-lld.html lab-park-uml
+-- -
+M: sd
+P: Design a parking lot in an LLD interview: go from the written requirement to a class diagram, one decision at a time.
+I: Mark the nouns (classes) and verbs (methods) first. Then: composition for lot → level → spot, a Strategy for what changes (spot choice, fees), and an atomic claim for what breaks under concurrency.
+S: Boxes are classes; the arrows are UML relationships (see the start of this track).
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+== sd-lld.html lab-atm-uml
+-- -
+M: sd
+P: Design an ATM in an LLD interview: card in, PIN, withdraw, cash out.
+I: Use State for the flow (what each button does depends on the current step) and Chain of Responsibility for the cash (2000s, then 500s, then 100s). The bank sits behind an interface, and the debit is atomic.
+S: Boxes are classes; the arrows are UML relationships.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+== sd-lld.html lab-elev-uml
+-- -
+M: sd
+P: Design an elevator system in an LLD interview: first what one car does, then how a car is chosen for each request.
+I: One car runs the SCAN algorithm (keep going in one direction, serving requests on the way). A Dispatcher strategy picks which car takes a request.
+S: Boxes are classes; the arrows are UML relationships.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+== sd-lld.html lab-elev-run
+-- -
+M: sd
+P: Watch one elevator serve requests with SCAN: keep moving in the current direction and stop at every requested floor on the way, then turn around.
+E: the car is at floor 3 going up; requests for 5, 7, 9 and 1, plus a request for 4 that comes in later.
+I: The car serves 5, 7, 9, then turns and serves 4 and 1. No zig-zagging, and nobody waits forever.
+S: (cur) the car's floor
+S: (win) floors that have been requested
+S: (ok) floors served
+S: {up set}{down set} requests above and below the car, kept sorted
+S: {stops served} the order the floors were served
+
+== sd-lld.html lab-bms-uml
+-- -
+M: sd
+P: Design BookMyShow in an LLD interview: movies, theatres and shows, and booking seats without double-selling them.
+I: The key class is ShowSeat: one seat for one show, with a status. Booking is an atomic hold with a timeout, then an idempotent confirm after payment.
+S: Boxes are classes; the arrows are UML relationships.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+== sd-solid.html lab-srp
+-- -
+M: sd
+P: Single Responsibility: an Invoice class calculates totals, renders a PDF and saves itself with SQL. Who can force it to change?
+I: Three different people (finance, design, the DBA) can each force a change, so split it into one class per reason to change.
+S: Actors on top, classes below. Dashed arrows show who forces changes.
+S: (cur) the class being looked at
+S: (ok) the classes after the fix
+S: (bad) the smell: one class with many reasons to change
+
+== sd-solid.html lab-ocp
+-- -
+M: sd
+P: Open/Closed: checkout computes a fee for each payment type with an if-else chain. What happens each time a payment type is added?
+I: Put the fee behind an interface with one class per payment type. A new type is then a new class, and nothing tested is edited. That shape is the Strategy pattern.
+S: Boxes are classes; the key under the diagram explains each arrow.
+S: (cur) the part added in this step
+S: (ok) a new class added without editing anything else
+S: (bad) a class that had to be edited again
+
+== sd-solid.html lab-lsp
+-- -
+M: sd
+P: Liskov Substitution: Square extends Rectangle, because in maths a square is a rectangle. What breaks for code written against Rectangle?
+I: Setting a square's width also changes its height, breaking a promise Rectangle's callers relied on. A subclass must keep every promise of its parent; if it can't, it shouldn't extend it.
+S: (cur) the class being looked at
+S: (ok) a design that keeps the promise
+S: (bad) where the promise breaks
+
+== sd-solid.html lab-isp
+-- -
+M: sd
+P: Interface Segregation: one Worker interface has work(), eat() and sleep(). What happens when a robot has to implement it?
+I: The robot has to fake eat() and sleep(). Split the interface into small role interfaces, so each class signs only for what it can actually do.
+S: (cur) the class being looked at
+S: (ok) a class that signs only what it can do
+S: (bad) a class forced to fake methods
+
+== sd-solid.html lab-dip
+-- -
+M: sd
+P: Dependency Inversion: OrderService (business rules) creates MySqlOrderRepo (a storage detail) itself. Why is that a problem, and how do you flip it?
+I: The service owns an OrderRepo interface and receives an implementation through its constructor. The arrow now points from the detail to the policy, so the database can change without touching business code.
+S: (cur) the class being looked at
+S: (ok) the design after the fix
+S: (bad) classes welded together
+
+== sd-creational.html lab-create
+-- race
+M: sd
+P: A lazy singleton creates its object on the first call to get(). What happens when two threads call get() at the same moment?
+I: Both see null before either assigns, so two "singletons" get created. If creating one opens a connection pool, you just opened two.
+S: Two lanes, one per thread; each column is a moment in time.
+S: (cur) the step happening now
+S: (bad) the bug
+S: {instance field}{objects made} what the field holds, and how many objects were created
+S: {instances created} each object that was made
+
+-- dcl
+M: sd
+P: The fix with double-checked locking: check without a lock, then lock and check again before creating.
+I: Only one thread creates the object; the other sees it on the second check. Later calls skip the lock entirely, so it's fast. The field must be `volatile`, or use the enum or holder idiom instead.
+S: Two lanes, one per thread; each column is a moment in time.
+S: (cur) the step happening now
+S: (on) the thread holding the lock
+S: (ok) correct
+S: {instance field}{objects made} what the field holds, and how many objects were created
+
+== sd-creational.html lab-singleton
+-- -
+M: sd
+P: Three services each create their own `new Config()`. How do you make sure there is exactly one?
+I: A private constructor and one shared instance. In interviews, add that you'd create it once at startup and inject it, because global access makes unit tests hard.
+S: (cur) the part being looked at
+S: (ok) solved
+S: (bad) the problem
+
+== sd-creational.html lab-factory
+-- -
+M: sd
+P: Checkout picks a payment class from the request and calls `new` on it directly. How do you keep object creation from spreading through the code?
+I: Move every `new` into one factory. Callers ask the factory for a payment method and only know the interface. Factory (who creates) and Strategy (what it does) usually come together.
+S: (cur) the part added in this step
+S: (ok) a new class added without editing anything else
+S: (bad) the problem
+
+== sd-creational.html lab-fm
+-- fm
+M: sd
+P: A logistics app runs the same delivery steps for every mode: create a transport, load it, send it. Only the transport differs.
+I: Factory Method: the base class runs the steps and leaves "create the transport" as a method each subclass overrides. It's Template Method where the varying step is creation.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+-- af
+M: sd
+P: A UI must use either Mac or Windows widgets, and a Mac button next to a Windows checkbox looks broken. How do you guarantee they always match?
+I: Abstract Factory: one factory per family creates every widget of that family, so mixing is impossible. The cost: adding a new widget type means editing every factory.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+== sd-creational.html lab-builder
+-- -
+M: sd
+P: A pizza has a size, cheese, crust, toppings, extras and quantity, so its constructor takes seven arguments that are easy to mix up.
+I: A Builder sets each part by name in a fluent chain and validates everything in build(). You already use builders: StringBuilder, HttpRequest.newBuilder(), Lombok's @Builder.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-creational.html lab-proto
+-- -
+M: sd
+P: HR generates offer letters, and building each one from scratch is slow. Can you set one up once and copy it?
+I: Prototype: clone a ready-made object, then change what's different. The trap is a shallow copy: copied references still point at shared objects, so changing one letter changes them all.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-structural.html lab-wrap
+-- deco
+M: sd
+P: Follow one cost() call through `new Whip(new Milk(new Espresso()))`: three objects, each wrapping the next.
+I: Each wrapper calls the object inside it, then adds its own price to the result. Want double milk? Wrap twice; no new class needed.
+S: (cur o) the object running now
+S: (on o f) objects waiting for the call inside them to return
+S: (ok o) objects that have returned
+S: {badges} return values
+S: {call stack} the calls in progress
+
+-- proxy
+M: sd
+P: A caching proxy sits in front of an image service. The client calls the same interface and doesn't know it's talking to a proxy.
+I: The first request goes through to S3 and is cached; a repeat request is answered from the cache, and S3 is never called.
+S: (cur o) the object running now
+S: (on o f) objects waiting on a call
+S: (ok o) objects that have returned
+S: (dim o) a call that was skipped
+S: {calls to S3}{latency} how often the real service was hit, and the time taken
+S: {proxy cache} what the proxy has stored
+
+-- comp
+M: sd
+P: Composite: call size() on a folder that holds files and other folders.
+I: A folder just asks each child for its size and adds them up, without checking whether a child is a file or a folder. One interface covers a tree of any depth.
+S: (cur o) the node running now
+S: (on o f) folders waiting for their children
+S: (ok o) nodes that have returned their size
+S: {running total} the sizes added so far
+
+== sd-structural.html lab-decorator
+-- -
+M: sd
+P: A café sells espresso with optional milk, whip and syrup, in any combination. One class per combination would explode.
+I: Decorator: each extra is a wrapper with the same interface as the drink. Stack wrappers to build any combination at runtime.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-structural.html lab-proxy
+-- -
+M: sd
+P: A gallery loads images from S3. Product wants caching and permission checks without changing the code that calls it.
+I: Proxy: a class with the same interface as the real service that adds caching or checks before passing calls on. Decorator has the same diagram; Decorator adds behaviour, Proxy controls access.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-structural.html lab-adapter
+-- a
+M: sd
+P: Checkout calls the Stripe SDK directly, using Stripe's own types. What happens when you add a second provider?
+I: Adapter: your code depends on your own PaymentGateway interface, and one adapter per provider translates calls into that vendor's API.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+-- f
+M: sd
+P: Placing an order means reserving stock, charging, scheduling shipping and sending an email, in the right order. The controller calls all four itself.
+I: Facade: one simple front door (placeOrder) that calls the subsystems in order. The subsystems are still reachable; the facade just makes the common case easy.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-structural.html lab-composite
+-- -
+M: sd
+P: Compute the size of a folder that contains files and more folders.
+I: Composite: files and folders share one interface. A file returns its own size; a folder adds up its children. It's recursion on objects, like a tree DFS.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+== sd-structural.html lab-bridge
+-- b
+M: sd
+P: Shapes (circle, square) can be drawn by two renderers (vector, raster). One class per combination multiplies fast.
+I: Bridge: a shape holds a renderer instead of inheriting from it. Shapes and renderers then grow separately: adding one is one new class, not one per combination.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+-- f
+M: sd
+P: An editor holds a million characters, each with a font, size and colour. Storing the style in every character wastes memory.
+I: Flyweight: share one immutable style object among all characters that look the same. Each character keeps only a reference to it.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-behavioral.html lab-beh
+-- obs
+M: sd
+P: Observer in motion: services subscribe to order events, then an order is placed.
+I: The order service only knows a list of listeners and calls each one. New reactions are new subscribers; the service never changes. Listeners run in the caller's thread, so one slow listener delays the order.
+S: (cur o) the step happening now
+S: (on o f) subscribers wired in and waiting
+S: (ok o) a listener that has finished
+S: (bad o) a listener that failed
+S: {subscribers} the current listener list
+
+-- cmd
+M: sd
+P: Undo and redo in an editor: every action becomes a command object that knows how to execute and undo itself.
+E: type "Hi", type " there", undo, redo, undo, then type "!"
+I: Undo pops the last command and calls its undo(); redo re-runs it. Doing something new clears the redo stack, because the old future is gone.
+S: The text being edited, then the undo stack and the redo stack; the top of each stack is highlighted.
+
+-- state
+M: sd
+P: A vending machine as a State machine: insert a coin, select, dispense. What each button does depends on the current state.
+I: Each state is its own class and decides the next state. The machine just forwards button presses to its current state and never needs an if on the state.
+S: (cur o) the current state
+S: (ok o) a transition that worked
+S: (bad o) a button press rejected in this state
+S: {state}{screen} the current state, and what the machine shows
+
+-- cor
+M: sd
+P: A request passes a chain of handlers (auth, rate limit, validation) before reaching the service. Each handler only knows the next one.
+I: Each handler either passes the request on or stops it. Adding or reordering a step is a one-line change to how the chain is built.
+S: (cur o) the handler running now
+S: (on o f) handlers waiting in the chain
+S: (ok o) handlers the request passed
+S: (bad o) the handler that rejected the request
+S: (dim o) handlers never reached
+
+== sd-behavioral.html lab-strategy
+-- -
+M: sd
+P: A ride app quotes fares three ways: normal, surge or pool. The formulas live in one if-else chain.
+I: Strategy: one interface, one class per formula, and the context holds whichever one applies. Remember the shape (context ◆→ interface ◁┄ variants); State, Observer and Command reuse it.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-behavioral.html lab-observer
+-- -
+M: sd
+P: When an order is placed, the app must email the user, text them and record analytics. The order service calls all three directly.
+I: Observer: the order service keeps a list of listeners and notifies each one. Adding a reaction means adding a listener; across servers, the list becomes a Kafka topic.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-behavioral.html lab-command
+-- -
+M: sd
+P: An editor supports typing and deleting. Product wants undo and redo.
+I: Command: turn each action into an object with execute() and undo(), and keep them on stacks. Memento saves a snapshot when an action is hard to reverse.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-behavioral.html lab-state
+-- -
+M: sd
+P: A vending machine: insert a coin, select, dispense. What each button does depends on what happened before, so every method grows a switch on the mode.
+I: State: one class per mode, each handling every button its own way and choosing the next mode. State and Strategy share a diagram; Strategy is picked from outside, State changes itself.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-behavioral.html lab-cor
+-- -
+M: sd
+P: Every API request must pass authentication, rate limiting and validation before it reaches the service. Right now one method does all the checks.
+I: Chain of Responsibility: each check is a tiny handler that knows only the next one. Servlet filters, Spring Security and API gateways all work this way.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+
+== sd-behavioral.html lab-template
+-- t
+M: sd
+P: CSV and Excel importers both validate, parse, save and audit. Only the parsing step differs.
+I: Template Method: the base class fixes the order of steps and leaves the one varying step for subclasses to fill in.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+-- i
+M: sd
+P: A playlist stores songs in an array today, maybe a linked list tomorrow. Callers just want to loop over the songs.
+I: Iterator: the collection hands out an object with hasNext() and next(), so callers never depend on how it's stored. Changing a collection while iterating over it throws ConcurrentModificationException.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+-- m
+M: sd
+P: Three users chat, and each keeps a reference to every other user. Every new user means wiring them to everyone.
+I: Mediator: everyone talks only to a chat room, which passes messages on. At system scale a message broker plays this role; the risk is the mediator growing into a god class.
+S: (cur) the part added in this step
+S: (ok) parts already designed
+S: (bad) the problem
+
+== sd-java.html lab-refs
+-- refs
+M: sd
+P: In Java, what does `Dog b = a` copy, and why does renaming a dog inside a method stick while reassigning the parameter doesn't?
+I: Variables hold references (arrows), not objects. Assignment copies the arrow. Java passes the arrow by value, so a method can change the object it points at but can't move the caller's arrow.
+S: Boxes on the left are variables, boxes on the right are objects on the heap; arrows are references.
+S: (cur o) what's changing now
+S: (ok o) the result
+S: {printed} what the program prints
+
+-- disp
+M: sd
+P: `Animal a = new Dog()`. Which method runs for `a.speak()`, and which overload runs for `greet(a)`?
+I: Overriding is chosen at runtime from the actual object (Dog.speak). Overloading is chosen at compile time from the declared type (greet(Animal)). That's why patterns put varying behaviour in overridden methods.
+S: Boxes on the left are variables, boxes on the right are objects on the heap; arrows are references.
+S: (cur o) what's being resolved now
+S: (on o f) the reference in play
+S: (ok o) the result
+S: {result} the method that actually runs

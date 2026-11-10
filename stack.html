@@ -897,7 +897,71 @@ svg text{font-family:var(--mono)}
 @media (max-width:600px){.cx-r{grid-template-columns:70px 1fr 78px;font-size:12px}.cx-l{grid-template-columns:54px 1fr;}.cx-li{font-size:11px}.cx-lw{grid-column:2}.cx-ans b{font-size:18px}}
 
 /*cost-css-end*/</style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -4280,5 +4344,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-stack":{"ok":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the character being read"],["<i class=\"lp-sw s-ok\"><\/i>","a closer that matched the top of the stack"],["<i class=\"lp-sw s-dim\"><\/i>","characters already handled"],["<span class=\"lp-c\">stack<\/span>","openers still waiting for their closer, top first"]],"tag":"LeetCode 20","p":"Is the string of brackets valid? Every opening bracket has to be closed by the same type of bracket, in the right order.","mini":"Is the string of brackets valid?","e":"<code>s = \"([{}])\"<\/code> → <code>true<\/code>","i":"Push every opener onto a stack. A closer must match the opener on top; if it does, pop that opener. At the end the stack must be empty."},"bad":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the character being read"],["<i class=\"lp-sw s-bad\"><\/i>","the closer that doesn't match the top of the stack"],["<i class=\"lp-sw s-dim\"><\/i>","characters already handled"],["<span class=\"lp-c\">stack<\/span>","openers still waiting, top first"]],"tag":"LeetCode 20","p":"Same question: is this string of brackets valid?","mini":"Same question: is this string of brackets valid?","e":"<code>s = \"([)]\"<\/code> → <code>false<\/code>: <code>)<\/code> arrives while <code>[<\/code> is still open.","i":"Push every opener. A closer must match the opener on top of the stack. Here the top is <code>[<\/code> when <code>)<\/code> arrives, so the brackets close in the wrong order."},"rpn":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the token being read"],["<i class=\"lp-sw s-dim\"><\/i>","tokens already used"],["<span class=\"lp-c\">stack<\/span>","numbers waiting to be used, top first"]],"tag":"LeetCode 150","p":"Work out an expression written in Reverse Polish Notation, where each operator comes after its two numbers: <code>2 1 +<\/code> means 2 + 1.","mini":"Work out an expression written in Reverse Polish Notation, where each operator comes after its two numbers: 2 1 + means 2 + 1.","e":"<code class=\"w\">[\"2\",\"1\",\"+\",\"3\",\"*\",\"4\",\"-\"]<\/code> → <code>5<\/code>, which is (2 + 1) × 3 − 4.","i":"Push numbers. When an operator arrives, pop two numbers (the first one popped goes on the right), apply the operator, and push the result. The one number left at the end is the answer."},"dec":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the character being read"],["<i class=\"lp-sw s-dim\"><\/i>","characters already handled"],["<span class=\"lp-c\">cur<\/span><span class=\"lp-c\">k<\/span>","the text being built inside the current brackets, and the number being read"],["<span class=\"lp-c\">stack<\/span>","saved (outer text, count) pairs, one per open bracket"]],"tag":"LeetCode 394","p":"Decode a string in which <code>k[text]<\/code> means \"text, repeated k times\". Brackets can be nested.","mini":"Decode a string in which k[text] means \"text, repeated k times\".","e":"<code>s = \"3[a2[c]]\"<\/code> → <code>\"accaccacc\"<\/code>: 2[c] is cc, so a2[c] is acc, and that is repeated 3 times.","i":"When <code>[<\/code> opens, save the text built so far and the repeat count on a stack, then start fresh. When <code>]<\/code> closes, repeat the inner text k times and attach it to the saved text."}},"lab-mono":{"dt":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","today"],["<i class=\"lp-sw s-on\"><\/i>","days still waiting on the stack"],["<i class=\"lp-sw s-ok\"><\/i>","a day that just got its answer"],["<span class=\"lp-c\">res<\/span>","the answers: days to wait"],["<span class=\"lp-c\">stack<\/span>","waiting days, top first"]],"tag":"LeetCode 739","p":"For each day's temperature, how many days do you have to wait for a warmer day? Use 0 if no warmer day comes.","mini":"For each day's temperature, how many days do you have to wait for a warmer day?","e":"<code class=\"w\">temps = [73, 74, 75, 71, 69, 72, 76, 73]<\/code> → <code>[1, 1, 4, 2, 1, 1, 0, 0]<\/code>","i":"Keep a stack of the days still waiting for a warmer day; their temperatures decrease from bottom to top. A warmer day pops every cooler day off the top and writes down how long each one waited."},"lr":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the bar being read"],["<i class=\"lp-sw s-on\"><\/i>","bars waiting on the stack"],["<i class=\"lp-sw s-bad\"><\/i>","the bar just popped: its rectangle is being measured"],["<i class=\"lp-sw s-win\"><\/i>","that rectangle's width"],["<i class=\"lp-sw s-dim\"><\/i>","a height-0 bar added at the end, so every bar gets popped"],["<span class=\"lp-c\">best area<\/span><span class=\"lp-c\">last rect<\/span>","the largest area so far, and the rectangle just measured"]],"tag":"LeetCode 84","p":"Each number is the height of a bar 1 unit wide. Find the area of the largest rectangle that fits inside the bars.","mini":"Each number is the height of a bar 1 unit wide.","e":"<code class=\"w\">heights = [2, 1, 5, 6, 2, 3]<\/code> → <code>10<\/code>: height 5 across the bars at index 2 and 3.","i":"Keep a stack of bars with increasing heights. When a shorter bar arrives, each taller bar on the stack has found its right edge, and the bar below it on the stack is its left edge. Pop it and measure its rectangle."}},"lab-cost":{"amort":{"s":[["<span class=\"lp-p\">▲i<\/span>","the element being read"],["<i class=\"lp-sw s-cur\"><\/i>","the value being pushed"],["<i class=\"lp-sw s-win\"><\/i>","values on the stack"],["<i class=\"lp-sw s-bad\"><\/i>","a value being popped: its next greater element is now known"],["","The second row holds each value's next greater element, written in when it's popped."],["<span class=\"lp-c\">pushes<\/span><span class=\"lp-c\">pops<\/span><span class=\"lp-c\">total ops<\/span>","every stack operation, counted"]],"m":"cost","p":"Next greater element with a monotonic stack has a while loop inside a for loop. Is it O(n²)? Count every push and pop.","mini":"Next greater element with a monotonic stack has a while loop inside a for loop.","i":"Each element is pushed once and popped at most once, so the while loop's pops add up to at most n over the whole run. Pushes + pops ≤ 2n: O(n) time, O(n) space for the stack."},"dbl":{"s":[["","Each block is one run. Every <b>Next<\/b> doubles the input size and runs each version again."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×4.0<\/span>","how much the steps grew since the block above: ×2 is O(n), a bit over ×2 is O(n log n), ×4 is O(n²), ×8 is O(n³)."]],"m":"cost","p":"Next greater element on a decreasing list (the worst case for brute force): scan to the right for every element, or use a monotonic stack.","mini":"Next greater element on a decreasing list (the worst case for brute force): scan to the right for every element, or use a monotonic stack.","i":"The brute force grows ×4 per doubling (O(n²)); the stack grows ×2 (O(n)): n pushes plus at most n pops."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

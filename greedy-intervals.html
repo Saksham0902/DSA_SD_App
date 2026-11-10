@@ -897,7 +897,71 @@ svg text{font-family:var(--mono)}
 @media (max-width:600px){.cx-r{grid-template-columns:70px 1fr 78px;font-size:12px}.cx-l{grid-template-columns:54px 1fr;}.cx-li{font-size:11px}.cx-lw{grid-column:2}.cx-ans b{font-size:18px}}
 
 /*cost-css-end*/</style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -4729,5 +4793,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-greedy":{"j1":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the index being checked"],["<i class=\"lp-sw s-win\"><\/i>","indexes you can already reach"],["<span class=\"lp-p\">▲reach<\/span><span class=\"lp-c\">reach<\/span>","the farthest index you can reach so far"]],"tag":"LeetCode 55","p":"Each number is the longest jump you can make from that index. You start at index 0. Can you reach the last index?","mini":"Each number is the longest jump you can make from that index.","e":"<code>nums = [2, 3, 1, 1, 4]<\/code> → <code>true<\/code>: jump from index 0 to 1, then from 1 to the end.","i":"Don't try jump combinations. Keep one number, <code>reach<\/code>: the farthest index you can get to so far. At each index i, update it to <code>max(reach, i + nums[i])<\/code>. If i is ever past reach, you're stuck."},"j2":{"s":[["<i class=\"lp-sw s-win\"><\/i>","the current level: indexes reachable with this many jumps"],["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the index being scanned"],["<span class=\"lp-p\">▲end<\/span>","the last index of the current level"],["<span class=\"lp-p\">▲far<\/span><span class=\"lp-c\">far<\/span>","the farthest index the next jump can reach"],["<span class=\"lp-c\">jumps<\/span>","jumps taken so far"]],"tag":"LeetCode 45","p":"Same jumps as Jump Game, and the last index can always be reached. What is the fewest number of jumps to get there?","mini":"Same jumps as Jump Game, and the last index can always be reached.","e":"<code>nums = [2, 3, 1, 1, 4]<\/code> → <code>2<\/code> jumps: index 0 → 1 → 4.","i":"Think in levels, like BFS. While you scan the indexes one jump can reach, track the farthest index the next jump could reach. When i reaches the end of the level, take a jump: the next level runs up to that farthest index."},"gs":{"s":[["<span class=\"lp-c\">gain<\/span>","row: <code>gas[i] − cost[i]<\/code>, how the tank changes at each station"],["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the station being driven through"],["<span class=\"lp-p\">▲start<\/span>","the current candidate start"],["<i class=\"lp-sw s-bad\"><\/i>","where the tank went below 0"],["<i class=\"lp-sw s-dim\"><\/i>","stations ruled out as a start"],["<span class=\"lp-c\">tank<\/span><span class=\"lp-c\">total gain<\/span>","fuel in the tank now, and the sum of all gains (0 or more means some start works)"]],"tag":"LeetCode 134","p":"Gas stations sit on a circle. At station i you can fill up <code>gas[i]<\/code>, and driving to the next station uses <code>cost[i]<\/code>. You start with an empty tank. Which station can you start from to drive all the way around?","mini":"Gas stations sit on a circle.","e":"<code>gas = [1,2,3,4,5]<\/code>, <code>cost = [3,4,5,1,2]<\/code> → start at station <code>3<\/code>.","i":"If the total gas is at least the total cost, some start works. Drive from a candidate start and add each station's gain. If the tank drops below 0 at station i, no station from the start up to i can work, so try i + 1 next."},"kd":{"s":[["<i class=\"lp-sw s-win\"><\/i><span class=\"lp-p\">▲i<\/span>","the current run, which ends at i"],["<i class=\"lp-sw s-ok\"><\/i>","the best subarray"],["<span class=\"lp-c\">cur<\/span><span class=\"lp-c\">best<\/span>","the current run's sum, and the best sum so far"]],"tag":"LeetCode 53","p":"Find the subarray (an unbroken stretch of the list) with the largest sum, and return that sum.","mini":"Find the subarray (an unbroken stretch of the list) with the largest sum, and return that sum.","e":"<code class=\"w\">nums = [−2, 1, −3, 4, −1, 2, 1, −5, 4]<\/code> → <code>6<\/code>, from <code>[4, −1, 2, 1]<\/code>.","i":"Walk once, keeping <code>cur<\/code>: the best sum of a run that ends at i. If the run so far is negative, it can only hurt, so drop it and start fresh at <code>nums[i]<\/code>. Remember the best <code>cur<\/code> ever seen."}},"lab-int":{"mg":{"s":[["","Each bar is one interval on a number line. The bottom row is the merged result."],["<i class=\"lp-sw s-cur\"><\/i>","the interval being looked at"],["<i class=\"lp-sw s-on f\"><\/i>","a merged interval that just grew"],["<i class=\"lp-sw s-ok\"><\/i>","the merged intervals so far"],["<i class=\"lp-sw s-dim\"><\/i>","intervals already handled"],["<span class=\"lp-c\">dashed line<\/span>","the sweep: the current interval's start"]],"tag":"LeetCode 56","p":"You get a list of intervals. Merge every group of overlapping intervals and return the result.","mini":"You get a list of intervals.","e":"<code class=\"w\">[[1,3],[2,6],[8,10],[15,18]]<\/code> → <code>[[1,6],[8,10],[15,18]]<\/code>, because [1,3] and [2,6] overlap.","i":"Sort by start, so overlapping intervals end up next to each other. If the next interval starts at or before the last merged end, stretch that end; otherwise start a new merged interval."},"er":{"s":[["<i class=\"lp-sw s-ok\"><\/i>","intervals kept"],["<i class=\"lp-sw s-bad\"><\/i>","intervals removed"],["<span class=\"lp-c\">dashed line<\/span><span class=\"lp-c\">last kept end<\/span>","where the last kept interval ends"],["<span class=\"lp-c\">removed<\/span>","how many were removed"]],"tag":"LeetCode 435","p":"Remove the fewest intervals so that none of the rest overlap. How many must go? Touching ends, like [1,2] and [2,3], don't count as overlapping.","mini":"Remove the fewest intervals so that none of the rest overlap.","e":"<code class=\"w\">[[1,2],[2,3],[3,4],[1,3]]<\/code> → <code>1<\/code>: remove [1,3].","i":"Sort by end. Keep the interval that ends first, because it leaves the most room for the rest. Remove anything that starts before the last kept end."},"rm":{"s":[["<i class=\"lp-sw s-on f\"><\/i>","meetings running at the sweep time"],["<i class=\"lp-sw s-dim\"><\/i>","meetings already over"],["<span class=\"lp-c\">dashed line<\/span>","the sweep: the current time"],["<span class=\"lp-c\">rooms in use<\/span><span class=\"lp-c\">max rooms<\/span>","rooms busy now, and the most busy at once so far"]],"tag":"LeetCode 253","p":"You get meeting times as [start, end]. What is the fewest rooms you need so that meetings that overlap never share a room?","mini":"You get meeting times as [start, end].","e":"<code class=\"w\">[[0,30],[5,10],[10,20],[15,25]]<\/code> → <code>3<\/code> rooms: at time 15, three meetings are running.","i":"Only the order of starts and ends matters. Sweep through time: a start takes a room, an end frees one. The most rooms in use at once is the answer. A meeting that ends at 10 frees its room for one that starts at 10."}},"lab-cost":{"parts":{"s":[["","Each bar is one part's step count."]],"m":"cost","p":"An interval problem in two parts: sort the intervals, then scan them once. With n = 1,000,000 intervals, which part decides the total cost?","mini":"An interval problem in two parts: sort the intervals, then scan them once.","i":"Sorting takes about n log₂ n ≈ 20 million steps; the scan takes 1 million, about 5% of that. Only the biggest term survives: O(n log n). A heap (Meeting Rooms) adds another O(n log n), so the total stays O(n log n)."},"dbl":{"s":[["","Each block is one run. Every <b>Next<\/b> doubles the input size and runs each version again."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×4.0<\/span>","how much the steps grew since the block above: ×2 is O(n), a bit over ×2 is O(n log n), ×4 is O(n²), ×8 is O(n³)."]],"m":"cost","p":"Merge overlapping intervals two ways: compare every pair, or sort once and sweep.","mini":"Merge overlapping intervals two ways: compare every pair, or sort once and sweep.","i":"All pairs grows ×4 per doubling (O(n²)). Sort + sweep grows a bit over ×2 (O(n log n)). Sorting is what makes one pass enough: overlapping intervals end up next to each other."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

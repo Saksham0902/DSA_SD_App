@@ -897,7 +897,71 @@ svg text{font-family:var(--mono)}
 @media (max-width:600px){.cx-r{grid-template-columns:70px 1fr 78px;font-size:12px}.cx-l{grid-template-columns:54px 1fr;}.cx-li{font-size:11px}.cx-lw{grid-column:2}.cx-ans b{font-size:18px}}
 
 /*cost-css-end*/</style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -4776,5 +4840,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-ll":{"rev":{"s":[["","Each circle is a node and each arrow is its next pointer."],["<span class=\"lp-c\">prev<\/span><span class=\"lp-c\">curr<\/span><span class=\"lp-c\">nxt<\/span>","labels under the nodes: where each variable points"],["<i class=\"lp-sw s-cur o\"><\/i>","the node being rewired"],["<i class=\"lp-sw s-ok o\"><\/i>","nodes already reversed"]],"tag":"LeetCode 206","p":"Reverse a linked list, so the last node becomes the head and every arrow points the other way.","mini":"Reverse a linked list, so the last node becomes the head and every arrow points the other way.","e":"<code>1 → 2 → 3 → 4 → 5<\/code> becomes <code>5 → 4 → 3 → 2 → 1<\/code>","i":"Walk the list with two pointers, prev and curr. At each node: save <code>nxt = curr.next<\/code>, point <code>curr.next<\/code> back at prev, then move both one step forward."},"mrg":{"s":[["<span class=\"lp-c\">a<\/span><span class=\"lp-c\">b<\/span>","labels under the nodes: the front of each list"],["<span class=\"lp-c\">tail<\/span>","the last node of the merged list"],["<i class=\"lp-sw s-ok o\"><\/i>","nodes already in the merged list"],["<i class=\"lp-sw s-dim o\"><\/i>","the dummy node (d) the merged list hangs from"]],"tag":"LeetCode 21","p":"Merge two sorted linked lists into one sorted list.","mini":"Merge two sorted linked lists into one sorted list.","e":"<code>1 → 3 → 5<\/code> and <code>2 → 4 → 6<\/code> merge into <code>1 → 2 → 3 → 4 → 5 → 6<\/code>","i":"Start from a dummy node with a tail pointer. Compare the fronts of the two lists, attach the smaller one after tail, and move forward. When one list runs out, attach the rest of the other."},"nth":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","fast"],["<i class=\"lp-sw s-on o f\"><\/i>","slow"],["<span class=\"lp-c\">slow<\/span><span class=\"lp-c\">fast<\/span>","labels under the nodes"],["<i class=\"lp-sw s-bad o\"><\/i>","the removed node"],["<i class=\"lp-sw s-ok o\"><\/i>","the node whose next pointer now skips it"]],"tag":"LeetCode 19","p":"Remove the nth node from the end of a linked list, in one pass.","mini":"Remove the nth node from the end of a linked list, in one pass.","e":"<code>1 → 2 → 3 → 4 → 5<\/code> with <code>n = 2<\/code> becomes <code>1 → 2 → 3 → 5<\/code>: the 4 is removed.","i":"Start both pointers at a dummy node and send fast n + 1 steps ahead. Then move both until fast falls off the end. The gap never changes, so slow stops right before the node to remove."}},"lab-fs":{"mid":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","fast"],["<i class=\"lp-sw s-on o f\"><\/i>","slow"],["<i class=\"lp-sw s-ok o\"><\/i>","the middle"],["<span class=\"lp-c\">slow<\/span><span class=\"lp-c\">fast<\/span>","labels under the nodes; None is past the end"]],"tag":"LeetCode 876","p":"Return the middle node of a linked list. If there are two middle nodes, return the second.","mini":"Return the middle node of a linked list.","e":"in <code>1 → 2 → 3 → 4 → 5 → 6<\/code> the middle is <code>4<\/code>","i":"slow moves one step while fast moves two. When fast reaches the end, slow has gone half as far, so it's on the middle."},"cyc":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","fast"],["<i class=\"lp-sw s-on o f\"><\/i>","slow"],["<i class=\"lp-sw s-bad o\"><\/i>","where they first meet"],["<i class=\"lp-sw s-ok o\"><\/i>","the entrance of the cycle"]],"tag":"LeetCode 142","p":"The list may loop back on itself. If it has a cycle, find the node where the cycle starts.","mini":"The list may loop back on itself.","e":"in <code>1 → 2 → 3 → 4 → 5 → 6<\/code>, with 6 pointing back to 3, the cycle starts at <code>3<\/code>","i":"Phase 1: slow moves 1 step and fast moves 2. If they ever meet, there's a cycle. Phase 2: put slow back at the head and move both 1 step at a time. They meet again exactly at the cycle's entrance."}},"lab-cost":{"mid":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲slow<\/span>","slow: one hop per round"],["<i class=\"lp-sw s-win\"><\/i><span class=\"lp-p\">▲fast<\/span>","fast: two hops per round"],["<span class=\"lp-c\">rounds<\/span><span class=\"lp-c\">slow hops<\/span><span class=\"lp-c\">fast hops<\/span>","the work, counted"]],"m":"cost","p":"How much work does fast-and-slow take to find the middle of a list, and how much memory?","mini":"How much work does fast-and-slow take to find the middle of a list, and how much memory?","i":"fast reaches the end after about n/2 rounds. Total hops ≈ 1.5n, so O(n) time, and only two pointers, so O(1) space."},"space":{"s":[["<i class=\"lp-sw s-on e\"><\/i>","the call-stack depth over time: the recursive version first, then the loop"],["<i class=\"lp-sw s-bad e\"><\/i>","the deepest it got (max depth)"]],"m":"cost","p":"Reversing a list recursively vs with a loop: both are O(n) time, but how much stack memory does each use?","mini":"Reversing a list recursively vs with a loop: both are O(n) time, but how much stack memory does each use?","i":"The recursive version keeps one frame per node, so its depth climbs to n: O(n) space. Python's default limit is about 1,000 frames, so it crashes on long lists. The loop uses one frame: O(1) space."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

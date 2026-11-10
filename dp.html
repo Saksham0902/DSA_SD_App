@@ -897,7 +897,71 @@ svg text{font-family:var(--mono)}
 @media (max-width:600px){.cx-r{grid-template-columns:70px 1fr 78px;font-size:12px}.cx-l{grid-template-columns:54px 1fr;}.cx-li{font-size:11px}.cx-lw{grid-column:2}.cx-ans b{font-size:18px}}
 
 /*cost-css-end*/</style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -4854,5 +4918,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-1d":{"cl":{"s":[["<span class=\"lp-c\">dp<\/span>","<code>dp[i]<\/code>: the number of ways to reach step i"],["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the cell being worked out"],["<i class=\"lp-sw s-on\"><\/i>","the two cells it reads"],["<i class=\"lp-sw s-ok\"><\/i>","cells already solved"]],"tag":"LeetCode 70","p":"You climb a staircase of n steps, taking 1 or 2 steps at a time. How many different ways can you reach the top?","mini":"You climb a staircase of n steps, taking 1 or 2 steps at a time.","e":"<code>n = 6<\/code> → <code>13<\/code>","i":"To stand on step i, your last move came from step i − 1 or step i − 2. So <code class=\"w\">dp[i] = dp[i − 1] + dp[i − 2]<\/code>. Fill the table from the bottom up."},"rb":{"s":[["<span class=\"lp-c\">house $<\/span>","the money in each house"],["<span class=\"lp-c\">dp<\/span>","the best total from the first i houses"],["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the cell being worked out"],["<i class=\"lp-sw s-on\"><\/i>","the two cells it compares"],["<i class=\"lp-sw s-ok\"><\/i>","in the house row: robbing this house wins"],["<i class=\"lp-sw s-bad\"><\/i>","in the house row: skipping this house wins"]],"tag":"LeetCode 198","p":"Houses in a row each hold some money. You can't rob two houses that are next to each other. What's the most money you can take?","mini":"Houses in a row each hold some money.","e":"<code>nums = [2, 7, 9, 3, 1]<\/code> → <code>12<\/code>: houses 1, 3 and 5 (2 + 9 + 1).","i":"<code>dp[i]<\/code> is the most money from the first i houses. For house i, either skip it (<code>dp[i − 1]<\/code>) or rob it and skip its neighbour (<code>dp[i − 2]<\/code> + its money). Keep the bigger one."},"cc":{"s":[["<span class=\"lp-c\">dp<\/span>","the fewest coins for each amount from 0 to 11"],["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲a<\/span>","the amount being worked out"],["<i class=\"lp-sw s-on\"><\/i>","the smaller amount it builds on: <code>a − coin<\/code>"],["<i class=\"lp-sw s-ok\"><\/i>","amounts already solved"],["<span class=\"lp-c\">coins<\/span>","the coins you can use"]],"tag":"LeetCode 322","p":"You have coins of the given values, as many of each as you like. Make the amount with the fewest coins, or return −1 if it can't be done.","mini":"You have coins of the given values, as many of each as you like.","e":"<code>coins = [1, 2, 5]<\/code>, <code>amount = 11<\/code> → <code>3<\/code> coins (5 + 5 + 1).","i":"<code>dp[a]<\/code> is the fewest coins that make amount a. Try each coin as the last one: <code class=\"w\">dp[a] = min(dp[a − coin] + 1)<\/code>. ∞ means that amount can't be made yet."},"lis":{"s":[["<i class=\"lp-sw s-cur\"><\/i><span class=\"lp-p\">▲i<\/span>","the element whose run is being worked out"],["<i class=\"lp-sw s-on\"><\/i><span class=\"lp-p\">▲j<\/span>","an earlier, smaller element it could extend"],["<i class=\"lp-sw s-ok\"><\/i>","elements already settled"],["<span class=\"lp-c\">dp<\/span>","the longest increasing run ending at each index"]],"tag":"LeetCode 300","p":"Find the length of the longest strictly increasing subsequence. A subsequence keeps the original order but may skip numbers.","mini":"Find the length of the longest strictly increasing subsequence.","e":"<code class=\"w\">nums = [10, 9, 2, 5, 3, 7, 101, 18]<\/code> → <code>4<\/code>, for example 2, 3, 7, 18.","i":"<code>dp[i]<\/code> is the length of the longest increasing run that ends at i. Every earlier, smaller number j can be extended by <code>nums[i]<\/code>, so <code>dp[i] = max(dp[j] + 1)<\/code>. The answer is the biggest value in dp. O(n²)."}},"lab-2d":{"up":{"s":[["","Each cell holds the number of paths that reach it."],["<i class=\"lp-sw s-cur\"><\/i>","the cell being worked out"],["<i class=\"lp-sw s-dep\"><\/i>","the cells it reads: above and left"],["<i class=\"lp-sw s-ok\"><\/i>","cells already solved"]],"tag":"LeetCode 62","p":"A robot starts in the top-left corner of an m × n grid and can only move right or down. How many different paths reach the bottom-right corner?","mini":"A robot starts in the top-left corner of an m × n grid and can only move right or down.","e":"<code>m = 3<\/code>, <code>n = 4<\/code> → <code>10<\/code>","i":"You can only enter a cell from above or from the left, so <code class=\"w\">dp[r][c] = dp[r − 1][c] + dp[r][c − 1]<\/code>. The top row and the left column have exactly one path each."},"lcs":{"s":[["","Rows are the letters of a, columns the letters of b. Row 0 and column 0 stand for the empty string."],["<i class=\"lp-sw s-cur\"><\/i>","the cell being worked out"],["<i class=\"lp-sw s-dep\"><\/i>","the cells it reads"],["<i class=\"lp-sw s-ok\"><\/i>","cells already solved"]],"tag":"LeetCode 1143","p":"Find the length of the longest common subsequence: the longest run of letters that appears, in the same order, in both strings (letters in between can be skipped).","mini":"Find the length of the longest common subsequence: the longest run of letters that appears, in the same order, in both strings (letters in between can be skipped).","e":"<code>a = \"abcde\"<\/code>, <code>b = \"ace\"<\/code> → <code>3<\/code>, from \"ace\".","i":"<code>dp[i][j]<\/code> is the answer for the first i letters of a and the first j letters of b. If the two letters match, take the diagonal + 1. If not, drop one of them: the bigger of the cell above and the cell to the left."},"ed":{"s":[["","Rows are the letters of a, columns the letters of b. Row 0 and column 0 stand for the empty string."],["<i class=\"lp-sw s-cur\"><\/i>","the cell being worked out"],["<i class=\"lp-sw s-dep\"><\/i>","the cells it compares: above, left and diagonal"],["<i class=\"lp-sw s-ok\"><\/i>","cells already solved"]],"tag":"LeetCode 72","p":"What is the fewest single-letter edits (insert, delete or replace) that turn one word into another?","mini":"What is the fewest single-letter edits (insert, delete or replace) that turn one word into another?","e":"<code>a = \"horse\"<\/code>, <code>b = \"ros\"<\/code> → <code>3<\/code>: horse → rorse (replace h) → rose (delete r) → ros (delete e).","i":"<code>dp[i][j]<\/code> is the cost of turning the first i letters of a into the first j letters of b. If the letters match, copy the diagonal. If not, it's 1 + the cheapest of delete (above), insert (left) and replace (diagonal)."},"kn":{"s":[["","Rows are items (row 0 means no items yet); columns are capacities from 0 to 4."],["<i class=\"lp-sw s-cur\"><\/i>","the cell being worked out"],["<i class=\"lp-sw s-dep\"><\/i>","the cells it compares: skip (straight above) or take (above and to the left)"],["<i class=\"lp-sw s-ok\"><\/i>","cells already solved"]],"p":"Each item has a weight and a value, and you can take each item at most once. What's the most value that fits in a bag with the given capacity?","mini":"Each item has a weight and a value, and you can take each item at most once.","e":"<code>weights = [1, 3, 4]<\/code>, <code>values = [15, 20, 30]<\/code>, <code>cap = 4<\/code> → <code>35<\/code>: items 1 and 2 (weight 1 + 3, value 15 + 20).","i":"<code>dp[i][c]<\/code> is the best value using the first i items with capacity c. For each item, either skip it (the cell straight above) or take it (the row above, <code>weight<\/code> columns to the left, plus its value). Keep the bigger one."}},"lab-cost":{"table":{"s":[["<i class=\"lp-sw s-cur\"><\/i>","the row being filled"],["<i class=\"lp-sw s-ok\"><\/i>","cells already filled"],["<span class=\"lp-c\">cells filled<\/span><span class=\"lp-c\">m × n<\/span><span class=\"lp-c\">work per cell<\/span>","the work, counted"]],"m":"cost","p":"How much does a 2-D DP cost? Fill the LCS table for \"ABCB\" and \"BDCAB\" and count the cells.","mini":"How much does a 2-D DP cost?","i":"4 × 5 = 20 cells, each O(1) work: O(m·n) time and O(m·n) space. Each row reads only the row above, so keeping two rows is enough: O(n) space."},"dbl":{"s":[["","Each block is one run, and every <b>Next<\/b> adds 10 to n."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×120<\/span>","how much the steps grew since the block above."]],"m":"cost","p":"Climbing Stairs two ways: plain recursion with no memory, or DP that fills each state once. Here n grows by 10 on each run.","mini":"Climbing Stairs two ways: plain recursion with no memory, or DP that fills each state once.","i":"Plain recursion multiplies by about 120 each time n grows by 10: exponential. DP just doubles. Both have the same n + 1 states, but recursion recomputes them over and over."},"lis":{"s":[["","Each block is one run. Every <b>Next<\/b> doubles the input size and runs each version again."],["<span class=\"lp-c\">2.0M<\/span>","how many steps that version took. A longer bar means more work."],["<span class=\"lp-c\">×4.0<\/span>","how much the steps grew since the block above: ×2 is O(n), a bit over ×2 is O(n log n), ×4 is O(n²), ×8 is O(n³)."]],"m":"cost","p":"Longest Increasing Subsequence has n states. Does it matter how much work each state does?","mini":"Longest Increasing Subsequence has n states.","i":"Scanning every earlier state is O(n) per state, so O(n²) in total (×4 per doubling). The binary-search version keeps n states but does O(log n) work each: O(n log n)."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>

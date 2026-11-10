@@ -950,7 +950,71 @@ svg.uml{width:100%;display:block;margin:0 auto}
 @media (max-width:600px){.saved-btn{height:34px;padding:0 8px;font-size:13px}.bm-abs{top:10px;right:10px}.lab .lab-head{padding-right:40px}}
 /* bookmarks-end */
 </style>
-<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--></head>
+<!--pwa-start--><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#161A33"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Dojo"><script>if("serviceWorker" in navigator&&(/github\.io$/.test(location.hostname)||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script><!--pwa-end--><!--lp:css--><style id="lp-css">/* Problem cards above every lab: what the problem is, a worked example, the idea, and how to read the picture. */
+.lp{margin:0 0 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+.lp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:10px 14px;border-radius:13px;user-select:none}
+.lp>summary::-webkit-details-marker{display:none}
+.lp>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lp-t{font:800 12.5px/1.2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp-tag{font:600 12px/1 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.lp-x{margin-left:auto;font:600 13.5px/1 var(--body);color:var(--blue);white-space:nowrap}
+.lp-x::after{content:"Hide \25B4"}
+.lp:not([open]) .lp-x::after{content:"Show \25BE"}
+.lp:not([open])>summary .lp-mini{display:inline}
+.lp-mini{display:none;font:500 14px/1.35 var(--body);color:var(--ink-2);flex-basis:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-b{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 30px;padding:0 16px 14px}
+.lp-q{margin:0 0 4px;font-size:16.5px;line-height:1.5}
+.lp-r{margin:8px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5}
+.lp-h{font:800 11.5px/2 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.lp code{font:500 13px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap;color:var(--ink)}
+.lp code.w{white-space:normal;overflow-wrap:anywhere}
+.lp b{font-weight:700}
+.lp-s ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px}
+.lp-s li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.lp-s li>span:last-child{min-width:0}
+.lp-k{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;flex:none;max-width:48%;padding-top:1px}
+.lp-sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:2px solid var(--line);background:var(--surface);flex:none}
+.lp-sw.o{border-radius:50%}
+.lp-sw.s-cur{background:var(--amber);border-color:var(--amber)}
+.lp-sw.s-win{background:var(--blue-soft);border-color:var(--blue)}
+.lp-sw.s-on{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-on.f{border-style:solid;background:var(--blue-soft)}
+.lp-sw.s-ok{background:var(--mint-soft);border-color:var(--mint)}
+.lp-sw.s-bad{background:var(--rose-soft);border-color:var(--rose)}
+.lp-sw.s-dim{opacity:.5;border-color:var(--ink-3)}
+.lp-sw.s-hot{border-color:var(--amber);border-width:3px}
+.lp-sw.s-dep{border-color:var(--blue);border-style:dashed;border-width:2.5px}
+.lp-sw.s-mark{border-color:var(--blue);border-style:dashed}
+.lp-sw.s-land{background:color-mix(in srgb,var(--mint) 22%,var(--surface));border-color:color-mix(in srgb,var(--mint) 45%,var(--line))}
+.lp-sw.s-water{background:color-mix(in srgb,var(--blue) 10%,var(--surface))}
+.lp-sw.s-wall{background:var(--ink);border-color:var(--ink)}
+.lp-sw.s-ghost{border-style:dashed;background:transparent}
+.lp-sw.s-amb{background:var(--amber-soft);border-color:var(--amber)}
+.lp-sw.s-out{background:var(--paper);border-color:var(--blue)}
+.lp-sw.s-nil{background:transparent;border-color:var(--rose);border-style:dotted;border-width:2.5px}
+.lp-sw.e{width:22px;height:0;border:0;border-top:3.5px solid var(--ink-3);border-radius:2px;background:none;margin-top:8px}
+.lp-sw.e.s-on{border-top-color:var(--blue)}
+.lp-sw.e.s-ok{border-top-color:var(--mint)}
+.lp-sw.e.s-cur{border-top-color:var(--amber)}
+.lp-sw.e.s-bad{border-top:3px dashed var(--rose)}
+.lp-sw.e.s-dim{opacity:.3}
+.lp-p{font:700 12.5px/1.5 var(--mono);color:var(--blue);white-space:nowrap}
+.lp-c{font:600 12px/1.5 var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.lab.lp-on>.lab-head>p{display:none}
+@media (max-width:880px){
+  .lab>.lp{order:2;margin:0 0 10px}
+  .lp-b{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+@media (max-width:600px){
+  .lp>summary{padding:9px 12px}
+  .lp-b{padding:0 12px 12px}
+  .lp-q{font-size:15.5px}
+  .lp-r{grid-template-columns:minmax(0,1fr);gap:0;font-size:14.5px}
+  .lp-s li{font-size:14px}
+  .lp-k{max-width:56%}
+}
+@media print{.lp{break-inside:avoid}.lp-x{display:none}}</style><!--/lp:css-->
+</head>
 <body>
 <header class="top">
   <div class="top-in">
@@ -4294,5 +4358,52 @@ if(mq.addEventListener)mq.addEventListener('change',()=>document.querySelectorAl
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 setTimeout(mount,700);setTimeout(mount,2100);
 window.DojoTheme={set,get:eff}})();</script><!--thm-end-->
+<!--lp:js--><script id="lp-data">window.LAB_CARDS={"lab-url":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-on e\"><\/i>","the path a request takes"],["<i class=\"lp-sw s-ok o\"><\/i>","where the request is served from"],["<span class=\"lp-c\">writes/s<\/span><span class=\"lp-c\">reads/s<\/span>","the traffic estimate"]],"m":"sd","p":"Design a URL shortener: turn a long URL into a short code, and redirect anyone who opens the code.","mini":"Design a URL shortener: turn a long URL into a short code, and redirect anyone who opens the code.","i":"It's read-heavy (far more redirects than new links), so the design centres on a fast lookup: unique short codes, a key-value store and a cache in front of it. Analytics go onto a queue, off the redirect's path."}},"lab-feed":{"arch":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","where the feed is served from"],["<i class=\"lp-sw s-bad o\"><\/i>","the problem being solved"]],"m":"sd","p":"Design a news feed: people post, follow others, and see a home timeline of the people they follow, newest first, in under 200 ms.","mini":"Design a news feed: people post, follow others, and see a home timeline of the people they follow, newest first, in under 200 ms.","i":"Precompute each user's timeline when someone posts (fan-out on write), so reading a feed is one fast lookup. The catch is celebrities with millions of followers."},"fan":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the step happening now"],["<i class=\"lp-sw s-ok o\"><\/i>","timelines updated"],["<i class=\"lp-sw s-bad o\"><\/i>","the celebrity problem"]],"m":"sd","p":"Fan-out up close: when someone posts, who gets the post ID pushed into their timeline? Compare a user with 300 followers and a celebrity with millions.","mini":"Fan-out up close: when someone posts, who gets the post ID pushed into their timeline?","i":"Push for most users, pull for the few huge accounts, then merge the two when the feed is read. That hybrid is the standard answer."}},"lab-ac":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","where suggestions are served from"]],"m":"sd","p":"Design search autocomplete: show the top suggestions for each keystroke in about 50 ms, ranked by popularity.","mini":"Design search autocomplete: show the top suggestions for each keystroke in about 50 ms, ranked by popularity.","i":"Do the heavy work offline: count queries in batches and precompute the top suggestions for every prefix. Serving is then a memory lookup."}},"lab-chat":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the message delivered"]],"m":"sd","p":"Design WhatsApp-style chat: follow one message from Asha to Ben, including when Ben is offline.","mini":"Design WhatsApp-style chat: follow one message from Asha to Ben, including when Ben is offline.","i":"Keep a persistent connection to each online user, store every message before acknowledging it, and deliver from storage when the receiver comes back online. Ticks show sent, delivered and read."}},"lab-uber":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the step that's done"]],"m":"sd","p":"Design Uber: riders see nearby cars, the closest suitable driver gets the request, and both see live tracking.","mini":"Design Uber: riders see nearby cars, the closest suitable driver gets the request, and both see live tracking.","i":"Drivers stream their location every few seconds into an in-memory geo index (grid cells), so \"nearby drivers\" is a lookup of a few cells, not a database scan."}},"lab-zomato":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the step that's done"],["<i class=\"lp-sw s-bad o\"><\/i>","a failure being handled"]],"m":"sd","p":"Design food delivery: find open restaurants nearby, place and pay for an order, then follow it through acceptance, pickup and delivery.","mini":"Design food delivery: find open restaurants nearby, place and pay for an order, then follow it through acceptance, pickup and delivery.","i":"The order is a state machine, and each change is an event other services react to. Plan for failures such as a payment or restaurant timeout."}},"lab-rate":{"arch":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the step that's done"],["<i class=\"lp-sw s-bad o\"><\/i>","the problem being solved"]],"m":"sd","p":"Design a rate limiter: allow each API key at most N requests per minute across all servers, with short bursts allowed and a clear error when limited.","mini":"Design a rate limiter: allow each API key at most N requests per minute across all servers, with short bursts allowed and a clear error when limited.","i":"Run it at the gateway, keep the counters in Redis so every server shares them, and update them atomically. If Redis is down, fail open so the API stays up."},"bucket":{"s":[["<span class=\"lp-c\">time<\/span><span class=\"lp-c\">capacity<\/span>","the clock, and the bucket's size"],["<span class=\"lp-c\">requests<\/span>","each request and whether it was allowed"]],"m":"sd","p":"The token bucket up close: each user has a bucket of 5 tokens that refills at 1 token per second, and every request costs one token.","mini":"The token bucket up close: each user has a bucket of 5 tokens that refills at 1 token per second, and every request costs one token.","i":"Bursts are allowed up to the bucket size; after that requests get 429 Too Many Requests. Refills are computed from the elapsed time when the next request arrives, so no timer is needed."}},"lab-notif":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the step that's done"],["<i class=\"lp-sw s-bad o\"><\/i>","the part that's failing"]],"m":"sd","p":"Design a notification system: any service can send email, SMS or push, respecting user preferences, never double-sending, and surviving provider outages and spikes.","mini":"Design a notification system: any service can send email, SMS or push, respecting user preferences, never double-sending, and surviving provider outages and spikes.","i":"Accept requests fast onto a queue, then deliver reliably with workers: retries, idempotency keys against double-sends, and a fallback provider when one fails."}},"lab-airbnb":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the step that's done"]],"m":"sd","p":"Design Airbnb booking: search stays by place, dates, guests and price, and book dates without ever double-booking.","mini":"Design Airbnb booking: search stays by place, dates, guests and price, and book dates without ever double-booking.","i":"Search can be fuzzy and slightly stale (a search index); booking must be exact (a transaction with a uniqueness rule on listing and date)."}},"lab-yt":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the step that's done"]],"m":"sd","p":"Design YouTube: upload videos, process them, and stream them to any device at the best quality its network allows.","mini":"Design YouTube: upload videos, process them, and stream them to any device at the best quality its network allows.","i":"Upload the raw file to object storage, transcode it into many resolutions in the background, and serve small chunks through a CDN so the player can switch quality as the network changes."}},"lab-dbx":{"-":{"s":[["<i class=\"lp-sw s-cur o\"><\/i>","the part added in this step"],["<i class=\"lp-sw s-ok o\"><\/i>","the step that's done"]],"m":"sd","p":"Design Dropbox: store files, sync every change to all of a user's devices, keep versions, and handle offline edits.","mini":"Design Dropbox: store files, sync every change to all of a user's devices, keep versions, and handle offline edits.","i":"Split files into chunks addressed by their hash, so only changed chunks are uploaded and identical ones are stored once. Keep small metadata (which chunks make up which version) apart from the huge chunk store."}}};</script><script id="lp-js">/* Problem cards: one card per lab tab, kept in sync with the selected tab. Data: window.LAB_CARDS[labId][tabKey]. */
+(function(){
+  var D=window.LAB_CARDS||{},ATTRS=['data-lt','data-bp','data-cxt','data-tm','data-ww','data-k'],closed={};
+  var MODES={'':['The problem','Example','Idea','On screen'],cost:['What this measures','Result','Watch for','On screen'],sd:['The scenario','Setup','Watch for','On screen']};
+  function keyOf(sec){
+    var b=sec.querySelector(':scope>.opts .tab[aria-pressed="true"]');
+    if(!b)return '-';
+    for(var i=0;i<ATTRS.length;i++){var v=b.getAttribute(ATTRS[i]);if(v!=null)return v}
+    return '-';
+  }
+  function body(c){
+    var L=MODES[c.m||'']||MODES[''],h='<summary><span class="lp-t">'+L[0]+'</span>'+(c.tag?'<span class="lp-tag">'+c.tag+'</span>':'')+'<span class="lp-x"></span>'+(c.mini?'<span class="lp-mini">'+c.mini+'</span>':'')+'</summary><div class="lp-b"><div class="lp-m">';
+    if(c.p)h+='<p class="lp-q">'+c.p+'</p>';
+    if(c.e)h+='<p class="lp-r"><span class="lp-h">'+L[1]+'</span><span>'+c.e+'</span></p>';
+    if(c.i)h+='<p class="lp-r"><span class="lp-h">'+L[2]+'</span><span>'+c.i+'</span></p>';
+    h+='</div>';
+    if(c.s&&c.s.length){h+='<div class="lp-s"><span class="lp-h">'+L[3]+'</span><ul>';
+      for(var i=0;i<c.s.length;i++)h+='<li>'+(c.s[i][0]?'<span class="lp-k">'+c.s[i][0]+'</span>':'')+'<span>'+c.s[i][1]+'</span></li>';
+      h+='</ul></div>'}
+    return h+'</div>';
+  }
+  function render(sec){
+    var lab=D[sec.id];if(!lab)return;
+    var k=keyOf(sec),c=lab[k]||lab['-'],card=sec.querySelector(':scope>.lp');
+    if(!c){if(card)card.remove();sec.classList.remove('lp-on');return}
+    if(card&&card.getAttribute('data-k')===k)return;
+    if(!card){
+      card=document.createElement('details');card.className='lp';
+      card.addEventListener('toggle',function(){closed[sec.id]=!card.open;sec.classList.toggle('lp-on',card.open&&!card.hasAttribute('data-keep'))});
+    }
+    card.setAttribute('data-k',k);
+    if(c.keep)card.setAttribute('data-keep','');else card.removeAttribute('data-keep');
+    card.innerHTML=body(c);
+    card.open=!closed[sec.id];
+    var after=sec.querySelector(':scope>.opts')||sec.querySelector(':scope>.lab-head');
+    if(card.parentNode!==sec||card.previousElementSibling!==after){if(after)after.after(card);else sec.prepend(card)}
+    sec.classList.toggle('lp-on',card.open&&!c.keep);
+  }
+  function watch(sec){
+    if(sec.__lp)return;sec.__lp=1;
+    new MutationObserver(function(){render(sec)}).observe(sec,{childList:true});
+    new MutationObserver(function(){render(sec)}).observe(sec,{subtree:true,attributes:true,attributeFilter:['aria-pressed']});
+    render(sec);
+  }
+  function start(){var s=document.querySelectorAll('section.lab[id]');for(var i=0;i<s.length;i++)if(D[s[i].id])watch(s[i])}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script><!--/lp:js-->
 </body>
 </html>
